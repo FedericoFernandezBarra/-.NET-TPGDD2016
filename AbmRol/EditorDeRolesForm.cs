@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.AbmRol
 {
-    public partial class Form1 : Form
+    public partial class EditorDeRolesForm : Form
     {
-        public Form1()
+        public EditorDeRolesForm()
         {
             InitializeComponent();
         }

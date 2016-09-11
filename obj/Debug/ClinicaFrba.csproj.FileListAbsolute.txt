@@ -9,3 +9,6 @@ C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\Cl
 C:\Users\Alexis\Downloads\TP CLINICA FRBA 1.0 - 2C 2016\Aplicacion Desktop\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaFrba.exe.config
 C:\Users\Alexis\Downloads\TP CLINICA FRBA 1.0 - 2C 2016\Aplicacion Desktop\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.exe
 C:\Users\Alexis\Downloads\TP CLINICA FRBA 1.0 - 2C 2016\Aplicacion Desktop\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.pdb
+C:\Users\Alexis\GddUtn-Clinica\bin\Debug\ClinicaFrba.exe.config
+C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.exe
+C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.pdb
