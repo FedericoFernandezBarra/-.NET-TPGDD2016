@@ -64,6 +64,7 @@
             this.Ingresar.TabIndex = 12;
             this.Ingresar.Text = "Iniciar Sesión";
             this.Ingresar.UseVisualStyleBackColor = true;
+            this.Ingresar.Click += new System.EventHandler(this.Ingresar_Click);
             // 
             // txtPassword
             // 
@@ -96,6 +97,7 @@
             this.Controls.Add(this.txtUserName);
             this.Name = "LoginForm";
             this.Text = "LoginForm";
+            this.Load += new System.EventHandler(this.LoginForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -122,6 +122,7 @@
     <Compile Include="Compra Bono\ImprimirBonoForm.Designer.cs">
       <DependentUpon>ImprimirBonoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Login\Login.cs" />
     <Compile Include="PaginaPrincipalForm.cs">
       <SubType>Form</SubType>
     </Compile>
