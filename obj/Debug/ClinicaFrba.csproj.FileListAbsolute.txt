@@ -33,3 +33,6 @@ C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Pedir_Turno.PedirTurnoForm.
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Properties.Resources.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registrar_Agenta_Medico.ConsultarTurnosForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.csproj.GenerateResource.Cache
+C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registro_Llegada.RegistrarLlegadaForm.resources
+C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registro_Resultado.RegistrarResultadoAtencionForm.resources
+C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registrar_Agenta_Medico.RegistrarAgendaForm.resources
