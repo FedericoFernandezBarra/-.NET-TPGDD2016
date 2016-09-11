@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Cancelar_Atencion
+namespace ClinicaFrba.Registrar_Agenta_Medico
 {
-    public partial class CancelarTurnoForm : Form
+    public partial class ConsultarTurnosForm : Form
     {
-        public CancelarTurnoForm()
+        public ConsultarTurnosForm()
         {
             InitializeComponent();
         }

@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Listados
+namespace ClinicaFrba.Compra_Bono
 {
-    public partial class Form1 : Form
+    public partial class ImprimirBonoForm : Form
     {
-        public Form1()
+        public ImprimirBonoForm()
         {
             InitializeComponent();
         }
