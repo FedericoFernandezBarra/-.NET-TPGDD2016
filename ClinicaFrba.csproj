@@ -260,7 +260,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="configuracion_sistema.txt" />
+    <Content Include="configuracion_sistema.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Imagenes\Card_file.png" />
     <Content Include="Imagenes\decoracion-clinica.jpg" />
     <Content Include="Imagenes\DefineControls.png" />

@@ -38,7 +38,6 @@ C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registro_Resultado.Registra
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registrar_Agenta_Medico.RegistrarAgendaForm.resources
 C:\Users\alexiscaspell3\GddUtn-Clinica\bin\Debug\ClinicaFrba.exe
 C:\Users\alexiscaspell3\GddUtn-Clinica\bin\Debug\ClinicaFrba.pdb
-C:\Users\alexiscaspell3\GddUtn-Clinica\bin\Debug\configuracion_sistema.txt
 C:\Users\alexiscaspell3\GddUtn-Clinica\bin\Debug\ClinicaFrba.exe.config
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.csprojResolveAssemblyReference.cache
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.AltaAfiliadoForm.resources
@@ -64,3 +63,4 @@ C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registro_Resultado.
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.csproj.GenerateResource.Cache
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.exe
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.pdb
+C:\Users\alexiscaspell3\GddUtn-Clinica\bin\Debug\configuracion_sistema.txt
