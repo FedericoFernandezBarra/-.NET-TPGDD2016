@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClinicaFrba.Login;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,15 @@ namespace ClinicaFrba
         public PaginaPrincipalForm()
         {
             InitializeComponent();
+        }
+
+        private void tsmSesion_IniciarSesion_Click(object sender, EventArgs e)
+        {
+            LoginForm login = new LoginForm();
+
+            Hide();
+
+            login.ShowDialog();
         }
     }
 }

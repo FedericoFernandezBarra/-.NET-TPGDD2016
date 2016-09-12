@@ -110,6 +110,13 @@
     <Compile Include="Cancelar Atencion\CancelarTurnoForm.Designer.cs">
       <DependentUpon>CancelarTurnoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Clases\DAOS\UsuarioRepository.cs" />
+    <Compile Include="Clases\POJOS\TipoDocumento.cs" />
+    <Compile Include="Clases\POJOS\Usuario.cs" />
+    <Compile Include="Clases\TostadoPersistentKit\DataBase.cs" />
+    <Compile Include="Clases\TostadoPersistentKit\Repository.cs" />
+    <Compile Include="Clases\TostadoPersistentKit\Serializable.cs" />
+    <Compile Include="Clases\TostadoPersistentKit\Sistema.cs" />
     <Compile Include="Compra Bono\ComprarBonosForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -253,6 +260,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="configuracion_sistema.txt" />
     <Content Include="Imagenes\Card_file.png" />
     <Content Include="Imagenes\decoracion-clinica.jpg" />
     <Content Include="Imagenes\DefineControls.png" />

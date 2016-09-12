@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ClinicaFrba.Clases;
+using ClinicaFrba.Clases.DAOS;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,12 +19,22 @@ namespace ClinicaFrba.Login
 
         public string mensajeDeError { get; set; }
 
+        private int intentosDeLogueo;
+
+        private const int MAX_CANTIDAD_INTENTOS = 3;
+
+        private UsuarioRepository repoUsuario = new UsuarioRepository();
+
+        public Usuario usuarioLogueado { get; set; }
+
         public Login()
         {
             username = "";
             password = "";
             mensajeDeError = "";
             bajaLogica = false;
+            usuarioLogueado = null;
+            intentosDeLogueo = 0;
         }
 
         internal bool cumpleValidaciones()
@@ -54,6 +66,20 @@ namespace ClinicaFrba.Login
 
         private bool existeUserNameYPass()
         {
+            usuarioLogueado = repoUsuario.traerUserPorNickYPass(username, password);
+
+            if (usuarioLogueado==null)
+            {
+                intentosDeLogueo = intentosDeLogueo >= MAX_CANTIDAD_INTENTOS ? MAX_CANTIDAD_INTENTOS : intentosDeLogueo + 1;
+
+                if (intentosDeLogueo>=MAX_CANTIDAD_INTENTOS)
+                {
+                    bajaLogica = true;
+                }
+
+                return false;
+            }
+
             return true;
         }
     }
