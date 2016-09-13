@@ -113,6 +113,10 @@
     <Compile Include="Clases\DAOS\UsuarioRepository.cs" />
     <Compile Include="Clases\POJOS\TipoDocumento.cs" />
     <Compile Include="Clases\POJOS\Usuario.cs" />
+    <Compile Include="Clases\TostadoPersistentKit\DataBase.cs" />
+    <Compile Include="Clases\TostadoPersistentKit\Repository.cs" />
+    <Compile Include="Clases\TostadoPersistentKit\Serializable.cs" />
+    <Compile Include="Clases\TostadoPersistentKit\Sistema.cs" />
     <Compile Include="Compra Bono\ComprarBonosForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -271,6 +275,7 @@
     <Content Include="Imagenes\PatientFile.png" />
     <Content Include="Imagenes\reportorium.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
