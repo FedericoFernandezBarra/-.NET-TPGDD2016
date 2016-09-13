@@ -64,3 +64,4 @@ C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.csproj.GenerateReso
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.exe
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.pdb
 C:\Users\alexiscaspell3\GddUtn-Clinica\bin\Debug\configuracion_sistema.txt
+C:\Users\Alexis\GddUtn-Clinica\bin\Debug\configuracion_sistema.txt

@@ -4,17 +4,12 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TostadoPersistentKit;
+
 
 namespace ClinicaFrba.Clases.DAOS
 {
-    class UsuarioRepository : Repository
+    class UsuarioRepository
     {
-        internal override void setModelClassType()
-        {
-            modelClassType = typeof(Usuario);
-        }
-
         public Usuario traerUserPorNickYPass(string nick,string pass)
         {
             /*string loginStored = "asd<asdsaasdads";//Nombre del stored
