@@ -17,8 +17,12 @@ namespace ClinicaFrba.Test
 
             nuevoUsuario.nick = "yisus";
             nuevoUsuario.pass = "miracle";
+            nuevoUsuario.sexo = 'M';
 
-            //repoUsuario.insert(nuevoUsuario);
+            /*if (repoUsuario.selectByProperty("nick","yisus").Count==0)
+            {
+                repoUsuario.insert(nuevoUsuario);
+            }*/
 
             Login login = new Login();
 

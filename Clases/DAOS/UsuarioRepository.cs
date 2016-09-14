@@ -8,9 +8,9 @@ using TostadoPersistentKit;
 
 namespace ClinicaFrba.Clases.DAOS
 {
-    class UsuarioRepository:Repository
+    class UsuarioRepository : Repository
     {
-        public Usuario traerUserPorNickYPass(string nick,string pass)
+        public Usuario traerUserPorNickYPass(string nick, string pass)
         {
             /*string loginStored = "asd<asdsaasdads";//Nombre del stored
 
@@ -19,9 +19,7 @@ namespace ClinicaFrba.Clases.DAOS
             DataBase.Instance.agregarParametro(parametros, "nombreNickStored", nick);
             DataBase.Instance.agregarParametro(parametros, "nombrePassStored", pass);
 
-            object resultado = executeStored(loginStored, parametros);
-
-            return resultado == null ? null : (Usuario)resultado;*/
+            object resultado = executeStored(loginStored, parametros);*/
 
             Usuario usuarioHard = new Usuario();
             usuarioHard.nick = nick;
@@ -30,9 +28,10 @@ namespace ClinicaFrba.Clases.DAOS
             return nick == "" || pass == "" ? null : usuarioHard;
         }
 
-        internal override void setModelClassType()
+        internal override Type getModelClassType()
         {
-            modelClassType = typeof(Usuario);
+            return typeof(Usuario);
         }
+
     }
 }

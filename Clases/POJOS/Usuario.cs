@@ -24,37 +24,42 @@ namespace ClinicaFrba.Clases
         public string mail { get; set; }
         public char sexo { get; set; }
 
+        public Usuario()
+        {
+            fechaDeNacimiento = Sistema.Instance.getDate();
+        }
+
         internal override void map()
         {
-            mappings.Add("id", "");
-            mappings.Add("nick","");
-            mappings.Add("pass","");
-            mappings.Add("intentosDeLogin","");
-            mappings.Add("activo","");
-            mappings.Add("nombre","");
-            mappings.Add("apellido","");
-            mappings.Add("tipoDeDocumento","");
-            mappings.Add("documento","");
-            mappings.Add("fechaDeNacimiento","");
-            mappings.Add("direccion","");
-            mappings.Add("telefono","");
-            mappings.Add("mail","");
-            mappings.Add("sexo","");
+            mappings.Add("id", "id_usuario");
+            mappings.Add("nick", "nick");
+            mappings.Add("pass","pass");
+            mappings.Add("intentosDeLogin", "intentos_login");
+            mappings.Add("activo", "activo");
+            mappings.Add("nombre", "nombre");
+            mappings.Add("apellido", "apellido");
+            mappings.Add("tipoDeDocumento", "tipo_documento");
+            mappings.Add("documento", "documento");
+            mappings.Add("fechaDeNacimiento", "fecha_nacimiento");
+            mappings.Add("direccion", "direccion");
+            mappings.Add("telefono", "telefono");
+            mappings.Add("mail", "mail");
+            mappings.Add("sexo", "sexo");
         }
 
-        internal override void setIdProperty()
+        internal override string getIdPropertyName()
         {
-            idProperty = "id";
+            return "id";
         }
 
-        internal override void setTableNameProperty()
+        internal override string getTableName()
         {
-            tableName = "usuario";
+            return "usuario";
         }
 
-        internal override void setPrimaryKeyType()
+        internal override PrimaryKeyType getPrimaryKeyType()
         {
-            primaryKetyType = PrimaryKeyType.SURROGATE;
+            return PrimaryKeyType.SURROGATE;
         }
     }
 }

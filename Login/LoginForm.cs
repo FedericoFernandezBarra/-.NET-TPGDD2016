@@ -13,7 +13,7 @@ namespace ClinicaFrba.Logueo
 {
     public partial class LoginForm : Form
     {
-        private Login login;
+        private Login login = new Login();
 
         public LoginForm()
         {
