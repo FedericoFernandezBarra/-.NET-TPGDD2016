@@ -4,11 +4,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using TostadoPersistentKit;
 
 namespace ClinicaFrba.Clases.DAOS
 {
-    class UsuarioRepository
+    class UsuarioRepository:Repository
     {
         public Usuario traerUserPorNickYPass(string nick,string pass)
         {
@@ -27,7 +27,12 @@ namespace ClinicaFrba.Clases.DAOS
             usuarioHard.nick = nick;
             usuarioHard.pass = pass;
 
-            return usuarioHard;
+            return nick == "" || pass == "" ? null : usuarioHard;
+        }
+
+        internal override void setModelClassType()
+        {
+            modelClassType = typeof(Usuario);
         }
     }
 }

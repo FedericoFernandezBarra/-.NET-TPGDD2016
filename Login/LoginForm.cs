@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClinicaFrba.Clases.Otros;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,11 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Login
+namespace ClinicaFrba.Logueo
 {
     public partial class LoginForm : Form
     {
-        public Login login = new Login();
+        private Login login;
 
         public LoginForm()
         {

@@ -1,15 +1,13 @@
-﻿using ClinicaFrba.Clases;
-using ClinicaFrba.Clases.DAOS;
+﻿using ClinicaFrba.Clases.DAOS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace ClinicaFrba.Login
+namespace ClinicaFrba.Clases.Otros
 {
-    public class Login
+    class Login
     {
         private bool bajaLogica;
 
@@ -68,11 +66,11 @@ namespace ClinicaFrba.Login
         {
             usuarioLogueado = repoUsuario.traerUserPorNickYPass(username, password);
 
-            if (usuarioLogueado==null)
+            if (usuarioLogueado == null)
             {
                 intentosDeLogueo = intentosDeLogueo >= MAX_CANTIDAD_INTENTOS ? MAX_CANTIDAD_INTENTOS : intentosDeLogueo + 1;
 
-                if (intentosDeLogueo>=MAX_CANTIDAD_INTENTOS)
+                if (intentosDeLogueo >= MAX_CANTIDAD_INTENTOS)
                 {
                     bajaLogica = true;
                 }

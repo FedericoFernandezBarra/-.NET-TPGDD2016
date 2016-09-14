@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -111,6 +112,7 @@
       <DependentUpon>CancelarTurnoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Clases\DAOS\UsuarioRepository.cs" />
+    <Compile Include="Clases\Otros\Login.cs" />
     <Compile Include="Clases\POJOS\TipoDocumento.cs" />
     <Compile Include="Clases\POJOS\Usuario.cs" />
     <Compile Include="Clases\TostadoPersistentKit\DataBase.cs" />
@@ -129,7 +131,6 @@
     <Compile Include="Compra Bono\ImprimirBonoForm.Designer.cs">
       <DependentUpon>ImprimirBonoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Login\Login.cs" />
     <Compile Include="PaginaPrincipalForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +181,7 @@
     <Compile Include="Registro Resultado\RegistrarResultadoAtencionForm.Designer.cs">
       <DependentUpon>RegistrarResultadoAtencionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Test\LoginTestSuite.cs" />
     <EmbeddedResource Include="Abm Afiliado\AltaAfiliadoForm.resx">
       <DependentUpon>AltaAfiliadoForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -275,7 +277,9 @@
     <Content Include="Imagenes\PatientFile.png" />
     <Content Include="Imagenes\reportorium.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

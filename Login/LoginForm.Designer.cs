@@ -1,4 +1,4 @@
-﻿namespace ClinicaFrba.Login
+﻿namespace ClinicaFrba.Logueo
 {
     partial class LoginForm
     {
