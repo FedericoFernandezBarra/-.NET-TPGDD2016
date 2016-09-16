@@ -161,12 +161,12 @@ go
 /*CREO ESQUEMA*/
 /********************************************************************************************************************************/
 
-if EXISTS (SELECT * FROM sys.schemas  WHERE name='CHAR_DE_30') 
-drop schema CHAR_DE_30 
+if EXISTS (SELECT * FROM sys.schemas  WHERE name='XXX') 
+drop schema XXX 
 
 go
 
-create schema CHAR_DE_30 authorization gd
+create schema XXX authorization gd
 
 go
 
@@ -187,7 +187,7 @@ go
 
 create table XXX.USUARIO
 (
-    id_usuario  numeric(10,0) identity(1,1) primary key,
+    id_usuario  numeric(10,0) identity(1,1) ,
     nick    nvarchar(255) unique,
     pass    nvarchar(255),
     intentos_login   smallint,
@@ -202,7 +202,7 @@ create table XXX.USUARIO
     mail    nvarchar(255),
     sexo    char check (sexo in('F','M')),
 
-    PRIMARY KEY(id_tipo_documento),
+    PRIMARY KEY(id_usuario),
     FOREIGN KEY (tipo_documento)   references XXX.TIPO_DOCUMENTO(id_tipo_documento)
 )
 
@@ -210,17 +210,24 @@ go
 
 create table XXX.ROL
 (
-    id  numeric(10,0) identity(1,1) primary key,
+    id_rol  numeric(10,0) identity(1,1) ,
     descripcion nvarchar(30),
     activo  bit
+
+    PRIMARY KEY (id_rol)
 ) 
 
 go 
 
 create table XXX.ROL_POR_USUARIO
 (
-    id_rol  numeric(10,0) references XXX.ROL(id),
-    id  numeric(10,0) references XXX.USUARIO(id)
+    id_rol  numeric(10,0) ,
+    id_usuario  numeric(10,0) ,
+
+
+    PRIMARY KEY (id_usuario, id_rol), 
+    FOREIGN KEY (id_usuario) references XXX.USUARIO(id_usuario), 
+    FOREIGN KEY (id_rol)     references XXX.ROL(id_rol) 
 )
 
 go
@@ -228,233 +235,322 @@ go
 
 create table XXX.FUNCIONALIDAD
 (
-    id  numeric(10,0) identity(1,1) primary key,
+    id_funcionalidad  numeric(10,0) identity(1,1),
     descripcion     nvarchar(30),
     activo  bit
+
+    PRIMARY KEY (id_funcionalidad)
 )
 
 go
 
 create table XXX.FUNCIONALIDAD_POR_ROL
 (
-    id_funcionalidad    numeric(10,0) references XXX.FUNCIONALIDAD(id),
-    id_rol  numeric(10,0) references XXX.ROL(id)
+    id_funcionalidad    numeric(10,0) references XXX.FUNCIONALIDAD(id_funcionalidad),
+    id_rol  numeric(10,0) references XXX.ROL(id_rol)
+
+
+    PRIMARY KEY (id_funcionalidad, id_rol), 
+    FOREIGN KEY (id_funcionalidad)           references XXX.FUNCIONALIDAD(id_funcionalidad), 
+    FOREIGN KEY (id_rol)                     references XXX.ROL(id_rol)
 )
 
 go
 
 create table XXX.ESTADO_CIVIL
 (
-    id  numeric(10,0) identity(1,1) primary key,
-    descripcion nvarchar(30)
+    id_estado_civil  numeric(10,0) identity(1,1),
+    descripcion nvarchar(30),
+
+    PRIMARY KEY (id_estado_civil)
 )
 
 go
 
 create table XXX.PERSONAL
 (
-    id  numeric(10,0) references XXX.USUARIO(id) primary key,
-    matricula   nvarchar(30) unique
-)
+    id_personal  numeric(10,0) references XXX.USUARIO(id_usuario) ,
+    matricula   nvarchar(30) unique,
 
+    PRIMARY KEY (id_personal)
+)
 go
 
 create table XXX.AFILIADO
 (
-    id numeric(10,0) references XXX.USUARIO(id) primary key,
-    id_estado_civil numeric(10,0) references XXX.ESTADO_CIVIL(id),
+    id_afiliado numeric(10,0)     identity(1,1) ,
+    estado_civil numeric(10,0) ,
     numero_familiar numeric(10,0),
     cantidad_hijos smallint,
     activo  bit
+
+    PRIMARY KEY (id_afiliado)
+    FOREIGN KEY (id_afiliado)             references XXX.USUARIO(id_usuario),
+    FOREIGN KEY (estado_civil)            references XXX.ESTADO_CIVIL(id_estado_civil)
 )
+
 
 go
 
 create table XXX.AGENDA
 (
-    id  numeric(10,0) identity(1,1) primary key,
-    id_personal numeric(10,0) references XXX.PERSONAL(id),
+    id_agenda  numeric(10,0) identity(1,1) ,
+    personal numeric(10,0),
     fecha_desde date,
     fecha_hasta date
+
+    PRIMARY KEY (id_agenda),
+    FOREIGN KEY (personal)             references XXX.PERSONAL(id_personal)
+
 )
 
 go
 
 create table XXX.DIA_AGENDA
 (
-    id  numeric(10,0) identity(1,1) primary key,
+    id_dia_agenda numeric(10,0) identity(1,1),
     dia date,
     hora_desde  time,
     hora_hasta  time,
     activo  bit
+
+    PRIMARY KEY (id_dia_agenda),
+
 )
 
 go
 
 create table XXX.DIA_AGENDA_EXCEPCION
 (
-    id  numeric(10,0) identity(1,1) primary key,
-    id_agenda   numeric(10,0) references XXX.AGENDA(id),
+    id_dia_agenda_exepcion  numeric(10,0) identity(1,1),
+    agenda   numeric(10,0) ,
     dia date
+
+    
+    PRIMARY KEY (id_dia_agenda_exepcion),
+    FOREIGN KEY (agenda)             references XXX.AGENDA(id_agenda)
 )
 
 go
 
 create table XXX.TIPO_ESPECIALIDAD
 (
-    id  numeric(10,0) identity(1,1) primary key,
+    id_tipo_especialidad  numeric(10,0) identity(1,1) ,
     descripcion nvarchar(30)
+
+    PRIMARY KEY (id_tipo_especialidad)
 )
 
 go
 
 create table XXX.ESPECIALIDAD
 (
-    id  numeric(10,0) identity(1,1) primary key,
-    id_tipo_especialidad numeric(10,0) references XXX.TIPO_ESPECIALIDAD(id),
-    descripcion nvarchar(30)
+    id_especialidad  numeric(10,0) identity(1,1) ,
+    tipo_especialidad numeric(10,0),
+    descripcion nvarchar(30),
+
+    PRIMARY KEY (id_especialidad),
+    FOREIGN KEY (tipo_especialidad)                   references XXX.TIPO_ESPECIALIDAD(id_tipo_especialidad)
 )
 
 go
 
+
 create table XXX.ESPECIALIDAD_POR_PERSONAL
 (
-    id_especialidad numeric(10,0) references XXX.ESPECIALIDAD(id),
-    id_personal numeric(10,0) references XXX.PERSONAL(id)
+    id_especialidad numeric(10,0) ,
+    id_personal numeric(10,0) 
+
+    PRIMARY KEY (id_especialidad, id_personal), 
+    FOREIGN KEY (id_especialidad)                references XXX.ESPECIALIDAD(id_especialidad), 
+    FOREIGN KEY (id_personal)                    references XXX.PERSONAL(id_personal)
 )
 
 go
 
 create table XXX.TURNO
 (
-    id  numeric(10,0) identity(1,1) primary key,
-    id_afiliado numeric(10,0) references XXX.AFILIADO(id),
-    id_personal numeric(10,0) references XXX.PERSONAL(id),
+    id_turno  numeric(10,0) identity(1,1) ,
+    afiliado numeric(10,0) ,
+    personal numeric(10,0) ,
     horario_turno       time,
     horario_llegada     time,
-    activo      bit
+    activo      bit,
+
+
+    PRIMARY KEY (id_turno), 
+    FOREIGN KEY (afiliado)                    references XXX.AFILIADO(id_afiliado), 
+    FOREIGN KEY (personal)                    references XXX.PERSONAL(id_personal)
 )
 
 go
 
 create table XXX.RESULTADO_TURNO
 (
-    id      numeric(10,0) identity(1,1) primary key,
-    id_turno    numeric(10,0) references XXX.TURNO(id),
-    diagnostico     nvarchar(255),
-    sintoma     nvarchar(50),
-    fecha_diagnostico   date,
-    activo      bit
+    id_resultado_turno     numeric(10,0) identity(1,1),
+    turno                  numeric(10,0) ,
+    diagnostico            nvarchar(255),
+    sintoma                nvarchar(50),
+    fecha_diagnostico      date,
+    activo                 bit
+
+    PRIMARY KEY (id_resultado_turno), 
+    FOREIGN KEY (turno)                    references XXX.TURNO(id_turno), 
 )
+
+go
 
 go
 
 create table XXX.TIPO_CANCELACION
 (
-    id      numeric(10,0) identity(1,1) primary key,
-    descripcion     nvarchar(255)
+    id_tipo_cancelacion      numeric(10,0) identity(1,1) ,
+    descripcion              nvarchar(255),
+
+    PRIMARY KEY (id_tipo_cancelacion)
 )
+
+go
 
 go
 
 create table XXX.CANCELACION
 (
-    id      numeric(10,0) identity(1,1) primary key,
-    id_tipo_cancelacion     numeric(10,0) references XXX.TIPO_CANCELACION(id),
-    id_turno    numeric(10,0) references XXX.TURNO(id),
+    id_cancelacion          numeric(10,0) identity(1,1) ,
+    tipo_cancelacion     numeric(10,0),
+    turno                numeric(10,0) ,
     fecha   date,
     motivo  nvarchar(255),
-    id_usuario  numeric(10,0) references XXX.USUARIO(id),
-    activo  bit
+    usuario  numeric(10,0),
+    activo  bit,
+
+
+    PRIMARY KEY (id_cancelacion), 
+    FOREIGN KEY (tipo_cancelacion)         references XXX.TIPO_CANCELACION(id_tipo_cancelacion), 
+    FOREIGN KEY (turno)                    references XXX.TURNO(id_turno),
+    FOREIGN KEY (usuario)                    references XXX.USUARIO(id_usuario)
 )
 
 go
 
 create table XXX.MEDICAMENTO
 (
-    id  numeric(10,0) identity(1,1) primary key,
+    id_medicamento  numeric(10,0) identity(1,1),
     descripcion nvarchar(50),
-    activo  bit  
+    activo  bit 
+
+    PRIMARY KEY (id_medicamento), 
 )
+
 
 go
 
 create table XXX.RECETA
 (
-    id  numeric(10,0) identity(1,1) primary key,
-    id_resultado_turno  numeric(10,0) references XXX.RESULTADO_TURNO(id),
+    id_receta  numeric(10,0) identity(1,1),
+    resultado_turno  numeric(10,0) ,
     activo  bit
-)
 
-go
+    PRIMARY KEY (id_receta), 
+    FOREIGN KEY (resultado_turno)         references XXX.RESULTADO_TURNO(id_resultado_turno)
+)
 
 create table XXX.ITEM_RECETA
 (
-    id  numeric(10,0) identity(1,1) primary key,
-    id_receta   numeric(10,0) references XXX.RECETA(id),
-    id_medicamento  numeric(10,0) references XXX.MEDICAMENTO(id),
+    id_item_receta  numeric(10,0) identity(1,1),
+    receta   numeric(10,0) ,
+    medicamento  numeric(10,0) ,
     cantidad    int,
-    activo  bit
+    activo  bit,
+
+
+    PRIMARY KEY (id_item_receta), 
+    FOREIGN KEY (receta)              references XXX.RECETA(id_receta),
+    FOREIGN KEY (medicamento)         references XXX.MEDICAMENTO(id_medicamento)
 )
 
 go
 
 create table XXX.COMPRA
 (
-    id  numeric(10,0) identity(1,1) primary key,
-    id_afiliado     numeric(10,0) references XXX.AFILIADO(id),
+    id_compra  numeric(10,0) identity(1,1) ,
+    afiliado     numeric(10,0),
     fecha_compra    date,
     costo   numeric(10,2),
     activo  bit
+
+    
+    PRIMARY KEY (id_compra), 
+    FOREIGN KEY (afiliado)              references XXX.AFILIADO(id_afiliado)
 )
 
 go
 
 create table XXX.BONO_CONSULTA
 (
-    id  numeric(10,0) identity(1,1) primary key,
-    id_compra   numeric(10,0) references XXX.COMPRA(id),
-    id_turno    numeric(10,0) references XXX.TURNO(id),
+    id_bono_consulta  numeric(10,0) identity(1,1),
+    compra   numeric(10,0) ,
+    turno    numeric(10,0) ,
     fecha_impresion     date,
     activo  bit
+
+    PRIMARY KEY (id_bono_consulta), 
+    FOREIGN KEY (compra)              references XXX.COMPRA(id_compra),
+    FOREIGN KEY (turno)               references XXX.TURNO(id_turno)
 )
+
 
 go
 
 create table XXX.BONO_FARMACIA
 (
-    id  numeric(10,0) identity(1,1) primary key,
-    id_receta   numeric(10,0) references XXX.RECETA(id),
-    id_turno    numeric(10,0) references XXX.TURNO(id),
+    id_bono_farmacia  numeric(10,0) identity(1,1),
+    receta   numeric(10,0) ,
+    turno    numeric(10,0) ,
     fecha_vencimiento   date,
     fecha_impresion     date,
     fecha_prescripcion      date,
-    activo  bit
+    activo  bit,
+
+
+    PRIMARY KEY (id_bono_farmacia), 
+    FOREIGN KEY (receta)              references XXX.RECETA(id_receta),
+    FOREIGN KEY (turno)               references XXX.TURNO(id_turno)
 )
 
 go
 
 create table XXX.PLAN_MEDICO
 (
-    id  numeric(10,0) identity(1,1) primary key,
-    id_bono_farmacia    numeric(10,0) references XXX.BONO_FARMACIA(id),
-    id_bono_consulta    numeric(10,0) references XXX.BONO_CONSULTA(id),
-    descripcion     nvarchar(255),
-    activo      bit
-)
+    id_plan_medico   numeric(10,0) identity(1,1) ,
+    bono_farmacia    numeric(10,0) ,
+    bono_consulta    numeric(10,0) ,
+    descripcion      nvarchar(255),
+    activo           bit,
 
+    PRIMARY KEY (id_plan_medico), 
+    FOREIGN KEY (bono_farmacia)               references XXX.BONO_FARMACIA(id_bono_farmacia),
+    FOREIGN KEY (bono_consulta)               references XXX.BONO_CONSULTA(id_bono_consulta)
+)
 go
 
 create table XXX.PLAN_HISTORICO_AFILIADO
 (
-    id  numeric(10,0) identity(1,1) primary key,
-    id_plan_medico  numeric(10,0) references XXX.PLAN_MEDICO(id),
-    id_afiliado numeric(10,0) references XXX.AFILIADO(id),
+    id_plan_historico_afiliado  numeric(10,0) identity(1,1),
+    plan_medico  numeric(10,0) ,
+    afiliado numeric(10,0) ,
     fecha   date,
     activo  bit
+
+    PRIMARY KEY (id_plan_historico_afiliado), 
+    FOREIGN KEY (plan_medico)                  references XXX.PLAN_MEDICO(id_plan_medico),
+    FOREIGN KEY (afiliado)                     references XXX.AFILIADO(id_afiliado)
 )
 
 go
+
+
+
 
 /********************************************************************************************************************************/
 /*FUNCION HASH Y TRIGGER PARA LA CONTRASEÑA*/
