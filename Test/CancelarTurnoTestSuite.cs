@@ -31,7 +31,7 @@ namespace ClinicaFrba.Test
         {
             CancelarDias cancelarProfesional = cancelacionProfesionalStandard();
 
-            cancelarProfesional.motiovoDeCancelacion = "";
+            cancelarProfesional.motivoDeCancelacion = "";
 
             Assert.IsFalse(cancelarProfesional.cancelacionExitosa());
         }
@@ -60,7 +60,7 @@ namespace ClinicaFrba.Test
         {
             //En alguna parte se tiene que "loguear el porfesional"
             CancelarDias cancelarProfesional = new CancelarDias();
-            cancelarProfesional.motiovoDeCancelacion = "Porque si vieja";
+            cancelarProfesional.motivoDeCancelacion = "Porque si vieja";
 
             return cancelarProfesional;
         }

@@ -13,7 +13,7 @@ namespace ClinicaFrba.Clases.Otros
         public DateTime fechaInicioCancelacion { get; set; }
         public DateTime fechaFinCancelacion { get; set; }
         public object tipoDeCancelacion { get; set; }
-        public string motiovoDeCancelacion{ get; set; }
+        public string motivoDeCancelacion{ get; set; }
         public Profesional profesional { get; set; }
         public string mensajeDeError { get; set; }
         public List<object> tiposDeCancelacion { get; set; }
@@ -50,7 +50,7 @@ namespace ClinicaFrba.Clases.Otros
                 mensajeDeError = "La fecha de inicio no puede ser mayor a la fecha de finalizacion";
                 return false;
             }
-            if (motiovoDeCancelacion=="")
+            if (motivoDeCancelacion=="")
             {
                 mensajeDeError = "Debe completar el motivo de cancelacion";
                 return false;
