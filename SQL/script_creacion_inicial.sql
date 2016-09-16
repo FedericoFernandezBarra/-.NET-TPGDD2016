@@ -176,8 +176,10 @@ go
 
 create table CHAR_DE_30.TIPO_DOCUMENTO
 (
-	id	numeric(10,0) identity(1,1) primary key,
-	descripcion		nvarchar(255)
+    id_tipo_documento  numeric(10,0) identity (1,1) ,
+    descripcion     nvarchar(255),
+
+    PRIMARY KEY(id_tipo_documento)
 )
 
 go
@@ -185,20 +187,23 @@ go
 
 create table CHAR_DE_30.USUARIO
 (
-	id	numeric(10,0) identity(1,1) primary key,
-	nick    nvarchar(255) unique,
-	pass	nvarchar(255),
-	intentos_login   smallint,
-	activo	bit,
-	nombre	nvarchar(255),
-	apellido	nvarchar(255),
-	tipo_documento	numeric(10,0) references CHAR_DE_30.TIPO_DOCUMENTO(id),  
-	documento	nvarchar(12),
-	fecha_nacimiento	date,
-	direccion	nvarchar(255),
-	telefono	nvarchar(255),
-	mail	nvarchar(255),
-	sexo	char check (sexo in('F','M'))
+    id_usuario  numeric(10,0) identity(1,1) primary key,
+    nick    nvarchar(255) unique,
+    pass    nvarchar(255),
+    intentos_login   smallint,
+    activo  bit,
+    nombre  nvarchar(255),
+    apellido    nvarchar(255),
+    tipo_documento  numeric(10,0),  
+    documento   nvarchar(12),
+    fecha_nacimiento    date,
+    direccion   nvarchar(255),
+    telefono    nvarchar(255),
+    mail    nvarchar(255),
+    sexo    char check (sexo in('F','M')),
+
+    PRIMARY KEY(id_tipo_documento),
+    FOREIGN KEY (tipo_documento)   references CHAR_DE_30.TIPO_DOCUMENTO(id_tipo_documento)
 )
 
 go
@@ -452,7 +457,7 @@ create table CHAR_DE_30.PLAN_HISTORICO_AFILIADO
 go
 
 /********************************************************************************************************************************/
-/*FUNCION HASH Y TRIGGER PARA LA CONTRASEÑA*/
+/*FUNCION HASH Y TRIGGER PARA LA CONTRASEÃ‘A*/
 /********************************************************************************************************************************/
 create function CHAR_DE_30.fn_hashear_pass (@pass nvarchar(255))
 returns nvarchar(255)
