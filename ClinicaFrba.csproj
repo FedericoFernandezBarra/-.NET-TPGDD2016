@@ -75,12 +75,6 @@
     <Compile Include="Abm Planes\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Profesional\AltaProfesionalForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Profesional\AltaProfesionalForm.Designer.cs">
-      <DependentUpon>AltaProfesionalForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Abm Profesional\BuscarProfesionalForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,7 +106,9 @@
       <DependentUpon>CancelarTurnoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Clases\DAOS\UsuarioRepository.cs" />
+    <Compile Include="Clases\Otros\CancelarDias.cs" />
     <Compile Include="Clases\Otros\Login.cs" />
+    <Compile Include="Clases\POJOS\Profesional.cs" />
     <Compile Include="Clases\POJOS\TipoDocumento.cs" />
     <Compile Include="Clases\POJOS\Usuario.cs" />
     <Compile Include="Clases\TostadoPersistentKit\DataBase.cs" />
@@ -181,6 +177,7 @@
     <Compile Include="Registro Resultado\RegistrarResultadoAtencionForm.Designer.cs">
       <DependentUpon>RegistrarResultadoAtencionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Test\CancelarTurnoTestSuite.cs" />
     <Compile Include="Test\LoginTestSuite.cs" />
     <EmbeddedResource Include="Abm Afiliado\AltaAfiliadoForm.resx">
       <DependentUpon>AltaAfiliadoForm.cs</DependentUpon>
@@ -190,9 +187,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Afiliado\BuscarGrupoForm.resx">
       <DependentUpon>BuscarGrupoForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm Profesional\AltaProfesionalForm.resx">
-      <DependentUpon>AltaProfesionalForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Profesional\BuscarProfesionalForm.resx">
       <DependentUpon>BuscarProfesionalForm.cs</DependentUpon>

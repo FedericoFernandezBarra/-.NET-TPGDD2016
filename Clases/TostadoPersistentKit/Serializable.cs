@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -59,6 +61,24 @@ namespace TostadoPersistentKit
             setIdProperty();
             setTableNameProperty();*/
             map();
+        }
+
+        private void createSelectMethods(object objeto)
+        {
+            //ConstructorBuilder defaultConstructorBuilder = objeto.GetType().DefineDefaultConstructor(MethodAttributes.Public);
+            //ConstructorBuilder constructorBuilder = simpleType.DefineConstructor(MethodAttributes.Public, CallingConventions.Standard, new Type[] { typeof(string) });
+
+            //OpCode code = new OpCode();
+
+            //DynamicMethod dinamico = new DynamicMethod()
+
+            //ILGenerator msilGenerator = constructorBuilder.GetILGenerator();
+            //msilGenerator.Emit(OpCodes.Ret);
+
+            //return MethodBuilder.
+
+            //ILGenerator msilGenerator = constructorBuilder.GetILGenerator();
+            //msilGenerator.Emit(OpCodes.Ret);
         }
     }
 }
