@@ -106,10 +106,13 @@
       <DependentUpon>CancelarTurnoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Clases\DAOS\UsuarioRepository.cs" />
+    <Compile Include="Clases\POJOS\Afiliado.cs" />
     <Compile Include="Clases\Otros\CancelarDias.cs" />
+    <Compile Include="Clases\Otros\CancelarTurno.cs" />
     <Compile Include="Clases\Otros\Login.cs" />
     <Compile Include="Clases\POJOS\Profesional.cs" />
     <Compile Include="Clases\POJOS\TipoDocumento.cs" />
+    <Compile Include="Clases\POJOS\Turno.cs" />
     <Compile Include="Clases\POJOS\Usuario.cs" />
     <Compile Include="Clases\TostadoPersistentKit\DataBase.cs" />
     <Compile Include="Clases\TostadoPersistentKit\Repository.cs" />

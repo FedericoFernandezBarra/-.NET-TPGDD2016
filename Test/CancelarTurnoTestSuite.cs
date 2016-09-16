@@ -56,6 +56,36 @@ namespace ClinicaFrba.Test
             Assert.IsFalse(cancelarProfesional.cancelacionExitosa());
         }
 
+        [TestMethod]
+        public void cancelarTurnoAfiliado_sinJustificativo_cancelacionFalla()
+        {
+            CancelarTurno cancelarAfiliado = cancelacionAfiliadoStandard();
+
+            cancelarAfiliado.motivoDeCancelacion = "";
+
+            Assert.IsFalse(cancelarAfiliado.cancelacionExitosa());
+        }
+
+        [TestMethod]
+        public void cancelarTurnoAfiliado_noHayTurnoHoy_cancelacionExitosa()
+        {
+            CancelarTurno cancelarAfiliado = cancelacionAfiliadoStandard();
+
+            Assert.IsFalse(cancelarAfiliado.hayTurnoHoy());
+            Assert.IsTrue(cancelarAfiliado.cancelacionExitosa());
+        }
+
+        [TestMethod]
+        public void cancelarTurnoAfiliado_hayTurnoHoy_cancelacionFallida()
+        {
+            CancelarTurno cancelarAfiliado = cancelacionAfiliadoStandard();
+
+            //agregarTurnoParaHoy();
+            
+            Assert.IsTrue(cancelarAfiliado.hayTurnoHoy());
+            Assert.IsFalse(cancelarAfiliado.cancelacionExitosa());
+        }
+
         private CancelarDias cancelacionProfesionalStandard()
         {
             //En alguna parte se tiene que "loguear el porfesional"
@@ -63,6 +93,15 @@ namespace ClinicaFrba.Test
             cancelarProfesional.motivoDeCancelacion = "Porque si vieja";
 
             return cancelarProfesional;
+        }
+
+        private CancelarTurno cancelacionAfiliadoStandard()
+        {
+            //En alguna parte se tiene que "loguear el porfesional"
+            CancelarTurno cancelarAfiliado = new CancelarTurno();
+            cancelarAfiliado.motivoDeCancelacion = "Porque si vieja";
+
+            return cancelarAfiliado;
         }
 
     }
