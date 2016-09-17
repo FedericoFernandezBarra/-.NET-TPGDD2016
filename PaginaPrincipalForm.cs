@@ -34,5 +34,16 @@ namespace ClinicaFrba
 
             Show();
         }
+
+        private void tsmCancelaciones_Afiliado_Click(object sender, EventArgs e)
+        {
+            CancelarTurnoForm cancelacionAfiliado = new CancelarTurnoForm();
+
+            Hide();
+
+            cancelacionAfiliado.ShowDialog();
+
+            Show();
+        }
     }
 }

@@ -38,7 +38,6 @@ C:\Users\alexiscaspell3\GddUtn-Clinica\bin\Debug\configuracion_sistema.txt
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.AltaAfiliadoForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.BuscarAfiliadoForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.BuscarGrupoForm.resources
-C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Profesional.AltaProfesionalForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Profesional.BuscarProfesionalForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.AbmRol.AbmRol.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.AbmRol.EditorDeRolesForm.resources
