@@ -1,6 +1,6 @@
 ﻿namespace ClinicaFrba.AbmRol
 {
-    partial class AbmRol
+    partial class AbmRolForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnAsignarRoles = new System.Windows.Forms.Button();
             this.Nuevo_Button = new System.Windows.Forms.Button();
             this.tablaRoles = new System.Windows.Forms.DataGridView();
             this.Modificar_Button = new System.Windows.Forms.Button();
@@ -40,7 +39,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnAsignarRoles);
             this.groupBox1.Controls.Add(this.Nuevo_Button);
             this.groupBox1.Controls.Add(this.tablaRoles);
             this.groupBox1.Controls.Add(this.Modificar_Button);
@@ -53,17 +51,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Gestión de Roles";
             // 
-            // btnAsignarRoles
-            // 
-            this.btnAsignarRoles.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAsignarRoles.Location = new System.Drawing.Point(411, 23);
-            this.btnAsignarRoles.Margin = new System.Windows.Forms.Padding(4);
-            this.btnAsignarRoles.Name = "btnAsignarRoles";
-            this.btnAsignarRoles.Size = new System.Drawing.Size(128, 28);
-            this.btnAsignarRoles.TabIndex = 4;
-            this.btnAsignarRoles.Text = "Asignar roles";
-            this.btnAsignarRoles.UseVisualStyleBackColor = true;
-            // 
             // Nuevo_Button
             // 
             this.Nuevo_Button.Location = new System.Drawing.Point(8, 23);
@@ -73,6 +60,7 @@
             this.Nuevo_Button.TabIndex = 1;
             this.Nuevo_Button.Text = "Nuevo";
             this.Nuevo_Button.UseVisualStyleBackColor = true;
+            this.Nuevo_Button.Click += new System.EventHandler(this.Nuevo_Button_Click);
             // 
             // tablaRoles
             // 
@@ -91,16 +79,18 @@
             this.tablaRoles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tablaRoles.Size = new System.Drawing.Size(531, 273);
             this.tablaRoles.TabIndex = 4;
+            this.tablaRoles.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaRoles_CellClick);
             // 
             // Modificar_Button
             // 
-            this.Modificar_Button.Location = new System.Drawing.Point(116, 23);
+            this.Modificar_Button.Location = new System.Drawing.Point(132, 23);
             this.Modificar_Button.Margin = new System.Windows.Forms.Padding(4);
             this.Modificar_Button.Name = "Modificar_Button";
             this.Modificar_Button.Size = new System.Drawing.Size(100, 28);
             this.Modificar_Button.TabIndex = 2;
             this.Modificar_Button.Text = "Modificar";
             this.Modificar_Button.UseVisualStyleBackColor = true;
+            this.Modificar_Button.Click += new System.EventHandler(this.Modificar_Button_Click);
             // 
             // Volver_Button
             // 
@@ -112,16 +102,18 @@
             this.Volver_Button.TabIndex = 9;
             this.Volver_Button.Text = "Volver";
             this.Volver_Button.UseVisualStyleBackColor = true;
+            this.Volver_Button.Click += new System.EventHandler(this.Volver_Button_Click);
             // 
-            // Form1
+            // AbmRolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(576, 397);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Volver_Button);
-            this.Name = "Form1";
+            this.Name = "AbmRolForm";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.AbmRolForm_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tablaRoles)).EndInit();
             this.ResumeLayout(false);
@@ -131,7 +123,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnAsignarRoles;
         private System.Windows.Forms.Button Nuevo_Button;
         private System.Windows.Forms.DataGridView tablaRoles;
         private System.Windows.Forms.Button Modificar_Button;

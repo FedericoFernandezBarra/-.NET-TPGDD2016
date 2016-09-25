@@ -1,17 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using TostadoPersistentKit;
 
-namespace ClinicaFrba.Clases
+namespace ClinicaFrba.Clases.POJOS
 {
-    public class TipoDocumento:Serializable
+    public class Rol:Serializable
     {
         public long id { get; set; }
-        public string descripcion{ get; set; }
+        public string nombre { get; set; }
+        public List<Funcionalidad> funcionalidades { get; set; }
+        public bool habilitado { get; set; }
+
+        public Rol()
+        {
+            nombre = "";
+            funcionalidades = new List<Funcionalidad>();
+            habilitado = true;
+        }
 
         internal override void map()
         {
-            mappings.Add("id", "id");
-            mappings.Add("descripcion", "descripcion");
+            
         }
 
         internal override string getIdPropertyName()
@@ -21,7 +33,7 @@ namespace ClinicaFrba.Clases
 
         internal override string getTableName()
         {
-            return "tipo_documento";
+            return "rol";
         }
 
         internal override PrimaryKeyType getPrimaryKeyType()

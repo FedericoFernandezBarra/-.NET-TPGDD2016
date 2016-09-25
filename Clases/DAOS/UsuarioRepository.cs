@@ -21,11 +21,19 @@ namespace ClinicaFrba.Clases.DAOS
 
             object resultado = executeStored(loginStored, parametros);*/
 
-            Usuario usuarioHard = new Usuario();
+            Usuario user = new Usuario();
+
+            string query = "select * from usuario where nick='" + nick + "' and pass='" + pass+"'";
+
+            List<object> resultado = (List<object>)executeQuery(query, null);
+
+            return resultado.Count > 0 ? (Usuario)resultado[0] : null;
+
+            /*Usuario usuarioHard = new Usuario();
             usuarioHard.nick = nick;
             usuarioHard.pass = pass;
 
-            return nick == "" || pass == "" ? null : usuarioHard;
+            return nick == "" || pass == "" ? null : usuarioHard;*/
         }
 
         internal override Type getModelClassType()

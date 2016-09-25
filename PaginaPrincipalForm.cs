@@ -1,8 +1,10 @@
-﻿using ClinicaFrba.Cancelar_Atencion;
+﻿using ClinicaFrba.AbmRol;
+using ClinicaFrba.Cancelar_Atencion;
 using ClinicaFrba.Clases;
 using ClinicaFrba.Logueo;
 using System;
 using System.Windows.Forms;
+using UsingTostadoPersistentKit.TostadoPersistentKit;
 
 namespace ClinicaFrba
 {
@@ -43,6 +45,21 @@ namespace ClinicaFrba
 
             cancelacionAfiliado.ShowDialog();
 
+            Show();
+        }
+
+        private void PaginaPrincipalForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void crearModificarRolesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //validar si puede modificar los roles
+            AbmRolForm abmRol = new AbmRolForm();
+
+            Hide();
+            abmRol.ShowDialog();
             Show();
         }
     }

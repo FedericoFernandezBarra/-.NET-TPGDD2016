@@ -30,9 +30,9 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Nombre_Label = new System.Windows.Forms.Label();
-            this.Nombre_Textbox = new System.Windows.Forms.TextBox();
-            this.Funcionalidades_Checkboxlist = new System.Windows.Forms.CheckedListBox();
-            this.Habilitado_Checkbox = new System.Windows.Forms.CheckBox();
+            this.txtNombre = new System.Windows.Forms.TextBox();
+            this.cbxFuncionalidades = new System.Windows.Forms.CheckedListBox();
+            this.cbxHabilitado = new System.Windows.Forms.CheckBox();
             this.Funcionalidades_Label = new System.Windows.Forms.Label();
             this.Habilitado_Label = new System.Windows.Forms.Label();
             this.Guardar_Button = new System.Windows.Forms.Button();
@@ -43,9 +43,9 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.Nombre_Label);
-            this.groupBox1.Controls.Add(this.Nombre_Textbox);
-            this.groupBox1.Controls.Add(this.Funcionalidades_Checkboxlist);
-            this.groupBox1.Controls.Add(this.Habilitado_Checkbox);
+            this.groupBox1.Controls.Add(this.txtNombre);
+            this.groupBox1.Controls.Add(this.cbxFuncionalidades);
+            this.groupBox1.Controls.Add(this.cbxHabilitado);
             this.groupBox1.Controls.Add(this.Funcionalidades_Label);
             this.groupBox1.Controls.Add(this.Habilitado_Label);
             this.groupBox1.Location = new System.Drawing.Point(13, 13);
@@ -67,32 +67,32 @@
             this.Nombre_Label.TabIndex = 0;
             this.Nombre_Label.Text = "Nombre";
             // 
-            // Nombre_Textbox
+            // txtNombre
             // 
-            this.Nombre_Textbox.Location = new System.Drawing.Point(127, 41);
-            this.Nombre_Textbox.Margin = new System.Windows.Forms.Padding(4);
-            this.Nombre_Textbox.Name = "Nombre_Textbox";
-            this.Nombre_Textbox.Size = new System.Drawing.Size(241, 22);
-            this.Nombre_Textbox.TabIndex = 1;
+            this.txtNombre.Location = new System.Drawing.Point(127, 41);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(241, 22);
+            this.txtNombre.TabIndex = 1;
             // 
-            // Funcionalidades_Checkboxlist
+            // cbxFuncionalidades
             // 
-            this.Funcionalidades_Checkboxlist.FormattingEnabled = true;
-            this.Funcionalidades_Checkboxlist.Location = new System.Drawing.Point(127, 86);
-            this.Funcionalidades_Checkboxlist.Margin = new System.Windows.Forms.Padding(4);
-            this.Funcionalidades_Checkboxlist.Name = "Funcionalidades_Checkboxlist";
-            this.Funcionalidades_Checkboxlist.Size = new System.Drawing.Size(241, 106);
-            this.Funcionalidades_Checkboxlist.TabIndex = 2;
+            this.cbxFuncionalidades.FormattingEnabled = true;
+            this.cbxFuncionalidades.Location = new System.Drawing.Point(127, 86);
+            this.cbxFuncionalidades.Margin = new System.Windows.Forms.Padding(4);
+            this.cbxFuncionalidades.Name = "cbxFuncionalidades";
+            this.cbxFuncionalidades.Size = new System.Drawing.Size(241, 106);
+            this.cbxFuncionalidades.TabIndex = 2;
             // 
-            // Habilitado_Checkbox
+            // cbxHabilitado
             // 
-            this.Habilitado_Checkbox.AutoSize = true;
-            this.Habilitado_Checkbox.Location = new System.Drawing.Point(127, 251);
-            this.Habilitado_Checkbox.Margin = new System.Windows.Forms.Padding(4);
-            this.Habilitado_Checkbox.Name = "Habilitado_Checkbox";
-            this.Habilitado_Checkbox.Size = new System.Drawing.Size(18, 17);
-            this.Habilitado_Checkbox.TabIndex = 3;
-            this.Habilitado_Checkbox.UseVisualStyleBackColor = true;
+            this.cbxHabilitado.AutoSize = true;
+            this.cbxHabilitado.Location = new System.Drawing.Point(127, 251);
+            this.cbxHabilitado.Margin = new System.Windows.Forms.Padding(4);
+            this.cbxHabilitado.Name = "cbxHabilitado";
+            this.cbxHabilitado.Size = new System.Drawing.Size(18, 17);
+            this.cbxHabilitado.TabIndex = 3;
+            this.cbxHabilitado.UseVisualStyleBackColor = true;
             // 
             // Funcionalidades_Label
             // 
@@ -123,6 +123,7 @@
             this.Guardar_Button.TabIndex = 13;
             this.Guardar_Button.Text = "Guardar";
             this.Guardar_Button.UseVisualStyleBackColor = true;
+            this.Guardar_Button.Click += new System.EventHandler(this.Guardar_Button_Click);
             // 
             // Cancelar_Button
             // 
@@ -134,6 +135,7 @@
             this.Cancelar_Button.TabIndex = 12;
             this.Cancelar_Button.Text = "Cancelar";
             this.Cancelar_Button.UseVisualStyleBackColor = true;
+            this.Cancelar_Button.Click += new System.EventHandler(this.Cancelar_Button_Click);
             // 
             // EditorDeRolesForm
             // 
@@ -145,6 +147,7 @@
             this.Controls.Add(this.Cancelar_Button);
             this.Name = "EditorDeRolesForm";
             this.Text = "EditorDeRolesForm";
+            this.Load += new System.EventHandler(this.EditorDeRolesForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -155,9 +158,9 @@
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label Nombre_Label;
-        private System.Windows.Forms.TextBox Nombre_Textbox;
-        private System.Windows.Forms.CheckedListBox Funcionalidades_Checkboxlist;
-        private System.Windows.Forms.CheckBox Habilitado_Checkbox;
+        private System.Windows.Forms.TextBox txtNombre;
+        private System.Windows.Forms.CheckedListBox cbxFuncionalidades;
+        private System.Windows.Forms.CheckBox cbxHabilitado;
         private System.Windows.Forms.Label Funcionalidades_Label;
         private System.Windows.Forms.Label Habilitado_Label;
         private System.Windows.Forms.Button Guardar_Button;

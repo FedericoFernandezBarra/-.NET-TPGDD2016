@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace TostadoPersistentKit
 {
-    abstract class Repository
+    public abstract class Repository
     {
         //Esto me dice si se va a mapear sola la clase o a mano, se puede cambiar en cualquier momento
         internal Boolean autoMapping = true;
@@ -15,28 +15,81 @@ namespace TostadoPersistentKit
         //Esto setea la clase que el repositorio va a tener como modelo para mapear
         internal abstract Type getModelClassType();
 
-
         internal object executeStored(String storedProcedure,List<SqlParameter> parameters)
         {
-            List<Dictionary<string,object>> dictionaryList = DataBase.Instance.ejecutarStoredProcedure(storedProcedure, parameters);
+            return executeStored(storedProcedure,parameters,getModelClassType());
+        }
 
-            return returnValue(dictionaryList);
+        private object executeStored(String storedProcedure, List<SqlParameter> parameters, Type modelClassType)
+        {
+            List<Dictionary<string, object>> dictionaryList = DataBase.Instance.ejecutarStoredProcedure(storedProcedure, parameters);
+
+            return returnValue(dictionaryList, modelClassType);
         }
 
         internal object executeQuery(String query, List<SqlParameter> parameters)
         {
-            List<Dictionary<string, object>> dictionaryList = DataBase.Instance.ejecutarConsulta(query, parameters);
-
-            return returnValue(dictionaryList);
+            return executeQuery(query, parameters, getModelClassType());
         }
 
-        private object returnValue(List<Dictionary<string,object>> dictionaryList)
+        private object executeQuery(String query, List<SqlParameter> parameters,Type modelClassType)
+        {
+            List<Dictionary<string, object>> dictionaryList = DataBase.Instance.ejecutarConsulta(query, parameters);
+
+            return returnValue(dictionaryList,modelClassType);
+        }
+
+        private void completeSerializableObject(Serializable incompleteObject)
+        {
+            foreach (KeyValuePair<string,object> item in getPropertyValues(incompleteObject))
+            {
+                if (typeof(Serializable).IsAssignableFrom(item.Value.GetType()))
+                {
+                    Serializable serializableProperty = (Serializable)item.Value;
+
+                    /*if (serializableProperty.getPrimaryKeyType()==Serializable.PrimaryKeyType.SURROGATE)
+                    {
+                        object idValue = serializableProperty.GetType().
+                                        GetProperty(serializableProperty.getIdPropertyName()).
+                                        GetValue(serializableProperty);
+                        int idIntValue = (int)getCastedValue(idValue, typeof(int));
+
+                        if (idIntValue==0)
+                        {
+                            return;
+                        }
+                    }*/
+
+                    Type propertyType = serializableProperty.GetType();
+
+                    object propertyId = propertyType.GetProperty(serializableProperty.
+                                                getIdPropertyName()).GetValue(serializableProperty);
+
+
+                     serializableProperty = (Serializable)selectById(propertyId,propertyType);
+
+                    incompleteObject.GetType().GetProperty(item.Key).SetValue(incompleteObject, serializableProperty);
+                }
+            }
+        }
+
+        private object returnValue(List<Dictionary<string,object>> dictionaryList,Type modelClassType)
         {
             if (autoMapping)
             {
                 List<object> mappedList = new List<object>();
 
-                dictionaryList.ForEach(dictionary => mappedList.Add(unSerialize(dictionary)));
+                dictionaryList.ForEach(dictionary => mappedList.Add(unSerialize(dictionary,modelClassType)));
+
+                foreach (var item in mappedList)
+                {
+                    Serializable.FetchType fetchType = ((Serializable)item).getFetchType();
+
+                    if (fetchType == Serializable.FetchType.EAGER)
+                    {
+                        completeSerializableObject((Serializable)item);
+                    }
+                }
 
                 return mappedList;
             }
@@ -68,27 +121,27 @@ namespace TostadoPersistentKit
 
                     bool isSerializable = typeof(Serializable).IsAssignableFrom(propertyType);
 
-                    if (isSerializable)
+                    if (dictionary[dataName].ToString() != "")//Esto esta hardcodeado para que no setee cosas en null
                     {
-                        Serializable propertyInstance = (Serializable)Activator.CreateInstance(propertyType);
-                        keyToRemove = propertyInstance.getMapFromKey(propertyInstance.getIdPropertyName());
+                        if (isSerializable)
+                        {
+                            Serializable propertyInstance = (Serializable)Activator.CreateInstance(propertyType);
+                            keyToRemove = propertyInstance.getMapFromKey(propertyInstance.getIdPropertyName());
 
-                        object dataValue = dictionaryAux[dataName];
-                        dictionaryAux.Remove(dataName);
-                        dictionaryAux.Add(keyToRemove, dataValue);
+                            object dataValue = dictionaryAux[dataName];
+                            dictionaryAux.Remove(dataName);
+                            dictionaryAux.Add(keyToRemove, dataValue);
 
-                        objeto.GetType().GetProperty(propertyName).SetValue(objeto, unSerialize(dictionaryAux, propertyType));
-                    }
-                    else
-                    {
-                        if (dictionary[dataName].ToString()!="")//Esto esta hardcodeado para que no setee cosas en null
+                            objeto.GetType().GetProperty(propertyName).SetValue(objeto, unSerialize(dictionaryAux, propertyType));
+                        }
+
+                        else
                         {
                             object dataValue = getCastedValue(dictionary[dataName], objeto.GetType().GetProperty(propertyName).PropertyType);
-
                             objeto.GetType().GetProperty(propertyName).SetValue(objeto, dataValue);
                         }
+                        dictionaryAux.Remove(keyToRemove);
                     }
-                    dictionaryAux.Remove(keyToRemove);
                 }
             }
 
@@ -164,10 +217,15 @@ namespace TostadoPersistentKit
 
         internal void insert(Serializable objeto)
         {
-            insert(objeto,objeto.getIdPropertyName(), objeto.getTableName());
+            insert(objeto,objeto.getIdPropertyName(), objeto.getTableName(),false);
         }
 
-        private void insert(Serializable objeto, String primaryKeyPropertyName, String tableName)
+        internal void insertCascade(Serializable objeto)
+        {
+            insert(objeto, objeto.getIdPropertyName(), objeto.getTableName(), true);
+        }
+
+        private void insert(Serializable objeto, String primaryKeyPropertyName, String tableName,bool cascade)
         {
             String insertQuery = "insert into " + tableName + "(";
 
@@ -191,6 +249,11 @@ namespace TostadoPersistentKit
 
                     Serializable serializableProperty = isSerializableProperty ? (Serializable)keyValuePair.Value : null;
 
+                    if (cascade && isSerializableProperty)
+                    {
+                        insert(serializableProperty, serializableProperty.getIdPropertyName(), serializableProperty.getTableName(), true);
+                    }
+
                     object parametro = isSerializableProperty ? serializableProperty.GetType().
                                         GetProperty(serializableProperty.getIdPropertyName()).
                                         GetValue(serializableProperty) : keyValuePair.Value;
@@ -199,11 +262,21 @@ namespace TostadoPersistentKit
                 }
             }
 
+            string primaryKeyName = objeto.getMapFromKey(objeto.getIdPropertyName());
+
             insertQuery = insertQuery.Remove(insertQuery.Length - 1);
             valuesString = valuesString.Remove(valuesString.Length - 1);
-            insertQuery += ")" + valuesString + ")";
+            insertQuery += ") " + "output inserted."+ primaryKeyName
+                               + valuesString + ")";
 
-            DataBase.Instance.ejecutarConsulta(insertQuery, parametros);
+            object insertResult = DataBase.Instance.ejecutarConsulta(
+                                  insertQuery, parametros)[0][primaryKeyName];
+
+            Type idType = objeto.GetType().GetProperty(objeto.getIdPropertyName()).PropertyType;
+
+            object idValue = getCastedValue(insertResult, idType);
+
+            objeto.GetType().GetProperty(objeto.getIdPropertyName()).SetValue(objeto, idValue);
         }
 
         internal void delete(Serializable objeto)
@@ -223,16 +296,26 @@ namespace TostadoPersistentKit
         //Se supone que lo que se espera en el where de la consulta es id.toString()
         internal object selectById(object id)
         {
-            Serializable objeto = (Serializable)Activator.CreateInstance(getModelClassType());
+            return selectById(id, getModelClassType());
+        }
 
-            List<object> result = selectByProperty(objeto.getIdPropertyName(), id);
+        private object selectById(object id,Type classType)
+        {
+            Serializable objeto = (Serializable)Activator.CreateInstance(classType);
+
+            List<object> result = selectByProperty(objeto.getIdPropertyName(), id,classType);
 
             return (result.Count > 0) ? result[0] : null;
         }
 
         internal List<object> selectByProperty(string propertyName,object propertyValue)
         {
-            Serializable objeto = (Serializable)Activator.CreateInstance(getModelClassType());
+            return selectByProperty(propertyName, propertyValue, getModelClassType());
+        }
+
+        private List<object> selectByProperty(string propertyName, object propertyValue, Type classType)
+        {
+            Serializable objeto = (Serializable)Activator.CreateInstance(classType);
 
             List<SqlParameter> parameters = new List<SqlParameter>();
 
@@ -243,16 +326,16 @@ namespace TostadoPersistentKit
             string selectQuery = "select * from " + objeto.getTableName() + " where " +
                                 objeto.getMapFromKey(propertyName) + "=" + expected;
 
-            return executeAutoMappedSelect(selectQuery, parameters);
+            return executeAutoMappedSelect(selectQuery, parameters,classType);
         }
 
-        private List<object> executeAutoMappedSelect(String selectQuery,List<SqlParameter> parameters)
+        private List<object> executeAutoMappedSelect(String selectQuery,List<SqlParameter> parameters,Type classType)
         {
             bool actualAutoMappingVal = autoMapping;//guardo el valor actual de autoMapping
 
             autoMapping = true;
 
-            List<object> result = (List<object>)executeQuery(selectQuery, parameters);
+            List<object> result = (List<object>)executeQuery(selectQuery, parameters,classType);
 
             autoMapping = actualAutoMappingVal;
 
@@ -263,16 +346,16 @@ namespace TostadoPersistentKit
         {
             Serializable objeto = (Serializable)Activator.CreateInstance(getModelClassType());
 
-            return selectAll(objeto.getTableName());
+            return selectAll(objeto.getTableName(),getModelClassType());
         }
 
-        private List<object> selectAll(String tableName)
+        private List<object> selectAll(String tableName,Type classType)
         {
             List<SqlParameter> parameters = new List<SqlParameter>();
 
             String selectQuery = "select * from " + tableName;
 
-            return executeAutoMappedSelect(selectQuery, parameters);
+            return executeAutoMappedSelect(selectQuery, parameters,classType);
         }
 
         internal void update(Serializable objeto)
@@ -296,17 +379,20 @@ namespace TostadoPersistentKit
                 {
                     String dataName = objeto.getMapFromKey(keyValuePair.Key);
 
-                    updateQuery += dataName + "=@" + dataName + ",";
-
                     bool isSerializableProperty = typeof(Serializable).IsAssignableFrom(keyValuePair.Value.GetType());
 
-                    Serializable serializableProperty = isSerializableProperty ? (Serializable)keyValuePair.Value : null;
+                    object parametro = keyValuePair.Value;
 
-                    object parametro = isSerializableProperty ? serializableProperty.GetType().
+                    if (isSerializableProperty)
+                    {
+                        Serializable serializableProperty = (Serializable)keyValuePair.Value;
+
+                        parametro = serializableProperty.GetType().
                                         GetProperty(serializableProperty.getIdPropertyName()).
-                                        GetValue(serializableProperty) : keyValuePair.Value;
-
-                    DataBase.Instance.agregarParametro(parametros, "@" + dataName, parametro);
+                                        GetValue(serializableProperty);
+                    }
+                        updateQuery += dataName + "=@" + dataName + ",";
+                        DataBase.Instance.agregarParametro(parametros, "@" + dataName, parametro);
                 }
             }
 

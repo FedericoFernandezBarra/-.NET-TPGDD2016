@@ -81,11 +81,11 @@
     <Compile Include="Abm Profesional\BuscarProfesionalForm.Designer.cs">
       <DependentUpon>BuscarProfesionalForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\AbmRol.cs">
+    <Compile Include="AbmRol\AbmRolForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmRol\AbmRol.Designer.cs">
-      <DependentUpon>AbmRol.cs</DependentUpon>
+    <Compile Include="AbmRol\AbmRolForm.Designer.cs">
+      <DependentUpon>AbmRolForm.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmRol\EditorDeRolesForm.cs">
       <SubType>Form</SubType>
@@ -105,16 +105,32 @@
     <Compile Include="Cancelar Atencion\CancelarTurnoForm.Designer.cs">
       <DependentUpon>CancelarTurnoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Clases\DAOS\FuncionalidadRepository.cs" />
+    <Compile Include="Clases\DAOS\RolRepository.cs" />
     <Compile Include="Clases\DAOS\UsuarioRepository.cs" />
+    <Compile Include="Clases\Otros\AbmRol.cs" />
+    <Compile Include="Clases\Otros\CrearRolAction.cs" />
+    <Compile Include="Clases\Otros\EditorDeRol.cs" />
+    <Compile Include="Clases\Otros\EditorDeRolAction.cs" />
+    <Compile Include="Clases\Otros\ModificarRolAction.cs" />
     <Compile Include="Clases\POJOS\Afiliado.cs" />
     <Compile Include="Clases\Otros\CancelarDias.cs" />
     <Compile Include="Clases\Otros\CancelarTurno.cs" />
     <Compile Include="Clases\Otros\Login.cs" />
+    <Compile Include="Clases\POJOS\Funcionalidad.cs" />
     <Compile Include="Clases\POJOS\Profesional.cs" />
+    <Compile Include="Clases\POJOS\Rol.cs" />
     <Compile Include="Clases\POJOS\TipoDocumento.cs" />
     <Compile Include="Clases\POJOS\Turno.cs" />
     <Compile Include="Clases\POJOS\Usuario.cs" />
+    <Compile Include="Clases\TostadoPersistentKit\CreatePersistentModel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Clases\TostadoPersistentKit\CreatePersistentModel.designer.cs">
+      <DependentUpon>CreatePersistentModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Clases\TostadoPersistentKit\DataBase.cs" />
+    <Compile Include="Clases\TostadoPersistentKit\DefaultDatabaseCreator.cs" />
     <Compile Include="Clases\TostadoPersistentKit\Repository.cs" />
     <Compile Include="Clases\TostadoPersistentKit\Serializable.cs" />
     <Compile Include="Clases\TostadoPersistentKit\Sistema.cs" />
@@ -194,8 +210,8 @@
     <EmbeddedResource Include="Abm Profesional\BuscarProfesionalForm.resx">
       <DependentUpon>BuscarProfesionalForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AbmRol\AbmRol.resx">
-      <DependentUpon>AbmRol.cs</DependentUpon>
+    <EmbeddedResource Include="AbmRol\AbmRolForm.resx">
+      <DependentUpon>AbmRolForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\EditorDeRolesForm.resx">
       <DependentUpon>EditorDeRolesForm.cs</DependentUpon>
@@ -205,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Cancelar Atencion\CancelarTurnoForm.resx">
       <DependentUpon>CancelarTurnoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Clases\TostadoPersistentKit\CreatePersistentModel.resx">
+      <DependentUpon>CreatePersistentModel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra Bono\ComprarBonosForm.resx">
       <DependentUpon>ComprarBonosForm.cs</DependentUpon>
@@ -245,6 +264,7 @@
     <EmbeddedResource Include="Registro Resultado\RegistrarResultadoAtencionForm.resx">
       <DependentUpon>RegistrarResultadoAtencionForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Clases\TostadoPersistentKit\README.md" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

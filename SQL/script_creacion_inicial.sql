@@ -244,8 +244,8 @@ go
 
 create table XXX.FUNCIONALIDAD_POR_ROL
 (
-    id_funcionalidad    numeric(10,0) references XXX.FUNCIONALIDAD(id_funcionalidad),
-    id_rol  numeric(10,0) references XXX.ROL(id_rol)
+    id_funcionalidad    numeric(10,0),
+    id_rol  numeric(10,0),
 
 
     PRIMARY KEY (id_funcionalidad, id_rol), 

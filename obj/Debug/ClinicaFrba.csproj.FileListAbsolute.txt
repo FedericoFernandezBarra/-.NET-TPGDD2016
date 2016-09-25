@@ -39,7 +39,6 @@ C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.AltaAfiliadoFo
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.BuscarAfiliadoForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.BuscarGrupoForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Profesional.BuscarProfesionalForm.resources
-C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.AbmRol.AbmRol.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.AbmRol.EditorDeRolesForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Cancelar_Atencion.CancelarDiasForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Cancelar_Atencion.CancelarTurnoForm.resources
@@ -65,3 +64,5 @@ C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.pdb
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.csprojResolveAssemblyReference.cache
 C:\Users\alexiscaspell3\GddUtn-Clinica\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Logueo.LoginForm.resources
+C:\Users\Alexis\GddUtn-Clinica\obj\Debug\UsingTostadoPersistentKit.TostadoPersistentKit.CreatePersistentModel.resources
+C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.AbmRol.AbmRolForm.resources

@@ -2,12 +2,27 @@
 using ClinicaFrba.Clases.DAOS;
 using ClinicaFrba.Clases.Otros;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UsingTostadoPersistentKit.TostadoPersistentKit;
 
 namespace ClinicaFrba.Test
 {
     [TestClass]
     public class LoginTestSuite
     {
+        private DefaultDatabaseCreator dbCreator = new DefaultDatabaseCreator();
+
+        [TestInitialize()]
+        public void Initialize()
+        {
+            dbCreator.createPersistentDefaultModel();
+        }
+
+        [TestCleanup()]
+        public void CleanUp()
+        {
+            dbCreator.dropExistingTables();
+        }
+
         [TestMethod]
         public void loguearUser_userExistente_pasaElLogueo()
         {
@@ -19,10 +34,10 @@ namespace ClinicaFrba.Test
             nuevoUsuario.pass = "miracle";
             nuevoUsuario.sexo = 'M';
 
-            /*if (repoUsuario.selectByProperty("nick","yisus").Count==0)
+            if (repoUsuario.selectByProperty("nick","yisus").Count==0)
             {
                 repoUsuario.insert(nuevoUsuario);
-            }*/
+            }
 
             Login login = new Login();
 
@@ -30,6 +45,8 @@ namespace ClinicaFrba.Test
             login.password = nuevoUsuario.pass;
 
             Assert.IsTrue(login.logueoExitoso());
+
+            repoUsuario.delete(repoUsuario.traerUserPorNickYPass(nuevoUsuario.nick, nuevoUsuario.pass));
         }
 
         [TestMethod]

@@ -61,5 +61,10 @@ namespace ClinicaFrba.Clases
         {
             return PrimaryKeyType.SURROGATE;
         }
+
+        internal override FetchType getFetchType()
+        {
+            return FetchType.LAZY;
+        }
     }
 }
