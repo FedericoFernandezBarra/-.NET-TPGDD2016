@@ -265,6 +265,19 @@ create table XXX.ESTADO_CIVIL
 
 go
 
+create table XXX.PLAN_MEDICO
+(
+    id_plan_medico   numeric(10,0) identity(1,1) ,
+    descripcion      nvarchar(255),
+	precio_bono_consulta    numeric(18,2),
+    precio_bono_farmacia    numeric(18,2),
+    activo           bit,
+
+    PRIMARY KEY (id_plan_medico)
+)
+
+go
+
 create table XXX.PERSONAL
 (
     id_personal  numeric(10,0) references XXX.USUARIO(id_usuario) ,
@@ -272,20 +285,22 @@ create table XXX.PERSONAL
 
     PRIMARY KEY (id_personal)
 )
+
 go
 
 create table XXX.AFILIADO
 (
     id_afiliado numeric(10,0),
-    estado_civil numeric(10,0) ,
+    estado_civil numeric(10,0),
+	plan_medico numeric(10,0),
     numero_familiar numeric(10,0),
     cantidad_hijos smallint
 
     PRIMARY KEY (id_afiliado)
     FOREIGN KEY (id_afiliado)             references XXX.USUARIO(id_usuario),
-    FOREIGN KEY (estado_civil)            references XXX.ESTADO_CIVIL(id_estado_civil)
+    FOREIGN KEY (estado_civil)            references XXX.ESTADO_CIVIL(id_estado_civil),
+	FOREIGN KEY (plan_medico)            references XXX.PLAN_MEDICO(id_plan_medico)
 )
-
 
 go
 
@@ -516,19 +531,6 @@ create table XXX.BONO_FARMACIA
 
 go
 
-create table XXX.PLAN_MEDICO
-(
-    id_plan_medico   numeric(10,0) identity(1,1) ,
-    bono_farmacia    numeric(10,0) ,
-    bono_consulta    numeric(10,0) ,
-    descripcion      nvarchar(255),
-    activo           bit,
-
-    PRIMARY KEY (id_plan_medico), 
-    FOREIGN KEY (bono_farmacia)               references XXX.BONO_FARMACIA(id_bono_farmacia),
-    FOREIGN KEY (bono_consulta)               references XXX.BONO_CONSULTA(id_bono_consulta)
-)
-go
 
 create table XXX.PLAN_HISTORICO_AFILIADO
 (
@@ -628,10 +630,28 @@ values
 
 go
 
+--PLAN MEDICO
+-------------------------------------------------------------------------------------------------------
+alter table XXX.PLAN_MEDICO
+add plan_medico_codigo numeric(18,0)
+
+go
+
+insert into XXX.PLAN_MEDICO
+	select distinct
+		Plan_Med_Descripcion,
+		Plan_Med_Precio_Bono_Consulta,
+		Plan_Med_Precio_Bono_Farmacia,
+		1,
+		Plan_Med_Codigo
+	from gd_esquema.Maestra 
+
+go
+
 --USUARIOS
 -------------------------------------------------------------------------------------------------------
 
---AFILIADO
+--afiliados
 insert into XXX.USUARIO
 	select distinct
 		Paciente_Dni,
@@ -654,7 +674,7 @@ insert into XXX.USUARIO
 
 go
 
---PERSONAL
+--personal
 insert into XXX.USUARIO
 	select distinct
 		Medico_Dni,
@@ -683,11 +703,14 @@ insert into XXX.AFILIADO
 	select distinct
 		U.id_usuario,
 		null,
+		P.id_plan_medico,
 		null,
 		null
 	from gd_esquema.Maestra as M
 	inner join XXX.USUARIO as U 
 		on M.Paciente_Dni = U.documento
+	inner join XXX.PLAN_MEDICO as P
+		on M.Plan_Med_Codigo = P.plan_medico_codigo
 	where 
 		M.Consulta_Sintomas is null and
 		M.Compra_Bono_Fecha is null
