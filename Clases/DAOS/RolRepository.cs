@@ -37,7 +37,8 @@ namespace ClinicaFrba.Clases.DAOS
 
         internal void insertarRol(Rol rol)
         {
-            insert(rol);
+            //insert(rol);
+            //ejecutar el stored que inserta un rol
         }
     }
 }

@@ -60,7 +60,17 @@ namespace ClinicaFrba.AbmRol
 
         private void tablaRoles_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            int indiceSeleccionado = tablaRoles.CurrentRow.Index;
+            int indiceSeleccionado = 0;
+
+            try
+            {
+                indiceSeleccionado = tablaRoles.CurrentRow.Index;
+            }
+            catch (Exception)
+            {
+                indiceSeleccionado = 0;
+                //escondemos todo vieja
+            }
 
             abmRol.rolSeleccionado = indiceSeleccionado < abmRol.rolesSistema.Count ? 
                                         abmRol.rolesSistema[indiceSeleccionado] : null;
