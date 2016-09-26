@@ -45,11 +45,6 @@ drop table XXX.PLAN_HISTORICO_AFILIADO
 
 go
 
-if EXISTS (SELECT * FROM sysobjects  WHERE name='PLAN_MEDICO') 
-drop table XXX.PLAN_MEDICO 
-
-go
-
 if EXISTS (SELECT * FROM sysobjects  WHERE name='ROL_POR_USUARIO') 
 drop table XXX.ROL_POR_USUARIO 
 
@@ -118,10 +113,17 @@ if EXISTS (SELECT * FROM sysobjects  WHERE name='AFILIADO')
 drop table XXX.AFILIADO 
 
 go
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='PLAN_MEDICO') 
+drop table XXX.PLAN_MEDICO 
+
+go
+
 if EXISTS (SELECT * FROM sysobjects  WHERE name='ESTADO_CIVIL') 
 drop table XXX.ESTADO_CIVIL 
 
 go
+
 if EXISTS (SELECT * FROM sysobjects  WHERE name='PERSONAL') 
 drop table XXX.PERSONAL 
 
@@ -384,8 +386,8 @@ create table XXX.TURNO
     id_turno  numeric(10,0) identity(1,1) ,
     afiliado numeric(10,0) ,
     personal numeric(10,0) ,
-    horario_turno       time,
-    horario_llegada     time,
+    horario_turno       datetime,
+    horario_llegada     datetime,
     activo      bit,
 
 
@@ -768,3 +770,31 @@ insert into XXX.ESPECIALIDAD
 		Especialidad_Codigo is not null
 
 go
+
+--TURNO
+-------------------------------------------------------------------------------------------------------
+alter table XXX.TURNO
+add turno_numero numeric(18,0)
+
+go
+
+insert into XXX.TURNO
+	select
+		A.id_usuario as afiliado,
+		P.id_usuario as personal,
+		M.Turno_Fecha,
+		null,
+		1,
+		M.Turno_Numero
+	from gd_esquema.Maestra as M
+	inner join XXX.USUARIO as A on M.Paciente_Dni = A.documento
+	inner join XXX.USUARIO as P on M.Medico_Dni = P.documento
+	where
+		Turno_Numero is not null and
+		Consulta_Sintomas is null
+
+go
+
+
+
+
