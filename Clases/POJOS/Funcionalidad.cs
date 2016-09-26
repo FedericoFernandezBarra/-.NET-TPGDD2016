@@ -10,27 +10,28 @@ namespace ClinicaFrba.Clases.POJOS
 
         internal override FetchType getFetchType()
         {
-            throw new NotImplementedException();
+            return FetchType.LAZY;
         }
 
         internal override string getIdPropertyName()
         {
-            throw new NotImplementedException();
+            return "id";
         }
 
         internal override PrimaryKeyType getPrimaryKeyType()
         {
-            throw new NotImplementedException();
+            return PrimaryKeyType.SURROGATE;
         }
 
         internal override string getTableName()
         {
-            throw new NotImplementedException();
+            return "funcionalidad";
         }
 
         internal override void map()
         {
-            throw new NotImplementedException();
+            mappings.Add("id", "id_funcionalidad");
+            mappings.Add("nombre", "nombre");
         }
     }
 }

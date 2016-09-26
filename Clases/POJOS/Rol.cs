@@ -23,7 +23,9 @@ namespace ClinicaFrba.Clases.POJOS
 
         internal override void map()
         {
-            
+            mappings.Add("id", "id_rol");
+            mappings.Add("nombre", "nombre");
+            mappings.Add("habilitado", "habilitado");
         }
 
         internal override string getIdPropertyName()

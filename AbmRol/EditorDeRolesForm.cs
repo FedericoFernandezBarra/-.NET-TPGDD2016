@@ -10,21 +10,18 @@ namespace ClinicaFrba.AbmRol
     {
         private EditorDeRol editorDeRoles = new EditorDeRol();
 
-        private EditorDeRolesForm(Rol rol,EditorDeRolAction accionEditor)
-        {
-            editorDeRoles.rol = rol;
-            editorDeRoles.accion = accionEditor;
-            InitializeComponent();
-        }
-
         public EditorDeRolesForm(Rol rol)
         {
-            new EditorDeRolesForm(rol, new ModificarRolAction());
+            editorDeRoles.rol = rol;
+            editorDeRoles.accion = new ModificarRolAction();
+            InitializeComponent();
         }
 
         public EditorDeRolesForm()
         {
-            new EditorDeRolesForm(new Rol(), new CrearRolAction());
+            editorDeRoles.rol = new Rol();
+            editorDeRoles.accion = new CrearRolAction();
+            InitializeComponent();
         }
 
         private void EditorDeRolesForm_Load(object sender, EventArgs e)
@@ -34,7 +31,7 @@ namespace ClinicaFrba.AbmRol
 
         private void initForm()
         {
-            editorDeRoles.funcionalidadesSistema.ForEach(funcionalidad => cbxFuncionalidades.Items.Add(funcionalidad));
+            editorDeRoles.funcionalidadesSistema.ForEach(funcionalidad => cbxFuncionalidades.Items.Add(funcionalidad.nombre));
 
             txtNombre.DataBindings.Add("Text", editorDeRoles.rol, "nombre");
             cbxHabilitado.DataBindings.Add("Checked", editorDeRoles.rol, "habilitado");
@@ -62,12 +59,11 @@ namespace ClinicaFrba.AbmRol
         {
             editorDeRoles.rol.funcionalidades.Clear();
 
-            foreach (var item in cbxFuncionalidades.Items)
+            foreach (string item in cbxFuncionalidades.SelectedItems)
             {
-                if (cbxFuncionalidades.SelectedItems.Contains(item))
-                {
-                    editorDeRoles.rol.funcionalidades.Add((Funcionalidad)item);
-                }
+                Funcionalidad func = editorDeRoles.
+                        funcionalidadesSistema.Find(f => f.nombre == item);
+                editorDeRoles.rol.funcionalidades.Add(func);
             }
         }
     }
