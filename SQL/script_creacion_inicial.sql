@@ -263,6 +263,8 @@ go
 create table BEMVINDO.AFILIADO
 (
     id_afiliado numeric(10,0),
+    nro_afiliado numeric(10,0),
+    nro_grupo_familiar numeric(10,0),
     estado_civil numeric(10,0),
 	plan_medico numeric(10,0),
     numero_familiar numeric(10,0),
