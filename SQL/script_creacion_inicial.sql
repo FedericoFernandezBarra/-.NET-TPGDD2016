@@ -6,136 +6,106 @@ go
 /*VERIFICO EXISTENCIA DE TABLAS ANTSES DE CREARLAS*/
 /********************************************************************************************************************************/
 if EXISTS (SELECT * FROM sysobjects  WHERE name='CANCELACION') 
-drop table XXX.CANCELACION 
+drop table BEMVINDO.CANCELACION 
 
 go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='ESPECIALIDAD_POR_PERSONAL') 
-drop table XXX.ESPECIALIDAD_POR_PERSONAL 
+drop table BEMVINDO.ESPECIALIDAD_POR_PERSONAL 
 
 go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='ESPECIALIDAD') 
-drop table XXX.ESPECIALIDAD 
+drop table BEMVINDO.ESPECIALIDAD 
 
 go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='FUNCIONALIDAD_POR_ROL') 
-drop table XXX.FUNCIONALIDAD_POR_ROL 
+drop table BEMVINDO.FUNCIONALIDAD_POR_ROL 
 
 go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='FUNCIONALIDAD') 
-drop table XXX.FUNCIONALIDAD 
-
-go
-
-if EXISTS (SELECT * FROM sysobjects  WHERE name='ITEM_RECETA') 
-drop table XXX.ITEM_RECETA 
-
-go
-
-if EXISTS (SELECT * FROM sysobjects  WHERE name='MEDICAMENTO') 
-drop table XXX.MEDICAMENTO 
+drop table BEMVINDO.FUNCIONALIDAD 
 
 go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='PLAN_HISTORICO_AFILIADO') 
-drop table XXX.PLAN_HISTORICO_AFILIADO 
+drop table BEMVINDO.PLAN_HISTORICO_AFILIADO 
 
 go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='ROL_POR_USUARIO') 
-drop table XXX.ROL_POR_USUARIO 
+drop table BEMVINDO.ROL_POR_USUARIO 
 
 go
 if EXISTS (SELECT * FROM sysobjects  WHERE name='ROL') 
-drop table XXX.ROL 
+drop table BEMVINDO.ROL 
 
 go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='TIPO_CANCELACION') 
-drop table XXX.TIPO_CANCELACION 
+drop table BEMVINDO.TIPO_CANCELACION 
 
 go
 
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='TIPO_ESPECIALIDAD') 
-drop table XXX.TIPO_ESPECIALIDAD 
+drop table BEMVINDO.TIPO_ESPECIALIDAD 
 
 go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='DIA_AGENDA') 
-drop table XXX.DIA_AGENDA 
+drop table BEMVINDO.DIA_AGENDA 
 
 go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='DIA_AGENDA_EXCEPCION') 
-drop table XXX.DIA_AGENDA_EXCEPCION 
+drop table BEMVINDO.DIA_AGENDA_EXCEPCION 
 
 go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='AGENDA') 
-drop table XXX.AGENDA 
+drop table BEMVINDO.AGENDA 
 
 go
 
-if EXISTS (SELECT * FROM sysobjects  WHERE name='BONO_CONSULTA') 
-drop table XXX.BONO_CONSULTA 
-
-go
-
-if EXISTS (SELECT * FROM sysobjects  WHERE name='BONO_FARMACIA') 
-drop table XXX.BONO_FARMACIA 
-
-go
-
-if EXISTS (SELECT * FROM sysobjects  WHERE name='COMPRA') 
-drop table XXX.COMPRA 
-
-go
-
-if EXISTS (SELECT * FROM sysobjects  WHERE name='RECETA') 
-drop table XXX.RECETA 
-
-go
-
-if EXISTS (SELECT * FROM sysobjects  WHERE name='RESULTADO_TURNO') 
-drop table XXX.RESULTADO_TURNO 
+if EXISTS (SELECT * FROM sysobjects  WHERE name='CONSULTA') 
+drop table BEMVINDO.CONSULTA 
 
 go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='TURNO') 
-drop table XXX.TURNO 
+drop table BEMVINDO.TURNO 
 
 go
 if EXISTS (SELECT * FROM sysobjects  WHERE name='AFILIADO') 
-drop table XXX.AFILIADO 
+drop table BEMVINDO.AFILIADO 
 
 go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='PLAN_MEDICO') 
-drop table XXX.PLAN_MEDICO 
+drop table BEMVINDO.PLAN_MEDICO 
 
 go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='ESTADO_CIVIL') 
-drop table XXX.ESTADO_CIVIL 
+drop table BEMVINDO.ESTADO_CIVIL 
 
 go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='PERSONAL') 
-drop table XXX.PERSONAL 
+drop table BEMVINDO.PERSONAL 
 
 go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='USUARIO') 
-drop table XXX.USUARIO 
+drop table BEMVINDO.USUARIO 
 
 go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='TIPO_DOCUMENTO') 
-drop table XXX.TIPO_DOCUMENTO 
+drop table BEMVINDO.TIPO_DOCUMENTO 
 
 go
 
@@ -144,17 +114,17 @@ go
 /********************************************************************************************************************************/
 
 if EXISTS (SELECT * FROM sysobjects WHERE name='fn_hashear_pass') 
-drop function XXX.fn_hashear_pass
+drop function BEMVINDO.fn_hashear_pass
 
 go
 
 if EXISTS (SELECT * FROM sysobjects WHERE name='tg_hashear_pass_insert') 
-drop trigger XXX.tg_hashear_pass_insert
+drop trigger BEMVINDO.tg_hashear_pass_insert
 
 go
 
 if EXISTS (SELECT * FROM sysobjects WHERE name='tg_hashear_pass_update') 
-drop trigger XXX.tg_hashear_pass_update
+drop trigger BEMVINDO.tg_hashear_pass_update
 
 go
 
@@ -163,12 +133,12 @@ go
 /*CREO ESQUEMA*/
 /********************************************************************************************************************************/
 
-if EXISTS (SELECT * FROM sys.schemas  WHERE name='XXX') 
-drop schema XXX 
+if EXISTS (SELECT * FROM sys.schemas  WHERE name='BEMVINDO') 
+drop schema BEMVINDO 
 
 go
 
-create schema XXX authorization gd
+create schema BEMVINDO authorization gd
 
 go
 
@@ -176,7 +146,7 @@ go
 /*CREACION DE TABLAS*/
 /********************************************************************************************************************************/
 
-create table XXX.TIPO_DOCUMENTO
+create table BEMVINDO.TIPO_DOCUMENTO
 (
     id_tipo_documento  numeric(10,0) identity (1,1) ,
     descripcion     nvarchar(255),
@@ -186,7 +156,7 @@ create table XXX.TIPO_DOCUMENTO
 
 go
 
-create table XXX.USUARIO
+create table BEMVINDO.USUARIO
 (
     id_usuario  numeric(10,0) identity(1,1) ,
     nick    nvarchar(255) unique,
@@ -204,12 +174,12 @@ create table XXX.USUARIO
     sexo    char check (sexo in('F','M')),
 
     PRIMARY KEY(id_usuario),
-    FOREIGN KEY (tipo_documento)   references XXX.TIPO_DOCUMENTO(id_tipo_documento)
+    FOREIGN KEY (tipo_documento)   references BEMVINDO.TIPO_DOCUMENTO(id_tipo_documento)
 )
 
 go
 
-create table XXX.ROL
+create table BEMVINDO.ROL
 (
     id_rol  numeric(10,0) identity(1,1) ,
     descripcion nvarchar(30),
@@ -220,20 +190,20 @@ create table XXX.ROL
 
 go 
 
-create table XXX.ROL_POR_USUARIO
+create table BEMVINDO.ROL_POR_USUARIO
 (
     id_rol  numeric(10,0) ,
     id_usuario  numeric(10,0) ,
 
 
     PRIMARY KEY (id_usuario, id_rol), 
-    FOREIGN KEY (id_usuario) references XXX.USUARIO(id_usuario), 
-    FOREIGN KEY (id_rol)     references XXX.ROL(id_rol) 
+    FOREIGN KEY (id_usuario) references BEMVINDO.USUARIO(id_usuario), 
+    FOREIGN KEY (id_rol)     references BEMVINDO.ROL(id_rol) 
 )
 
 go
 
-create table XXX.FUNCIONALIDAD
+create table BEMVINDO.FUNCIONALIDAD
 (
     id_funcionalidad  numeric(10,0) identity(1,1),
     descripcion     nvarchar(30),
@@ -244,20 +214,20 @@ create table XXX.FUNCIONALIDAD
 
 go
 
-create table XXX.FUNCIONALIDAD_POR_ROL
+create table BEMVINDO.FUNCIONALIDAD_POR_ROL
 (
     id_funcionalidad    numeric(10,0),
     id_rol  numeric(10,0),
 
 
     PRIMARY KEY (id_funcionalidad, id_rol), 
-    FOREIGN KEY (id_funcionalidad)           references XXX.FUNCIONALIDAD(id_funcionalidad), 
-    FOREIGN KEY (id_rol)                     references XXX.ROL(id_rol)
+    FOREIGN KEY (id_funcionalidad)           references BEMVINDO.FUNCIONALIDAD(id_funcionalidad), 
+    FOREIGN KEY (id_rol)                     references BEMVINDO.ROL(id_rol)
 )
 
 go
 
-create table XXX.ESTADO_CIVIL
+create table BEMVINDO.ESTADO_CIVIL
 (
     id_estado_civil  numeric(10,0) identity(1,1),
     descripcion nvarchar(30),
@@ -267,7 +237,7 @@ create table XXX.ESTADO_CIVIL
 
 go
 
-create table XXX.PLAN_MEDICO
+create table BEMVINDO.PLAN_MEDICO
 (
     id_plan_medico   numeric(10,0) identity(1,1) ,
     descripcion      nvarchar(255),
@@ -280,9 +250,9 @@ create table XXX.PLAN_MEDICO
 
 go
 
-create table XXX.PERSONAL
+create table BEMVINDO.PERSONAL
 (
-    id_personal  numeric(10,0) references XXX.USUARIO(id_usuario) ,
+    id_personal  numeric(10,0) references BEMVINDO.USUARIO(id_usuario) ,
     matricula   nvarchar(30) --unique,
 
     PRIMARY KEY (id_personal)
@@ -290,7 +260,7 @@ create table XXX.PERSONAL
 
 go
 
-create table XXX.AFILIADO
+create table BEMVINDO.AFILIADO
 (
     id_afiliado numeric(10,0),
     estado_civil numeric(10,0),
@@ -299,14 +269,14 @@ create table XXX.AFILIADO
     cantidad_hijos smallint
 
     PRIMARY KEY (id_afiliado)
-    FOREIGN KEY (id_afiliado)             references XXX.USUARIO(id_usuario),
-    FOREIGN KEY (estado_civil)            references XXX.ESTADO_CIVIL(id_estado_civil),
-	FOREIGN KEY (plan_medico)            references XXX.PLAN_MEDICO(id_plan_medico)
+    FOREIGN KEY (id_afiliado)             references BEMVINDO.USUARIO(id_usuario),
+    FOREIGN KEY (estado_civil)            references BEMVINDO.ESTADO_CIVIL(id_estado_civil),
+	FOREIGN KEY (plan_medico)            references BEMVINDO.PLAN_MEDICO(id_plan_medico)
 )
 
 go
 
-create table XXX.AGENDA
+create table BEMVINDO.AGENDA
 (
     id_agenda  numeric(10,0) identity(1,1) ,
     personal numeric(10,0),
@@ -314,27 +284,29 @@ create table XXX.AGENDA
     fecha_hasta date
 
     PRIMARY KEY (id_agenda),
-    FOREIGN KEY (personal)             references XXX.PERSONAL(id_personal)
+    FOREIGN KEY (personal)             references BEMVINDO.PERSONAL(id_personal)
 
 )
 
 go
 
-create table XXX.DIA_AGENDA
+create table BEMVINDO.DIA_AGENDA
 (
     id_dia_agenda numeric(10,0) identity(1,1),
+	agenda numeric(10,0),
     dia date,
     hora_desde  time,
     hora_hasta  time,
     activo  bit
 
     PRIMARY KEY (id_dia_agenda),
+	FOREIGN KEY (agenda)             references BEMVINDO.AGENDA(id_agenda)
 
 )
 
 go
 
-create table XXX.DIA_AGENDA_EXCEPCION
+create table BEMVINDO.DIA_AGENDA_EXCEPCION
 (
     id_dia_agenda_exepcion  numeric(10,0) identity(1,1),
     agenda   numeric(10,0) ,
@@ -342,12 +314,12 @@ create table XXX.DIA_AGENDA_EXCEPCION
 
     
     PRIMARY KEY (id_dia_agenda_exepcion),
-    FOREIGN KEY (agenda)             references XXX.AGENDA(id_agenda)
+    FOREIGN KEY (agenda)             references BEMVINDO.AGENDA(id_agenda)
 )
 
 go
 
-create table XXX.TIPO_ESPECIALIDAD
+create table BEMVINDO.TIPO_ESPECIALIDAD
 (
     id_tipo_especialidad  numeric(10,0) identity(1,1) ,
     descripcion nvarchar(255)
@@ -357,31 +329,31 @@ create table XXX.TIPO_ESPECIALIDAD
 
 go
 
-create table XXX.ESPECIALIDAD
+create table BEMVINDO.ESPECIALIDAD
 (
     id_especialidad  numeric(10,0) identity(1,1) ,
     tipo_especialidad numeric(10,0),
     descripcion nvarchar(255),
 
     PRIMARY KEY (id_especialidad),
-    FOREIGN KEY (tipo_especialidad)                   references XXX.TIPO_ESPECIALIDAD(id_tipo_especialidad)
+    FOREIGN KEY (tipo_especialidad)                   references BEMVINDO.TIPO_ESPECIALIDAD(id_tipo_especialidad)
 )
 
 go
 
-create table XXX.ESPECIALIDAD_POR_PERSONAL
+create table BEMVINDO.ESPECIALIDAD_POR_PERSONAL
 (
     id_especialidad numeric(10,0) ,
     id_personal numeric(10,0) 
 
     PRIMARY KEY (id_especialidad, id_personal), 
-    FOREIGN KEY (id_especialidad)                references XXX.ESPECIALIDAD(id_especialidad), 
-    FOREIGN KEY (id_personal)                    references XXX.PERSONAL(id_personal)
+    FOREIGN KEY (id_especialidad)                references BEMVINDO.ESPECIALIDAD(id_especialidad), 
+    FOREIGN KEY (id_personal)                    references BEMVINDO.PERSONAL(id_personal)
 )
 
 go
 
-create table XXX.TURNO
+create table BEMVINDO.TURNO
 (
     id_turno  numeric(10,0) identity(1,1) ,
     afiliado numeric(10,0) ,
@@ -392,30 +364,29 @@ create table XXX.TURNO
 
 
     PRIMARY KEY (id_turno), 
-    FOREIGN KEY (afiliado)                    references XXX.AFILIADO(id_afiliado), 
-    FOREIGN KEY (personal)                    references XXX.PERSONAL(id_personal)
+    FOREIGN KEY (afiliado)                    references BEMVINDO.AFILIADO(id_afiliado), 
+    FOREIGN KEY (personal)                    references BEMVINDO.PERSONAL(id_personal)
 )
 
 go
 
-create table XXX.RESULTADO_TURNO
+create table BEMVINDO.CONSULTA
 (
     id_resultado_turno     numeric(10,0) identity(1,1),
-    turno                  numeric(10,0) ,
-    diagnostico            nvarchar(255),
-    sintoma                nvarchar(50),
-    fecha_diagnostico      date,
+    turno                  numeric(10,0),
+	sintoma                nvarchar(255),
+    enfermedad            nvarchar(255),
+    fecha_bono			datetime,
+	fecha_compra_bono	datetime,
     activo                 bit
 
     PRIMARY KEY (id_resultado_turno), 
-    FOREIGN KEY (turno)                    references XXX.TURNO(id_turno), 
+    FOREIGN KEY (turno)                    references BEMVINDO.TURNO(id_turno), 
 )
 
 go
 
-go
-
-create table XXX.TIPO_CANCELACION
+create table BEMVINDO.TIPO_CANCELACION
 (
     id_tipo_cancelacion      numeric(10,0) identity(1,1) ,
     descripcion              nvarchar(255),
@@ -425,9 +396,7 @@ create table XXX.TIPO_CANCELACION
 
 go
 
-go
-
-create table XXX.CANCELACION
+create table BEMVINDO.CANCELACION
 (
     id_cancelacion          numeric(10,0) identity(1,1) ,
     tipo_cancelacion     numeric(10,0),
@@ -439,112 +408,25 @@ create table XXX.CANCELACION
 
 
     PRIMARY KEY (id_cancelacion), 
-    FOREIGN KEY (tipo_cancelacion)         references XXX.TIPO_CANCELACION(id_tipo_cancelacion), 
-    FOREIGN KEY (turno)                    references XXX.TURNO(id_turno),
-    FOREIGN KEY (usuario)                    references XXX.USUARIO(id_usuario)
+    FOREIGN KEY (tipo_cancelacion)         references BEMVINDO.TIPO_CANCELACION(id_tipo_cancelacion), 
+    FOREIGN KEY (turno)                    references BEMVINDO.TURNO(id_turno),
+    FOREIGN KEY (usuario)                    references BEMVINDO.USUARIO(id_usuario)
 )
 
 go
 
-create table XXX.MEDICAMENTO
-(
-    id_medicamento  numeric(10,0) identity(1,1),
-    descripcion nvarchar(50),
-    activo  bit 
-
-    PRIMARY KEY (id_medicamento), 
-)
-
-
-go
-
-create table XXX.RECETA
-(
-    id_receta  numeric(10,0) identity(1,1),
-    resultado_turno  numeric(10,0) ,
-    activo  bit
-
-    PRIMARY KEY (id_receta), 
-    FOREIGN KEY (resultado_turno)         references XXX.RESULTADO_TURNO(id_resultado_turno)
-)
-
-create table XXX.ITEM_RECETA
-(
-    id_item_receta  numeric(10,0) identity(1,1),
-    receta   numeric(10,0) ,
-    medicamento  numeric(10,0) ,
-    cantidad    int,
-    activo  bit,
-
-
-    PRIMARY KEY (id_item_receta), 
-    FOREIGN KEY (receta)              references XXX.RECETA(id_receta),
-    FOREIGN KEY (medicamento)         references XXX.MEDICAMENTO(id_medicamento)
-)
-
-go
-
-create table XXX.COMPRA
-(
-    id_compra  numeric(10,0) identity(1,1) ,
-    afiliado     numeric(10,0),
-    fecha_compra    date,
-    costo   numeric(10,2),
-    activo  bit
-
-    
-    PRIMARY KEY (id_compra), 
-    FOREIGN KEY (afiliado)              references XXX.AFILIADO(id_afiliado)
-)
-
-go
-
-create table XXX.BONO_CONSULTA
-(
-    id_bono_consulta  numeric(10,0) identity(1,1),
-    compra   numeric(10,0) ,
-    turno    numeric(10,0) ,
-    fecha_impresion     date,
-    activo  bit
-
-    PRIMARY KEY (id_bono_consulta), 
-    FOREIGN KEY (compra)              references XXX.COMPRA(id_compra),
-    FOREIGN KEY (turno)               references XXX.TURNO(id_turno)
-)
-
-
-go
-
-create table XXX.BONO_FARMACIA
-(
-    id_bono_farmacia  numeric(10,0) identity(1,1),
-    receta   numeric(10,0) ,
-    turno    numeric(10,0) ,
-    fecha_vencimiento   date,
-    fecha_impresion     date,
-    fecha_prescripcion      date,
-    activo  bit,
-
-
-    PRIMARY KEY (id_bono_farmacia), 
-    FOREIGN KEY (receta)              references XXX.RECETA(id_receta),
-    FOREIGN KEY (turno)               references XXX.TURNO(id_turno)
-)
-
-go
-
-
-create table XXX.PLAN_HISTORICO_AFILIADO
+create table BEMVINDO.PLAN_HISTORICO_AFILIADO
 (
     id_plan_historico_afiliado  numeric(10,0) identity(1,1),
     plan_medico  numeric(10,0) ,
     afiliado numeric(10,0) ,
-    fecha   date,
+	motivo	nvarchar(255),
+    fecha   datetime,
     activo  bit
 
     PRIMARY KEY (id_plan_historico_afiliado), 
-    FOREIGN KEY (plan_medico)                  references XXX.PLAN_MEDICO(id_plan_medico),
-    FOREIGN KEY (afiliado)                     references XXX.AFILIADO(id_afiliado)
+    FOREIGN KEY (plan_medico)                  references BEMVINDO.PLAN_MEDICO(id_plan_medico),
+    FOREIGN KEY (afiliado)                     references BEMVINDO.AFILIADO(id_afiliado)
 )
 
 go
@@ -553,7 +435,7 @@ go
 /********************************************************************************************************************************/
 /*FUNCION HASH Y TRIGGER PARA LA CONTRASEÑA*/
 /********************************************************************************************************************************/
-create function XXX.fn_hashear_pass (@pass nvarchar(255))
+create function BEMVINDO.fn_hashear_pass (@pass nvarchar(255))
 returns nvarchar(255)
 as begin
     return(
@@ -563,15 +445,15 @@ end
 
 go
 
-create trigger XXX.tg_hashear_pass_insert  
-on XXX.USUARIO  
+create trigger BEMVINDO.tg_hashear_pass_insert  
+on BEMVINDO.USUARIO  
 instead of insert  
 as begin  
     
-  insert into XXX.USUARIO  
+  insert into BEMVINDO.USUARIO  
     select  
       nick,  
-      XXX.fn_hashear_pass(pass),  
+      BEMVINDO.fn_hashear_pass(pass),  
       intentos_login,
       activo,
       nombre, 
@@ -588,8 +470,8 @@ end
  
 go  
 
-create trigger XXX.tg_hashear_pass_update  
-on XXX.USUARIO  
+create trigger BEMVINDO.tg_hashear_pass_update  
+on BEMVINDO.USUARIO  
 after update
 as begin
 
@@ -600,8 +482,8 @@ declare @id_insertado numeric(18,0);
 
   if(update(pass))
   begin
-    update XXX.USUARIO  
-    set pass = XXX.fn_hashear_pass(pass)  
+    update BEMVINDO.USUARIO  
+    set pass = BEMVINDO.fn_hashear_pass(pass)  
     where id_usuario = @id_insertado 
   end
  
@@ -615,14 +497,14 @@ go
 
 --TIPO DOCUMENTO
 -------------------------------------------------------------------------------------------------------
-insert into XXX.TIPO_DOCUMENTO
+insert into BEMVINDO.TIPO_DOCUMENTO
 values ('DNI')
 
 go
 
 --ESTADO CIVIL
 -------------------------------------------------------------------------------------------------------
-insert into XXX.ESTADO_CIVIL
+insert into BEMVINDO.ESTADO_CIVIL
 values 
 	('SOLTERO/A'),
 	('CASADO/A'),
@@ -634,12 +516,12 @@ go
 
 --PLAN MEDICO
 -------------------------------------------------------------------------------------------------------
-alter table XXX.PLAN_MEDICO
+alter table BEMVINDO.PLAN_MEDICO
 add plan_medico_codigo numeric(18,0)
 
 go
 
-insert into XXX.PLAN_MEDICO
+insert into BEMVINDO.PLAN_MEDICO
 	select distinct
 		Plan_Med_Descripcion,
 		Plan_Med_Precio_Bono_Consulta,
@@ -654,7 +536,7 @@ go
 -------------------------------------------------------------------------------------------------------
 
 --afiliados
-insert into XXX.USUARIO
+insert into BEMVINDO.USUARIO
 	select distinct
 		Paciente_Dni,
 		Paciente_Dni,
@@ -677,7 +559,7 @@ insert into XXX.USUARIO
 go
 
 --personal
-insert into XXX.USUARIO
+insert into BEMVINDO.USUARIO
 	select distinct
 		Medico_Dni,
 		Medico_Dni,
@@ -701,7 +583,7 @@ go
 
 --AFILIADOS
 -------------------------------------------------------------------------------------------------------
-insert into XXX.AFILIADO
+insert into BEMVINDO.AFILIADO
 	select distinct
 		U.id_usuario,
 		null,
@@ -709,9 +591,9 @@ insert into XXX.AFILIADO
 		null,
 		null
 	from gd_esquema.Maestra as M
-	inner join XXX.USUARIO as U 
+	inner join BEMVINDO.USUARIO as U 
 		on M.Paciente_Dni = U.documento
-	inner join XXX.PLAN_MEDICO as P
+	inner join BEMVINDO.PLAN_MEDICO as P
 		on M.Plan_Med_Codigo = P.plan_medico_codigo
 	where 
 		M.Consulta_Sintomas is null and
@@ -721,12 +603,12 @@ go
 
 --PERSONAL
 -------------------------------------------------------------------------------------------------------
-insert into XXX.PERSONAL
+insert into BEMVINDO.PERSONAL
 	select distinct
 		U.id_usuario,
 		null
 	from gd_esquema.Maestra as M
-	inner join XXX.USUARIO as U 
+	inner join BEMVINDO.USUARIO as U 
 		on M.Medico_Dni = U.documento
 	where 
 		M.Consulta_Sintomas is null and
@@ -736,12 +618,12 @@ go
 
 --TIPO ESPECIALIDAD
 -------------------------------------------------------------------------------------------------------
-alter table XXX.TIPO_ESPECIALIDAD
+alter table BEMVINDO.TIPO_ESPECIALIDAD
 add tipo_especialidad_codigo numeric(18,0)
 
 go
 
-insert into XXX.TIPO_ESPECIALIDAD
+insert into BEMVINDO.TIPO_ESPECIALIDAD
 	select distinct
 		UPPER(Tipo_Especialidad_Descripcion),
 		Tipo_Especialidad_Codigo
@@ -753,18 +635,18 @@ go
 
 --ESPECIALIDAD
 -------------------------------------------------------------------------------------------------------
-alter table XXX.ESPECIALIDAD
+alter table BEMVINDO.ESPECIALIDAD
 add especialidad_codigo numeric(18,0)
 
 go
 
-insert into XXX.ESPECIALIDAD
+insert into BEMVINDO.ESPECIALIDAD
 	select distinct
 		T.id_tipo_especialidad,
 		UPPER(M.Especialidad_Descripcion),
 		M.Especialidad_Codigo
 	from gd_esquema.Maestra as M
-	inner join XXX.TIPO_ESPECIALIDAD as T
+	inner join BEMVINDO.TIPO_ESPECIALIDAD as T
 		on T.tipo_especialidad_codigo = M.Tipo_Especialidad_Codigo
 	where 
 		Especialidad_Codigo is not null
@@ -773,12 +655,12 @@ go
 
 --TURNO
 -------------------------------------------------------------------------------------------------------
-alter table XXX.TURNO
+alter table BEMVINDO.TURNO
 add turno_numero numeric(18,0)
 
 go
 
-insert into XXX.TURNO
+insert into BEMVINDO.TURNO
 	select
 		A.id_usuario as afiliado,
 		P.id_usuario as personal,
@@ -787,14 +669,74 @@ insert into XXX.TURNO
 		1,
 		M.Turno_Numero
 	from gd_esquema.Maestra as M
-	inner join XXX.USUARIO as A on M.Paciente_Dni = A.documento
-	inner join XXX.USUARIO as P on M.Medico_Dni = P.documento
+	inner join BEMVINDO.USUARIO as A on M.Paciente_Dni = A.documento
+	inner join BEMVINDO.USUARIO as P on M.Medico_Dni = P.documento
 	where
 		Turno_Numero is not null and
 		Consulta_Sintomas is null
 
 go
 
+--CONSULTA
+-------------------------------------------------------------------------------------------------------
+alter table BEMVINDO.CONSULTA
+add consulta_numero numeric(18,0)
+
+go
+
+insert into BEMVINDO.CONSULTA
+	select 
+		T.id_turno,
+		UPPER(M.Consulta_Sintomas),
+		UPPER(M.Consulta_Enfermedades),
+		M.Bono_Consulta_Fecha_Impresion,
+		M.Bono_Consulta_Fecha_Impresion,
+		1,
+		M.Bono_Consulta_Numero
+	from gd_esquema.Maestra as M
+	inner join BEMVINDO.TURNO as T on M.Turno_Numero = T.turno_numero
+	where 
+		M.Bono_Consulta_Numero is not null and
+		M.Compra_Bono_Fecha is null
+
+go
 
 
+/********************************************************************************************************************************/
+/*BORRADO DE CAMPOS QUE FUERON REEMPLAZADOS POR ID'S AUTOGENERADOS EN LA MIGRACION*/
+/********************************************************************************************************************************/
 
+--PLAN MEDICO
+-------------------------------------------------------------------------------------------------------
+alter table BEMVINDO.PLAN_MEDICO
+drop column plan_medico_codigo 
+
+go
+
+--TIPO ESPECIALIDAD
+-------------------------------------------------------------------------------------------------------
+alter table BEMVINDO.TIPO_ESPECIALIDAD
+drop column tipo_especialidad_codigo
+
+go
+
+--ESPECIALIDAD
+-------------------------------------------------------------------------------------------------------
+alter table BEMVINDO.ESPECIALIDAD
+drop column especialidad_codigo 
+
+go
+
+--TURNO
+-------------------------------------------------------------------------------------------------------
+alter table BEMVINDO.TURNO
+drop column turno_numero
+
+go
+
+--CONSULTA
+-------------------------------------------------------------------------------------------------------
+alter table BEMVINDO.CONSULTA
+drop column consulta_numero
+
+go
