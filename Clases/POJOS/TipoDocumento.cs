@@ -1,37 +1,16 @@
 ﻿using System;
 using TostadoPersistentKit;
+using UsingTostadoPersistentKit.TostadoPersistentKit;
 
 namespace ClinicaFrba.Clases
 {
+    [Table(name = "BEMVINDO.TIPO_DOCUMENTO")]
     public class TipoDocumento:Serializable
     {
+        [Id(name = "id_tipo_documento", type = PrimaryKeyType.SURROGATE)]
         public long id { get; set; }
+
+        [Column(name = "descripcion")]
         public string descripcion{ get; set; }
-
-        internal override void map()
-        {
-            mappings.Add("id", "id");
-            mappings.Add("descripcion", "descripcion");
-        }
-
-        internal override string getIdPropertyName()
-        {
-            return "id";
-        }
-
-        internal override string getTableName()
-        {
-            return "tipo_documento";
-        }
-
-        internal override PrimaryKeyType getPrimaryKeyType()
-        {
-            return PrimaryKeyType.SURROGATE;
-        }
-
-        internal override FetchType getFetchType()
-        {
-            return FetchType.LAZY;
-        }
     }
 }

@@ -66,3 +66,4 @@ C:\Users\alexiscaspell3\GddUtn-Clinica\bin\Debug\Microsoft.VisualStudio.QualityT
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Logueo.LoginForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\UsingTostadoPersistentKit.TostadoPersistentKit.CreatePersistentModel.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.AbmRol.AbmRolForm.resources
+C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.ModificarAfiliadoForm.resources

@@ -36,11 +36,35 @@ namespace UsingTostadoPersistentKit.TostadoPersistentKit
 
         public void dropExistingTables()
         {
+            List<string> oneToManyTables = new List<string>();
+
+            foreach (var item in dictionaryObjectsAndTypes.Values)
+            {
+                foreach (string tableName in getOneToManyTables(item))
+                {
+                    if (!oneToManyTables.Contains(tableName))
+                    {
+                        oneToManyTables.Add(tableName);
+                    }
+                }
+            }
+
             //Este while sirve para ir borrando las tablas varias veces, porque algunas no
             //se borran a la primera por las fks
-            while (dictionaryObjectsAndTypes.Values.Any(o=>existsTable(o.getTableName())))
+            while (dictionaryObjectsAndTypes.Values.Any(o=>existsTable(o.getTableName())) || oneToManyTables.Any(table => existsTable(table)))
             {
-                foreach (var item in dictionaryObjectsAndTypes.Values)
+                foreach (var item in oneToManyTables)//Borro tablas intermedias
+                {
+                    if (existsTable(item))
+                    {
+                        dropTable(item);
+                    }
+                    else
+                    {
+                            
+                    }
+                }
+                foreach (var item in dictionaryObjectsAndTypes.Values)//Borro tablas
                 {
                     if (existsTable(item.getTableName()))
                     {
@@ -48,6 +72,18 @@ namespace UsingTostadoPersistentKit.TostadoPersistentKit
                     }
                 }
             }
+        }
+
+        private List<string> getOneToManyTables(Serializable objeto)
+        {
+            List<string> listTables = new List<string>();
+
+
+
+            objeto.getOneToManyPropertyNames().
+                    ForEach(property => listTables.Add(objeto.getOneToManyTable(property)));
+
+            return listTables;
         }
 
         private void dropTable(string table)
@@ -98,17 +134,77 @@ namespace UsingTostadoPersistentKit.TostadoPersistentKit
         {
             foreach (var item in dictionaryObjectsAndTypes.Values)
             {
-                createForeignKeys(item);
+                createForeignKeys(item);//Me falta ver las fks de oneToMany
             }
+            foreach (var item in dictionaryObjectsAndTypes.Values)
+            {
+                createOneToManyTables(item);
+            }
+        }
+
+        private void createOneToManyTables(Serializable objeto)
+        {
+            foreach (var item in objeto.getOneToManyPropertyNames())
+            {
+                string tableName = objeto.getOneToManyTable(item);
+
+                if (!existsTable(tableName))
+                {
+                    createOneToManyTable(objeto, item);
+                }
+            }
+        }
+
+        private void createOneToManyTable(Serializable objeto, string propertyName)
+        {
+            Type containingTypeOfProperty = Assembly.GetExecutingAssembly().
+                                GetType(objeto.GetType().
+                                GetProperty(propertyName).PropertyType.
+                                ToString().Split('[')[1].Split(']')[0]);
+
+            Serializable containingTypeOfPropertyInstance = (Serializable)Activator.CreateInstance(containingTypeOfProperty);
+
+            string pkName = objeto.getOneToManyPk(propertyName);
+            string tableName = objeto.getOneToManyTable(propertyName);
+            string fkName = objeto.getOneToManyFk(propertyName);
+
+            string pkDataTypeName = getDataTypeName(objeto.GetType().
+                                    GetProperty(objeto.getIdPropertyName()).PropertyType);
+
+            string fkDataTypeName = getDataTypeName(containingTypeOfPropertyInstance.GetType().
+                                    GetProperty(containingTypeOfPropertyInstance.
+                                    getIdPropertyName()).PropertyType);
+
+            string createQuery = "create table " + tableName + "(" + pkName + " " + 
+                                pkDataTypeName + " ," + fkName + " " + fkDataTypeName + ", " + 
+                                "primary key(" + pkName + "," + fkName + "))";
+
+            DataBase.Instance.ejecutarConsulta(createQuery);
         }
 
         private void createForeignKeys(Serializable objeto)
         {
             int serializablePropertyCounter = listProperties(objeto).Count(property => 
-                                                isSerializableProperty(property, objeto));
+                                                isSerializableProperty(property, objeto)&&objeto.getMapFromKey(property)!="");
 
             if (serializablePropertyCounter==0)
             {
+                return;
+            }
+
+            bool existsFkEqualToPk = listProperties(objeto).Exists(prop => 
+                                    objeto.getMapFromKey(prop) == objeto.getMapFromKey(objeto.getIdPropertyName()) 
+                                    && typeof(Serializable).IsAssignableFrom(getPropertyType(prop, objeto)));
+
+            //Este es el caso en el que la pk sea una fk y que solo haya 1 fk
+            if (serializablePropertyCounter == 1 && existsFkEqualToPk)
+            {
+                Serializable property = dictionaryObjectsAndTypes[getPropertyType(listProperties(objeto)[0], objeto)];
+                DataBase.Instance.ejecutarConsulta("alter table "+ objeto.getTableName()+
+                                    " add foreign key("+objeto.getMapFromKey(objeto.getIdPropertyName())+
+                                    ") references "+property.getTableName()+"("+
+                                    property.getMapFromKey(property.getIdPropertyName())+")");
+
                 return;
             }
 
@@ -120,7 +216,7 @@ namespace UsingTostadoPersistentKit.TostadoPersistentKit
             {
                 Type propertyType = getPropertyType(item, objeto);
 
-                if (isSerializableProperty(item,objeto))
+                if (isSerializableProperty(item,objeto)&& objeto.getMapFromKey(item) != "")
                 {
                     Serializable property = dictionaryObjectsAndTypes[propertyType];
                     Type idPropertyType = getPropertyType(property.getIdPropertyName(), property);
@@ -129,7 +225,11 @@ namespace UsingTostadoPersistentKit.TostadoPersistentKit
                     string foreignKeyProperty = objeto.getMapFromKey(item);
                     string tableNameProperty = property.getTableName();
 
-                    alterQuery += foreignKeyProperty + " " + getDataTypeName(idPropertyType) + ",";
+                    if (objeto.getMapFromKey(item)!=objeto.getMapFromKey(objeto.getIdPropertyName()))//Si es la pk, ya se inserto
+                    {
+                        alterQuery += foreignKeyProperty + " " + getDataTypeName(idPropertyType) + ",";
+                    }
+
                     foreignKeys += "foreign key(" + foreignKeyProperty + ") references " 
                                     + tableNameProperty + "(" + primaryKeyProperty + "),";
                 }
@@ -143,6 +243,11 @@ namespace UsingTostadoPersistentKit.TostadoPersistentKit
 
         private void createIncompleteTable(Serializable objeto)
         {
+            if (existsTable(objeto.getTableName()))
+            {
+                return;
+            }
+
             string createQuery = "create table " + objeto.getTableName() + "(";
 
             foreach (var item in listProperties(objeto))
@@ -151,7 +256,7 @@ namespace UsingTostadoPersistentKit.TostadoPersistentKit
                 {
                     String dataType = getDataTypeName(getPropertyType(item, objeto));
 
-                    if (dataType!="")
+                    if (dataType!=""&& objeto.getMapFromKey(item)!="")
                     {
                         createQuery += objeto.getMapFromKey(item) + " " + dataType;
 
@@ -238,7 +343,7 @@ namespace UsingTostadoPersistentKit.TostadoPersistentKit
         private bool existsTable(String tableName)
         {
             string existsQuery = "if EXISTS(SELECT * FROM sysobjects  WHERE name = '" +
-                tableName + "') select 1 as value else select 0 as value";
+                tableName.Split('.')[tableName.Split('.').Length-1] + "') select 1 as value else select 0 as value";
 
             return Convert.ToBoolean(DataBase.Instance.ejecutarConsulta(existsQuery)[0]["value"]);
         }

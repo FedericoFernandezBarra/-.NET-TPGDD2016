@@ -4,67 +4,58 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TostadoPersistentKit;
+using UsingTostadoPersistentKit.TostadoPersistentKit;
 
 namespace ClinicaFrba.Clases
 {
+    [Table(name = "BEMVINDO.USUARIO")]
     public class Usuario:Serializable
     {
+        [Id(name = "id_usuario",type =PrimaryKeyType.SURROGATE)]
         public long id { get; set; }
+
+        [Column(name = "nick")]
         public string nick { get; set; }
+
+        [Column(name = "pass")]
         public string pass { get; set; }
+
+        [Column(name = "intentos_login")]
         public int intentosDeLogin { get; set; }
+
+        [Column(name = "activo")]
         public bool activo { get; set; }
+
+        [Column(name = "nombre")]
         public string nombre { get; set; }
+
+        [Column(name = "apellido")]
         public string apellido { get; set; }
+
+        [Column(name = "tipo_documento",fetch =FetchType.EAGER)]
         public TipoDocumento tipoDeDocumento { get; set; }
+
+        [Column(name = "documento")]
         public string documento { get; set; }
+
+        [Column(name = "fecha_nacimiento")]
         public DateTime fechaDeNacimiento { get; set; }
+
+        [Column(name = "direccion")]
         public string direccion { get; set; }
+
+        [Column(name = "telefono")]
         public string telefono { get; set; }
+
+        [Column(name = "mail")]
         public string mail { get; set; }
+
+        [Column(name = "sexo")]
         public char sexo { get; set; }
 
         public Usuario()
         {
             fechaDeNacimiento = Sistema.Instance.getDate();
-        }
-
-        internal override void map()
-        {
-            mappings.Add("id", "id_usuario");
-            mappings.Add("nick", "nick");
-            mappings.Add("pass","pass");
-            mappings.Add("intentosDeLogin", "intentos_login");
-            mappings.Add("activo", "activo");
-            mappings.Add("nombre", "nombre");
-            mappings.Add("apellido", "apellido");
-            mappings.Add("tipoDeDocumento", "tipo_documento");
-            mappings.Add("documento", "documento");
-            mappings.Add("fechaDeNacimiento", "fecha_nacimiento");
-            mappings.Add("direccion", "direccion");
-            mappings.Add("telefono", "telefono");
-            mappings.Add("mail", "mail");
-            mappings.Add("sexo", "sexo");
-        }
-
-        internal override string getIdPropertyName()
-        {
-            return "id";
-        }
-
-        internal override string getTableName()
-        {
-            return "usuario";
-        }
-
-        internal override PrimaryKeyType getPrimaryKeyType()
-        {
-            return PrimaryKeyType.SURROGATE;
-        }
-
-        internal override FetchType getFetchType()
-        {
-            return FetchType.LAZY;
         }
     }
 }

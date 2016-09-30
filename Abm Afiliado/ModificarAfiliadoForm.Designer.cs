@@ -1,6 +1,6 @@
 ﻿namespace ClinicaFrba.Abm_Afiliado
 {
-    partial class AltaAfiliadoForm
+    partial class ModificarAfiliadoForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lbl26 = new System.Windows.Forms.Label();
+            this.txtMotivo = new System.Windows.Forms.TextBox();
+            this.lblMotivo = new System.Windows.Forms.Label();
             this.lblGrupo = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.btnHijo = new System.Windows.Forms.Button();
@@ -79,6 +82,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lbl26);
+            this.groupBox1.Controls.Add(this.txtMotivo);
+            this.groupBox1.Controls.Add(this.lblMotivo);
             this.groupBox1.Controls.Add(this.lblGrupo);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.btnHijo);
@@ -130,9 +136,41 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(836, 432);
-            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos Personales";
+            // 
+            // lbl26
+            // 
+            this.lbl26.AutoSize = true;
+            this.lbl26.Location = new System.Drawing.Point(795, 288);
+            this.lbl26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl26.Name = "lbl26";
+            this.lbl26.Size = new System.Drawing.Size(13, 17);
+            this.lbl26.TabIndex = 63;
+            this.lbl26.Text = "*";
+            this.lbl26.Visible = false;
+            // 
+            // txtMotivo
+            // 
+            this.txtMotivo.Location = new System.Drawing.Point(176, 284);
+            this.txtMotivo.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMotivo.Name = "txtMotivo";
+            this.txtMotivo.Size = new System.Drawing.Size(609, 23);
+            this.txtMotivo.TabIndex = 65;
+            this.txtMotivo.Visible = false;
+            // 
+            // lblMotivo
+            // 
+            this.lblMotivo.AutoSize = true;
+            this.lblMotivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMotivo.Location = new System.Drawing.Point(8, 290);
+            this.lblMotivo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblMotivo.Name = "lblMotivo";
+            this.lblMotivo.Size = new System.Drawing.Size(136, 17);
+            this.lblMotivo.TabIndex = 64;
+            this.lblMotivo.Text = "Motivo Cambio Plan:";
+            this.lblMotivo.Visible = false;
             // 
             // lblGrupo
             // 
@@ -207,7 +245,6 @@
             this.cmbVolver.TabIndex = 60;
             this.cmbVolver.Text = "Volver";
             this.cmbVolver.UseVisualStyleBackColor = true;
-            this.cmbVolver.Click += new System.EventHandler(this.cmbVolver_Click);
             // 
             // cmdLimpiar
             // 
@@ -218,7 +255,6 @@
             this.cmdLimpiar.TabIndex = 59;
             this.cmdLimpiar.Text = "Limpiar";
             this.cmdLimpiar.UseVisualStyleBackColor = true;
-            this.cmdLimpiar.Click += new System.EventHandler(this.cmdLimpiar_Click);
             // 
             // txtDni
             // 
@@ -237,7 +273,6 @@
             this.cmdAceptar.TabIndex = 57;
             this.cmdAceptar.Text = "Guardar";
             this.cmdAceptar.UseVisualStyleBackColor = true;
-            this.cmdAceptar.Click += new System.EventHandler(this.cmdAceptar_Click);
             // 
             // label25
             // 
@@ -588,15 +623,14 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre:";
             // 
-            // AltaAfiliadoForm
+            // ModificarAfiliadoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(863, 454);
+            this.ClientSize = new System.Drawing.Size(862, 455);
             this.Controls.Add(this.groupBox1);
-            this.Name = "AltaAfiliadoForm";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.AltaAfiliadoForm_Load);
+            this.Name = "ModificarAfiliadoForm";
+            this.Text = "ModificarAfiliadoForm";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -606,6 +640,9 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label lbl26;
+        private System.Windows.Forms.TextBox txtMotivo;
+        private System.Windows.Forms.Label lblMotivo;
         private System.Windows.Forms.Label lblGrupo;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button btnHijo;

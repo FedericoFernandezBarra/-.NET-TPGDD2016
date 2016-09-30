@@ -1,37 +1,16 @@
 ﻿using System;
 using TostadoPersistentKit;
+using UsingTostadoPersistentKit.TostadoPersistentKit;
 
 namespace ClinicaFrba.Clases.POJOS
 {
+    [Table(name = "BEMVINDO.FUNCIONALIDAD")]
     public class Funcionalidad:Serializable
     {
+        [Id(name = "id_funcionalidad",type =PrimaryKeyType.SURROGATE)]
         public long id { get; set; }
+
+        [Column(name ="nombre")]
         public string nombre { get; set; }
-
-        internal override FetchType getFetchType()
-        {
-            return FetchType.LAZY;
-        }
-
-        internal override string getIdPropertyName()
-        {
-            return "id";
-        }
-
-        internal override PrimaryKeyType getPrimaryKeyType()
-        {
-            return PrimaryKeyType.SURROGATE;
-        }
-
-        internal override string getTableName()
-        {
-            return "funcionalidad";
-        }
-
-        internal override void map()
-        {
-            mappings.Add("id", "id_funcionalidad");
-            mappings.Add("nombre", "nombre");
-        }
     }
 }
