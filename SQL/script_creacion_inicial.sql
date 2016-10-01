@@ -30,8 +30,8 @@ drop table BEMVINDO.FUNCIONALIDAD
 
 go
 
-if EXISTS (SELECT * FROM sysobjects  WHERE name='PLAN_HISTORICO_AFILIADO') 
-drop table BEMVINDO.PLAN_HISTORICO_AFILIADO 
+if EXISTS (SELECT * FROM sysobjects  WHERE name='HISTORIAL_CAMBIOS_DE_PLAN') 
+drop table BEMVINDO.HISTORIAL_CAMBIOS_DE_PLAN 
 
 go
 
@@ -183,7 +183,7 @@ create table BEMVINDO.ROL
 (
     id_rol  numeric(10,0) identity(1,1) ,
     descripcion nvarchar(30),
-    activo  bit
+    activo  bit,
 
     PRIMARY KEY (id_rol)
 ) 
@@ -207,7 +207,7 @@ create table BEMVINDO.FUNCIONALIDAD
 (
     id_funcionalidad  numeric(10,0) identity(1,1),
     descripcion     nvarchar(30),
-    activo  bit
+    activo  bit,
 
     PRIMARY KEY (id_funcionalidad)
 )
@@ -242,7 +242,6 @@ create table BEMVINDO.PLAN_MEDICO
     id_plan_medico   numeric(10,0) identity(1,1) ,
     descripcion      nvarchar(255),
 	precio_bono_consulta    numeric(18,2),
-    precio_bono_farmacia    numeric(18,2),
     activo           bit,
 
     PRIMARY KEY (id_plan_medico)
@@ -253,7 +252,7 @@ go
 create table BEMVINDO.PERSONAL
 (
     id_personal  numeric(10,0) references BEMVINDO.USUARIO(id_usuario) ,
-    matricula   nvarchar(30) --unique,
+    matricula   nvarchar(30), --unique
 
     PRIMARY KEY (id_personal)
 )
@@ -268,9 +267,9 @@ create table BEMVINDO.AFILIADO
     estado_civil numeric(10,0),
 	plan_medico numeric(10,0),
     numero_familiar numeric(10,0),
-    cantidad_hijos smallint
+    cantidad_hijos smallint,
 
-    PRIMARY KEY (id_afiliado)
+    PRIMARY KEY (id_afiliado),
     FOREIGN KEY (id_afiliado)             references BEMVINDO.USUARIO(id_usuario),
     FOREIGN KEY (estado_civil)            references BEMVINDO.ESTADO_CIVIL(id_estado_civil),
 	FOREIGN KEY (plan_medico)            references BEMVINDO.PLAN_MEDICO(id_plan_medico)
@@ -283,7 +282,7 @@ create table BEMVINDO.AGENDA
     id_agenda  numeric(10,0) identity(1,1) ,
     personal numeric(10,0),
     fecha_desde date,
-    fecha_hasta date
+    fecha_hasta date,
 
     PRIMARY KEY (id_agenda),
     FOREIGN KEY (personal)             references BEMVINDO.PERSONAL(id_personal)
@@ -299,7 +298,7 @@ create table BEMVINDO.DIA_AGENDA
     dia date,
     hora_desde  time,
     hora_hasta  time,
-    activo  bit
+    activo  bit,
 
     PRIMARY KEY (id_dia_agenda),
 	FOREIGN KEY (agenda)             references BEMVINDO.AGENDA(id_agenda)
@@ -312,7 +311,7 @@ create table BEMVINDO.DIA_AGENDA_EXCEPCION
 (
     id_dia_agenda_exepcion  numeric(10,0) identity(1,1),
     agenda   numeric(10,0) ,
-    dia date
+    dia date,
 
     
     PRIMARY KEY (id_dia_agenda_exepcion),
@@ -324,7 +323,7 @@ go
 create table BEMVINDO.TIPO_ESPECIALIDAD
 (
     id_tipo_especialidad  numeric(10,0) identity(1,1) ,
-    descripcion nvarchar(255)
+    descripcion nvarchar(255),
 
     PRIMARY KEY (id_tipo_especialidad)
 )
@@ -346,7 +345,7 @@ go
 create table BEMVINDO.ESPECIALIDAD_POR_PERSONAL
 (
     id_especialidad numeric(10,0) ,
-    id_personal numeric(10,0) 
+    id_personal numeric(10,0) ,
 
     PRIMARY KEY (id_especialidad, id_personal), 
     FOREIGN KEY (id_especialidad)                references BEMVINDO.ESPECIALIDAD(id_especialidad), 
@@ -380,7 +379,7 @@ create table BEMVINDO.CONSULTA
     enfermedad            nvarchar(255),
     fecha_bono			datetime,
 	fecha_compra_bono	datetime,
-    activo                 bit
+    activo                 bit,
 
     PRIMARY KEY (id_resultado_turno), 
     FOREIGN KEY (turno)                    references BEMVINDO.TURNO(id_turno), 
@@ -417,16 +416,16 @@ create table BEMVINDO.CANCELACION
 
 go
 
-create table BEMVINDO.PLAN_HISTORICO_AFILIADO
+create table BEMVINDO.HISTORIAL_CAMBIOS_DE_PLAN
 (
-    id_plan_historico_afiliado  numeric(10,0) identity(1,1),
+    id_historial  numeric(10,0) identity(1,1),
     plan_medico  numeric(10,0) ,
     afiliado numeric(10,0) ,
 	motivo	nvarchar(255),
     fecha   datetime,
-    activo  bit
+    activo  bit,
 
-    PRIMARY KEY (id_plan_historico_afiliado), 
+    PRIMARY KEY (id_historial), 
     FOREIGN KEY (plan_medico)                  references BEMVINDO.PLAN_MEDICO(id_plan_medico),
     FOREIGN KEY (afiliado)                     references BEMVINDO.AFILIADO(id_afiliado)
 )
@@ -527,7 +526,6 @@ insert into BEMVINDO.PLAN_MEDICO
 	select distinct
 		Plan_Med_Descripcion,
 		Plan_Med_Precio_Bono_Consulta,
-		Plan_Med_Precio_Bono_Farmacia,
 		1,
 		Plan_Med_Codigo
 	from gd_esquema.Maestra 
