@@ -146,6 +146,7 @@ go
 /*CREACION DE TABLAS*/
 /********************************************************************************************************************************/
 
+
 create table XXX.TIPO_DOCUMENTO
 (
     id_tipo_documento  numeric(10,0) identity (1,1) ,
@@ -158,8 +159,8 @@ go
 
 create table XXX.USUARIO
 (
-    id_usuario  numeric(10,0) identity(1,1) ,
-    nick    nvarchar(255) unique,
+    id_usuario  numeric(10,0) ,
+    nick    nvarchar(255) ,
     pass    nvarchar(255),
     intentos_login   smallint,
     activo  bit,
@@ -242,7 +243,7 @@ create table XXX.PLAN_MEDICO
     id_plan_medico   numeric(10,0) identity(1,1) ,
     descripcion      nvarchar(255),
     precio_bono_consulta    numeric(18,2),
-    activo           bit,
+    
 
     PRIMARY KEY (id_plan_medico)
 )
@@ -259,15 +260,24 @@ create table XXX.PERSONAL
 
 go
 
+
+create table XXX.NUMERITOS
+(
+    id_numerito  numeric(10,0) identity(1,1),
+    algo char,
+    PRIMARY KEY (id_numerito)
+)
+go
+
 create table XXX.AFILIADO
 (
     id_afiliado numeric(10,0),
-    nro_afiliado numeric(10,0),
-    nro_grupo_familiar numeric(10,0),
+    nro_grupo_familiar char(4),
     estado_civil numeric(10,0),
     plan_medico numeric(10,0),
-    numero_familiar numeric(10,0),
     cantidad_hijos smallint,
+    baja_logica  bit,
+    fecha_baja   date,
 
     PRIMARY KEY (id_afiliado),
     FOREIGN KEY (id_afiliado)             references XXX.USUARIO(id_usuario),
@@ -405,7 +415,8 @@ create table XXX.CANCELACION
     fecha   date,
     motivo  nvarchar(255),
     usuario  numeric(10,0),
-    activo  bit,
+    cancelado_por char,
+    
 
 
     PRIMARY KEY (id_cancelacion), 
@@ -423,7 +434,6 @@ create table XXX.HISTORIAL_CAMBIOS_DE_PLAN
     afiliado numeric(10,0) ,
     motivo  nvarchar(255),
     fecha   datetime,
-    activo  bit,
 
     PRIMARY KEY (id_historial), 
     FOREIGN KEY (plan_medico)                  references XXX.PLAN_MEDICO(id_plan_medico),
