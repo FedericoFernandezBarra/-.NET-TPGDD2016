@@ -95,10 +95,12 @@ go
 
 create procedure XXX.st_actualizar_afiliado
 @id_afiliado numeric(10,0),
-@plan_medico numeric(10,0),
 @direccion   nvarchar(255),
 @telefono    nvarchar(255),
-@mail    nvarchar(255)
+@mail    nvarchar(255),
+@plan_medico numeric(10,0),
+@motivo    nvarchar(255),
+@fecha date
 
 AS
 begin
@@ -107,8 +109,15 @@ begin
 	 where id_usuario = @id_afiliado
 
 
-	 update XXX.AFILIADO SET plan_medico=@plan_medico
-	 where id_afiliado = @id_afiliado
+	 if(@plan_medico is not null)
+	 begin
+	  	 insert into XXX.HISTORIAL_CAMBIOS_DE_PLAN values
+	  	 (@plan_medico,@id_afiliado,@motivo,@fecha)
+	     
+
+	  	 update XXX.AFILIADO SET plan_medico=@plan_medico
+	     where id_afiliado = @id_afiliado	          
+	 end	 
 
 end
 
@@ -123,6 +132,6 @@ begin
 	 select * 
 	 FROM XXX.HISTORIAL_CAMBIOS_DE_PLAN
 	 inner join XXX.PLAN_MEDICO on id_plan_medico = plan_medico
-	 where id_afiliado = @id_afiliado
+	 where afiliado = @id_afiliado
 
 end
