@@ -207,7 +207,7 @@ go
 create table XXX.FUNCIONALIDAD
 (
     id_funcionalidad  numeric(10,0) identity(1,1),
-    descripcion     nvarchar(30),
+    descripcion       nvarchar(30),
     activo  bit,
 
     PRIMARY KEY (id_funcionalidad)
@@ -218,7 +218,7 @@ go
 create table XXX.FUNCIONALIDAD_POR_ROL
 (
     id_funcionalidad    numeric(10,0),
-    id_rol  numeric(10,0),
+    id_rol              numeric(10,0),
 
 
     PRIMARY KEY (id_funcionalidad, id_rol), 
@@ -231,7 +231,7 @@ go
 create table XXX.ESTADO_CIVIL
 (
     id_estado_civil  numeric(10,0) identity(1,1),
-    descripcion nvarchar(30),
+    descripcion      nvarchar(30),
 
     PRIMARY KEY (id_estado_civil)
 )
@@ -240,8 +240,8 @@ go
 
 create table XXX.PLAN_MEDICO
 (
-    id_plan_medico   numeric(10,0) identity(1,1) ,
-    descripcion      nvarchar(255),
+    id_plan_medico          numeric(10,0) identity(1,1) ,
+    descripcion             nvarchar(255),
     precio_bono_consulta    numeric(18,2),
     
 
@@ -252,10 +252,13 @@ go
 
 create table XXX.PERSONAL
 (
-    id_personal  numeric(10,0) references XXX.USUARIO(id_usuario) ,
-    matricula   nvarchar(30), --unique
+    id_personal  numeric(10,0)  ,
+    matricula    nvarchar(30), --unique
 
-    PRIMARY KEY (id_personal)
+
+    PRIMARY KEY (id_personal),
+    FOREIGN KEY (id_personal)   references XXX.USUARIO(id_usuario)
+
 )
 
 go
@@ -282,17 +285,17 @@ create table XXX.AFILIADO
     PRIMARY KEY (id_afiliado),
     FOREIGN KEY (id_afiliado)             references XXX.USUARIO(id_usuario),
     FOREIGN KEY (estado_civil)            references XXX.ESTADO_CIVIL(id_estado_civil),
-    FOREIGN KEY (plan_medico)            references XXX.PLAN_MEDICO(id_plan_medico)
+    FOREIGN KEY (plan_medico)             references XXX.PLAN_MEDICO(id_plan_medico)
 )
 
 go
 
 create table XXX.AGENDA
 (
-    id_agenda  numeric(10,0) identity(1,1) ,
-    personal numeric(10,0),
-    fecha_desde date,
-    fecha_hasta date,
+    id_agenda    numeric(10,0) identity(1,1) ,
+    personal     numeric(10,0),
+    fecha_desde  date,
+    fecha_hasta  date,
 
     PRIMARY KEY (id_agenda),
     FOREIGN KEY (personal)             references XXX.PERSONAL(id_personal)
@@ -304,11 +307,11 @@ go
 create table XXX.DIA_AGENDA
 (
     id_dia_agenda numeric(10,0) identity(1,1),
-    agenda numeric(10,0),
+    agenda        numeric(10,0),
     dia date,
-    hora_desde  time,
-    hora_hasta  time,
-    activo  bit,
+    hora_desde    time,
+    hora_hasta    time,
+    activo        bit,
 
     PRIMARY KEY (id_dia_agenda),
     FOREIGN KEY (agenda)             references XXX.AGENDA(id_agenda)
@@ -320,8 +323,8 @@ go
 create table XXX.DIA_AGENDA_EXCEPCION
 (
     id_dia_agenda_exepcion  numeric(10,0) identity(1,1),
-    agenda   numeric(10,0) ,
-    dia date,
+    agenda                  numeric(10,0) ,
+    dia                     date,
 
     
     PRIMARY KEY (id_dia_agenda_exepcion),
@@ -333,7 +336,7 @@ go
 create table XXX.TIPO_ESPECIALIDAD
 (
     id_tipo_especialidad  numeric(10,0) identity(1,1) ,
-    descripcion nvarchar(255),
+    descripcion           nvarchar(255),
 
     PRIMARY KEY (id_tipo_especialidad)
 )
@@ -342,12 +345,12 @@ go
 
 create table XXX.ESPECIALIDAD
 (
-    id_especialidad  numeric(10,0) identity(1,1) ,
-    tipo_especialidad numeric(10,0),
-    descripcion nvarchar(255),
+    id_especialidad    numeric(10,0) identity(1,1) ,
+    tipo_especialidad  numeric(10,0),
+    descripcion        nvarchar(255),
 
     PRIMARY KEY (id_especialidad),
-    FOREIGN KEY (tipo_especialidad)                   references XXX.TIPO_ESPECIALIDAD(id_tipo_especialidad)
+    FOREIGN KEY (tipo_especialidad)    references XXX.TIPO_ESPECIALIDAD(id_tipo_especialidad)
 )
 
 go
@@ -355,7 +358,7 @@ go
 create table XXX.ESPECIALIDAD_POR_PERSONAL
 (
     id_especialidad numeric(10,0) ,
-    id_personal numeric(10,0) ,
+    id_personal     numeric(10,0) ,
 
     PRIMARY KEY (id_especialidad, id_personal), 
     FOREIGN KEY (id_especialidad)                references XXX.ESPECIALIDAD(id_especialidad), 
@@ -386,13 +389,13 @@ create table XXX.CONSULTA
     id_resultado_turno     numeric(10,0) identity(1,1),
     turno                  numeric(10,0),
     sintoma                nvarchar(255),
-    enfermedad            nvarchar(255),
-    fecha_bono          datetime,
-    fecha_compra_bono   datetime,
+    enfermedad             nvarchar(255),
+    fecha_bono             datetime,
+    fecha_compra_bono      datetime,
     activo                 bit,
 
     PRIMARY KEY (id_resultado_turno), 
-    FOREIGN KEY (turno)                    references XXX.TURNO(id_turno), 
+    FOREIGN KEY (turno)                    references XXX.TURNO(id_turno)
 )
 
 go
@@ -409,20 +412,17 @@ go
 
 create table XXX.CANCELACION
 (
-    id_cancelacion          numeric(10,0) identity(1,1) ,
+    id_cancelacion       numeric(10,0) identity(1,1) ,
     tipo_cancelacion     numeric(10,0),
     turno                numeric(10,0) ,
-    fecha   date,
-    motivo  nvarchar(255),
-    usuario  numeric(10,0),
-    cancelado_por char,
+    fecha                date,
+    motivo               nvarchar(255),
+    tipo_usuario         char,
     
-
 
     PRIMARY KEY (id_cancelacion), 
     FOREIGN KEY (tipo_cancelacion)         references XXX.TIPO_CANCELACION(id_tipo_cancelacion), 
-    FOREIGN KEY (turno)                    references XXX.TURNO(id_turno),
-    FOREIGN KEY (usuario)                    references XXX.USUARIO(id_usuario)
+    FOREIGN KEY (turno)                    references XXX.TURNO(id_turno)
 )
 
 go
@@ -441,6 +441,7 @@ create table XXX.HISTORIAL_CAMBIOS_DE_PLAN
 )
 
 go
+
 
 
 /********************************************************************************************************************************/
