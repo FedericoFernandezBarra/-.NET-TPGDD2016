@@ -105,7 +105,7 @@ create procedure XXX.st_actualizar_afiliado
 AS
 begin
 
-	 update XXX.USUARIO SET direccion = @direccion, telefono=@telefono,mail=@mail,plan_medico=@plan_medico
+	 update XXX.USUARIO SET direccion = @direccion, telefono=@telefono,mail=@mail
 	 where id_usuario = @id_afiliado
 
 
