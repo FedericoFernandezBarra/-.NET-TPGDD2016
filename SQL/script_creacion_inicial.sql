@@ -242,7 +242,7 @@ create table XXX.PLAN_MEDICO
 (
     id_plan_medico          numeric(10,0) identity(1,1) ,
     descripcion             nvarchar(255),
-    precio_bono_consulta    numeric(18,2),
+    precio_bono    numeric(10,2),
     
 
     PRIMARY KEY (id_plan_medico)
@@ -369,32 +369,32 @@ go
 
 create table XXX.TURNO
 (
-    id_turno  numeric(10,0) identity(1,1) ,
-    afiliado numeric(10,0) ,
-    personal numeric(10,0) ,
-    horario_turno       datetime,
-    horario_llegada     datetime,
-    activo      bit,
+    id_turno          numeric(10,0) identity(1,1) ,
+    afiliado          numeric(10,0) ,
+    especialidad      numeric(10,0),
+    personal          numeric(10,0) ,
+    fecha_turno       datetime,
+    fecha_llegada     datetime,
+    activo            bit,
 
 
     PRIMARY KEY (id_turno), 
     FOREIGN KEY (afiliado)                    references XXX.AFILIADO(id_afiliado), 
-    FOREIGN KEY (personal)                    references XXX.PERSONAL(id_personal)
+    FOREIGN KEY (personal)                    references XXX.PERSONAL(id_personal),
+    FOREIGN KEY (especialidad)                references XXX.ESPECIALIDAD(id_especialidad)
 )
 
 go
 
 create table XXX.CONSULTA
 (
-    id_resultado_turno     numeric(10,0) identity(1,1),
+    id_consulta            numeric(10,0) identity(1,1),
     turno                  numeric(10,0),
     sintoma                nvarchar(255),
     enfermedad             nvarchar(255),
-    fecha_bono             datetime,
-    fecha_compra_bono      datetime,
-    activo                 bit,
+    fecha_diagnostico      datetime,
 
-    PRIMARY KEY (id_resultado_turno), 
+    PRIMARY KEY (id_consulta), 
     FOREIGN KEY (turno)                    references XXX.TURNO(id_turno)
 )
 
@@ -438,6 +438,21 @@ create table XXX.HISTORIAL_CAMBIOS_DE_PLAN
     PRIMARY KEY (id_historial), 
     FOREIGN KEY (plan_medico)                  references XXX.PLAN_MEDICO(id_plan_medico),
     FOREIGN KEY (afiliado)                     references XXX.AFILIADO(id_afiliado)
+)
+
+go
+
+
+create table XXX.BONO
+(
+    id_bono  numeric(10,0) identity(1,1),
+    plan_medico  numeric(10,0) ,
+    comprador numeric(10,0) ,
+    turno  numeric(10,0),
+
+    PRIMARY KEY (id_bono), 
+    FOREIGN KEY (plan_medico)                  references XXX.PLAN_MEDICO(id_plan_medico),
+    FOREIGN KEY (comprador)                    references XXX.AFILIADO(id_afiliado)
 )
 
 go
