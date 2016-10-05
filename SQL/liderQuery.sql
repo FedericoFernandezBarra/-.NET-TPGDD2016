@@ -26,19 +26,12 @@ begin
 	  if(@nro_grupo_familiar='01')
 	  begin
 	       insert into XXX.NUMERITOS(algo)
-	       values ('p')
-	       select @id_numerito =max(id_numerito) from XXX.NUMERITOS
-		   select @idUsuario =  Concat(@id_numerito,@nro_grupo_familiar)
-		   
+	       values ('p')	   
 	  end
 
-	  if(@nro_grupo_familiar<>'01')
-	  begin
-	       select @id_numerito =max(id_numerito) from XXX.NUMERITOS
-		   select @idUsuario =  Concat(@id_numerito,@nro_grupo_familiar)
-	  end
+	  select @id_numerito =max(id_numerito) from XXX.NUMERITOS
+	  select @idUsuario =  Concat(@id_numerito,@nro_grupo_familiar)
 	  
-	 
 	 	insert into XXX.USUARIO(id_usuario,nick,pass,intentos_login,activo,nombre,apellido,tipo_documento,
 				documento,fecha_nacimiento,direccion,telefono,mail,sexo
 					   )
