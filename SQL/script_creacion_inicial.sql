@@ -279,8 +279,8 @@ create table XXX.AFILIADO
     estado_civil numeric(10,0),
     plan_medico numeric(10,0),
     cantidad_hijos smallint,
-    baja_logica  bit,
     fecha_baja   date,
+    baja_logica  bit,
 
     PRIMARY KEY (id_afiliado),
     FOREIGN KEY (id_afiliado)             references XXX.USUARIO(id_usuario),
@@ -289,6 +289,23 @@ create table XXX.AFILIADO
 )
 
 go
+
+
+create table XXX.HISTORIAL_CAMBIOS_DE_PLAN
+(
+    id_historial  numeric(10,0) identity(1,1),
+    plan_medico  numeric(10,0) ,
+    afiliado numeric(10,0) ,
+    motivo  nvarchar(255),
+    fecha   datetime,
+
+    PRIMARY KEY (id_historial), 
+    FOREIGN KEY (plan_medico)                  references XXX.PLAN_MEDICO(id_plan_medico),
+    FOREIGN KEY (afiliado)                     references XXX.AFILIADO(id_afiliado)
+)
+
+go
+
 
 create table XXX.AGENDA
 (
@@ -371,7 +388,6 @@ create table XXX.TURNO
 (
     id_turno          numeric(10,0) identity(1,1) ,
     afiliado          numeric(10,0) ,
-    especialidad      numeric(10,0),
     personal          numeric(10,0) ,
     fecha_turno       datetime,
     fecha_llegada     datetime,
@@ -381,7 +397,7 @@ create table XXX.TURNO
     PRIMARY KEY (id_turno), 
     FOREIGN KEY (afiliado)                    references XXX.AFILIADO(id_afiliado), 
     FOREIGN KEY (personal)                    references XXX.PERSONAL(id_personal),
-    FOREIGN KEY (especialidad)                references XXX.ESPECIALIDAD(id_especialidad)
+    
 )
 
 go
@@ -427,17 +443,17 @@ create table XXX.CANCELACION
 
 go
 
-create table XXX.HISTORIAL_CAMBIOS_DE_PLAN
-(
-    id_historial  numeric(10,0) identity(1,1),
-    plan_medico  numeric(10,0) ,
-    afiliado numeric(10,0) ,
-    motivo  nvarchar(255),
-    fecha   datetime,
 
-    PRIMARY KEY (id_historial), 
-    FOREIGN KEY (plan_medico)                  references XXX.PLAN_MEDICO(id_plan_medico),
-    FOREIGN KEY (afiliado)                     references XXX.AFILIADO(id_afiliado)
+create table XXX.COMPRA
+(
+    id_compra  numeric(10,0) identity(1,1),
+    comprador  numeric(10,0) ,
+    cantidad numeric(3,0) ,
+    monto  numeric(5,2),
+    fecha_compra      datetime,
+
+    PRIMARY KEY (id_compra), 
+    FOREIGN KEY (comprador)                    references XXX.AFILIADO(id_afiliado)
 )
 
 go
@@ -447,16 +463,16 @@ create table XXX.BONO
 (
     id_bono  numeric(10,0) identity(1,1),
     plan_medico  numeric(10,0) ,
-    comprador numeric(10,0) ,
+    compra numeric(10,0) ,
     turno  numeric(10,0),
 
     PRIMARY KEY (id_bono), 
-    FOREIGN KEY (plan_medico)                  references XXX.PLAN_MEDICO(id_plan_medico),
-    FOREIGN KEY (comprador)                    references XXX.AFILIADO(id_afiliado)
+    FOREIGN KEY (plan_medico)             references XXX.PLAN_MEDICO(id_plan_medico),
+    FOREIGN KEY (compra)                  references XXX.COMPRA(id_compra),
+    FOREIGN KEY (turno)                   references XXX.TURNO(id_turno)
 )
 
 go
-
 
 
 /********************************************************************************************************************************/
