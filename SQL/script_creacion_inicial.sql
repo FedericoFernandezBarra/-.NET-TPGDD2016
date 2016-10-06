@@ -250,14 +250,14 @@ create table XXX.PLAN_MEDICO
 
 go
 
-create table XXX.PERSONAL
+create table XXX.PROFESIONAL
 (
-    id_personal  numeric(10,0)  ,
-    matricula    nvarchar(30), --unique
+    id_profesional  numeric(10,0)  ,
+    matricula       nvarchar(30), --unique
 
 
-    PRIMARY KEY (id_personal),
-    FOREIGN KEY (id_personal)   references XXX.USUARIO(id_usuario)
+    PRIMARY KEY (id_profesional),
+    FOREIGN KEY (id_profesional)   references XXX.USUARIO(id_usuario)
 
 )
 
@@ -307,49 +307,6 @@ create table XXX.HISTORIAL_CAMBIOS_DE_PLAN
 go
 
 
-create table XXX.AGENDA
-(
-    id_agenda    numeric(10,0) identity(1,1) ,
-    personal     numeric(10,0),
-    fecha_desde  date,
-    fecha_hasta  date,
-
-    PRIMARY KEY (id_agenda),
-    FOREIGN KEY (personal)             references XXX.PERSONAL(id_personal)
-
-)
-
-go
-
-create table XXX.DIA_AGENDA
-(
-    id_dia_agenda numeric(10,0) identity(1,1),
-    agenda        numeric(10,0),
-    dia date,
-    hora_desde    time,
-    hora_hasta    time,
-    activo        bit,
-
-    PRIMARY KEY (id_dia_agenda),
-    FOREIGN KEY (agenda)             references XXX.AGENDA(id_agenda)
-
-)
-
-go
-
-create table XXX.DIA_AGENDA_EXCEPCION
-(
-    id_dia_agenda_exepcion  numeric(10,0) identity(1,1),
-    agenda                  numeric(10,0) ,
-    dia                     date,
-
-    
-    PRIMARY KEY (id_dia_agenda_exepcion),
-    FOREIGN KEY (agenda)             references XXX.AGENDA(id_agenda)
-)
-
-go
-
 create table XXX.TIPO_ESPECIALIDAD
 (
     id_tipo_especialidad  numeric(10,0) identity(1,1) ,
@@ -372,14 +329,14 @@ create table XXX.ESPECIALIDAD
 
 go
 
-create table XXX.ESPECIALIDAD_POR_PERSONAL
+create table XXX.ESPECIALIDAD_POR_PROFESIONAL
 (
     id_especialidad numeric(10,0) ,
-    id_personal     numeric(10,0) ,
+    id_profesional     numeric(10,0) ,
 
-    PRIMARY KEY (id_especialidad, id_personal), 
+    PRIMARY KEY (id_especialidad, id_profesional), 
     FOREIGN KEY (id_especialidad)                references XXX.ESPECIALIDAD(id_especialidad), 
-    FOREIGN KEY (id_personal)                    references XXX.PERSONAL(id_personal)
+    FOREIGN KEY (id_profesional)                 references XXX.PROFESIONAL(id_profesional)
 )
 
 go
@@ -388,7 +345,8 @@ create table XXX.TURNO
 (
     id_turno          numeric(10,0) identity(1,1) ,
     afiliado          numeric(10,0) ,
-    personal          numeric(10,0) ,
+    profesional       numeric(10,0) ,
+    especialidad      numeric(10,0) ,
     fecha_turno       datetime,
     fecha_llegada     datetime,
     activo            bit,
@@ -396,7 +354,8 @@ create table XXX.TURNO
 
     PRIMARY KEY (id_turno), 
     FOREIGN KEY (afiliado)                    references XXX.AFILIADO(id_afiliado), 
-    FOREIGN KEY (personal)                    references XXX.PERSONAL(id_personal),
+    FOREIGN KEY (profesional)                 references XXX.PROFESIONAL(id_profesional),
+    FOREIGN KEY (especialidad)                references XXX.ESPECIALIDAD(id_especialidad),
     
 )
 
