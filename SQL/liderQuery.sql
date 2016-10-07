@@ -197,8 +197,7 @@ go
 
 CREATE procedure XXX.st_insertar_bono
 @plan_medico numeric(10,0),
-@compra      numeric(10,0),
-@turno       numeric(10,0)
+@compra      numeric(10,0)
 
 AS
 begin
