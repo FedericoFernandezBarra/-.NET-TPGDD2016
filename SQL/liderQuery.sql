@@ -30,17 +30,13 @@ begin
 	  if(@nro_grupo_familiar='01')
 	  begin
 	       insert into XXX.NUMERITOS(algo)
-	       values ('p')
-	       select @id_numerito =max(id_numerito) from XXX.NUMERITOS
-		   select @idUsuario =  Concat(@id_numerito,@nro_grupo_familiar)
-		   
-	  end
+	       values ('p') --contador ++
 
-	  if(@nro_grupo_familiar<>'01')
-	  begin
-	       select @id_numerito =max(id_numerito) from XXX.NUMERITOS
-		   select @idUsuario =  Concat(@id_numerito,@nro_grupo_familiar)
 	  end
+	       
+	    select @id_numerito =max(id_numerito) from XXX.NUMERITOS
+		select @idUsuario =  Concat(@id_numerito,@nro_grupo_familiar)
+		   
 	  
 	 
 	 	insert into XXX.USUARIO(id_usuario,nick,pass,intentos_login,activo,nombre,apellido,tipo_documento,
@@ -325,6 +321,8 @@ begin
 
 end
 
+go
+
 -----------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------RESULTADOS PARA ATENCION MEDICA----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -333,7 +331,27 @@ end
 ---------------------------------------CANCELAR ATENCION MEDICA POR PARTE DEL AFILIADO----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------
 
+create procedure XXX.st_cancelar_turno_afiliado
+@tipo_cancelacion   numeric(10,0),
+@turno              numeric(10,0),
+@motivo             nvarchar(255),
+@fecha_sistema      datetime
 
+AS
+begin
+
+  	   UPDATE XXX.TURNO
+	   SET
+	   activo=0
+	   where  turno=@turno and activo =1
+
+	insert into XXX.CANCELACION(tipo_cancelacion,turno,fecha,motivo,tipo_usuario)
+	 values (@tipo_cancelacion,@turno,@fecha_sistema,@motivo,'A')
+
+
+end
+
+go
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------CANCELAR ATENCION MEDICA POR PARTE DEL AFILIADO----------------------------------------------------------------------------------------------
@@ -345,7 +363,43 @@ end
 ---------------------------------------CANCELAR ATENCION MEDICA POR PARTE DEL MEDICO----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------
 
+create procedure XXX.st_cancelar_turno_medico
+@tipo_cancelacion   numeric(10,0),
+@profesional        numeric(10,0),
+@motivo             nvarchar(255),
+@fecha_sistema      datetime,
+@fecha_cancelar     date,
+@tipo_usuario       char
 
+AS
+begin
+
+declare @id_turno numeric(10,0)
+
+ declare miCursor cursor
+  select @id_turno
+  from XXX.TURNO
+  where  profesional=@profesional and CONVERT(date, fecha_turno) =@fecha_cancelar and activo =1
+
+  	   UPDATE XXX.TURNO
+	   SET
+	   activo=0
+	   where  profesional=@profesional and CONVERT(date, fecha_turno) =@fecha_cancelar and activo =1
+
+  open miCursor
+  fetch next from miCursor into @id_turno
+
+ while @@fetch_status=0
+ begin
+ 
+ 	insert into XXX.CANCELACION(tipo_cancelacion,turno,fecha,motivo,tipo_usuario)
+	 values (@tipo_cancelacion,@turno,@fecha_sistema,@motivo,'M')
+
+    fetch next from miCursor into @id_turno
+
+ end
+
+end
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------CANCELAR ATENCION MEDICA POR PARTE DEL MEDICO----------------------------------------------------------------------------------------------
@@ -361,4 +415,4 @@ end
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------LISTADO ESTADISTICO----------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------
