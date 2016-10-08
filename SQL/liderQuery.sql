@@ -197,7 +197,8 @@ go
 
 CREATE procedure XXX.st_insertar_bono
 @plan_medico numeric(10,0),
-@compra      numeric(10,0)
+@compra      numeric(10,0),
+@turno       numeric(10,0)
 
 AS
 begin
@@ -342,7 +343,7 @@ begin
   	   UPDATE XXX.TURNO
 	   SET
 	   activo=0
-	   where  turno=@turno and activo =1
+	   where  id_turno=@turno and activo =1
 
 	insert into XXX.CANCELACION(tipo_cancelacion,turno,fecha,motivo,tipo_usuario)
 	 values (@tipo_cancelacion,@turno,@fecha_sistema,@motivo,'A')
@@ -376,7 +377,7 @@ begin
 declare @id_turno numeric(10,0)
 
  declare miCursor cursor
-  select @id_turno
+  for select id_turno
   from XXX.TURNO
   where  profesional=@profesional and CONVERT(date, fecha_turno) =@fecha_cancelar and activo =1
 
@@ -392,7 +393,7 @@ declare @id_turno numeric(10,0)
  begin
  
  	insert into XXX.CANCELACION(tipo_cancelacion,turno,fecha,motivo,tipo_usuario)
-	 values (@tipo_cancelacion,@turno,@fecha_sistema,@motivo,'M')
+	 values (@tipo_cancelacion,@id_turno,@fecha_sistema,@motivo,'M')
 
     fetch next from miCursor into @id_turno
 
