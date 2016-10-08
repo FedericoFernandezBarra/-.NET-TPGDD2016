@@ -27,15 +27,17 @@ begin
 	 BEGIN TRANSACTION  
      BEGIN TRY
 
+
+     select @id_numerito =max(id_usuario) from XXX.USUARIO
+     set @id_numerito= (@id_numerito/100)
+
 	  if(@nro_grupo_familiar='01')
 	  begin
-	       insert into XXX.NUMERITOS(algo)
-	       values ('p') --contador ++
-
+	       set @id_numerito= (@id_numerito+1)
 	  end
 	       
-	    select @id_numerito =max(id_numerito) from XXX.NUMERITOS
-		select @idUsuario =  Concat(@id_numerito,@nro_grupo_familiar)
+	    
+	 select @idUsuario =  Concat(@id_numerito,@nro_grupo_familiar)
 		   
 	  
 	 
