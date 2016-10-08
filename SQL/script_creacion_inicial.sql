@@ -142,6 +142,9 @@ go
 /********************************************************************************************************************************/
 
 
+--brian
+
+
 create table BEMVINDO.TIPO_DOCUMENTO
 (
     id_tipo_documento  numeric(10,0) identity (1,1) ,
@@ -329,7 +332,7 @@ create table BEMVINDO.TURNO
 (
     id_turno          numeric(10,0) identity(1,1) ,
     afiliado          numeric(10,0) ,
-    personal       numeric(10,0) ,
+    profesional       numeric(10,0) ,
     especialidad      numeric(10,0) ,
     fecha_turno       datetime,
     fecha_llegada     datetime,
@@ -338,7 +341,7 @@ create table BEMVINDO.TURNO
 
     PRIMARY KEY (id_turno), 
     FOREIGN KEY (afiliado)                    references BEMVINDO.AFILIADO(id_afiliado), 
-    FOREIGN KEY (personal)                 references BEMVINDO.PROFESIONAL(id_profesional),
+    FOREIGN KEY (profesional)                 references BEMVINDO.PROFESIONAL(id_profesional),
     FOREIGN KEY (especialidad)                references BEMVINDO.ESPECIALIDAD(id_especialidad),
     
 )
@@ -414,6 +417,7 @@ create table BEMVINDO.BONO
 )
 
 go
+
 
 /********************************************************************************************************************************/
 /*FUNCION HASH Y TRIGGER PARA LA CONTRASEÑA*/
