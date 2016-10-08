@@ -436,8 +436,8 @@ create trigger BEMVINDO.tg_hashear_pass_insert
 on BEMVINDO.USUARIO  
 instead of insert  
 as begin  
-	insert into BEMVINDO.USUARIO  
-	select
+    insert into BEMVINDO.USUARIO  
+    select
       nick,  
       BEMVINDO.fn_hashear_pass(pass),  
       intentos_login,
@@ -569,12 +569,12 @@ go
 -------------------------------------------------------------------------------------------------------
 insert into BEMVINDO.AFILIADO
     select distinct
-		U.id_usuario,
+        U.id_usuario,
         null,
-		null,
+        null,
         P.id_plan_medico,
         null,
-		null,
+        null,
         0
     from gd_esquema.Maestra as M
     inner join BEMVINDO.USUARIO as U 
@@ -649,8 +649,8 @@ go
 insert into BEMVINDO.TURNO
     select
         A.id_usuario as afiliado,
-        P.id_usuario as personal,
-		E.id_especialidad,
+        P.id_usuario as profesional,
+        E.id_especialidad,
         M.Turno_Fecha,
         M.Turno_Fecha,
         1,
@@ -658,7 +658,7 @@ insert into BEMVINDO.TURNO
     from gd_esquema.Maestra as M
     inner join BEMVINDO.USUARIO as A on M.Paciente_Dni = A.documento
     inner join BEMVINDO.USUARIO as P on M.Medico_Dni = P.documento
-	inner join BEMVINDO.ESPECIALIDAD as E on M.Especialidad_Codigo = E.especialidad_codigo
+    inner join BEMVINDO.ESPECIALIDAD as E on M.Especialidad_Codigo = E.especialidad_codigo
     where
         Turno_Numero is not null and
         Consulta_Sintomas is null
@@ -677,7 +677,7 @@ insert into BEMVINDO.CONSULTA
         T.id_turno,
         UPPER(M.Consulta_Sintomas),
         UPPER(M.Consulta_Enfermedades),
-		M.Turno_Fecha,
+        M.Turno_Fecha,
         M.Bono_Consulta_Numero
     from gd_esquema.Maestra as M
     inner join BEMVINDO.TURNO as T on M.Turno_Numero = T.turno_numero
@@ -696,14 +696,14 @@ go
 
 insert into BEMVINDO.COMPRA
     select 
-		U.id_usuario as  afiliado,
-		1 as cantidad,
-		M.Plan_Med_Precio_Bono_Consulta,
-		M.Compra_Bono_Fecha,
-		M.Bono_Consulta_Numero
+        U.id_usuario as  afiliado,
+        1 as cantidad,
+        M.Plan_Med_Precio_Bono_Consulta,
+        M.Compra_Bono_Fecha,
+        M.Bono_Consulta_Numero
     from gd_esquema.Maestra as M
-	inner join BEMVINDO.USUARIO as U
-		on U.documento = M.Paciente_Dni
+    inner join BEMVINDO.USUARIO as U
+        on U.documento = M.Paciente_Dni
     where 
         M.Turno_Numero is null
 go
@@ -717,14 +717,14 @@ go
 
 insert into BEMVINDO.BONO
     select 
-		P.id_plan_medico,
-		C.id_compra,
+        P.id_plan_medico,
+        C.id_compra,
         T.id_turno,
-		M.Bono_Consulta_Numero
+        M.Bono_Consulta_Numero
     from gd_esquema.Maestra as M
     inner join BEMVINDO.PLAN_MEDICO as P on M.Plan_Med_Codigo = P.plan_medico_codigo
-	inner join BEMVINDO.COMPRA as C on M.Bono_Consulta_Numero = C.compra_numero
-	inner join BEMVINDO.TURNO as T on M.Turno_Numero = T.turno_numero
+    inner join BEMVINDO.COMPRA as C on M.Bono_Consulta_Numero = C.compra_numero
+    inner join BEMVINDO.TURNO as T on M.Turno_Numero = T.turno_numero
     where 
         M.Bono_Consulta_Numero is not null and
         M.Compra_Bono_Fecha is null
