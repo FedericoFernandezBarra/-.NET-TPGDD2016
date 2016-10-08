@@ -1,3 +1,6 @@
+--brian
+
+
 create table XXX.TIPO_DOCUMENTO
 (
     id_tipo_documento  numeric(10,0) identity (1,1) ,
@@ -10,7 +13,7 @@ go
 
 create table XXX.USUARIO
 (
-    id_usuario  numeric(10,0) ,
+    id_usuario  numeric(10,0) identity(1,1),
     nick    nvarchar(255) ,
     pass    nvarchar(255),
     intentos_login   smallint,
@@ -114,7 +117,6 @@ create table XXX.PROFESIONAL
 
 go
 
-
 create table XXX.AFILIADO
 (
     id_afiliado numeric(10,0),
@@ -133,7 +135,6 @@ create table XXX.AFILIADO
 
 go
 
-
 create table XXX.HISTORIAL_CAMBIOS_DE_PLAN
 (
     id_historial  numeric(10,0) identity(1,1),
@@ -148,7 +149,6 @@ create table XXX.HISTORIAL_CAMBIOS_DE_PLAN
 )
 
 go
-
 
 create table XXX.TIPO_ESPECIALIDAD
 (
@@ -188,16 +188,16 @@ create table XXX.TURNO
 (
     id_turno          numeric(10,0) identity(1,1) ,
     afiliado          numeric(10,0) ,
-    profesional       numeric(10,0) ,
+    personal       numeric(10,0) ,
     especialidad      numeric(10,0) ,
     fecha_turno       datetime,
     fecha_llegada     datetime,
-    activo            bit, -- 0 si fue cancelado, 1 si esta disponible
+    activo            bit,
 
 
     PRIMARY KEY (id_turno), 
     FOREIGN KEY (afiliado)                    references XXX.AFILIADO(id_afiliado), 
-    FOREIGN KEY (profesional)                 references XXX.PROFESIONAL(id_profesional),
+    FOREIGN KEY (personal)                 references XXX.PROFESIONAL(id_profesional),
     FOREIGN KEY (especialidad)                references XXX.ESPECIALIDAD(id_especialidad),
     
 )
@@ -245,13 +245,12 @@ create table XXX.CANCELACION
 
 go
 
-
 create table XXX.COMPRA
 (
     id_compra  numeric(10,0) identity(1,1),
     comprador  numeric(10,0) ,
-    cantidad   numeric(3,0) ,
-    monto      numeric(5,2),
+    cantidad numeric(3,0) ,
+    monto  numeric(5,2),
     fecha_compra      datetime,
 
     PRIMARY KEY (id_compra), 
@@ -260,13 +259,12 @@ create table XXX.COMPRA
 
 go
 
-
 create table XXX.BONO
 (
-    id_bono      numeric(10,0) identity(1,1),
+    id_bono  numeric(10,0) identity(1,1),
     plan_medico  numeric(10,0) ,
-    compra       numeric(10,0) ,
-    turno        numeric(10,0),
+    compra numeric(10,0) ,
+    turno  numeric(10,0),
 
     PRIMARY KEY (id_bono), 
     FOREIGN KEY (plan_medico)             references XXX.PLAN_MEDICO(id_plan_medico),
