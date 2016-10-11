@@ -1,6 +1,4 @@
-﻿using System;
-using TostadoPersistentKit;
-using UsingTostadoPersistentKit.TostadoPersistentKit;
+﻿using TostadoPersistentKit;
 
 namespace ClinicaFrba.Clases
 {

@@ -111,6 +111,7 @@
     <Compile Include="Cancelar Atencion\CancelarTurnoForm.Designer.cs">
       <DependentUpon>CancelarTurnoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Clases\DAOS\AfiliadoRepository.cs" />
     <Compile Include="Clases\DAOS\EstadoCivilRepository.cs" />
     <Compile Include="Clases\DAOS\FuncionalidadRepository.cs" />
     <Compile Include="Clases\DAOS\PlanMedicoRepository.cs" />
@@ -140,12 +141,6 @@
     <Compile Include="Clases\TostadoPersistentKit\Annotations\MappingAttribute.cs" />
     <Compile Include="Clases\TostadoPersistentKit\Annotations\OneToMany.cs" />
     <Compile Include="Clases\TostadoPersistentKit\Annotations\Table.cs" />
-    <Compile Include="Clases\TostadoPersistentKit\Classes\CreatePersistentModel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Clases\TostadoPersistentKit\Classes\CreatePersistentModel.Designer.cs">
-      <DependentUpon>CreatePersistentModel.cs</DependentUpon>
-    </Compile>
     <Compile Include="Clases\TostadoPersistentKit\Classes\DataBase.cs" />
     <Compile Include="Clases\TostadoPersistentKit\Classes\DefaultDatabaseCreator.cs" />
     <Compile Include="Clases\TostadoPersistentKit\Classes\Repository.cs" />
@@ -242,9 +237,6 @@
     <EmbeddedResource Include="Cancelar Atencion\CancelarTurnoForm.resx">
       <DependentUpon>CancelarTurnoForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Clases\TostadoPersistentKit\Classes\CreatePersistentModel.resx">
-      <DependentUpon>CreatePersistentModel.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Compra Bono\ComprarBonosForm.resx">
       <DependentUpon>ComprarBonosForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -284,7 +276,6 @@
     <EmbeddedResource Include="Registro Resultado\RegistrarResultadoAtencionForm.resx">
       <DependentUpon>RegistrarResultadoAtencionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Clases\TostadoPersistentKit\Classes\README.md" />
     <None Include="Clases\TostadoPersistentKit\README.md" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -300,6 +291,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Clases\TostadoPersistentKit\configuracion_sistema.txt" />
     <Content Include="configuracion_sistema.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

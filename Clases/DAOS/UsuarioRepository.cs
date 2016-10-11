@@ -23,12 +23,18 @@ namespace ClinicaFrba.Clases.DAOS
 
             Usuario user = new Usuario();
 
-            string query = "select * from usuario where nick='" + nick + "' and pass='" + pass+"'";
+            List<object> nickList = selectByProperty("nick", nick);
 
-            List<object> resultado = (List<object>)executeQuery(query, null);
+            if (nickList.Count>0)
+            {
+                if (((Usuario)nickList[0]).pass==pass)
+                {
+                    return (Usuario)nickList[0];
+                }
+            }
+            
 
-            return resultado.Count > 0 ? (Usuario)resultado[0] : null;
-
+            return null;
             /*Usuario usuarioHard = new Usuario();
             usuarioHard.nick = nick;
             usuarioHard.pass = pass;

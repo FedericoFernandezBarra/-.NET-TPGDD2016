@@ -1,15 +1,7 @@
 ﻿using ClinicaFrba.Clases.Otros;
 using ClinicaFrba.Clases.POJOS;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using UsingTostadoPersistentKit.TostadoPersistentKit;
 
 namespace ClinicaFrba.Abm_Afiliado
 {
@@ -17,8 +9,21 @@ namespace ClinicaFrba.Abm_Afiliado
     {
         private AltaAfiliado altaAfiliado = new AltaAfiliado();
 
+        public bool altaExitosa = false;
+        public bool altaFamiliar = false;
+
+        private static string CASADO = "casado";
+
         public AltaAfiliadoForm()
         {
+            InitializeComponent();
+        }
+
+        public AltaAfiliadoForm(Afiliado familiar)
+        {
+            altaFamiliar = true;
+            altaAfiliado.nuevoAfiliado = familiar;
+
             InitializeComponent();
         }
 
@@ -65,10 +70,118 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void cmdAceptar_Click(object sender, EventArgs e)
         {
-            if (!altaAfiliado.ejecutarGuardadoExitoso())
+            if (!altaAfiliado.cumpleValidaciones())
             {
                 MessageBox.Show(altaAfiliado.mensajeDeError);
                 return;
+            }
+            if (!altaFamiliar)
+            {
+                altaAfiliado.ejecutarGuardado();
+                MessageBox.Show("Afiliado creado exitosamente");
+            }
+
+            altaExitosa = true;
+
+            Close();
+        }
+
+        private void txtDni_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtTel_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void cmbEstadoCivil_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbEstadoCivil.SelectedItem!=null)
+            {
+                if (((EstadoCivil)cmbEstadoCivil.SelectedItem).descripcion.ToLower() == CASADO)
+                {
+                    btnConyuge.Enabled = true;
+                }
+            }
+        }
+
+        private void btnConyuge_Click(object sender, EventArgs e)
+        {
+            if (!altaAfiliado.cumpleValidaciones())
+            {
+                MessageBox.Show(altaAfiliado.mensajeDeError);
+                return;
+            }
+
+            altaAfiliado.crearConyuge();
+
+            AltaAfiliadoForm altaConyuge = new AltaAfiliadoForm(altaAfiliado.nuevoAfiliado.conyuge);
+
+            Hide();
+
+            altaConyuge.ShowDialog();
+
+            Show();
+
+            if (!altaConyuge.altaExitosa)
+            {
+                altaAfiliado.nuevoAfiliado.conyuge = null;
+            }
+        }
+
+        private Afiliado getAfiliado()
+        {
+            return altaAfiliado.nuevoAfiliado;
+        }
+
+        private void txtHijos_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtHijos_TextChanged(object sender, EventArgs e)
+        {
+            btnHijo.Enabled = Convert.ToInt64(txtHijos.Text) > 0;
+        }
+
+        private void btnHijo_Click(object sender, EventArgs e)
+        {
+            if (!altaAfiliado.cumpleValidaciones())
+            {
+                MessageBox.Show(altaAfiliado.mensajeDeError);
+                return;
+            }
+
+            Afiliado hijoAfiliado = altaAfiliado.crearNuevoHijo();
+
+            if (hijoAfiliado==null)
+            {
+                MessageBox.Show(altaAfiliado.mensajeDeError);
+                return;
+            }
+
+            AltaAfiliadoForm altaHijo = new AltaAfiliadoForm(hijoAfiliado);
+
+            Hide();
+
+            altaHijo.ShowDialog();
+
+            Show();
+
+            if (!altaHijo.altaExitosa)
+            {
+                altaAfiliado.borrarHijo(hijoAfiliado);
             }
         }
     }

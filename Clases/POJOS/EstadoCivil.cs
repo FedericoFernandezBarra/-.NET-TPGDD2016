@@ -1,6 +1,4 @@
 ﻿using TostadoPersistentKit;
-using UsingTostadoPersistentKit.TostadoPersistentKit;
-using static TostadoPersistentKit.Serializable;
 
 namespace ClinicaFrba.Clases.POJOS
 {

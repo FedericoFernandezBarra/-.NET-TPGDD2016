@@ -1,10 +1,8 @@
 ﻿using ClinicaFrba.AbmRol;
 using ClinicaFrba.Cancelar_Atencion;
-using ClinicaFrba.Clases;
 using ClinicaFrba.Logueo;
 using System;
 using System.Windows.Forms;
-using UsingTostadoPersistentKit.TostadoPersistentKit;
 
 namespace ClinicaFrba
 {

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TostadoPersistentKit;
-using UsingTostadoPersistentKit.TostadoPersistentKit;
 
 namespace ClinicaFrba.Clases.POJOS
 {
@@ -23,8 +21,8 @@ namespace ClinicaFrba.Clases.POJOS
         [Column(name = "nro_grupo_familiar")]
         public long numeroFamiliar { get; set; }
 
-        [Column(name = "nro_afiliado")]
-        public long numeroAfiliado { get; set; }
+        //[Column(name = "nro_afiliado")]
+        //public long numeroAfiliado { get; set; }
 
         [Column(name = "cantidad_hijos")]
         public int cantidadDeHijos { get; set; }

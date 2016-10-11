@@ -1,5 +1,4 @@
 ﻿using TostadoPersistentKit;
-using UsingTostadoPersistentKit.TostadoPersistentKit;
 
 namespace ClinicaFrba.Clases.POJOS
 {

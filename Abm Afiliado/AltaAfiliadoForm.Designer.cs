@@ -160,6 +160,7 @@
             // 
             // btnHijo
             // 
+            this.btnHijo.Enabled = false;
             this.btnHijo.Location = new System.Drawing.Point(401, 316);
             this.btnHijo.Margin = new System.Windows.Forms.Padding(4);
             this.btnHijo.Name = "btnHijo";
@@ -167,9 +168,11 @@
             this.btnHijo.TabIndex = 62;
             this.btnHijo.Text = "Hijo";
             this.btnHijo.UseVisualStyleBackColor = true;
+            this.btnHijo.Click += new System.EventHandler(this.btnHijo_Click);
             // 
             // btnConyuge
             // 
+            this.btnConyuge.Enabled = false;
             this.btnConyuge.Location = new System.Drawing.Point(259, 316);
             this.btnConyuge.Margin = new System.Windows.Forms.Padding(4);
             this.btnConyuge.Name = "btnConyuge";
@@ -177,6 +180,7 @@
             this.btnConyuge.TabIndex = 61;
             this.btnConyuge.Text = "Conyuge";
             this.btnConyuge.UseVisualStyleBackColor = true;
+            this.btnConyuge.Click += new System.EventHandler(this.btnConyuge_Click);
             // 
             // cmbPlanes
             // 
@@ -227,6 +231,7 @@
             this.txtDni.Name = "txtDni";
             this.txtDni.Size = new System.Drawing.Size(181, 23);
             this.txtDni.TabIndex = 58;
+            this.txtDni.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDni_KeyPress);
             // 
             // cmdAceptar
             // 
@@ -295,6 +300,8 @@
             this.txtHijos.Name = "txtHijos";
             this.txtHijos.Size = new System.Drawing.Size(29, 23);
             this.txtHijos.TabIndex = 49;
+            this.txtHijos.TextChanged += new System.EventHandler(this.txtHijos_TextChanged);
+            this.txtHijos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHijos_KeyPress);
             // 
             // label21
             // 
@@ -373,6 +380,7 @@
             this.cmbEstadoCivil.Name = "cmbEstadoCivil";
             this.cmbEstadoCivil.Size = new System.Drawing.Size(160, 25);
             this.cmbEstadoCivil.TabIndex = 40;
+            this.cmbEstadoCivil.SelectedIndexChanged += new System.EventHandler(this.cmbEstadoCivil_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -546,6 +554,7 @@
             this.txtTel.Name = "txtTel";
             this.txtTel.Size = new System.Drawing.Size(181, 23);
             this.txtTel.TabIndex = 8;
+            this.txtTel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTel_KeyPress);
             // 
             // txtNombre
             // 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClinicaFrba.Abm_Afiliado;
+using System;
 using System.Windows.Forms;
 
 namespace ClinicaFrba
