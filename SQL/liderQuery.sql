@@ -22,7 +22,8 @@ AS
 begin
      declare @idUsuario numeric(10,0)
 	 declare @id_numerito numeric(10,0)
-	 set @error = ''
+	 declare @error varchar(255) 
+	 set @error = 'Se a cargado un usuario con exito'
 	 BEGIN TRANSACTION  
      BEGIN TRY
 
@@ -43,7 +44,7 @@ begin
 	 	insert into BEMVINDO.USUARIO(id_usuario,nick,pass,intentos_login,activo,nombre,apellido,tipo_documento,
 				documento,fecha_nacimiento,direccion,telefono,mail,sexo
 					   )
-	    values (@idUsuario,@documento,'pass',0,1,@nombre,@apellido,@tipo_documento,@documento,@fecha_nacimiento,@direccion,
+	    values (@idUsuario,@documento,@documento,0,1,@nombre,@apellido,@tipo_documento,@documento,@fecha_nacimiento,@direccion,
 		       @telefono,@mail,@sexo)
 
 		
@@ -59,7 +60,7 @@ begin
      END CATCH 
 
 
-     select @documento as nick,@documento as pass,@idUsuario as id_afiliado,@error as error
+     select @documento,@documento,@idUsuario,@error
 
 end
 
