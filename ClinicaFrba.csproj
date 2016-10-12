@@ -51,6 +51,12 @@
     <Compile Include="Abm Afiliado\AltaAfiliadoForm.Designer.cs">
       <DependentUpon>AltaAfiliadoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Afiliado\BajaAfiliadoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Afiliado\BajaAfiliadoForm.Designer.cs">
+      <DependentUpon>BajaAfiliadoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Afiliado\BuscarAfiliadoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,14 +126,17 @@
     <Compile Include="Clases\DAOS\UsuarioRepository.cs" />
     <Compile Include="Clases\Otros\AbmRol.cs" />
     <Compile Include="Clases\Otros\AltaAfiliado.cs" />
+    <Compile Include="Clases\Otros\BajaAfiliado.cs" />
     <Compile Include="Clases\Otros\CrearRolAction.cs" />
     <Compile Include="Clases\Otros\EditorDeRol.cs" />
     <Compile Include="Clases\Otros\EditorDeRolAction.cs" />
+    <Compile Include="Clases\Otros\ModificarAfiliado.cs" />
     <Compile Include="Clases\Otros\ModificarRolAction.cs" />
     <Compile Include="Clases\POJOS\Afiliado.cs" />
     <Compile Include="Clases\Otros\CancelarDias.cs" />
     <Compile Include="Clases\Otros\CancelarTurno.cs" />
     <Compile Include="Clases\Otros\Login.cs" />
+    <Compile Include="Clases\POJOS\Especialidad.cs" />
     <Compile Include="Clases\POJOS\EstadoCivil.cs" />
     <Compile Include="Clases\POJOS\Funcionalidad.cs" />
     <Compile Include="Clases\POJOS\PlanMedico.cs" />
@@ -213,6 +222,9 @@
     <Compile Include="Test\LoginTestSuite.cs" />
     <EmbeddedResource Include="Abm Afiliado\AltaAfiliadoForm.resx">
       <DependentUpon>AltaAfiliadoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Afiliado\BajaAfiliadoForm.resx">
+      <DependentUpon>BajaAfiliadoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Afiliado\BuscarAfiliadoForm.resx">
       <DependentUpon>BuscarAfiliadoForm.cs</DependentUpon>

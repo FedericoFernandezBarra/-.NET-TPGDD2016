@@ -48,15 +48,15 @@ namespace ClinicaFrba.Abm_Afiliado
             cmbEstadoCivil.DataBindings.Add("SelectedItem", altaAfiliado.nuevoAfiliado, "estadoCivil");
 
             cmbSexo.DataSource = altaAfiliado.sexosSistema;
-            cmbEstadoCivil.DataBindings.Add("SelectedItem", altaAfiliado.nuevoAfiliado.usuario, "sexo");
+            cmbSexo.DataBindings.Add("SelectedItem", altaAfiliado.nuevoAfiliado.usuario, "sexo");
 
-            cmbEstadoCivil.DisplayMember = "descripcion";
-            cmbEstadoCivil.DataSource = altaAfiliado.tiposDeDocumentoSistema;
-            cmbEstadoCivil.DataBindings.Add("SelectedItem", altaAfiliado.nuevoAfiliado.usuario, "tipoDeDocumento");
+            cmbTipoDocumento.DisplayMember = "descripcion";
+            cmbTipoDocumento.DataSource = altaAfiliado.tiposDeDocumentoSistema;
+            cmbTipoDocumento.DataBindings.Add("SelectedItem", altaAfiliado.nuevoAfiliado.usuario, "tipoDeDocumento");
 
-            cmbEstadoCivil.DisplayMember = "descripcion";
-            cmbEstadoCivil.DataSource = altaAfiliado.planesMedicosSistema;
-            cmbEstadoCivil.DataBindings.Add("SelectedItem", altaAfiliado.nuevoAfiliado, "planMedico");
+            cmbPlanes.DisplayMember = "descripcion";
+            cmbPlanes.DataSource = altaAfiliado.planesMedicosSistema;
+            cmbPlanes.DataBindings.Add("SelectedItem", altaAfiliado.nuevoAfiliado, "planMedico");
 
             if (altaConyuge)
             {

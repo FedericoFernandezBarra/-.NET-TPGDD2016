@@ -20,7 +20,7 @@ namespace ClinicaFrba.Clases.DAOS
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
 
-            DataBase.Instance.agregarParametro(parametros, "error", "");
+            //DataBase.Instance.agregarParametro(parametros, "error", "");
 
             autoMapping = false;
 
@@ -35,6 +35,25 @@ namespace ClinicaFrba.Clases.DAOS
             afiliado.id = Convert.ToInt64(result["id_afiliado"]);//Seteo las nuevas propiedades
 
             return result["error"].ToString();
+        }
+
+        internal void darDeBajaAfiliado(Afiliado afiliado)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+
+            DataBase.Instance.agregarParametro(parametros, "id_afiliado", afiliado.id);
+            DataBase.Instance.agregarParametro(parametros, "fecha_baja", Sistema.Instance.getDate());
+
+            executeStored("BEMVINDO.st_baja_afiliado", parametros);
+        }
+
+        internal void modificarAfiliado(Afiliado afiliado,string motivo)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            DataBase.Instance.agregarParametro(parametros, "motivo", motivo);
+            DataBase.Instance.agregarParametro(parametros, "fecha", Sistema.Instance.getDate());
+
+            executeStored("BEMVINDO.st_actualizar_afiliado", afiliado, parametros);
         }
 
         internal Afiliado traerAfiliadoPorId(long id)

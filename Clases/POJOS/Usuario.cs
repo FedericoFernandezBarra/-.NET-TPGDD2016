@@ -6,7 +6,7 @@ namespace ClinicaFrba.Clases
     [Table(name = "BEMVINDO.USUARIO")]
     public class Usuario:Serializable
     {
-        [Id(name = "id_usuario",type =PrimaryKeyType.SURROGATE)]
+        [Id(name = "id_usuario",type =PrimaryKeyType.NATURAL)]
         public long id { get; set; }
 
         [Column(name = "nick")]

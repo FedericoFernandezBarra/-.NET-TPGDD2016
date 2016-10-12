@@ -137,8 +137,8 @@ namespace ClinicaFrba.Clases.Otros
             Afiliado nuevoHijo = new Afiliado();
             nuevoHijo.usuario = new Usuario();
             nuevoHijo.numeroFamiliar = mayorNumeroFamiliar() + 1;
-            nuevoAfiliado.conyuge.planMedico = nuevoAfiliado.planMedico;
-            nuevoAfiliado.conyuge.usuario.direccion = nuevoAfiliado.usuario.direccion;
+            nuevoHijo.planMedico = nuevoAfiliado.planMedico;
+            nuevoHijo.usuario.direccion = nuevoAfiliado.usuario.direccion;
 
             nuevoAfiliado.hijos.Add(nuevoHijo);
 

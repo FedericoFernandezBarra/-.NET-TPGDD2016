@@ -17,7 +17,6 @@ C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.AltaAf
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.BuscarAfiliadoForm.resources
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.BuscarGrupoForm.resources
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Profesional.BuscarProfesionalForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.AbmRol.AbmRol.resources
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.AbmRol.EditorDeRolesForm.resources
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Cancelar_Atencion.CancelarDiasForm.resources
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Cancelar_Atencion.CancelarTurnoForm.resources
@@ -67,3 +66,7 @@ C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Logueo.LoginForm.re
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.AbmRol.AbmRolForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.ModificarAfiliadoForm.resources
 C:\Users\Alexis\GddUtn-Clinica\bin\Debug\tostado_tests.sql
+C:\Users\alexiscaspell3\GddUtn-Clinica\bin\Debug\tostado_tests.sql
+C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.ModificarAfiliadoForm.resources
+C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.AbmRol.AbmRolForm.resources
+C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.BajaAfiliadoForm.resources

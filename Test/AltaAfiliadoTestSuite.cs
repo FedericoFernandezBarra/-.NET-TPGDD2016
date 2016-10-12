@@ -1,9 +1,9 @@
-﻿using System;
-using ClinicaFrba.Clases.POJOS;
+﻿using ClinicaFrba.Clases.POJOS;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TostadoPersistentKit;
 using ClinicaFrba.Clases;
 using ClinicaFrba.Clases.DAOS;
+using ClinicaFrba.Clases.Otros;
 
 namespace ClinicaFrba.Test
 {
@@ -33,6 +33,34 @@ namespace ClinicaFrba.Test
             Assert.IsNotNull(afiliadoExistente);
         }
 
+        [TestMethod]
+        public void insertarAfiliado_conConyugeEHijo_afiliadosSeInsertanEnLaDb()
+        {
+            Afiliado afiliadoConFamilia = crearAfiliadoCorrecto();
+            afiliadoConFamilia.cantidadDeHijos = 1;
+
+            AltaAfiliado altaAfliado = new AltaAfiliado();
+            altaAfliado.nuevoAfiliado = afiliadoConFamilia;
+
+            altaAfliado.crearConyuge();
+            completarConyuge(afiliadoConFamilia.conyuge);
+
+            altaAfliado.crearNuevoHijo();
+            completarHijo(afiliadoConFamilia.hijos[0]);
+
+            altaAfliado.guardarAfiliado();
+
+            AfiliadoRepository repoAfiliado = new AfiliadoRepository();
+
+            Afiliado afiliadoPrincipal = repoAfiliado.traerAfiliadoPorId(afiliadoConFamilia.id);
+            Afiliado conyuge = repoAfiliado.traerAfiliadoPorId(afiliadoConFamilia.id+1);
+            Afiliado hijo = repoAfiliado.traerAfiliadoPorId(afiliadoConFamilia.id+2);
+
+            Assert.IsNotNull(afiliadoPrincipal);
+            Assert.IsNotNull(conyuge);
+            Assert.IsNotNull(hijo);
+        }
+
         private Afiliado crearAfiliadoCorrecto()
         {
             Afiliado afiliado = new Afiliado();
@@ -54,6 +82,33 @@ namespace ClinicaFrba.Test
             afiliado.usuario.sexo = 'M';
 
             return afiliado;
+        }
+
+        private void completarConyuge(Afiliado conyuge)
+        {
+            conyuge.usuario.nombre = "negra";
+            conyuge.usuario.apellido = "illuminati";
+            conyuge.usuario.tipoDeDocumento = new TipoDocumento();
+            conyuge.usuario.tipoDeDocumento.id = 1;
+            conyuge.usuario.documento = "667";
+            conyuge.usuario.telefono = "0800-333";
+            conyuge.usuario.mail = "vieja@gmail.com";
+            conyuge.usuario.sexo = 'F';
+        }
+
+        private void completarHijo(Afiliado hijo)
+        {
+            hijo.usuario.nombre = "negro";
+            hijo.usuario.apellido = "illuminati";
+            hijo.usuario.tipoDeDocumento = new TipoDocumento();
+            hijo.usuario.tipoDeDocumento.id = 1;
+            hijo.estadoCivil = new EstadoCivil();
+            hijo.estadoCivil.id = 1;
+            hijo.usuario.direccion = "heaven 333";
+            hijo.usuario.documento = "668";
+            hijo.usuario.telefono = "0800-333";
+            hijo.usuario.mail = "negro_manco@gmail.com";
+            hijo.usuario.sexo = 'M';
         }
     }
 }
