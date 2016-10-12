@@ -50,7 +50,7 @@ namespace ClinicaFrba.Clases
 
         public Usuario()
         {
-            fechaDeNacimiento = Sistema.Instance.getDate();
+            fechaDeNacimiento = Sistema.Instance.getDate().AddDays(-1);//nacio ayer :P
         }
     }
 }

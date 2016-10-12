@@ -21,15 +21,9 @@ create procedure BEMVINDO.st_insertar_afiliado
 @error varchar(255) output
 AS
 begin
-     declare @id_afiliado numeric(10,0)
+     declare @idUsuario numeric(10,0)
 	 declare @id_numerito numeric(10,0)
-	 declare @nick nvarchar(12)
-	 declare @pass nvarchar(12)
-
 	 set @error = ''
-	 set @nick=@documento
-	 set @pass=@documento
-	 
 	 BEGIN TRANSACTION  
      BEGIN TRY
 
@@ -43,20 +37,20 @@ begin
 	  end
 	       
 	    
-	 select @id_afiliado =  Concat(@id_numerito,@nro_grupo_familiar)
+	 select @idUsuario =  Concat(@id_numerito,@nro_grupo_familiar)
 		   
 	  
 	 
 	 	insert into BEMVINDO.USUARIO(id_usuario,nick,pass,intentos_login,activo,nombre,apellido,tipo_documento,
 				documento,fecha_nacimiento,direccion,telefono,mail,sexo
 					   )
-	    values (@id_afiliado,@documento,'pass',0,1,@nombre,@apellido,@tipo_documento,@documento,@fecha_nacimiento,@direccion,
+	    values (@idUsuario,@documento,'pass',0,1,@nombre,@apellido,@tipo_documento,@documento,@fecha_nacimiento,@direccion,
 		       @telefono,@mail,@sexo)
 
 		
 
 	insert into BEMVINDO.AFILIADO(id_afiliado,nro_grupo_familiar,estado_civil,plan_medico,cantidad_hijos)
-	values (@id_afiliado,@nro_grupo_familiar,@estado_civil,@plan_medico,@cantidad_hijos)
+	values (@idUsuario,@nro_grupo_familiar,@estado_civil,@plan_medico,@cantidad_hijos)
 
 	 COMMIT TRAN  
      END TRY 
@@ -66,7 +60,7 @@ begin
      END CATCH 
 
 
-     select @nick,@pass,@id_afiliado,@error
+     select @documento as nick,@documento as pass,@idUsuario as id_afiliado,@error as error
 
 end
 

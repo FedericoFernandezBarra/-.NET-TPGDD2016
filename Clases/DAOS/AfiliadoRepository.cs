@@ -36,5 +36,12 @@ namespace ClinicaFrba.Clases.DAOS
 
             return result["error"].ToString();
         }
+
+        internal Afiliado traerAfiliadoPorId(long id)
+        {
+            object result = selectById(id);
+
+            return result == null ? null : (Afiliado)result;
+        }
     }
 }

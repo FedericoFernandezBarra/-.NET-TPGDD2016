@@ -29,5 +29,10 @@ namespace ClinicaFrba.Clases.POJOS
 
         public List<Afiliado> hijos { get; set; }
         public Afiliado conyuge { get; set; }
+
+        public Afiliado()
+        {
+            numeroFamiliar = 1;
+        }
     }
 }
