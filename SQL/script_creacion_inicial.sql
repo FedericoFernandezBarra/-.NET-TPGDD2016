@@ -157,7 +157,7 @@ go
 
 create table BEMVINDO.USUARIO
 (
-    id_usuario  numeric(10,0) identity(1,1),
+    id_usuario  numeric(10,0) ,
     nick    nvarchar(255) ,
     pass    nvarchar(255),
     intentos_login   smallint,
