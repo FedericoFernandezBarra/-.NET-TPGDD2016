@@ -24,13 +24,17 @@ namespace ClinicaFrba.Clases.DAOS
 
             autoMapping = false;
 
-            List <Dictionary < string,object>> result = (List<Dictionary<string, object>>)
-                                                executeStored("BEMVINDO.st_insertar_afiliado", 
-                                                afiliado, parametros);
+            Dictionary<string, object> result = ((List<Dictionary<string, object>>)
+                                                executeStored("BEMVINDO.st_insertar_afiliado",
+                                                afiliado, parametros))[0];
 
             autoMapping = true;
 
-            return result[0]["error"].ToString();
+            afiliado.usuario.nick = result["nick"].ToString();
+            afiliado.usuario.pass = result["pass"].ToString();
+            afiliado.id = Convert.ToInt64(result["id_afiliado"]);//Seteo las nuevas propiedades
+
+            return result["error"].ToString();
         }
     }
 }

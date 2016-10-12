@@ -23,6 +23,7 @@ namespace ClinicaFrba.Clases.Otros
         {
             nuevoAfiliado = new Afiliado();
             nuevoAfiliado.usuario = new Usuario();
+            nuevoAfiliado.numeroFamiliar = 1;
 
             mensajeDeError = "";
 
@@ -35,18 +36,13 @@ namespace ClinicaFrba.Clases.Otros
             TipoDocumentoRepository repoTipoDocumento = new TipoDocumentoRepository();
             PlanMedicoRepository repoPlanMedico = new PlanMedicoRepository();
 
-            /*estadosCivilesSistema = repoEstadoCivil.traerEstadosCiviles();
+            estadosCivilesSistema = repoEstadoCivil.traerEstadosCiviles();
             tiposDeDocumentoSistema = repoTipoDocumento.traerTiposDocumento();
-            planesMedicosSistema = repoPlanMedico.traerPlanesMedicos();*/
+            planesMedicosSistema = repoPlanMedico.traerPlanesMedicos();
             sexosSistema = new List<char> { 'M', 'F' };
-            EstadoCivil casado = new EstadoCivil();
+            /*EstadoCivil casado = new EstadoCivil();
             casado.descripcion = "casado";
-            estadosCivilesSistema = new List<EstadoCivil> { casado };//Hardcodeado por ahora
-        }
-
-        internal void ejecutarGuardado()
-        {
-            guardarAfiliado();
+            estadosCivilesSistema = new List<EstadoCivil> { casado };//Hardcodeado por ahora*/
         }
 
         public bool cumpleValidaciones()
@@ -84,29 +80,50 @@ namespace ClinicaFrba.Clases.Otros
             return campo == null || campo == "";
         }
 
-        private void guardarAfiliado()
+        public bool guardarAfiliado()
         {
-            repoAfiliado.insertarAfiliado(nuevoAfiliado);
+            string error = repoAfiliado.insertarAfiliado(nuevoAfiliado);
 
-            if (nuevoAfiliado.conyuge!=null)
+            if (error!="")
             {
-                repoAfiliado.insertarAfiliado(nuevoAfiliado.conyuge);
+                mensajeDeError = error;
+                return false;
             }
 
-            nuevoAfiliado.hijos.ForEach(hijo => repoAfiliado.insertarAfiliado(hijo));
+            if (nuevoAfiliado.conyuge!=null)//No se si habria que rollbackear
+            {
+                error = repoAfiliado.insertarAfiliado(nuevoAfiliado.conyuge);
+
+                if (error!="")
+                {
+                    mensajeDeError = error;
+                    return false;
+                }
+            }
+
+            foreach (Afiliado hijo in nuevoAfiliado.hijos)
+            {
+                error = repoAfiliado.insertarAfiliado(hijo);
+
+                if (error!="")
+                {
+                    mensajeDeError = error;
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         internal void crearConyuge()
         {
             nuevoAfiliado.conyuge = new Afiliado();
+            nuevoAfiliado.conyuge.usuario = new Usuario();
             nuevoAfiliado.conyuge.numeroFamiliar = 2;
             nuevoAfiliado.conyuge.estadoCivil = nuevoAfiliado.estadoCivil;
             nuevoAfiliado.conyuge.planMedico = nuevoAfiliado.planMedico;
             nuevoAfiliado.conyuge.cantidadDeHijos = nuevoAfiliado.cantidadDeHijos;
             nuevoAfiliado.conyuge.usuario.direccion = nuevoAfiliado.usuario.direccion;
-
-            //Esto para mi esta re mal, o tnemos un usuario por afiliado o 
-           // migramos los datos de usuario a afiliado
         }
 
         internal Afiliado crearNuevoHijo()
@@ -118,8 +135,10 @@ namespace ClinicaFrba.Clases.Otros
             }
 
             Afiliado nuevoHijo = new Afiliado();
+            nuevoHijo.usuario = new Usuario();
             nuevoHijo.numeroFamiliar = mayorNumeroFamiliar() + 1;
-            //Hay que ver que mas se hace
+            nuevoAfiliado.conyuge.planMedico = nuevoAfiliado.planMedico;
+            nuevoAfiliado.conyuge.usuario.direccion = nuevoAfiliado.usuario.direccion;
 
             nuevoAfiliado.hijos.Add(nuevoHijo);
 

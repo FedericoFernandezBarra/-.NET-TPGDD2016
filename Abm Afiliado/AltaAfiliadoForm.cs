@@ -10,7 +10,8 @@ namespace ClinicaFrba.Abm_Afiliado
         private AltaAfiliado altaAfiliado = new AltaAfiliado();
 
         public bool altaExitosa = false;
-        public bool altaFamiliar = false;
+        public bool altaConyuge = false;
+        public bool altaHijo = false;
 
         private static string CASADO = "casado";
 
@@ -21,7 +22,6 @@ namespace ClinicaFrba.Abm_Afiliado
 
         public AltaAfiliadoForm(Afiliado familiar)
         {
-            altaFamiliar = true;
             altaAfiliado.nuevoAfiliado = familiar;
 
             InitializeComponent();
@@ -57,6 +57,20 @@ namespace ClinicaFrba.Abm_Afiliado
             cmbEstadoCivil.DisplayMember = "descripcion";
             cmbEstadoCivil.DataSource = altaAfiliado.planesMedicosSistema;
             cmbEstadoCivil.DataBindings.Add("SelectedItem", altaAfiliado.nuevoAfiliado, "planMedico");
+
+            if (altaConyuge)
+            {
+                cmbEstadoCivil.Enabled = false;
+                txtHijos.Enabled = false;
+                txtDir.Enabled = false;                            
+            }
+
+            if (altaFamiliar())
+            {
+                cmbPlanes.Enabled = false;
+                btnConyuge.Enabled = false;
+                btnHijo.Enabled = false;
+            }
         }
 
         private void cmbVolver_Click(object sender, EventArgs e)
@@ -75,15 +89,25 @@ namespace ClinicaFrba.Abm_Afiliado
                 MessageBox.Show(altaAfiliado.mensajeDeError);
                 return;
             }
-            if (!altaFamiliar)
+            if (!altaFamiliar())
             {
-                altaAfiliado.ejecutarGuardado();
+                if (!altaAfiliado.guardarAfiliado())
+                {
+                    MessageBox.Show(altaAfiliado.mensajeDeError);
+                    return;
+                }
+                
                 MessageBox.Show("Afiliado creado exitosamente");
             }
 
             altaExitosa = true;
 
             Close();
+        }
+
+        private bool altaFamiliar()
+        {
+            return altaHijo || altaConyuge;
         }
 
         private void txtDni_KeyPress(object sender, KeyPressEventArgs e)
@@ -125,6 +149,8 @@ namespace ClinicaFrba.Abm_Afiliado
 
             AltaAfiliadoForm altaConyuge = new AltaAfiliadoForm(altaAfiliado.nuevoAfiliado.conyuge);
 
+            altaConyuge.altaConyuge = true;
+
             Hide();
 
             altaConyuge.ShowDialog();
@@ -135,11 +161,6 @@ namespace ClinicaFrba.Abm_Afiliado
             {
                 altaAfiliado.nuevoAfiliado.conyuge = null;
             }
-        }
-
-        private Afiliado getAfiliado()
-        {
-            return altaAfiliado.nuevoAfiliado;
         }
 
         private void txtHijos_KeyPress(object sender, KeyPressEventArgs e)
@@ -172,6 +193,7 @@ namespace ClinicaFrba.Abm_Afiliado
             }
 
             AltaAfiliadoForm altaHijo = new AltaAfiliadoForm(hijoAfiliado);
+            altaHijo.altaHijo = true;
 
             Hide();
 
