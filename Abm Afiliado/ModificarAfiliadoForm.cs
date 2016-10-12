@@ -32,12 +32,7 @@ namespace ClinicaFrba.Abm_Afiliado
             txtDir.DataBindings.Add("Text", modificarAfiliado.afiliado.usuario, "direccion");
             txtTel.DataBindings.Add("Text", modificarAfiliado.afiliado.usuario, "telefono");
             txtMail.DataBindings.Add("Text", modificarAfiliado.afiliado.usuario, "mail");
-            txtHijos.DataBindings.Add("Text", modificarAfiliado.afiliado, "cantidadDeHijos");
             txtMotivo.DataBindings.Add("Text", modificarAfiliado, "motivo");
-
-            cmbEstadoCivil.DisplayMember = "descripcion";
-            cmbEstadoCivil.DataSource = modificarAfiliado.estadosCivilesSistema;
-            cmbEstadoCivil.DataBindings.Add("SelectedItem", modificarAfiliado.afiliado, "estadoCivil");
 
             cmbPlanes.DisplayMember = "descripcion";
             cmbPlanes.DataSource = modificarAfiliado.planesMedicosSistema;

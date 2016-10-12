@@ -36,10 +36,6 @@
             this.cmbVolver = new System.Windows.Forms.Button();
             this.cmdLimpiar = new System.Windows.Forms.Button();
             this.cmdAceptar = new System.Windows.Forms.Button();
-            this.txtHijos = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.cmbEstadoCivil = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.txtMail = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtDir = new System.Windows.Forms.TextBox();
@@ -58,10 +54,6 @@
             this.groupBox1.Controls.Add(this.cmbVolver);
             this.groupBox1.Controls.Add(this.cmdLimpiar);
             this.groupBox1.Controls.Add(this.cmdAceptar);
-            this.groupBox1.Controls.Add(this.txtHijos);
-            this.groupBox1.Controls.Add(this.label21);
-            this.groupBox1.Controls.Add(this.cmbEstadoCivil);
-            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.txtMail);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.txtDir);
@@ -79,7 +71,7 @@
             // txtMotivo
             // 
             this.txtMotivo.Enabled = false;
-            this.txtMotivo.Location = new System.Drawing.Point(132, 132);
+            this.txtMotivo.Location = new System.Drawing.Point(132, 135);
             this.txtMotivo.Name = "txtMotivo";
             this.txtMotivo.Size = new System.Drawing.Size(458, 20);
             this.txtMotivo.TabIndex = 65;
@@ -89,7 +81,7 @@
             // 
             this.lblMotivo.AutoSize = true;
             this.lblMotivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMotivo.Location = new System.Drawing.Point(6, 137);
+            this.lblMotivo.Location = new System.Drawing.Point(6, 140);
             this.lblMotivo.Name = "lblMotivo";
             this.lblMotivo.Size = new System.Drawing.Size(104, 13);
             this.lblMotivo.TabIndex = 64;
@@ -99,7 +91,7 @@
             // cmbPlanes
             // 
             this.cmbPlanes.FormattingEnabled = true;
-            this.cmbPlanes.Location = new System.Drawing.Point(132, 105);
+            this.cmbPlanes.Location = new System.Drawing.Point(132, 107);
             this.cmbPlanes.Name = "cmbPlanes";
             this.cmbPlanes.Size = new System.Drawing.Size(121, 21);
             this.cmbPlanes.TabIndex = 6;
@@ -109,7 +101,7 @@
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(6, 105);
+            this.label26.Location = new System.Drawing.Point(6, 110);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(69, 13);
             this.label26.TabIndex = 5;
@@ -144,45 +136,9 @@
             this.cmdAceptar.UseVisualStyleBackColor = true;
             this.cmdAceptar.Click += new System.EventHandler(this.cmdAceptar_Click);
             // 
-            // txtHijos
-            // 
-            this.txtHijos.Location = new System.Drawing.Point(408, 81);
-            this.txtHijos.Name = "txtHijos";
-            this.txtHijos.Size = new System.Drawing.Size(23, 20);
-            this.txtHijos.TabIndex = 49;
-            this.txtHijos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHijos_KeyPress);
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(307, 82);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(61, 13);
-            this.label21.TabIndex = 48;
-            this.label21.Text = "Cant. Hijos:";
-            // 
-            // cmbEstadoCivil
-            // 
-            this.cmbEstadoCivil.FormattingEnabled = true;
-            this.cmbEstadoCivil.Location = new System.Drawing.Point(132, 78);
-            this.cmbEstadoCivil.Name = "cmbEstadoCivil";
-            this.cmbEstadoCivil.Size = new System.Drawing.Size(121, 21);
-            this.cmbEstadoCivil.TabIndex = 40;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(6, 81);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(65, 13);
-            this.label7.TabIndex = 35;
-            this.label7.Text = "Estado Civil:";
-            // 
             // txtMail
             // 
-            this.txtMail.Location = new System.Drawing.Point(408, 55);
+            this.txtMail.Location = new System.Drawing.Point(132, 81);
             this.txtMail.Name = "txtMail";
             this.txtMail.Size = new System.Drawing.Size(137, 20);
             this.txtMail.TabIndex = 33;
@@ -191,7 +147,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(307, 55);
+            this.label5.Location = new System.Drawing.Point(6, 81);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(97, 13);
             this.label5.TabIndex = 32;
@@ -257,10 +213,6 @@
         private System.Windows.Forms.Button cmbVolver;
         private System.Windows.Forms.Button cmdLimpiar;
         private System.Windows.Forms.Button cmdAceptar;
-        private System.Windows.Forms.TextBox txtHijos;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.ComboBox cmbEstadoCivil;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtMail;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtDir;
