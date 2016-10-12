@@ -16,9 +16,8 @@ create procedure BEMVINDO.st_insertar_afiliado
 @direccion   nvarchar(255),
 @telefono    nvarchar(255),
 @mail    nvarchar(255),
-@sexo    char,
+@sexo    char
 
-@error varchar(255) output
 AS
 begin
      declare @idUsuario numeric(10,0)
