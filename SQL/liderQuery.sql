@@ -23,7 +23,7 @@ begin
      declare @idUsuario numeric(10,0)
 	 declare @id_numerito numeric(10,0)
 	 declare @error varchar(255) 
-	 set @error = 'Se a cargado un usuario con exito'
+	 set @error = ''
 	 BEGIN TRANSACTION  
      BEGIN TRY
 
