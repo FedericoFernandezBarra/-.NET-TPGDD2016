@@ -8,7 +8,7 @@ using ClinicaFrba.Clases.Otros;
 namespace ClinicaFrba.Test
 {
     [TestClass]
-    public class AltaAfiliadoTestSuite
+    public class ABMAfiliadoTestSuite
     {
         private DefaultDatabaseCreator dbCreator = new DefaultDatabaseCreator();
 
@@ -59,6 +59,65 @@ namespace ClinicaFrba.Test
             Assert.IsNotNull(afiliadoPrincipal);
             Assert.IsNotNull(conyuge);
             Assert.IsNotNull(hijo);
+        }
+
+        [TestMethod]
+        public void modificarAfiliado_modificarPlanSinMotivo_modificacionFallida()
+        {
+            ModificarAfiliado modificarAfiliado = new ModificarAfiliado();
+            modificarAfiliado.afiliado = crearAfiliadoCorrecto();
+            modificarAfiliado.planMedicoActual = modificarAfiliado.afiliado.planMedico;
+
+            (new AfiliadoRepository()).insertarAfiliado(modificarAfiliado.afiliado);//Esto esta mal
+                                                                                    //se supone que deberia 
+                                                                                    //tener insertado un afiliado
+            modificarAfiliado.afiliado.planMedico = new PlanMedico();
+            modificarAfiliado.afiliado.planMedico.id = modificarAfiliado.planMedicoActual.id + 1;
+
+            Assert.IsFalse(modificarAfiliado.ejecutarModificacionesExitosamente());
+        }
+
+        [TestMethod]
+        public void modificarAfiliado_modificarPlanConMotivo_modificacionExitosa()
+        {
+            ModificarAfiliado modificarAfiliado = new ModificarAfiliado();
+            modificarAfiliado.afiliado = crearAfiliadoCorrecto();
+            modificarAfiliado.planMedicoActual = modificarAfiliado.afiliado.planMedico;
+
+            AfiliadoRepository repoAfiliado = new AfiliadoRepository();
+
+            repoAfiliado.insertarAfiliado(modificarAfiliado.afiliado);
+
+            modificarAfiliado.afiliado.planMedico = new PlanMedico();
+            modificarAfiliado.afiliado.planMedico.id = modificarAfiliado.planMedicoActual.id + 1;
+
+            modificarAfiliado.motivo = "Porque puedo";
+
+            bool modificacionExitosa = modificarAfiliado.ejecutarModificacionesExitosamente();
+
+            PlanMedico nuevoPlan = repoAfiliado.traerAfiliadoPorId(modificarAfiliado.afiliado.id).planMedico;
+
+            Assert.IsTrue(modificacionExitosa);
+            Assert.AreEqual(modificarAfiliado.afiliado.planMedico.id, nuevoPlan.id);
+        }
+
+        [TestMethod]
+        public void borrarAfiliado_afiliadoActivo_afiliadoApareceNoActivo()
+        {
+            BajaAfiliado bajaAfiliado = new BajaAfiliado();
+            bajaAfiliado.afiliado = crearAfiliadoCorrecto();
+            bajaAfiliado.afiliado.bajaLogica = false;
+
+            AfiliadoRepository repoAfiliado = new AfiliadoRepository();
+
+            repoAfiliado.insertarAfiliado(bajaAfiliado.afiliado);
+
+            bool bajaExitosa = bajaAfiliado.darDeBajaExitosa();
+
+            Afiliado afiliadoDadoDeBaja = repoAfiliado.traerAfiliadoPorId(bajaAfiliado.afiliado.id);
+
+            Assert.IsTrue(bajaExitosa);
+            Assert.IsTrue(afiliadoDadoDeBaja.bajaLogica);
         }
 
         private Afiliado crearAfiliadoCorrecto()

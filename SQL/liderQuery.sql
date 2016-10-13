@@ -60,7 +60,7 @@ begin
      END CATCH 
 
 
-     select @documento,@documento,@idUsuario,@error
+     select @documento as nick,@documento as pass,@idUsuario as id_afiliado,@error as error
 
 end
 

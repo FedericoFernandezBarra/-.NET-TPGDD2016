@@ -217,8 +217,9 @@
     <Compile Include="Registro Resultado\RegistrarResultadoAtencionForm.Designer.cs">
       <DependentUpon>RegistrarResultadoAtencionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Test\AltaAfiliadoTestSuite.cs" />
+    <Compile Include="Test\ABMAfiliadoTestSuite.cs" />
     <Compile Include="Test\CancelarTurnoTestSuite.cs" />
+    <Compile Include="Test\DummyClasses\HistorialCambiosDePlan.cs" />
     <Compile Include="Test\LoginTestSuite.cs" />
     <EmbeddedResource Include="Abm Afiliado\AltaAfiliadoForm.resx">
       <DependentUpon>AltaAfiliadoForm.cs</DependentUpon>

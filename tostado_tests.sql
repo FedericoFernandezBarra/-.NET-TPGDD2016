@@ -15,6 +15,7 @@ go
 
 insert into BEMVINDO.PLAN_MEDICO(descripcion)
 values 
-    ('PLAN_POBREZA')
+    ('PLAN_POBREZA'),
+	('PLAN_CIELO')
 
 go

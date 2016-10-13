@@ -224,7 +224,10 @@ namespace TostadoPersistentKit
             //Este es el caso en el que la pk sea una fk y que solo haya 1 fk
             if (serializablePropertyCounter == 1 && existsFkEqualToPk)
             {
-                Serializable property = dictionaryObjectsAndTypes[getPropertyType(listProperties(objeto)[0], objeto)];
+                Type propertyType = getPropertyType(listProperties(objeto).Find(prop=> 
+                                    isSerializableProperty(prop,objeto)),objeto);
+
+                Serializable property = dictionaryObjectsAndTypes[propertyType];
                 DataBase.Instance.ejecutarConsulta("alter table "+ objeto.getTableName()+
                                     " add foreign key("+objeto.getMapFromKey(objeto.getIdPropertyName())+
                                     ") references "+property.getTableName()+"("+

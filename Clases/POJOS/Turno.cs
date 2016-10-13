@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TostadoPersistentKit;
+using static TostadoPersistentKit.Serializable;
 
 namespace ClinicaFrba.Clases.POJOS
 {
     [Table(name = "BEMVINDO.TURNO")]
-    public class Turno:Serializable
+    public class Turno//:Serializable
     {
         [Id(name ="id_turno",type =PrimaryKeyType.SURROGATE)]
         public long id { get; set; }

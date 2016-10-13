@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TostadoPersistentKit;
+using static TostadoPersistentKit.Serializable;
 
 namespace ClinicaFrba.Clases.POJOS
 {
     [Table(name = "BEMVINDO.PROFESIONAL")]
-    public class Profesional : Serializable
+    public class Profesional //: Serializable
     {
         [Id(name = "id_profesional", type = PrimaryKeyType.SURROGATE)]
         public long id { get; set; }
