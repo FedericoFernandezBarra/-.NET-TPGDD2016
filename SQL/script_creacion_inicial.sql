@@ -69,6 +69,11 @@ drop table BEMVINDO.AFILIADO
 
 go
 
+if EXISTS (SELECT * FROM sysobjects  WHERE name='GRUPO_FAMILIAR') 
+drop table BEMVINDO.GRUPO_FAMILIAR
+
+go
+
 if EXISTS (SELECT * FROM sysobjects  WHERE name='ESPECIALIDAD') 
 drop table BEMVINDO.ESPECIALIDAD 
 
@@ -125,7 +130,7 @@ go
 
 
 /********************************************************************************************************************************/
-/*CREO ESQUEMA*/
+/*CREACION DE ESQUEMA*/
 /********************************************************************************************************************************/
 
 if EXISTS (SELECT * FROM sys.schemas  WHERE name='BEMVINDO') 
@@ -141,10 +146,6 @@ go
 /*CREACION DE TABLAS*/
 /********************************************************************************************************************************/
 
-
---brian
-
-
 create table BEMVINDO.TIPO_DOCUMENTO
 (
     id_tipo_documento  numeric(10,0) identity (1,1) ,
@@ -157,7 +158,7 @@ go
 
 create table BEMVINDO.USUARIO
 (
-    id_usuario  numeric(10,0) ,
+    id_usuario  numeric(10,0) identity(1,1),
     nick    nvarchar(255) ,
     pass    nvarchar(255),
     intentos_login   smallint,
@@ -264,17 +265,29 @@ go
 create table BEMVINDO.AFILIADO
 (
     id_afiliado numeric(10,0),
-    nro_grupo_familiar char(4),
     estado_civil numeric(10,0),
     plan_medico numeric(10,0),
-    cantidad_hijos smallint,
     fecha_baja   date,
     baja_logica  bit,
+	numero_afiliado	numeric(10,0),
 
     PRIMARY KEY (id_afiliado),
     FOREIGN KEY (id_afiliado)             references BEMVINDO.USUARIO(id_usuario),
     FOREIGN KEY (estado_civil)            references BEMVINDO.ESTADO_CIVIL(id_estado_civil),
     FOREIGN KEY (plan_medico)             references BEMVINDO.PLAN_MEDICO(id_plan_medico)
+)
+
+go
+
+create table BEMVINDO.GRUPO_FAMILIAR
+(
+    id_grupo_familiar  numeric(10,0) identity(1,1),
+    grupo  numeric(10,0) ,
+    familiar numeric(10,0) ,
+    usuario  numeric(10,0),
+
+    PRIMARY KEY (id_grupo_familiar), 
+    FOREIGN KEY (usuario)             references BEMVINDO.USUARIO(id_usuario)
 )
 
 go
@@ -534,7 +547,7 @@ insert into BEMVINDO.USUARIO
         UPPER(Paciente_Direccion),
         Paciente_Telefono,
         Paciente_Mail,
-        null    --no tiene sexo la tabla maestra
+        null    
     from gd_esquema.Maestra
     where 
         Consulta_Sintomas is null and
@@ -542,7 +555,7 @@ insert into BEMVINDO.USUARIO
 
 go
 
---personal
+--profesionales
 insert into BEMVINDO.USUARIO
     select distinct
         Medico_Dni,
@@ -557,7 +570,7 @@ insert into BEMVINDO.USUARIO
         UPPER(Medico_Direccion),
         Medico_Telefono,
         Medico_Mail,
-        null    --no tiene sexo la tabla maestra
+        null    
     from gd_esquema.Maestra
     where 
         Consulta_Sintomas is null and
@@ -571,11 +584,10 @@ insert into BEMVINDO.AFILIADO
     select distinct
         U.id_usuario,
         null,
-        null,
         P.id_plan_medico,
         null,
-        null,
-        0
+        0,
+		null
     from gd_esquema.Maestra as M
     inner join BEMVINDO.USUARIO as U 
         on M.Paciente_Dni = U.documento
@@ -587,7 +599,7 @@ insert into BEMVINDO.AFILIADO
 
 go
 
---PERSONAL
+--PROFESIONAL
 -------------------------------------------------------------------------------------------------------
 insert into BEMVINDO.PROFESIONAL
     select distinct
