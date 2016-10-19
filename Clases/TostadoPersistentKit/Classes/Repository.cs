@@ -100,7 +100,7 @@ namespace TostadoPersistentKit
         {
             foreach (KeyValuePair<string,object> item in getPropertyValues(incompleteObject))
             {
-                if (incompleteObject.getFetchType(item.Key)==Serializable.FetchType.EAGER)
+                if (incompleteObject.getFetchType(item.Key)==FetchType.EAGER)
                 {
                     if (incompleteObject.isOneToManyProperty(item.Key))
                     {
@@ -323,7 +323,7 @@ namespace TostadoPersistentKit
 
             foreach (KeyValuePair<string, object> keyValuePair in propertyValues)
             {
-                if (keyValuePair.Key != primaryKeyPropertyName || objeto.getPrimaryKeyType() == Serializable.PrimaryKeyType.NATURAL)
+                if (keyValuePair.Key != primaryKeyPropertyName || objeto.getPrimaryKeyType() == PrimaryKeyType.NATURAL)
                 {
                     String dataName = objeto.getMapFromKey(keyValuePair.Key);
 

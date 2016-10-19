@@ -152,6 +152,8 @@
     <Compile Include="Clases\TostadoPersistentKit\Annotations\Table.cs" />
     <Compile Include="Clases\TostadoPersistentKit\Classes\DataBase.cs" />
     <Compile Include="Clases\TostadoPersistentKit\Classes\DefaultDatabaseCreator.cs" />
+    <Compile Include="Clases\TostadoPersistentKit\Classes\FetchType.cs" />
+    <Compile Include="Clases\TostadoPersistentKit\Classes\PrimaryKeyType.cs" />
     <Compile Include="Clases\TostadoPersistentKit\Classes\Repository.cs" />
     <Compile Include="Clases\TostadoPersistentKit\Classes\Serializable.cs" />
     <Compile Include="Clases\TostadoPersistentKit\Classes\Sistema.cs" />

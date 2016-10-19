@@ -292,7 +292,7 @@ namespace TostadoPersistentKit
                         {
                             createQuery += " not null primary key";
 
-                            if (objeto.getPrimaryKeyType()==Serializable.PrimaryKeyType.SURROGATE)
+                            if (objeto.getPrimaryKeyType()==PrimaryKeyType.SURROGATE)
                             {
                                 createQuery += " identity(1,1)";
                             }
