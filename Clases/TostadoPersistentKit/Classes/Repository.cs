@@ -402,7 +402,7 @@ namespace TostadoPersistentKit
             return selectByProperty(propertyName, propertyValue, getModelClassType());
         }
 
-        private List<object> selectByProperty(string propertyName, object propertyValue, Type classType)
+        internal List<object> selectByProperty(string propertyName, object propertyValue, Type classType)
         {
             Serializable objeto = (Serializable)Activator.CreateInstance(classType);
 
@@ -433,13 +433,15 @@ namespace TostadoPersistentKit
 
         internal List<object> selectAll()
         {
-            Serializable objeto = (Serializable)Activator.CreateInstance(getModelClassType());
-
-            return selectAll(objeto.getTableName(),getModelClassType());
+            return selectAll(getModelClassType());
         }
 
-        private List<object> selectAll(String tableName,Type classType)
+        internal List<object> selectAll(Type classType)
         {
+            Serializable objeto = (Serializable)Activator.CreateInstance(classType);
+
+            String tableName = objeto.getTableName();
+
             List<SqlParameter> parameters = new List<SqlParameter>();
 
             String selectQuery = "select * from " + tableName;

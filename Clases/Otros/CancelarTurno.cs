@@ -1,4 +1,5 @@
-﻿using ClinicaFrba.Clases.POJOS;
+﻿using ClinicaFrba.Clases.DAOS;
+using ClinicaFrba.Clases.POJOS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +11,26 @@ namespace ClinicaFrba.Clases.Otros
 {
     class CancelarTurno
     {
-        public object tipoDeCancelacion { get; set; }
+        public TipoCancelacion tipoDeCancelacion { get; set; }
         public string motivoDeCancelacion { get; set; }
         public Afiliado afiliado { get; set; }
         public string mensajeDeError { get; set; }
-        public List<object> tiposDeCancelacion { get; set; }
+        public List<TipoCancelacion> tiposDeCancelacion { get; set; }
+        public List<Turno> turnosDeAfiliado { get; set; }
         public Turno turnoACancelar { get; set; }
+        private TurnoRepository repoTurno = new TurnoRepository();
 
         public CancelarTurno()
         {
             mensajeDeError = "";
-            tiposDeCancelacion = new List<object>();
+
+            inicializarListas();
+        }
+
+        private void inicializarListas()
+        {
+            tiposDeCancelacion = repoTurno.traerTiposDeCancelacion();
+            turnosDeAfiliado = repoTurno.traerTurnosDeAfiliado(afiliado);
         }
 
         internal bool cancelacionExitosa()
@@ -36,7 +46,7 @@ namespace ClinicaFrba.Clases.Otros
 
         private void ejecutarCancelacion()
         {
-            //Aca deberia de hacer el insert
+            repoTurno.cancelarTurno(turnoACancelar, motivoDeCancelacion, tipoDeCancelacion);
         }
 
         private bool cumpleValidaciones()

@@ -1,6 +1,8 @@
-﻿using ClinicaFrba.Clases.POJOS;
+﻿using ClinicaFrba.Clases.DAOS;
+using ClinicaFrba.Clases.POJOS;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,19 +14,25 @@ namespace ClinicaFrba.Clases.Otros
     {
         public DateTime fechaInicioCancelacion { get; set; }
         public DateTime fechaFinCancelacion { get; set; }
-        public object tipoDeCancelacion { get; set; }
+        public TipoCancelacion tipoDeCancelacion { get; set; }
         public string motivoDeCancelacion{ get; set; }
         public Profesional profesional { get; set; }
         public string mensajeDeError { get; set; }
-        public List<object> tiposDeCancelacion { get; set; }
+        public List<TipoCancelacion> tiposDeCancelacion { get; set; }
         private DateTime fechaActual = Sistema.Instance.getDate();
+        private TurnoRepository repoTurno = new TurnoRepository();
 
         public CancelarDias()
         {
             mensajeDeError = "";
-            tiposDeCancelacion = new List<object>();
             fechaFinCancelacion = fechaActual;
             fechaInicioCancelacion = fechaActual;
+            inicializarListas();
+        }
+
+        private void inicializarListas()
+        {
+            tiposDeCancelacion = repoTurno.traerTiposDeCancelacion();
         }
 
         internal bool cancelacionExitosa()
@@ -66,13 +74,12 @@ namespace ClinicaFrba.Clases.Otros
 
         private void ejecutarCancelacion()
         {
-            //Esto ejecuta la cancelacion contra la bd
+            repoTurno.cancelarTurnoPorRangoFechas(fechaInicioCancelacion,fechaFinCancelacion,profesional,motivoDeCancelacion,tipoDeCancelacion);
         }
 
         public bool hayTurnoHoy()
         {
-            //Aca hay que consultar a un repo
-            return false;
+            return repoTurno.existeTurno(profesional, fechaActual);
         }
     }
 }
