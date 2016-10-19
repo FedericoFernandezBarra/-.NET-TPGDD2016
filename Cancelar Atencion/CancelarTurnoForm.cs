@@ -44,6 +44,8 @@ namespace ClinicaFrba.Cancelar_Atencion
         {
             cmbCancelacion.DataBindings.Add("SelectedItem", cancelarTurno, "tipoDeCancelacion");
             txtMotivo.DataBindings.Add("Text", cancelarTurno, "motivoDeCancelacion");
+
+            grillaTurnos.DataSource = cancelarTurno.turnosDeAfiliado;
             //Tengo que bindear que turno quiere cancelar del datagrid
         }
 
@@ -54,6 +56,24 @@ namespace ClinicaFrba.Cancelar_Atencion
                 cmbCancelacion.Items.Add(item);
             }
 
+        }
+
+        private void grillaTurnos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int indiceSeleccionado = 0;
+
+            try
+            {
+                indiceSeleccionado = grillaTurnos.CurrentRow.Index;
+            }
+            catch (Exception)
+            {
+                indiceSeleccionado = 0;
+                //escondemos todo vieja
+            }
+
+            cancelarTurno.turnoACancelar = indiceSeleccionado < cancelarTurno.turnosDeAfiliado.Count ?
+                                        cancelarTurno.turnosDeAfiliado[indiceSeleccionado] : null;
         }
     }
 }
