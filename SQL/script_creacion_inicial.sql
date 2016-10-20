@@ -69,10 +69,6 @@ drop table BEMVINDO.AFILIADO
 
 go
 
-if EXISTS (SELECT * FROM sysobjects  WHERE name='GRUPO_FAMILIAR') 
-drop table BEMVINDO.GRUPO_FAMILIAR
-
-go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='ESPECIALIDAD') 
 drop table BEMVINDO.ESPECIALIDAD 
@@ -275,19 +271,6 @@ create table BEMVINDO.AFILIADO
     FOREIGN KEY (id_afiliado)             references BEMVINDO.USUARIO(id_usuario),
     FOREIGN KEY (estado_civil)            references BEMVINDO.ESTADO_CIVIL(id_estado_civil),
     FOREIGN KEY (plan_medico)             references BEMVINDO.PLAN_MEDICO(id_plan_medico)
-)
-
-go
-
-create table BEMVINDO.GRUPO_FAMILIAR
-(
-    id_grupo_familiar  numeric(10,0) identity(1,1),
-    grupo  numeric(10,0) ,
-    familiar numeric(10,0) ,
-    usuario  numeric(10,0),
-
-    PRIMARY KEY (id_grupo_familiar), 
-    FOREIGN KEY (usuario)             references BEMVINDO.USUARIO(id_usuario)
 )
 
 go
