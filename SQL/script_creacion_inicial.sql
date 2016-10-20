@@ -69,6 +69,10 @@ drop table BEMVINDO.AFILIADO
 
 go
 
+if EXISTS (SELECT * FROM sysobjects  WHERE name='AGENDA') 
+drop table BEMVINDO.AGENDA 
+
+go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='ESPECIALIDAD') 
 drop table BEMVINDO.ESPECIALIDAD 
@@ -253,7 +257,6 @@ create table BEMVINDO.PROFESIONAL
 
     PRIMARY KEY (id_profesional),
     FOREIGN KEY (id_profesional)   references BEMVINDO.USUARIO(id_usuario)
-
 )
 
 go
@@ -320,6 +323,23 @@ create table BEMVINDO.ESPECIALIDAD_POR_PROFESIONAL
     PRIMARY KEY (id_especialidad, id_profesional), 
     FOREIGN KEY (id_especialidad)                references BEMVINDO.ESPECIALIDAD(id_especialidad), 
     FOREIGN KEY (id_profesional)                 references BEMVINDO.PROFESIONAL(id_profesional)
+)
+
+go
+
+create table BEMVINDO.AGENDA
+(
+    id_agenda		numeric(10,0) identity(1,1),
+    profesional		numeric(10,0),
+	especialidad	numeric(10,0),
+    dia		nvarchar(10) check (dia in('LUNES','MARTES', 'MIERCOLES','JUEVES', 'VIERNES', 'SABADO')),
+	horario_inicial		time,
+	horario_final		time,
+    
+
+    PRIMARY KEY (id_agenda),
+	FOREIGN KEY (profesional)   references BEMVINDO.PROFESIONAL(id_profesional),
+	FOREIGN KEY (especialidad)   references BEMVINDO.ESPECIALIDAD(id_especialidad)
 )
 
 go
@@ -779,3 +799,9 @@ alter table BEMVINDO.BONO
 drop column bono_numero
 
 go
+
+
+/********************************************************************************************************************************/
+/*CREACION DE PROCEDIMIENTOS PARA LA APLICACION*/
+/********************************************************************************************************************************/
+
