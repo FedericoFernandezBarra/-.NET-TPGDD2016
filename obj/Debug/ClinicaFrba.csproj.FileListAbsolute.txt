@@ -69,3 +69,6 @@ C:\Users\Alexis\GddUtn-Clinica\bin\Debug\ClinicaFrba.exe
 C:\Users\Alexis\GddUtn-Clinica\bin\Debug\ClinicaFrba.pdb
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.exe
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.pdb
+C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.csprojResolveAssemblyReference.cache
+C:\Users\Alexis\GddUtn-Clinica\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Alexis\GddUtn-Clinica\bin\Debug\es\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
