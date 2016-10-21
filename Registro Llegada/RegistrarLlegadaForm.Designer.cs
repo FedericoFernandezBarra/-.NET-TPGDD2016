@@ -35,13 +35,12 @@
             this.SeleccionTurno = new System.Windows.Forms.GroupBox();
             this.txtNroAfiliado = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnTurno = new System.Windows.Forms.Button();
-            this.grillaHorarios = new System.Windows.Forms.DataGridView();
+            this.grillaTurnos = new System.Windows.Forms.DataGridView();
             this.Medico = new System.Windows.Forms.GroupBox();
             this.cmdSeleccionar = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.SeleccionTurno.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grillaHorarios)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grillaTurnos)).BeginInit();
             this.Medico.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,11 +49,9 @@
             this.groupBox2.Controls.Add(this.lblNumeroAfiliado);
             this.groupBox2.Controls.Add(this.cmdConfirmarBono);
             this.groupBox2.Controls.Add(this.txtBono);
-            this.groupBox2.Location = new System.Drawing.Point(16, 394);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Location = new System.Drawing.Point(12, 320);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(669, 123);
+            this.groupBox2.Size = new System.Drawing.Size(502, 100);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Bono Consulta";
@@ -62,44 +59,39 @@
             // lblNumeroAfiliado
             // 
             this.lblNumeroAfiliado.AutoSize = true;
-            this.lblNumeroAfiliado.Location = new System.Drawing.Point(8, 47);
-            this.lblNumeroAfiliado.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblNumeroAfiliado.Location = new System.Drawing.Point(6, 38);
             this.lblNumeroAfiliado.Name = "lblNumeroAfiliado";
-            this.lblNumeroAfiliado.Size = new System.Drawing.Size(174, 17);
+            this.lblNumeroAfiliado.Size = new System.Drawing.Size(131, 13);
             this.lblNumeroAfiliado.TabIndex = 9;
             this.lblNumeroAfiliado.Text = "Ingrese  Numero de Bono:";
             // 
             // cmdConfirmarBono
             // 
             this.cmdConfirmarBono.Enabled = false;
-            this.cmdConfirmarBono.Location = new System.Drawing.Point(440, 73);
-            this.cmdConfirmarBono.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdConfirmarBono.Location = new System.Drawing.Point(330, 59);
             this.cmdConfirmarBono.Name = "cmdConfirmarBono";
-            this.cmdConfirmarBono.Size = new System.Drawing.Size(188, 28);
+            this.cmdConfirmarBono.Size = new System.Drawing.Size(141, 23);
             this.cmdConfirmarBono.TabIndex = 7;
             this.cmdConfirmarBono.Text = "Confirmar Bono";
             this.cmdConfirmarBono.UseVisualStyleBackColor = true;
+            this.cmdConfirmarBono.Click += new System.EventHandler(this.cmdConfirmarBono_Click);
             // 
             // txtBono
             // 
             this.txtBono.Enabled = false;
-            this.txtBono.Location = new System.Drawing.Point(208, 43);
-            this.txtBono.Margin = new System.Windows.Forms.Padding(4);
+            this.txtBono.Location = new System.Drawing.Point(156, 35);
             this.txtBono.Name = "txtBono";
-            this.txtBono.Size = new System.Drawing.Size(172, 22);
+            this.txtBono.Size = new System.Drawing.Size(130, 20);
             this.txtBono.TabIndex = 0;
             // 
             // SeleccionTurno
             // 
             this.SeleccionTurno.Controls.Add(this.txtNroAfiliado);
             this.SeleccionTurno.Controls.Add(this.label1);
-            this.SeleccionTurno.Controls.Add(this.btnTurno);
-            this.SeleccionTurno.Controls.Add(this.grillaHorarios);
-            this.SeleccionTurno.Location = new System.Drawing.Point(13, 97);
-            this.SeleccionTurno.Margin = new System.Windows.Forms.Padding(4);
+            this.SeleccionTurno.Controls.Add(this.grillaTurnos);
+            this.SeleccionTurno.Location = new System.Drawing.Point(10, 79);
             this.SeleccionTurno.Name = "SeleccionTurno";
-            this.SeleccionTurno.Padding = new System.Windows.Forms.Padding(4);
-            this.SeleccionTurno.Size = new System.Drawing.Size(677, 289);
+            this.SeleccionTurno.Size = new System.Drawing.Size(508, 235);
             this.SeleccionTurno.TabIndex = 8;
             this.SeleccionTurno.TabStop = false;
             this.SeleccionTurno.Text = "Seleccion Turno";
@@ -107,60 +99,46 @@
             // txtNroAfiliado
             // 
             this.txtNroAfiliado.Enabled = false;
-            this.txtNroAfiliado.Location = new System.Drawing.Point(236, 30);
-            this.txtNroAfiliado.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNroAfiliado.Location = new System.Drawing.Point(177, 24);
             this.txtNroAfiliado.Name = "txtNroAfiliado";
-            this.txtNroAfiliado.Size = new System.Drawing.Size(132, 22);
+            this.txtNroAfiliado.Size = new System.Drawing.Size(136, 20);
             this.txtNroAfiliado.TabIndex = 9;
+            this.txtNroAfiliado.TextChanged += new System.EventHandler(this.txtNroAfiliado_TextChanged);
             this.txtNroAfiliado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNroAfiliado_KeyPress);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 34);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(10, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(198, 17);
+            this.label1.Size = new System.Drawing.Size(148, 13);
             this.label1.TabIndex = 8;
             this.label1.Text = "Ingrese el Numero de Afiliado:";
             // 
-            // btnTurno
+            // grillaTurnos
             // 
-            this.btnTurno.Location = new System.Drawing.Point(263, 254);
-            this.btnTurno.Margin = new System.Windows.Forms.Padding(4);
-            this.btnTurno.Name = "btnTurno";
-            this.btnTurno.Size = new System.Drawing.Size(100, 28);
-            this.btnTurno.TabIndex = 1;
-            this.btnTurno.Text = "Seleccionar";
-            this.btnTurno.UseVisualStyleBackColor = true;
-            // 
-            // grillaHorarios
-            // 
-            this.grillaHorarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grillaHorarios.Location = new System.Drawing.Point(8, 62);
-            this.grillaHorarios.Margin = new System.Windows.Forms.Padding(4);
-            this.grillaHorarios.Name = "grillaHorarios";
-            this.grillaHorarios.Size = new System.Drawing.Size(661, 185);
-            this.grillaHorarios.TabIndex = 0;
+            this.grillaTurnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grillaTurnos.Location = new System.Drawing.Point(6, 50);
+            this.grillaTurnos.Name = "grillaTurnos";
+            this.grillaTurnos.Size = new System.Drawing.Size(496, 179);
+            this.grillaTurnos.TabIndex = 0;
+            this.grillaTurnos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaTurnos_CellClick);
             // 
             // Medico
             // 
             this.Medico.Controls.Add(this.cmdSeleccionar);
-            this.Medico.Location = new System.Drawing.Point(13, 13);
-            this.Medico.Margin = new System.Windows.Forms.Padding(4);
+            this.Medico.Location = new System.Drawing.Point(10, 11);
             this.Medico.Name = "Medico";
-            this.Medico.Padding = new System.Windows.Forms.Padding(4);
-            this.Medico.Size = new System.Drawing.Size(677, 74);
+            this.Medico.Size = new System.Drawing.Size(508, 60);
             this.Medico.TabIndex = 7;
             this.Medico.TabStop = false;
             this.Medico.Text = "Seleccionar Profesional";
             // 
             // cmdSeleccionar
             // 
-            this.cmdSeleccionar.Location = new System.Drawing.Point(187, 23);
-            this.cmdSeleccionar.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdSeleccionar.Location = new System.Drawing.Point(140, 19);
             this.cmdSeleccionar.Name = "cmdSeleccionar";
-            this.cmdSeleccionar.Size = new System.Drawing.Size(197, 28);
+            this.cmdSeleccionar.Size = new System.Drawing.Size(148, 23);
             this.cmdSeleccionar.TabIndex = 0;
             this.cmdSeleccionar.Text = "Seleccionar Profesional";
             this.cmdSeleccionar.UseVisualStyleBackColor = true;
@@ -168,19 +146,21 @@
             // 
             // RegistrarLlegadaForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(708, 528);
+            this.ClientSize = new System.Drawing.Size(531, 429);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.SeleccionTurno);
             this.Controls.Add(this.Medico);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "RegistrarLlegadaForm";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.RegistrarLlegadaForm_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.SeleccionTurno.ResumeLayout(false);
             this.SeleccionTurno.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grillaHorarios)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grillaTurnos)).EndInit();
             this.Medico.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -195,8 +175,7 @@
         private System.Windows.Forms.GroupBox SeleccionTurno;
         private System.Windows.Forms.TextBox txtNroAfiliado;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnTurno;
-        private System.Windows.Forms.DataGridView grillaHorarios;
+        private System.Windows.Forms.DataGridView grillaTurnos;
         private System.Windows.Forms.GroupBox Medico;
         private System.Windows.Forms.Button cmdSeleccionar;
     }

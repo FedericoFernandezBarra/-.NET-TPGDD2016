@@ -33,6 +33,16 @@ namespace ClinicaFrba.Clases.DAOS
             DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_cancelar_turno_medico", parametros);
         }
 
+        internal void registrarLlegada(Turno turno, Bono bono, DateTime fecha)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            DataBase.Instance.agregarParametro(parametros, "@id_turno", turno.id);
+            DataBase.Instance.agregarParametro(parametros, "@id_bono", bono.id);
+            DataBase.Instance.agregarParametro(parametros, "@fecha_llegada", fecha);
+
+            DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_registrar_fecha_llegada", parametros);
+        }
+
         internal void cancelarTurno(Turno turnoACancelar, string motivoDeCancelacion, TipoCancelacion tipoDeCancelacion)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();

@@ -7,14 +7,11 @@ using TostadoPersistentKit;
 
 namespace ClinicaFrba.Clases.POJOS
 {
-    [Table(name = "BEMVINDO.ESPECIALIDAD")]
-    public class Especialidad:Serializable
+    [Table(name = "BEMVINDO.TIPO_ESPECIALIDAD")]
+    public class TipoEspecialidad:Serializable
     {
-        [Id(name = "id_especialidad",type =PrimaryKeyType.SURROGATE)]
+        [Id(name = "id_tipo_especialidad", type = PrimaryKeyType.SURROGATE)]
         public long id { get; set; }
-
-        [Column(name = "tipo_especialidad",fetch =FetchType.EAGER)]
-        public TipoEspecialidad tipoDeEspecialidad { get; set; }
 
         [Column(name = "descripcion")]
         public string descripcion { get; set; }

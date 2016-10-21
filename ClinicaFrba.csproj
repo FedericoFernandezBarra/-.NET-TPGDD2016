@@ -118,9 +118,12 @@
       <DependentUpon>CancelarTurnoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Clases\DAOS\AfiliadoRepository.cs" />
+    <Compile Include="Clases\DAOS\BonoRepository.cs" />
+    <Compile Include="Clases\DAOS\EspecialidadRepository.cs" />
     <Compile Include="Clases\DAOS\EstadoCivilRepository.cs" />
     <Compile Include="Clases\DAOS\FuncionalidadRepository.cs" />
     <Compile Include="Clases\DAOS\PlanMedicoRepository.cs" />
+    <Compile Include="Clases\DAOS\ProfesionalRepository.cs" />
     <Compile Include="Clases\DAOS\RolRepository.cs" />
     <Compile Include="Clases\DAOS\TipoDocumentoRepository.cs" />
     <Compile Include="Clases\DAOS\TurnoRepository.cs" />
@@ -128,15 +131,18 @@
     <Compile Include="Clases\Otros\AbmRol.cs" />
     <Compile Include="Clases\Otros\AltaAfiliado.cs" />
     <Compile Include="Clases\Otros\BajaAfiliado.cs" />
+    <Compile Include="Clases\Otros\BuscarProfesional.cs" />
     <Compile Include="Clases\Otros\CrearRolAction.cs" />
     <Compile Include="Clases\Otros\EditorDeRol.cs" />
     <Compile Include="Clases\Otros\EditorDeRolAction.cs" />
     <Compile Include="Clases\Otros\ModificarAfiliado.cs" />
     <Compile Include="Clases\Otros\ModificarRolAction.cs" />
+    <Compile Include="Clases\Otros\RegistrarLlegada.cs" />
     <Compile Include="Clases\POJOS\Afiliado.cs" />
     <Compile Include="Clases\Otros\CancelarDias.cs" />
     <Compile Include="Clases\Otros\CancelarTurno.cs" />
     <Compile Include="Clases\Otros\Login.cs" />
+    <Compile Include="Clases\POJOS\Bono.cs" />
     <Compile Include="Clases\POJOS\Especialidad.cs" />
     <Compile Include="Clases\POJOS\EstadoCivil.cs" />
     <Compile Include="Clases\POJOS\Funcionalidad.cs" />
@@ -145,6 +151,7 @@
     <Compile Include="Clases\POJOS\Rol.cs" />
     <Compile Include="Clases\POJOS\TipoCancelacion.cs" />
     <Compile Include="Clases\POJOS\TipoDocumento.cs" />
+    <Compile Include="Clases\POJOS\TipoEspecialidad.cs" />
     <Compile Include="Clases\POJOS\Turno.cs" />
     <Compile Include="Clases\POJOS\Usuario.cs" />
     <Compile Include="Clases\TostadoPersistentKit\Annotations\Column.cs" />
