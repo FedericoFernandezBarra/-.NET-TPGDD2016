@@ -206,7 +206,7 @@ go
 create table BEMVINDO.FUNCIONALIDAD
 (
     id_funcionalidad  numeric(10,0) identity(1,1),
-    descripcion       nvarchar(30),
+    descripcion       nvarchar(255),
     activo  bit,
 
     PRIMARY KEY (id_funcionalidad)
@@ -497,6 +497,56 @@ go
 /*MIGRACION*/
 /********************************************************************************************************************************/
 
+--ROL
+-------------------------------------------------------------------------------------------------------
+insert into BEMVINDO.ROL
+values 
+	('PROFESIONAL', 1),
+	('AFILIADO', 1),
+	('ADMINISTRADOR', 1)
+
+go
+
+--FUNCIONALIDAD
+-------------------------------------------------------------------------------------------------------
+insert into BEMVINDO.FUNCIONALIDAD
+values 
+	('ABM ROL', 1),
+	('LOGIN Y SEGURIDAD',1),
+	('REGISTRO DE USUARIOS',1),
+	('ABM AFILIADO',1),
+	('ABM PROFESIONAL',1),
+	('ABM ESPECIALIDADES MEDICAS',1),
+	('ABM PLANES',1),
+	('REGISTRAR AGENDA DEL MEDICO',1),
+	('COMPRA DE BONOS',1),
+	('PEDIR TURNO', 1),
+	('REGISTRO DE LLEGADA PARA ATENCION MEDICA', 1),
+	('REGISTRO DE RESULTADO PARA ATENCION MEDICA', 1),
+	('CANCELAR ATENCION MEDICA', 1),
+	('LISTADO ESTADISTICO', 1)
+
+go
+
+--FUNCIONALIDAD POR ROL
+-------------------------------------------------------------------------------------------------------
+insert into BEMVINDO.FUNCIONALIDAD_POR_ROL
+values 
+	(1,3),
+	(2,1),
+	(2,2),
+	(2,3),
+	(3,3),
+	(4,3),
+	(5,3),
+	(6,3),
+	(7,3),
+	(8,1),
+	(9,2),
+	(10,2)
+
+go
+
 --TIPO DOCUMENTO
 -------------------------------------------------------------------------------------------------------
 insert into BEMVINDO.TIPO_DOCUMENTO
@@ -541,7 +591,7 @@ insert into BEMVINDO.USUARIO
         Paciente_Dni,
         Paciente_Dni,
         0,
-        0,
+        1,
         Paciente_Nombre,
         UPPER(Paciente_Apellido),
         1,
@@ -564,7 +614,7 @@ insert into BEMVINDO.USUARIO
         Medico_Dni,
         Medico_Dni,
         0,
-        0,
+        1,
         Medico_Nombre,
         UPPER(Medico_Apellido),
         1,
@@ -578,6 +628,27 @@ insert into BEMVINDO.USUARIO
     where 
         Consulta_Sintomas is null and
         Compra_Bono_Fecha is null
+
+go
+
+--ROL_POR_USUARIO
+-------------------------------------------------------------------------------------------------------
+
+--afiliados
+insert into BEMVINDO.ROL_POR_USUARIO
+	select 
+		2,
+		id_afiliado
+	from BEMVINDO.AFILIADO
+
+go
+
+--profesionales
+insert into BEMVINDO.ROL_POR_USUARIO
+	select 
+		1,
+		id_profesional
+	from BEMVINDO.PROFESIONAL
 
 go
 
@@ -652,6 +723,20 @@ insert into BEMVINDO.ESPECIALIDAD
     where 
         Especialidad_Codigo is not null
 
+go
+
+--ESPECIALIDAD_POR_PROFESIONAL
+-------------------------------------------------------------------------------------------------------
+insert into BEMVINDO.ESPECIALIDAD_POR_PROFESIONAL
+    select distinct
+        E.id_especialidad,
+		P.id_usuario
+    from gd_esquema.Maestra as M
+    inner join BEMVINDO.USUARIO as P on M.Medico_Dni = P.documento
+    inner join BEMVINDO.ESPECIALIDAD as E on M.Especialidad_Codigo = E.especialidad_codigo
+    where
+        Turno_Numero is not null and
+        Consulta_Sintomas is null
 go
 
 --TURNO
@@ -800,6 +885,22 @@ drop column bono_numero
 
 go
 
+/********************************************************************************************************************************/
+/*CREACION DEL USUARIO CON TODOS LOS PERMISOS*/
+/********************************************************************************************************************************/
+
+insert into BEMVINDO.USUARIO
+values('admin','w23e',0,1,null,null,null,null,null,null,null,null,null)
+
+go
+
+insert into BEMVINDO.ROL_POR_USUARIO
+values 
+	(1,5579),
+	(2,5579),
+	(3,5579)
+
+go
 
 /********************************************************************************************************************************/
 /*CREACION DE PROCEDIMIENTOS PARA LA APLICACION*/
