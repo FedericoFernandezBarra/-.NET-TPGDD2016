@@ -24,10 +24,10 @@ namespace ClinicaFrba.Clases.Otros
         {
             mensajeDeError = "";
 
-            inicializarListas();
+            //inicializarListas();
         }
 
-        private void inicializarListas()
+        public void inicializarListas()
         {
             tiposDeCancelacion = repoTurno.traerTiposDeCancelacion();
             turnosDeAfiliado = repoTurno.traerTurnosDeAfiliado(afiliado);

@@ -17,7 +17,7 @@ namespace ClinicaFrba.Clases.DAOS
             DataBase.Instance.agregarParametro(parametros, "profesional", profesional.id);
             DataBase.Instance.agregarParametro(parametros, "fecha ", fecha);
 
-            return true;//hardcodeado temporalmente
+            return selectByProperty("fechaDeTurno", fecha).Exists(t => ((Turno)t).profesional.id == profesional.id);
         }
 
         internal void cancelarTurnoPorRangoFechas(DateTime fechaInicioCancelacion, DateTime fechaFinCancelacion, Profesional profesional, string motivoDeCancelacion, TipoCancelacion tipoDeCancelacion)

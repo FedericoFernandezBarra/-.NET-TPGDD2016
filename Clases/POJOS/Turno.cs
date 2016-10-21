@@ -8,7 +8,7 @@ using TostadoPersistentKit;
 namespace ClinicaFrba.Clases.POJOS
 {
     [Table(name = "BEMVINDO.TURNO")]
-    public class Turno//:Serializable
+    public class Turno:Serializable
     {
         [Id(name ="id_turno",type =PrimaryKeyType.SURROGATE)]
         public long id { get; set; }

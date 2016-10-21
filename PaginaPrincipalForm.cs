@@ -1,5 +1,6 @@
 ﻿using ClinicaFrba.AbmRol;
 using ClinicaFrba.Cancelar_Atencion;
+using ClinicaFrba.Clases.POJOS;
 using ClinicaFrba.Logueo;
 using System;
 using System.Windows.Forms;

@@ -1,4 +1,5 @@
 ﻿using ClinicaFrba.Clases.Otros;
+using ClinicaFrba.Clases.POJOS;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ClinicaFrba.Test
@@ -84,6 +85,10 @@ namespace ClinicaFrba.Test
         {
             //En alguna parte se tiene que "loguear el porfesional"
             CancelarDias cancelarProfesional = new CancelarDias();
+            cancelarProfesional.profesional = new Profesional();
+            cancelarProfesional.profesional.id = 1;
+            cancelarProfesional.tipoDeCancelacion = new TipoCancelacion();
+            cancelarProfesional.tipoDeCancelacion.id = 1;
             cancelarProfesional.motivoDeCancelacion = "Porque si vieja";
 
             return cancelarProfesional;
@@ -94,6 +99,12 @@ namespace ClinicaFrba.Test
             //En alguna parte se tiene que "loguear el porfesional"
             CancelarTurno cancelarAfiliado = new CancelarTurno();
             cancelarAfiliado.motivoDeCancelacion = "Porque si vieja";
+            cancelarAfiliado.afiliado = new Afiliado();
+            cancelarAfiliado.afiliado.id = 1;
+            cancelarAfiliado.tipoDeCancelacion = new TipoCancelacion();
+            cancelarAfiliado.tipoDeCancelacion.id = 1;
+
+            cancelarAfiliado.inicializarListas();
 
             return cancelarAfiliado;
         }

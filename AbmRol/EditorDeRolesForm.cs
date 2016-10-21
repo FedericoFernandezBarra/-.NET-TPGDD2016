@@ -52,6 +52,8 @@ namespace ClinicaFrba.AbmRol
                 return;
             }
 
+            MessageBox.Show("La operacion se ha realizado con exito");
+
             Close();
         }
 

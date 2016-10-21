@@ -1,4 +1,5 @@
 ﻿using ClinicaFrba.Clases.Otros;
+using ClinicaFrba.Clases.POJOS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,7 @@ namespace ClinicaFrba.Cancelar_Atencion
 
         public CancelarTurnoForm()
         {
+            cancelarTurno.inicializarListas();
             InitializeComponent();
         }
 
