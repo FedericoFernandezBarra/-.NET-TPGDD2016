@@ -1,4 +1,3 @@
-
 drop database gdd
 go
 create database gdd
@@ -12,9 +11,10 @@ drop schema BEMVINDO
 go
 create schema BEMVINDO
 
-
-
 go
+
+
+
 
 
 create table BEMVINDO.TIPO_DOCUMENTO
@@ -29,7 +29,7 @@ go
 
 create table BEMVINDO.USUARIO
 (
-    id_usuario  numeric(10,0) ,
+    id_usuario  numeric(10,0) identity(1,1),
     nick    nvarchar(255) ,
     pass    nvarchar(255),
     intentos_login   smallint,
@@ -77,7 +77,7 @@ go
 create table BEMVINDO.FUNCIONALIDAD
 (
     id_funcionalidad  numeric(10,0) identity(1,1),
-    descripcion       nvarchar(30),
+    descripcion       nvarchar(255),
     activo  bit,
 
     PRIMARY KEY (id_funcionalidad)
@@ -128,7 +128,6 @@ create table BEMVINDO.PROFESIONAL
 
     PRIMARY KEY (id_profesional),
     FOREIGN KEY (id_profesional)   references BEMVINDO.USUARIO(id_usuario)
-
 )
 
 go
@@ -136,12 +135,11 @@ go
 create table BEMVINDO.AFILIADO
 (
     id_afiliado numeric(10,0),
-    nro_grupo_familiar char(4),
     estado_civil numeric(10,0),
     plan_medico numeric(10,0),
-    cantidad_hijos smallint,
     fecha_baja   date,
     baja_logica  bit,
+    numero_afiliado numeric(10,0),
 
     PRIMARY KEY (id_afiliado),
     FOREIGN KEY (id_afiliado)             references BEMVINDO.USUARIO(id_usuario),
@@ -197,6 +195,51 @@ create table BEMVINDO.ESPECIALIDAD_POR_PROFESIONAL
     FOREIGN KEY (id_especialidad)                references BEMVINDO.ESPECIALIDAD(id_especialidad), 
     FOREIGN KEY (id_profesional)                 references BEMVINDO.PROFESIONAL(id_profesional)
 )
+
+go
+
+ create table BEMVINDO.AGENDA
+  (
+      id_agenda    numeric(10,0)   identity(1,1) ,
+      profesional     numeric(10,0),
+      fecha_desde  date,
+      fecha_hasta  date,
+  
+      PRIMARY KEY (id_agenda),
+      FOREIGN KEY (profesional)             references BEMVINDO.PROFESIONAL(id_profesional)
+  
+  )
+  
+  go
+  
+  create table BEMVINDO.DIA_AGENDA
+  (
+      id_dia_agenda numeric(10,0) identity(1,1),
+      agenda        numeric(10,0),
+      especialidad  numeric(10,0),
+      dia           nvarchar(10) check (dia in('LUNES','MARTES', 'MIERCOLES','JUEVES', 'VIERNES', 'SABADO')),
+      hora_desde    time,
+      hora_hasta    time,
+  
+      PRIMARY KEY (id_dia_agenda),
+      FOREIGN KEY (agenda)             references BEMVINDO.AGENDA(id_agenda),
+      FOREIGN KEY (especialidad)       references BEMVINDO.ESPECIALIDAD(id_especialidad)
+  
+  )
+  
+  go
+  
+  create table BEMVINDO.CANCELACION_DIA
+  (
+      id_cancelacion_dia      numeric(10,0) identity(1,1),
+      agenda                  numeric(10,0) ,
+      dia                     date,
+  
+      
+      PRIMARY KEY (id_cancelacion_dia),
+      FOREIGN KEY (agenda)             references BEMVINDO.AGENDA(id_agenda)
+  )
+  
 
 go
 
@@ -287,23 +330,5 @@ create table BEMVINDO.BONO
     FOREIGN KEY (compra)                  references BEMVINDO.COMPRA(id_compra),
     FOREIGN KEY (turno)                   references BEMVINDO.TURNO(id_turno)
 )
-
-go
-
-
-insert into BEMVINDO.TIPO_DOCUMENTO
-values ('DNI')
-
-go
-
---ESTADO CIVIL
-
-insert into BEMVINDO.ESTADO_CIVIL
-values 
-    ('SOLTERO/A'),
-    ('CASADO/A'),
-    ('VIUDO/A'),
-    ('CONCUBINATO'),
-    ('DIVORCIADO/A')
 
 go
