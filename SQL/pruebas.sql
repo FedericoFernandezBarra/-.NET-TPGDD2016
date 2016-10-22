@@ -139,7 +139,7 @@ create table BEMVINDO.AFILIADO
     plan_medico numeric(10,0),
     fecha_baja   date,
     baja_logica  bit,
-    numero_afiliado numeric(10,0),
+    cantidad_hijos smallint,
 
     PRIMARY KEY (id_afiliado),
     FOREIGN KEY (id_afiliado)             references BEMVINDO.USUARIO(id_usuario),
