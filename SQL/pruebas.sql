@@ -122,12 +122,14 @@ go
 
 create table BEMVINDO.PROFESIONAL
 (
-    id_profesional  numeric(10,0)  ,
+    id_profesional  numeric(10,0) ,
+    usuario         numeric(10,0)  ,
     matricula       nvarchar(30), --unique
 
 
+    UNIQUE(usuario),
     PRIMARY KEY (id_profesional),
-    FOREIGN KEY (id_profesional)   references BEMVINDO.USUARIO(id_usuario)
+    FOREIGN KEY (usuario)   references BEMVINDO.USUARIO(id_usuario)
 )
 
 go
@@ -135,14 +137,16 @@ go
 create table BEMVINDO.AFILIADO
 (
     id_afiliado numeric(10,0),
+    usuario     numeric(10,0)  ,
     estado_civil numeric(10,0),
     plan_medico numeric(10,0),
     fecha_baja   date,
     baja_logica  bit,
     cantidad_hijos smallint,
 
+    UNIQUE(usuario),
     PRIMARY KEY (id_afiliado),
-    FOREIGN KEY (id_afiliado)             references BEMVINDO.USUARIO(id_usuario),
+    FOREIGN KEY (usuario)                 references BEMVINDO.USUARIO(id_usuario),
     FOREIGN KEY (estado_civil)            references BEMVINDO.ESTADO_CIVIL(id_estado_civil),
     FOREIGN KEY (plan_medico)             references BEMVINDO.PLAN_MEDICO(id_plan_medico)
 )
