@@ -6,7 +6,7 @@ exec BEMVINDO.st_insertar_afiliado
 '01' --nro_grupo_familiar
 ,3 --estado_civil
 ,NULL--plan_medico
-,3--cantidad_hijos
+,3 --cantidad_hijos
 ,'roli'--nombre
 ,'bergara'--apellido
 ,1--tipo_documento
@@ -16,11 +16,11 @@ exec BEMVINDO.st_insertar_afiliado
 ,'4392-3945'--telefono
 ,'roli76@hotmail.com'--mail
 ,'F'--sexo
-,'0'--error
 
 
 select * FROM BEMVINDO.AFILIADO
 select * FROM BEMVINDO.USUARIO
+
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------
