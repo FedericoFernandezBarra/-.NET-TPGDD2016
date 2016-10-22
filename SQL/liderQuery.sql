@@ -3,7 +3,6 @@
 ---------------------------------------ABM AFILIADO----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------
 create procedure BEMVINDO.st_insertar_afiliado
-
 @nro_grupo_familiar char(4),
 @estado_civil numeric(10,0),
 @plan_medico numeric(10,0),
@@ -20,15 +19,16 @@ create procedure BEMVINDO.st_insertar_afiliado
 
 AS
 begin
-     declare @idUsuario numeric(10,0)
+     declare @idAfiliado numeric(10,0)
 	 declare @id_numerito numeric(10,0)
 	 declare @error varchar(255) 
+	 declare @idUsuario numeric(10,0)
 	 set @error = ''
 	 BEGIN TRANSACTION  
      BEGIN TRY
 
 
-     select @id_numerito =max(id_usuario) from BEMVINDO.USUARIO
+     select @id_numerito =max(id_afiliado) from BEMVINDO.AFILIADO
      set @id_numerito= (@id_numerito/100)
 
 	  if(@nro_grupo_familiar='01')
@@ -36,21 +36,20 @@ begin
 	       set @id_numerito= (@id_numerito+1)
 	  end
 	       
-	    
-	 select @idUsuario =  Concat(@id_numerito,@nro_grupo_familiar)
+	 select @idAfiliado =  Concat(@id_numerito,@nro_grupo_familiar)
 		   
-	  
-	 
-	 	insert into BEMVINDO.USUARIO(id_usuario,nick,pass,intentos_login,activo,nombre,apellido,tipo_documento,
-				documento,fecha_nacimiento,direccion,telefono,mail,sexo
-					   )
-	    values (@idUsuario,@documento,@documento,0,1,@nombre,@apellido,@tipo_documento,@documento,@fecha_nacimiento,@direccion,
+
+	insert into BEMVINDO.USUARIO(nick,pass,intentos_login,activo,nombre,apellido,tipo_documento,
+				documento,fecha_nacimiento,direccion,telefono,mail,sexo)
+	    values (@documento,@documento,0,1,@nombre,@apellido,@tipo_documento,@documento,@fecha_nacimiento,@direccion,
 		       @telefono,@mail,@sexo)
 
-		
+	select @idUsuario =max(id_usuario) from BEMVINDO.USUARIO
 
-	insert into BEMVINDO.AFILIADO(id_afiliado,nro_grupo_familiar,estado_civil,plan_medico,cantidad_hijos)
-	values (@idUsuario,@nro_grupo_familiar,@estado_civil,@plan_medico,@cantidad_hijos)
+		
+	insert into BEMVINDO.AFILIADO(id_afiliado,usuario,estado_civil,plan_medico,cantidad_hijos)
+	    values (@idAfiliado,@idUsuario,@estado_civil,@plan_medico,@cantidad_hijos)
+
 
 	 COMMIT TRAN  
      END TRY 
@@ -60,12 +59,10 @@ begin
      END CATCH 
 
 
-     select @documento as nick,@documento as pass,@idUsuario as id_afiliado,@error as error
+     select @documento as nick,@documento as pass,@idAfiliado as id_afiliado,@error as error
 
 end
 
-
-go
 
 go
 
