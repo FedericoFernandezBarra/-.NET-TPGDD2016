@@ -148,7 +148,7 @@ go
 
 create table BEMVINDO.TIPO_DOCUMENTO
 (
-    id_tipo_documento  numeric(10,0) identity (1,1) ,
+    id_tipo_documento  numeric(10,0) identity(1,1),
     descripcion     nvarchar(255),
 
     PRIMARY KEY(id_tipo_documento)
@@ -251,12 +251,14 @@ go
 
 create table BEMVINDO.PROFESIONAL
 (
-    id_profesional  numeric(10,0)  ,
+    id_profesional  numeric(10,0) ,
+    usuario         numeric(10,0)  ,
     matricula       nvarchar(30), --unique
 
 
+    UNIQUE(usuario),
     PRIMARY KEY (id_profesional),
-    FOREIGN KEY (id_profesional)   references BEMVINDO.USUARIO(id_usuario)
+    FOREIGN KEY (usuario)   references BEMVINDO.USUARIO(id_usuario)
 )
 
 go
@@ -264,14 +266,16 @@ go
 create table BEMVINDO.AFILIADO
 (
     id_afiliado numeric(10,0),
+    usuario     numeric(10,0)  ,
     estado_civil numeric(10,0),
     plan_medico numeric(10,0),
     fecha_baja   date,
     baja_logica  bit,
-	numero_afiliado	numeric(10,0),
+    cantidad_hijos smallint,
 
+    UNIQUE(usuario),
     PRIMARY KEY (id_afiliado),
-    FOREIGN KEY (id_afiliado)             references BEMVINDO.USUARIO(id_usuario),
+    FOREIGN KEY (usuario)                 references BEMVINDO.USUARIO(id_usuario),
     FOREIGN KEY (estado_civil)            references BEMVINDO.ESTADO_CIVIL(id_estado_civil),
     FOREIGN KEY (plan_medico)             references BEMVINDO.PLAN_MEDICO(id_plan_medico)
 )
@@ -327,20 +331,48 @@ create table BEMVINDO.ESPECIALIDAD_POR_PROFESIONAL
 
 go
 
-create table BEMVINDO.AGENDA
-(
-    id_agenda		numeric(10,0) identity(1,1),
-    profesional		numeric(10,0),
-	especialidad	numeric(10,0),
-    dia		nvarchar(10) check (dia in('LUNES','MARTES', 'MIERCOLES','JUEVES', 'VIERNES', 'SABADO')),
-	horario_inicial		time,
-	horario_final		time,
-    
-
-    PRIMARY KEY (id_agenda),
-	FOREIGN KEY (profesional)   references BEMVINDO.PROFESIONAL(id_profesional),
-	FOREIGN KEY (especialidad)   references BEMVINDO.ESPECIALIDAD(id_especialidad)
-)
+ create table BEMVINDO.AGENDA
+  (
+      id_agenda    numeric(10,0)   identity(1,1) ,
+      profesional     numeric(10,0),
+      fecha_desde  date,
+      fecha_hasta  date,
+  
+      PRIMARY KEY (id_agenda),
+      FOREIGN KEY (profesional)             references BEMVINDO.PROFESIONAL(id_profesional)
+  
+  )
+  
+  go
+  
+  create table BEMVINDO.DIA_AGENDA
+  (
+      id_dia_agenda numeric(10,0) identity(1,1),
+      agenda        numeric(10,0),
+      especialidad  numeric(10,0),
+      dia           nvarchar(10) check (dia in('LUNES','MARTES', 'MIERCOLES','JUEVES', 'VIERNES', 'SABADO')),
+      hora_desde    time,
+      hora_hasta    time,
+  
+      PRIMARY KEY (id_dia_agenda),
+      FOREIGN KEY (agenda)             references BEMVINDO.AGENDA(id_agenda),
+      FOREIGN KEY (especialidad)       references BEMVINDO.ESPECIALIDAD(id_especialidad)
+  
+  )
+  
+  go
+  
+  create table BEMVINDO.CANCELACION_DIA
+  (
+      id_cancelacion_dia      numeric(10,0) identity(1,1),
+      agenda                  numeric(10,0) ,
+      dia                     date,
+  
+      
+      PRIMARY KEY (id_cancelacion_dia),
+      FOREIGN KEY (agenda)             references BEMVINDO.AGENDA(id_agenda)
+  )
+  
 
 go
 
