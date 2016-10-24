@@ -398,23 +398,28 @@ create procedure BEMVINDO.st_cancelar_turno_medico -- hay q cambiarlo para q sea
 @profesional        numeric(10,0),
 @motivo             nvarchar(255),
 @fecha_sistema      datetime,
-@fecha_cancelar     date,
-@tipo_usuario       char
+@tipo_usuario       char,
+@cancelacion_desde  date,
+@cancelacion_hasta  date
 
 AS
 begin
 
 declare @id_turno numeric(10,0)
+declare @id_agenda numeric(10,0)
 
  declare miCursor cursor
   for select id_turno
   from BEMVINDO.TURNO
-  where  profesional=@profesional and CONVERT(date, fecha_turno) =@fecha_cancelar and activo =1
+  where  profesional=@profesional and (CONVERT(date, fecha_turno) between @cancelacion_desde and @cancelacion_hasta)
+         and activo =1
 
-  	   UPDATE BEMVINDO.TURNO
-	   SET
-	   activo=0
-	   where  profesional=@profesional and CONVERT(date, fecha_turno) =@fecha_cancelar and activo =1
+   select @id_agenda =id_agenda from BEMVINDO.AGENDA
+    where profesional=@profesional 
+
+  insert into BEMVINDO.CANCELACION_DIA(agenda,cancelacion_desde,cancelacion_hasta)
+	values (@id_agenda,@cancelacion_desde,@cancelacion_hasta)
+  
 
   open miCursor
   fetch next from miCursor into @id_turno
