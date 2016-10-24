@@ -145,6 +145,13 @@ namespace ClinicaFrba.Clases.Otros
             return nuevoHijo;
         }
 
+        internal bool afiliadoTieneConyuge()
+        {
+            string descripcionEstadoCivil = nuevoAfiliado.estadoCivil.descripcion.ToLower();
+
+            return descripcionEstadoCivil == "casado" || descripcionEstadoCivil == "concubinato";
+        }
+
         private long mayorNumeroFamiliar()
         {
             long mayorNro = nuevoAfiliado.conyuge == null ? nuevoAfiliado.numeroFamiliar : nuevoAfiliado.conyuge.numeroFamiliar;

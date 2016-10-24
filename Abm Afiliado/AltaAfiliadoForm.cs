@@ -14,8 +14,6 @@ namespace ClinicaFrba.Abm_Afiliado
         public bool altaConyuge = false;
         public bool altaHijo = false;
 
-        private static string CASADO = "casado";
-
         public AltaAfiliadoForm()
         {
             InitializeComponent();
@@ -135,7 +133,7 @@ namespace ClinicaFrba.Abm_Afiliado
         {
             if (cmbEstadoCivil.SelectedItem!=null)
             {
-                if (((EstadoCivil)cmbEstadoCivil.SelectedItem).descripcion.ToLower() == CASADO)
+                if (altaAfiliado.afiliadoTieneConyuge())
                 {
                     btnConyuge.Enabled = true;
                 }
