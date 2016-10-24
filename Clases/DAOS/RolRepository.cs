@@ -1,9 +1,6 @@
 ﻿using ClinicaFrba.Clases.POJOS;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TostadoPersistentKit;
 
 namespace ClinicaFrba.Clases.DAOS
@@ -17,9 +14,9 @@ namespace ClinicaFrba.Clases.DAOS
 
         internal object traerRolPorNombre(string nombre)
         {
-            List<object> roles = selectByProperty("nombre", nombre);
+            List<Rol> roles = (List<Rol>)selectByProperty("nombre", nombre);
 
-            return roles.Count > 0 ? (Rol)roles[0] : null;
+            return roles.Count > 0 ? roles[0] : null;
         }
 
         internal void modificarRol(Rol rol)
@@ -29,10 +26,7 @@ namespace ClinicaFrba.Clases.DAOS
 
         internal List<Rol> traerRoles()
         {
-            List<Rol> roles = new List<Rol>();
-            selectAll().ForEach(o => roles.Add((Rol)o));
-
-            return roles;
+            return (List<Rol>)selectAll();
         }
 
         internal void insertarRol(Rol rol)

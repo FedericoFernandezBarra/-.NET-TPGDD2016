@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using ClinicaFrba.Clases.POJOS;
 using ClinicaFrba.Clases.DAOS;
 
@@ -18,9 +14,11 @@ namespace ClinicaFrba.Clases.Otros
         public List<Especialidad> especialidadesSistema { get; set; }
         public string mensajeDeError { get; set; }
         public List<Profesional> profesionales { get; set; }
+        public bool filtroEspecialidadObligatorio { get; set; }
 
         public BuscarProfesional()
         {
+            filtroEspecialidadObligatorio = false;
             mensajeDeError = "";
             inicializarListas();
         }
@@ -39,14 +37,22 @@ namespace ClinicaFrba.Clases.Otros
 
         private bool cumpleValidaciones()
         {
-
-            if (especialidad==null)
+            if (ningunFiltroSeleccionado())
+            {
+                mensajeDeError = "Debe especificar al menos 1 filtro de busqueda";
+            }
+            if (especialidad==null&&filtroEspecialidadObligatorio)
             {
                 mensajeDeError = "Debe seleccionar una especialidad";
                 return false;
             }
 
             return true;
+        }
+
+        private bool ningunFiltroSeleccionado()
+        {
+            return (especialidad == null) && (nombre == "") && (apellido == "") && (nroMatricula == 0);
         }
 
         private void inicializarListas()

@@ -23,7 +23,7 @@ namespace ClinicaFrba.Registro_Llegada
 
         private void cmdSeleccionar_Click(object sender, EventArgs e)
         {
-            BuscarProfesionalForm buscarProfesional = new BuscarProfesionalForm();
+            BuscarProfesionalForm buscarProfesional = new BuscarProfesionalForm(true);
 
             Hide();
 
@@ -33,6 +33,8 @@ namespace ClinicaFrba.Registro_Llegada
 
             registrarLlegada.profesional = buscarProfesional.getProfesionalSeleccionado();
             registrarLlegada.especialidad = buscarProfesional.getEspecialidadSeleccionada();
+
+            registrarLlegada.cargarTurnosDeProfesional();
         }
 
         private void txtNroAfiliado_KeyPress(object sender, KeyPressEventArgs e)

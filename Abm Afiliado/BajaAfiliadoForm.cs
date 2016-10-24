@@ -30,7 +30,9 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void initForm()
         {
-            throw new NotImplementedException();
+            txtNick.DataBindings.Add("Text", bajaAfiliado.afiliado.usuario, "nick");
+            txtNroAfliado.DataBindings.Add("Text", bajaAfiliado.afiliado, "id");
+            txtPass.DataBindings.Add("Text", bajaAfiliado.afiliado.usuario, "pass");
         }
 
         private void cmdBaja_Click(object sender, EventArgs e)

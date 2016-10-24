@@ -75,6 +75,12 @@
     <Compile Include="Abm Afiliado\ModificarAfiliadoForm.Designer.cs">
       <DependentUpon>ModificarAfiliadoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Afiliado\MostrarAfiliadosCreadosForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Afiliado\MostrarAfiliadosCreadosForm.Designer.cs">
+      <DependentUpon>MostrarAfiliadosCreadosForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Especialidades Medicas\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +137,7 @@
     <Compile Include="Clases\Otros\AbmRol.cs" />
     <Compile Include="Clases\Otros\AltaAfiliado.cs" />
     <Compile Include="Clases\Otros\BajaAfiliado.cs" />
+    <Compile Include="Clases\Otros\BuscarAfiliado.cs" />
     <Compile Include="Clases\Otros\BuscarProfesional.cs" />
     <Compile Include="Clases\Otros\CrearRolAction.cs" />
     <Compile Include="Clases\Otros\EditorDeRol.cs" />
@@ -246,6 +253,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Afiliado\ModificarAfiliadoForm.resx">
       <DependentUpon>ModificarAfiliadoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Afiliado\MostrarAfiliadosCreadosForm.resx">
+      <DependentUpon>MostrarAfiliadosCreadosForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Profesional\BuscarProfesionalForm.resx">
       <DependentUpon>BuscarProfesionalForm.cs</DependentUpon>

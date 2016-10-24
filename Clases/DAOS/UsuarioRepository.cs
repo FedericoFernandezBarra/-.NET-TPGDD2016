@@ -12,34 +12,13 @@ namespace ClinicaFrba.Clases.DAOS
     {
         public Usuario traerUserPorNickYPass(string nick, string pass)
         {
-            /*string loginStored = "asd<asdsaasdads";//Nombre del stored
+            Dictionary<string, object> properties = new Dictionary<string, object>();
+            properties.Add("nick", nick);
+            properties.Add("pass", pass);
 
-            List<SqlParameter> parametros = new List<SqlParameter>();
+            List<Usuario> usuarios = (List<Usuario>)selectByProperties(properties);
 
-            DataBase.Instance.agregarParametro(parametros, "nombreNickStored", nick);
-            DataBase.Instance.agregarParametro(parametros, "nombrePassStored", pass);
-
-            object resultado = executeStored(loginStored, parametros);*/
-
-            Usuario user = new Usuario();
-
-            List<object> nickList = selectByProperty("nick", nick);
-
-            if (nickList.Count>0)
-            {
-                if (((Usuario)nickList[0]).pass==pass)
-                {
-                    return (Usuario)nickList[0];
-                }
-            }
-            
-
-            return null;
-            /*Usuario usuarioHard = new Usuario();
-            usuarioHard.nick = nick;
-            usuarioHard.pass = pass;
-
-            return nick == "" || pass == "" ? null : usuarioHard;*/
+            return usuarios.Count > 0 ? usuarios[0] : null;
         }
 
         internal override Type getModelClassType()

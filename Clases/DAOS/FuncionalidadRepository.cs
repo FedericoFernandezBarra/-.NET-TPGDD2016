@@ -17,11 +17,7 @@ namespace ClinicaFrba.Clases.DAOS
 
         internal List<Funcionalidad> traerFuncionalidades()
         {
-            List<Funcionalidad> funcionalidades = new List<Funcionalidad>();
-
-            selectAll().ForEach(o => funcionalidades.Add((Funcionalidad)o));
-
-            return funcionalidades;
+            return (List<Funcionalidad>)selectAll();
         }
     }
 }

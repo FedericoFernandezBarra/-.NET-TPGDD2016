@@ -8,7 +8,7 @@ using TostadoPersistentKit;
 namespace ClinicaFrba.Clases.POJOS
 {
     [Table(name = "BEMVINDO.PROFESIONAL")]
-    public class Profesional //: Serializable
+    public class Profesional : Serializable
     {
         [Id(name = "id_profesional", type = PrimaryKeyType.SURROGATE)]
         public long id { get; set; }
@@ -22,9 +22,5 @@ namespace ClinicaFrba.Clases.POJOS
         [OneToMany(pkName = "id_profesional", tableName = "ESPECIALIDAD_POR_PROFESIONAL", fkName = "id_especialidad", fetch = FetchType.EAGER)]
         public List<Especialidad> especialidades { get; set; }
 
-        public Profesional()
-        {
-            especialidades = new List<Especialidad>();
-        }
     }
 }

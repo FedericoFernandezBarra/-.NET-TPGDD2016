@@ -21,7 +21,6 @@ namespace ClinicaFrba.Clases.POJOS
         public Rol()
         {
             nombre = "";
-            funcionalidades = new List<Funcionalidad>();
             habilitado = true;
         }
     }

@@ -17,11 +17,7 @@ namespace ClinicaFrba.Clases.DAOS
 
         internal List<PlanMedico> traerPlanesMedicos()
         {
-            List<PlanMedico> planesMedicos = new List<PlanMedico>();
-
-            selectAll().ForEach(o => planesMedicos.Add((PlanMedico)o));
-
-            return planesMedicos;
+            return (List<PlanMedico>)selectAll();
         }
     }
 }

@@ -16,11 +16,7 @@ namespace ClinicaFrba.Clases.DAOS
 
         internal List<TipoDocumento> traerTiposDocumento()
         {
-            List<TipoDocumento> tiposDocumento = new List<TipoDocumento>();
-
-            selectAll().ForEach(o => tiposDocumento.Add((TipoDocumento)o));
-
-            return tiposDocumento;
+            return (List<TipoDocumento>)selectAll();
         }
     }
 }

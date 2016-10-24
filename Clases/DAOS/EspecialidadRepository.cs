@@ -17,11 +17,7 @@ namespace ClinicaFrba.Clases.DAOS
 
         public List<Especialidad> traerEspecialidades()
         {
-            List<Especialidad> especialidades = new List<Especialidad>();
-
-            selectAll().ForEach(o => especialidades.Add((Especialidad)o));
-
-            return especialidades;
+            return (List<Especialidad>)selectAll();
         }
     }
 }

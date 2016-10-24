@@ -10,7 +10,7 @@ namespace ClinicaFrba.Clases.POJOS
         [Id(name = "id_afiliado", type = PrimaryKeyType.NATURAL)]
         public long id { get; set; }
 
-        [Column(name = "id_afiliado",fetch =FetchType.LAZY)]
+        [Column(name = "usuario", fetch =FetchType.LAZY)]
         public Usuario usuario { get; set; }
 
         [Column(name = "estado_civil", fetch = FetchType.EAGER)]

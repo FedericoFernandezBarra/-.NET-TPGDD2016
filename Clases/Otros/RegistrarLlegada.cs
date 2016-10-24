@@ -34,6 +34,11 @@ namespace ClinicaFrba.Clases.Otros
             turnosFiltrados = turnosDeProfesional.FindAll(t => t.afiliado.id.ToString().Contains(numeroAfiliado));
         }
 
+        internal void cargarTurnosDeProfesional()
+        {
+            turnosDeProfesional = (new TurnoRepository()).traerTurnosDeProfesional(profesional, especialidad, Sistema.Instance.getDate());
+        }
+
         internal bool ejecutarExitosamente()
         {
             buscarBono();
@@ -60,14 +65,20 @@ namespace ClinicaFrba.Clases.Otros
 
         private bool cumpleValidaciones()
         {
+            if (turnoDeAfiliado == null)
+            {
+                mensajeDeError = "Debe seleccionar un turno";
+                return false;
+            }
+            if (bonoSeleccionado.planMedico.id!=turnoDeAfiliado.afiliado.planMedico.id)
+            {
+                bonoSeleccionado = null;
+                mensajeDeError = "Debe seleccionar un bono perteneciente al plan actual";
+                return false;
+            }
             if (bonoSeleccionado==null)//No se si el bono es obligatorio
             {
                 mensajeDeError = "Numero de bono erroneo";
-                return false;
-            }
-            if (turnoDeAfiliado==null)
-            {
-                mensajeDeError = "Debe seleccionar un turno";
                 return false;
             }
 

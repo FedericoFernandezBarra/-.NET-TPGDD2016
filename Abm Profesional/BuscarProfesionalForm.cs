@@ -21,6 +21,12 @@ namespace ClinicaFrba.Abm_Profesional
             InitializeComponent();
         }
 
+        public BuscarProfesionalForm(bool filtroEspecialidadObligatorio)
+        {
+            buscarProfesional.filtroEspecialidadObligatorio = filtroEspecialidadObligatorio;
+            InitializeComponent();
+        }
+
         private void cmdBuscar_Click(object sender, EventArgs e)
         {
             if (!buscarProfesional.busquedaExitosa())

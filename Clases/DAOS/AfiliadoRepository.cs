@@ -47,6 +47,11 @@ namespace ClinicaFrba.Clases.DAOS
             executeStored("BEMVINDO.st_baja_afiliado", parametros);
         }
 
+        internal List<Afiliado> buscarAfiliados(long nroAfiliado, string nombre, string apellido, string dni, PlanMedico planMedico)
+        {
+            throw new NotImplementedException();
+        }
+
         internal void modificarAfiliado(Afiliado afiliado,string motivo)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
@@ -58,9 +63,7 @@ namespace ClinicaFrba.Clases.DAOS
 
         internal Afiliado traerAfiliadoPorId(long id)
         {
-            object result = selectById(id);
-
-            return result == null ? null : (Afiliado)result;
+            return (Afiliado)selectById(id);
         }
     }
 }

@@ -17,11 +17,7 @@ namespace ClinicaFrba.Clases.DAOS
 
         internal List<EstadoCivil> traerEstadosCiviles()
         {
-            List<EstadoCivil> estadosCiviles = new List<EstadoCivil>();
-
-            selectAll().ForEach(o => estadosCiviles.Add((EstadoCivil)o));
-
-            return estadosCiviles;
+            return (List<EstadoCivil>)selectAll();
         }
     }
 }

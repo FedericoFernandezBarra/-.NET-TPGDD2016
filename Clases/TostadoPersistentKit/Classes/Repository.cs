@@ -37,12 +37,12 @@ namespace TostadoPersistentKit
             return parameterNames;
         }
 
-        internal object executeStored(String storedProcedure, Serializable objeto)
+        internal IList executeStored(String storedProcedure, Serializable objeto)
         {
             return executeStored(storedProcedure, objeto, new List<SqlParameter>());
         }
 
-        internal object executeStored(String storedProcedure,Serializable objeto,List<SqlParameter> extraParameters)
+        internal IList executeStored(String storedProcedure,Serializable objeto,List<SqlParameter> extraParameters)
         {
             List<string> parameterNames = getProcedureParameterNames(storedProcedure);
 
@@ -74,24 +74,24 @@ namespace TostadoPersistentKit
             return executeStored(storedProcedure, parameters);
         }
 
-        internal object executeStored(String storedProcedure,List<SqlParameter> parameters)
+        internal IList executeStored(String storedProcedure,List<SqlParameter> parameters)
         {
             return executeStored(storedProcedure,parameters,getModelClassType());
         }
 
-        private object executeStored(String storedProcedure, List<SqlParameter> parameters, Type modelClassType)
+        private IList executeStored(String storedProcedure, List<SqlParameter> parameters, Type modelClassType)
         {
             List<Dictionary<string, object>> dictionaryList = DataBase.Instance.ejecutarStoredProcedure(storedProcedure, parameters);
 
             return returnValue(dictionaryList, modelClassType);
         }
 
-        internal object executeQuery(String query, List<SqlParameter> parameters)
+        internal IList executeQuery(String query, List<SqlParameter> parameters)
         {
             return executeQuery(query, parameters, getModelClassType());
         }
 
-        private object executeQuery(String query, List<SqlParameter> parameters,Type modelClassType)
+        private IList executeQuery(String query, List<SqlParameter> parameters,Type modelClassType)
         {
             List<Dictionary<string, object>> dictionaryList = DataBase.Instance.ejecutarConsulta(query, parameters);
 
@@ -185,11 +185,11 @@ namespace TostadoPersistentKit
             }
         }
 
-        private object returnValue(List<Dictionary<string,object>> dictionaryList,Type modelClassType)
+        private IList returnValue(List<Dictionary<string,object>> dictionaryList,Type modelClassType)
         {
             if (autoMapping)
             {
-                List<object> mappedList = new List<object>();
+                IList mappedList = getTypeList(modelClassType);
 
                 dictionaryList.ForEach(dictionary => mappedList.Add(unSerialize(dictionary,modelClassType)));
 
@@ -470,55 +470,68 @@ namespace TostadoPersistentKit
         {
             Serializable objeto = (Serializable)Activator.CreateInstance(classType);
 
-            List<object> result = selectByProperty(objeto.getIdPropertyName(), id,classType);
+            IList result = selectByProperty(objeto.getIdPropertyName(), id,classType);
 
             return (result.Count > 0) ? result[0] : null;
         }
 
-        internal List<object> selectByProperty(string propertyName,object propertyValue)
+        internal IList selectByProperties(Dictionary<string, object> properties)
         {
-            return selectByProperty(propertyName, propertyValue, getModelClassType());
+            return selectByProperties(properties, getModelClassType());
         }
 
-        internal List<object> selectByProperty(string propertyName, object propertyValue, Type classType)
+        internal IList selectByProperties(Dictionary<string,object> properties,Type classType)
         {
             Serializable objeto = (Serializable)Activator.CreateInstance(classType);
 
             List<SqlParameter> parameters = new List<SqlParameter>();
 
-            string expected = "@" + objeto.getMapFromKey(propertyName);
+            string selectQuery = "select * from " + objeto.getTableName() + " where ";
 
-            DataBase.Instance.agregarParametro(parameters, expected, propertyValue);
+            foreach (KeyValuePair<string,object> property in properties)
+            {
+                string expected = "@" + objeto.getMapFromKey(property.Key);
+                DataBase.Instance.agregarParametro(parameters, expected, property.Value);
+                selectQuery += objeto.getMapFromKey(property.Key) + "=" + expected + " and ";
+            }
 
-            //bool isCharObject = typeof(string).IsAssignableFrom(propertyValue.GetType()) || typeof(char).IsAssignableFrom(propertyValue.GetType());
+            selectQuery = selectQuery.Remove(selectQuery.Length - 5);
 
-            //string expected = isCharObject ? "'" + propertyValue.ToString() + "'" : propertyValue.ToString();
-
-            string selectQuery = "select * from " + objeto.getTableName() + " where " +
-                                objeto.getMapFromKey(propertyName) + "=" + expected;
-
-            return executeAutoMappedSelect(selectQuery, parameters,classType);
+            return executeAutoMappedSelect(selectQuery, parameters, classType);
         }
 
-        private List<object> executeAutoMappedSelect(String selectQuery,List<SqlParameter> parameters,Type classType)
+        internal IList selectByProperty(string propertyName,object propertyValue)
+        {
+            return selectByProperty(propertyName, propertyValue, getModelClassType());
+        }
+
+        internal IList selectByProperty(string propertyName, object propertyValue, Type classType)
+        {
+            Dictionary<string,object> properties = new Dictionary<string, object>();
+            properties.Add(propertyName, propertyValue);
+
+            return selectByProperties(properties,classType);
+        }
+
+        private IList executeAutoMappedSelect(String selectQuery,List<SqlParameter> parameters,Type classType)
         {
             bool actualAutoMappingVal = autoMapping;//guardo el valor actual de autoMapping
 
             autoMapping = true;
 
-            List<object> result = (List<object>)executeQuery(selectQuery, parameters,classType);
+            IList result = executeQuery(selectQuery, parameters,classType);
 
             autoMapping = actualAutoMappingVal;
 
             return result;
         }
 
-        internal List<object> selectAll()
+        internal IList selectAll()
         {
             return selectAll(getModelClassType());
         }
 
-        internal List<object> selectAll(Type classType)
+        internal IList selectAll(Type classType)
         {
             Serializable objeto = (Serializable)Activator.CreateInstance(classType);
 
@@ -654,6 +667,12 @@ namespace TostadoPersistentKit
         internal void updateCascade(Serializable objeto)
         {
             update(objeto, objeto.getIdPropertyName(), objeto.getTableName(),true);
+        }
+
+        private IList getTypeList(Type type)
+        {
+            Type listType = typeof(List<>).MakeGenericType(new[] { type });
+            return (IList)Activator.CreateInstance(listType);
         }
     }
 }

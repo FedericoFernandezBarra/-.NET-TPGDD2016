@@ -17,9 +17,7 @@ namespace ClinicaFrba.Clases.DAOS
 
         internal Bono traerPorId(long numeroBono)
         {
-            object result = selectById(numeroBono);
-
-            return result == null ? null : (Bono)result;
+            return (Bono)selectById(numeroBono);
         }
     }
 }

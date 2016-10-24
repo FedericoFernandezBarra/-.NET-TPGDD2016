@@ -1,6 +1,7 @@
 ﻿using ClinicaFrba.Clases.Otros;
 using ClinicaFrba.Clases.POJOS;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace ClinicaFrba.Abm_Afiliado
@@ -101,6 +102,10 @@ namespace ClinicaFrba.Abm_Afiliado
             }
 
             altaExitosa = true;
+
+            Hide();
+
+            (new MostrarAfiliadosCreadosForm(altaAfiliado.nuevoAfiliado)).ShowDialog();
 
             Close();
         }

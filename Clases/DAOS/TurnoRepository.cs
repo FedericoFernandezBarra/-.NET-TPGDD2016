@@ -13,11 +13,15 @@ namespace ClinicaFrba.Clases.DAOS
     {
         public bool existeTurno(Profesional profesional, DateTime fecha)
         {
-            List<SqlParameter> parametros = new List<SqlParameter>();
+            /*List<SqlParameter> parametros = new List<SqlParameter>();
             DataBase.Instance.agregarParametro(parametros, "profesional", profesional.id);
-            DataBase.Instance.agregarParametro(parametros, "fecha ", fecha);
+            DataBase.Instance.agregarParametro(parametros, "fecha ", fecha);*/
 
-            return selectByProperty("fechaDeTurno", fecha).Exists(t => ((Turno)t).profesional.id == profesional.id);
+            Dictionary<string, object> properties = new Dictionary<string, object>();
+            properties.Add("fechaDeTurno", fecha);
+            properties.Add("profesional", profesional.id);
+
+            return selectByProperties(properties).Count > 0;
         }
 
         internal void cancelarTurnoPorRangoFechas(DateTime fechaInicioCancelacion, DateTime fechaFinCancelacion, Profesional profesional, string motivoDeCancelacion, TipoCancelacion tipoDeCancelacion)
@@ -31,6 +35,17 @@ namespace ClinicaFrba.Clases.DAOS
             DataBase.Instance.agregarParametro(parametros, "tipo_usuario", profesional.usuario.sexo);//no se que es este campo!!
 
             DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_cancelar_turno_medico", parametros);
+        }
+
+        internal List<Turno> traerTurnosDeProfesional(Profesional profesional, Especialidad especialidad, DateTime fecha)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            DataBase.Instance.agregarParametro(parametros, "@profesional", profesional.id);
+            DataBase.Instance.agregarParametro(parametros, "@especialidad", especialidad.id);
+            DataBase.Instance.agregarParametro(parametros, "@fecha_sistema", fecha);
+
+            return (List<Turno>)executeStored("BEMVINDO.st_obtener_turnos", parametros);
+
         }
 
         internal void registrarLlegada(Turno turno, Bono bono, DateTime fecha)
@@ -56,11 +71,7 @@ namespace ClinicaFrba.Clases.DAOS
 
         internal List<Turno> traerTurnosDeAfiliado(Afiliado afiliado)
         {
-            List<Turno> turnos = new List<Turno>();
-
-            selectByProperty("afiliado", afiliado.id).ForEach(o => turnos.Add((Turno)o));
-
-            return turnos;
+            return (List<Turno>)selectByProperty("afiliado", afiliado.id);
         }
 
         internal override Type getModelClassType()
@@ -70,11 +81,7 @@ namespace ClinicaFrba.Clases.DAOS
 
         internal List<TipoCancelacion> traerTiposDeCancelacion()
         {
-            List<TipoCancelacion> tiposCancelacion = new List<TipoCancelacion>();
-
-            selectAll(typeof(TipoCancelacion)).ForEach(o => tiposCancelacion.Add((TipoCancelacion)o));
-
-            return tiposCancelacion;
+            return (List<TipoCancelacion>)selectAll(typeof(TipoCancelacion));
         }
     }
 }
