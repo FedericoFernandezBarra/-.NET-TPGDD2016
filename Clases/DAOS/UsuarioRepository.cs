@@ -12,11 +12,11 @@ namespace ClinicaFrba.Clases.DAOS
     {
         public Usuario traerUserPorNickYPass(string nick, string pass)
         {
-            Dictionary<string, object> properties = new Dictionary<string, object>();
-            properties.Add("nick", nick);
-            properties.Add("pass", pass);
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            DataBase.Instance.agregarParametro(parametros, "nick", nick);
+            DataBase.Instance.agregarParametro(parametros, "pass", pass);
 
-            List<Usuario> usuarios = (List<Usuario>)selectByProperties(properties);
+            List<Usuario> usuarios = (List<Usuario>)executeStored("BEMVINDO.VERIFICAR_LOGUEO", parametros); 
 
             return usuarios.Count > 0 ? usuarios[0] : null;
         }

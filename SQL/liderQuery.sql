@@ -507,12 +507,8 @@ as begin
 		where nick = @nick;
 	end
 
-	select u.id_usuario, ru.id_rol, r.rol_nombre, u.baja_logica 
+	select *
 	from BEMVINDO.USUARIO as u
-	inner join BEMVINDO.ROL_POR_USUARIO as ru
-	on  u.id_usuario = ru.id_usuario
-	inner join BEMVINDO.ROL as r
-	on ru.id_rol = r.id_rol
 	where 
 		u.nick = @nick and 
 		u.pass = BEMVINDO.fn_hashear_pass(@pass) and
