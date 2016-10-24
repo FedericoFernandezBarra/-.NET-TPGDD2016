@@ -451,3 +451,81 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------LISTADO ESTADISTICO----------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------USUARIO----------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------
+
+create trigger BEMVINDO.tg_hashear_pass  
+on VARCHAR_DE_30.USUARIO  
+instead of insert  
+as begin  
+    
+  insert into BEMVINDO.USUARIO  
+    select  
+	 id_usuario,
+    nick,
+    BEMVINDO.fn_hashear_pass(pass),
+    intentos_login,
+    activo,
+    nombre,
+    apellido,
+    tipo_documento,
+    documento;
+    fecha_nacimiento;
+    direccion,
+    telefono,
+    mail,
+    sexo;
+    from inserted   
+
+end
+
+go
+
+create procedure BEMVINDO.VERIFICAR_LOGUEO
+	@nick nvarchar(255), 
+	@pass nvarchar(255)
+as begin
+	
+	declare @filas int;
+
+	select top 1 @filas = COUNT(baja_logica)
+	from VARCHAR_DE_30.USUARIO
+	where 
+		nick = @nick and 
+		pass = BEMVINDO.fn_hashear_pass(@pass);
+
+	if(@filas = 0) begin
+		update BEMVINDO.USUARIO
+		set intentos_login = (intentos_login +1)
+		where nick = @nick;
+	end
+	else begin
+		update BEMVINDO.USUARIO
+		set intentos_login = 0
+		where nick = @nick;
+	end
+
+	select u.id_usuario, ru.id_rol, r.rol_nombre, u.baja_logica 
+	from BEMVINDO.USUARIO as u
+	inner join BEMVINDO.ROL_POR_USUARIO as ru
+	on  u.id_usuario = ru.id_usuario
+	inner join BEMVINDO.ROL as r
+	on ru.id_rol = r.id_rol
+	where 
+		u.nick = @nick and 
+		u.pass = BEMVINDO.fn_hashear_pass(@pass) and
+		r.habilitado = 1;
+end
+
+go
+
+	CREATE PROCEDURE BEMVINDO.st_dar_de_baja_usuario(@nick nvarchar(255))
+	AS BEGIN
+		UPDATE USUARIO SET
+		baja_logica = 1
+		WHERE nick=@nick
+	END
+	GO
+

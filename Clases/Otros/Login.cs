@@ -73,12 +73,18 @@ namespace ClinicaFrba.Clases.Otros
                 if (intentosDeLogueo >= MAX_CANTIDAD_INTENTOS)
                 {
                     bajaLogica = true;
+                    darDeBaja();
                 }
 
                 return false;
             }
 
             return true;
+        }
+
+        private void darDeBaja()
+        {
+            repoUsuario.darDeBajaUsuario(username);
         }
     }
 }

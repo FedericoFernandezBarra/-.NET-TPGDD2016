@@ -26,5 +26,9 @@ namespace ClinicaFrba.Clases.DAOS
             return typeof(Usuario);
         }
 
+        internal void darDeBajaUsuario(string username)
+        {
+            DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_dar_de_baja_usuario", new List<SqlParameter> { new SqlParameter("@nick", username) });
+        }
     }
 }
