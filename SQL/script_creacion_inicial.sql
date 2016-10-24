@@ -148,7 +148,7 @@ go
 
 create table BEMVINDO.TIPO_DOCUMENTO
 (
-    id_tipo_documento  numeric(10,0) identity(1,1),
+    id_tipo_documento  numeric(10,0) identity (1,1) ,
     descripcion     nvarchar(255),
 
     PRIMARY KEY(id_tipo_documento)
@@ -334,7 +334,7 @@ go
  create table BEMVINDO.AGENDA
   (
       id_agenda    numeric(10,0)   identity(1,1) ,
-      profesional     numeric(10,0),
+      profesional  numeric(10,0),
       fecha_desde  date,
       fecha_hasta  date,
   
@@ -366,7 +366,8 @@ go
   (
       id_cancelacion_dia      numeric(10,0) identity(1,1),
       agenda                  numeric(10,0) ,
-      dia                     date,
+      cancelacion_desde       date,
+      cancelacion_hasta       date,
   
       
       PRIMARY KEY (id_cancelacion_dia),
