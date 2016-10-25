@@ -457,7 +457,7 @@ end
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 create trigger BEMVINDO.tg_hashear_pass  
-on VARCHAR_DE_30.USUARIO  
+on BEMVINDO.USUARIO  
 instead of insert  
 as begin  
     
@@ -491,7 +491,7 @@ as begin
 	declare @filas int;
 
 	select top 1 @filas = COUNT(baja_logica)
-	from VARCHAR_DE_30.USUARIO
+	from BEMVINDO.USUARIO
 	where 
 		nick = @nick and 
 		pass = BEMVINDO.fn_hashear_pass(@pass);
