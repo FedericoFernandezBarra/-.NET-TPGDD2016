@@ -124,6 +124,7 @@
       <DependentUpon>CancelarTurnoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Clases\DAOS\AfiliadoRepository.cs" />
+    <Compile Include="Clases\DAOS\AgendaRepository.cs" />
     <Compile Include="Clases\DAOS\BonoRepository.cs" />
     <Compile Include="Clases\DAOS\EspecialidadRepository.cs" />
     <Compile Include="Clases\DAOS\EstadoCivilRepository.cs" />
@@ -149,6 +150,8 @@
     <Compile Include="Clases\Otros\CancelarDias.cs" />
     <Compile Include="Clases\Otros\CancelarTurno.cs" />
     <Compile Include="Clases\Otros\Login.cs" />
+    <Compile Include="Clases\POJOS\Agenda.cs" />
+    <Compile Include="Clases\POJOS\AgendaDia.cs" />
     <Compile Include="Clases\POJOS\Bono.cs" />
     <Compile Include="Clases\POJOS\Especialidad.cs" />
     <Compile Include="Clases\POJOS\EstadoCivil.cs" />
