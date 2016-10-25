@@ -69,6 +69,10 @@ drop table BEMVINDO.AFILIADO
 
 go
 
+if EXISTS (SELECT * FROM sysobjects  WHERE name='CANCELACION_DIA') 
+drop table BEMVINDO.CANCELACION_DIA 
+
+go
 if EXISTS (SELECT * FROM sysobjects  WHERE name='AGENDA') 
 drop table BEMVINDO.AGENDA 
 
@@ -239,8 +243,8 @@ go
 
 create table BEMVINDO.PLAN_MEDICO
 (
-    id_plan_medico          numeric(10,0) identity(1,1) ,
-    descripcion             nvarchar(255),
+    id_plan_medico numeric(10,0) identity(1,1),
+    descripcion    nvarchar(255),
     precio_bono    numeric(10,2),
     
 
@@ -251,14 +255,12 @@ go
 
 create table BEMVINDO.PROFESIONAL
 (
-    id_profesional  numeric(10,0) ,
-    usuario         numeric(10,0)  ,
+    id_profesional  numeric(10,0),
     matricula       nvarchar(30), --unique
 
 
-    UNIQUE(usuario),
     PRIMARY KEY (id_profesional),
-    FOREIGN KEY (usuario)   references BEMVINDO.USUARIO(id_usuario)
+    FOREIGN KEY (id_profesional)   references BEMVINDO.USUARIO(id_usuario)
 )
 
 go
@@ -266,16 +268,14 @@ go
 create table BEMVINDO.AFILIADO
 (
     id_afiliado numeric(10,0),
-    usuario     numeric(10,0)  ,
     estado_civil numeric(10,0),
     plan_medico numeric(10,0),
     fecha_baja   date,
     baja_logica  bit,
-    cantidad_hijos smallint,
+	numero_afiliado	numeric(10,0),
 
-    UNIQUE(usuario),
     PRIMARY KEY (id_afiliado),
-    FOREIGN KEY (usuario)                 references BEMVINDO.USUARIO(id_usuario),
+    FOREIGN KEY (id_afiliado)             references BEMVINDO.USUARIO(id_usuario),
     FOREIGN KEY (estado_civil)            references BEMVINDO.ESTADO_CIVIL(id_estado_civil),
     FOREIGN KEY (plan_medico)             references BEMVINDO.PLAN_MEDICO(id_plan_medico)
 )
@@ -285,8 +285,8 @@ go
 create table BEMVINDO.HISTORIAL_CAMBIOS_DE_PLAN
 (
     id_historial  numeric(10,0) identity(1,1),
-    plan_medico  numeric(10,0) ,
-    afiliado numeric(10,0) ,
+    plan_medico  numeric(10,0),
+    afiliado numeric(10,0),
     motivo  nvarchar(255),
     fecha   datetime,
 
@@ -331,37 +331,23 @@ create table BEMVINDO.ESPECIALIDAD_POR_PROFESIONAL
 
 go
 
- create table BEMVINDO.AGENDA
-  (
-      id_agenda    numeric(10,0)   identity(1,1) ,
-      profesional  numeric(10,0),
-      fecha_desde  date,
-      fecha_hasta  date,
-  
-      PRIMARY KEY (id_agenda),
-      FOREIGN KEY (profesional)             references BEMVINDO.PROFESIONAL(id_profesional)
-  
-  )
-  
-  go
-  
-  create table BEMVINDO.DIA_AGENDA
-  (
-      id_dia_agenda numeric(10,0) identity(1,1),
-      agenda        numeric(10,0),
-      especialidad  numeric(10,0),
-      dia           nvarchar(10) check (dia in('LUNES','MARTES', 'MIERCOLES','JUEVES', 'VIERNES', 'SABADO')),
-      hora_desde    time,
-      hora_hasta    time,
-  
-      PRIMARY KEY (id_dia_agenda),
-      FOREIGN KEY (agenda)             references BEMVINDO.AGENDA(id_agenda),
-      FOREIGN KEY (especialidad)       references BEMVINDO.ESPECIALIDAD(id_especialidad)
-  
-  )
-  
-  go
-  
+create table BEMVINDO.AGENDA
+(
+    id_agenda		numeric(10,0) identity(1,1),
+    profesional		numeric(10,0),
+	especialidad	numeric(10,0),
+    dia		nvarchar(10) check (dia in('LUNES','MARTES', 'MIERCOLES','JUEVES', 'VIERNES', 'SABADO')),
+	horario_inicial		time,
+	horario_final		time,
+    
+
+    PRIMARY KEY (id_agenda),
+	FOREIGN KEY (profesional)   references BEMVINDO.PROFESIONAL(id_profesional),
+	FOREIGN KEY (especialidad)   references BEMVINDO.ESPECIALIDAD(id_especialidad)
+)
+
+go
+
   create table BEMVINDO.CANCELACION_DIA
   (
       id_cancelacion_dia      numeric(10,0) identity(1,1),
@@ -374,7 +360,6 @@ go
       FOREIGN KEY (agenda)             references BEMVINDO.AGENDA(id_agenda)
   )
   
-
 go
 
 create table BEMVINDO.TURNO
@@ -413,7 +398,7 @@ go
 
 create table BEMVINDO.TIPO_CANCELACION
 (
-    id_tipo_cancelacion      numeric(10,0) identity(1,1) ,
+    id_tipo_cancelacion      numeric(10,0) identity(1,1),
     descripcion              nvarchar(255),
 
     PRIMARY KEY (id_tipo_cancelacion)
@@ -423,12 +408,12 @@ go
 
 create table BEMVINDO.CANCELACION
 (
-    id_cancelacion       numeric(10,0) identity(1,1) ,
+    id_cancelacion       numeric(10,0) identity(1,1),
     tipo_cancelacion     numeric(10,0),
-    turno                numeric(10,0) ,
+    turno                numeric(10,0),
     fecha                date,
     motivo               nvarchar(255),
-    tipo_usuario         char,
+    tipo_usuario         char check (tipo_usuario in('A','P')),
     
 
     PRIMARY KEY (id_cancelacion), 
@@ -664,27 +649,6 @@ insert into BEMVINDO.USUARIO
 
 go
 
---ROL_POR_USUARIO
--------------------------------------------------------------------------------------------------------
-
---afiliados
-insert into BEMVINDO.ROL_POR_USUARIO
-	select 
-		2,
-		id_afiliado
-	from BEMVINDO.AFILIADO
-
-go
-
---profesionales
-insert into BEMVINDO.ROL_POR_USUARIO
-	select 
-		1,
-		id_profesional
-	from BEMVINDO.PROFESIONAL
-
-go
-
 --AFILIADOS
 -------------------------------------------------------------------------------------------------------
 insert into BEMVINDO.AFILIADO
@@ -864,6 +828,26 @@ insert into BEMVINDO.BONO
 
 go
 
+--ROL_POR_USUARIO
+-------------------------------------------------------------------------------------------------------
+
+--afiliados
+insert into BEMVINDO.ROL_POR_USUARIO
+	select 
+		2,
+		id_afiliado
+	from BEMVINDO.AFILIADO
+
+go
+
+--profesionales
+insert into BEMVINDO.ROL_POR_USUARIO
+	select 
+		1,
+		id_profesional
+	from BEMVINDO.PROFESIONAL
+
+go
 
 /********************************************************************************************************************************/
 /*BORRADO DE CAMPOS QUE FUERON REEMPLAZADOS POR ID'S AUTOGENERADOS EN LA MIGRACION*/
