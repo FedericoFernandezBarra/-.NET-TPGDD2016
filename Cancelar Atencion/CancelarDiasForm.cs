@@ -34,6 +34,8 @@ namespace ClinicaFrba.Cancelar_Atencion
             fechaFinCancelacion.DataBindings.Add("Value", cancelarDias, "fechaFinCancelacion");
             cmbCancelacion.DataBindings.Add("SelectedItem", cancelarDias, "tipoDeCancelacion");
             txtMotivo.DataBindings.Add("Text", cancelarDias, "motivoDeCancelacion");
+
+            lblProfesional.Text += cancelarDias.profesional.usuario.nombre + " " + cancelarDias.profesional.usuario.apellido;
         }
 
         private void inicializarForm()

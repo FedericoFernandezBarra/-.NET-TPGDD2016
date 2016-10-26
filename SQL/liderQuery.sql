@@ -512,7 +512,7 @@ as begin
 	where 
 		u.nick = @nick and 
 		u.pass = BEMVINDO.fn_hashear_pass(@pass) and
-		r.habilitado = 1;
+		u.activo = 1;
 end
 
 go
@@ -520,7 +520,7 @@ go
 	CREATE PROCEDURE BEMVINDO.st_dar_de_baja_usuario(@nick nvarchar(255))
 	AS BEGIN
 		UPDATE USUARIO SET
-		baja_logica = 1
+		activo = 0
 		WHERE nick=@nick
 	END
 	GO
