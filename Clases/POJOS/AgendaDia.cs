@@ -7,6 +7,7 @@ namespace ClinicaFrba.Clases.POJOS
         public string nombreDia { get; set; }
 
         public long idEspecialidad { get; set; }
+
         public string nombreEspecialidad {get; set;}
 
         public TimeSpan horaInicial { get; set; }

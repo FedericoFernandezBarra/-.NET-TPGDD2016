@@ -99,7 +99,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         private bool esPar(int i)
         {
-            return ((i % 2) - 2 * (i / 2) == 0);
+            return (i % 2 == 0);
         }
     }
 }

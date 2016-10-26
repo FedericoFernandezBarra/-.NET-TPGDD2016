@@ -73,6 +73,12 @@ if EXISTS (SELECT * FROM sysobjects  WHERE name='CANCELACION_DIA')
 drop table BEMVINDO.CANCELACION_DIA 
 
 go
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='DIA_AGENDA') 
+drop table BEMVINDO.DIA_AGENDA 
+
+go
+
 if EXISTS (SELECT * FROM sysobjects  WHERE name='AGENDA') 
 drop table BEMVINDO.AGENDA 
 
@@ -335,14 +341,27 @@ create table BEMVINDO.AGENDA
 (
     id_agenda		numeric(10,0) identity(1,1),
     profesional		numeric(10,0),
+	fecha_inicial	datetime,
+    fecha_final		datetime,
+
+    PRIMARY KEY (id_agenda),
+	FOREIGN KEY (profesional)   references BEMVINDO.PROFESIONAL(id_profesional),
+)
+
+go
+
+create table BEMVINDO.DIA_AGENDA
+(
+    id_dia_agenda		numeric(10,0) identity(1,1),
+    agenda		numeric(10,0),
 	especialidad	numeric(10,0),
     dia		nvarchar(10) check (dia in('LUNES','MARTES', 'MIERCOLES','JUEVES', 'VIERNES', 'SABADO')),
 	horario_inicial		time,
 	horario_final		time,
     
 
-    PRIMARY KEY (id_agenda),
-	FOREIGN KEY (profesional)   references BEMVINDO.PROFESIONAL(id_profesional),
+    PRIMARY KEY (id_dia_agenda),
+	FOREIGN KEY (agenda)   references BEMVINDO.AGENDA(id_agenda),
 	FOREIGN KEY (especialidad)   references BEMVINDO.ESPECIALIDAD(id_especialidad)
 )
 
