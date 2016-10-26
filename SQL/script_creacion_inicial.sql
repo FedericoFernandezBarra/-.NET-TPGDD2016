@@ -930,6 +930,16 @@ values('admin','w23e',0,1,null,null,null,null,null,null,null,null,null)
 
 go
 
+insert into BEMVINDO.AFILIADO
+values(5579, null, null, null, 0, 101)
+
+go
+
+insert into BEMVINDO.PROFESIONAL
+values(5579, null)
+
+go
+
 insert into BEMVINDO.ROL_POR_USUARIO
 values 
 	(1,5579),
@@ -942,3 +952,49 @@ go
 /*CREACION DE PROCEDIMIENTOS PARA LA APLICACION*/
 /********************************************************************************************************************************/
 
+--REGSITRAR AGENDA MEDICO
+-------------------------------------------------------------------------------------------------------
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='sp_agenda_del_profesional') 
+drop procedure BEMVINDO.sp_agenda_del_profesional
+
+go
+
+create procedure BEMVINDO.sp_agenda_del_profesional 
+	@id_profesional numeric(10,0)
+as begin
+	select 
+		A.id_agenda,
+		A.fecha_inicial,
+		A.fecha_final,
+		E.descripcion as especialidad,
+		D.dia,
+		D.horario_inicial,
+		D.horario_final
+	from BEMVINDO.AGENDA as A
+	inner join BEMVINDO.DIA_AGENDA as D on A.id_agenda = D.agenda
+	inner join BEMVINDO.ESPECIALIDAD as E on D.especialidad = E.id_especialidad
+	where 
+		A.profesional = @id_profesional
+end
+
+go
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='sp_nombre_de_especialidades_del_profesional') 
+drop procedure BEMVINDO.sp_nombre_de_especialidades_del_profesional
+
+go
+
+create procedure BEMVINDO.sp_nombre_de_especialidades_del_profesional
+	@id_profesional numeric(10,0)
+as begin
+	select 
+		E.id_especialidad,
+		E.descripcion
+	from BEMVINDO.ESPECIALIDAD_POR_PROFESIONAL as EP
+	inner join BEMVINDO.ESPECIALIDAD as E on E.id_especialidad = EP.id_especialidad
+	where 
+		Ep.id_profesional = @id_profesional
+end
+
+go

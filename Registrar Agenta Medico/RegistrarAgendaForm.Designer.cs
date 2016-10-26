@@ -32,8 +32,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listBoxEspecialidades = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.listBoxHoraHasta = new System.Windows.Forms.ComboBox();
-            this.listBoxHoraDesde = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.botonAgregar = new System.Windows.Forms.Button();
@@ -43,6 +41,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.listBoxHorarios = new System.Windows.Forms.ListBox();
             this.botonVolver = new System.Windows.Forms.Button();
+            this.timeHoraDesde = new System.Windows.Forms.DateTimePicker();
+            this.timeHoraHasta = new System.Windows.Forms.DateTimePicker();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.timerFechaDesde = new System.Windows.Forms.DateTimePicker();
+            this.timerFechaHasta = new System.Windows.Forms.DateTimePicker();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,10 +62,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.timeHoraHasta);
+            this.groupBox1.Controls.Add(this.timeHoraDesde);
             this.groupBox1.Controls.Add(this.listBoxEspecialidades);
             this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.listBoxHoraHasta);
-            this.groupBox1.Controls.Add(this.listBoxHoraDesde);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.botonAgregar);
@@ -78,7 +82,7 @@
             this.listBoxEspecialidades.FormattingEnabled = true;
             this.listBoxEspecialidades.Location = new System.Drawing.Point(322, 47);
             this.listBoxEspecialidades.Name = "listBoxEspecialidades";
-            this.listBoxEspecialidades.Size = new System.Drawing.Size(121, 21);
+            this.listBoxEspecialidades.Size = new System.Drawing.Size(110, 21);
             this.listBoxEspecialidades.TabIndex = 14;
             // 
             // label7
@@ -89,23 +93,6 @@
             this.label7.Size = new System.Drawing.Size(70, 13);
             this.label7.TabIndex = 13;
             this.label7.Text = "Especialidad:";
-            // 
-            // listBoxHoraHasta
-            // 
-            this.listBoxHoraHasta.FormattingEnabled = true;
-            this.listBoxHoraHasta.Location = new System.Drawing.Point(169, 47);
-            this.listBoxHoraHasta.Name = "listBoxHoraHasta";
-            this.listBoxHoraHasta.Size = new System.Drawing.Size(102, 21);
-            this.listBoxHoraHasta.TabIndex = 12;
-            // 
-            // listBoxHoraDesde
-            // 
-            this.listBoxHoraDesde.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList;
-            this.listBoxHoraDesde.FormattingEnabled = true;
-            this.listBoxHoraDesde.Location = new System.Drawing.Point(6, 47);
-            this.listBoxHoraDesde.Name = "listBoxHoraDesde";
-            this.listBoxHoraDesde.Size = new System.Drawing.Size(102, 21);
-            this.listBoxHoraDesde.TabIndex = 11;
             // 
             // label4
             // 
@@ -127,7 +114,7 @@
             // 
             // botonAgregar
             // 
-            this.botonAgregar.Location = new System.Drawing.Point(368, 89);
+            this.botonAgregar.Location = new System.Drawing.Point(357, 89);
             this.botonAgregar.Name = "botonAgregar";
             this.botonAgregar.Size = new System.Drawing.Size(75, 23);
             this.botonAgregar.TabIndex = 0;
@@ -138,7 +125,7 @@
             // listBoxDias
             // 
             this.listBoxDias.FormattingEnabled = true;
-            this.listBoxDias.Location = new System.Drawing.Point(16, 52);
+            this.listBoxDias.Location = new System.Drawing.Point(21, 52);
             this.listBoxDias.Name = "listBoxDias";
             this.listBoxDias.Size = new System.Drawing.Size(121, 21);
             this.listBoxDias.TabIndex = 8;
@@ -187,11 +174,68 @@
             this.botonVolver.Text = "Volver";
             this.botonVolver.UseVisualStyleBackColor = true;
             // 
+            // timeHoraDesde
+            // 
+            this.timeHoraDesde.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.timeHoraDesde.Location = new System.Drawing.Point(6, 48);
+            this.timeHoraDesde.Name = "timeHoraDesde";
+            this.timeHoraDesde.ShowUpDown = true;
+            this.timeHoraDesde.Size = new System.Drawing.Size(110, 20);
+            this.timeHoraDesde.TabIndex = 17;
+            // 
+            // timeHoraHasta
+            // 
+            this.timeHoraHasta.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.timeHoraHasta.Location = new System.Drawing.Point(169, 48);
+            this.timeHoraHasta.Name = "timeHoraHasta";
+            this.timeHoraHasta.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.timeHoraHasta.ShowUpDown = true;
+            this.timeHoraHasta.Size = new System.Drawing.Size(110, 20);
+            this.timeHoraHasta.TabIndex = 18;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(187, 36);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(74, 13);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "Fecha Desde:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(340, 36);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(71, 13);
+            this.label6.TabIndex = 22;
+            this.label6.Text = "Fecha Hasta:";
+            // 
+            // timerFechaDesde
+            // 
+            this.timerFechaDesde.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.timerFechaDesde.Location = new System.Drawing.Point(190, 53);
+            this.timerFechaDesde.Name = "timerFechaDesde";
+            this.timerFechaDesde.Size = new System.Drawing.Size(110, 20);
+            this.timerFechaDesde.TabIndex = 23;
+            // 
+            // timerFechaHasta
+            // 
+            this.timerFechaHasta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.timerFechaHasta.Location = new System.Drawing.Point(343, 52);
+            this.timerFechaHasta.Name = "timerFechaHasta";
+            this.timerFechaHasta.Size = new System.Drawing.Size(110, 20);
+            this.timerFechaHasta.TabIndex = 24;
+            // 
             // RegistrarAgendaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(492, 431);
+            this.Controls.Add(this.timerFechaHasta);
+            this.Controls.Add(this.timerFechaDesde);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.botonVolver);
             this.Controls.Add(this.listBoxHorarios);
             this.Controls.Add(this.botonGuardarCambios);
@@ -216,8 +260,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox listBoxEspecialidades;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox listBoxHoraHasta;
-        private System.Windows.Forms.ComboBox listBoxHoraDesde;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox listBoxDias;
@@ -227,5 +269,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox listBoxHorarios;
         private System.Windows.Forms.Button botonVolver;
+        private System.Windows.Forms.DateTimePicker timeHoraDesde;
+        private System.Windows.Forms.DateTimePicker timeHoraHasta;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DateTimePicker timerFechaDesde;
+        private System.Windows.Forms.DateTimePicker timerFechaHasta;
     }
 }
