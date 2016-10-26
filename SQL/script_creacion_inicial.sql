@@ -3,8 +3,23 @@ USE GD2C2016
 go
 
 /********************************************************************************************************************************/
+/*VERIFICO EXISTENCIA DE PROCEDIMIENTOS, FUNCIONES, ETC ANTSES DE CREARLOS*/
+/********************************************************************************************************************************/
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='sp_agenda_del_profesional') 
+drop procedure BEMVINDO.sp_agenda_del_profesional
+
+go
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='sp_nombre_de_especialidades_del_profesional') 
+drop procedure BEMVINDO.sp_nombre_de_especialidades_del_profesional
+
+go
+
+/********************************************************************************************************************************/
 /*VERIFICO EXISTENCIA DE TABLAS ANTSES DE CREARLAS*/
 /********************************************************************************************************************************/
+
 if EXISTS (SELECT * FROM sysobjects  WHERE name='BONO') 
 drop table BEMVINDO.BONO
 
@@ -954,12 +969,6 @@ go
 
 --REGSITRAR AGENDA MEDICO
 -------------------------------------------------------------------------------------------------------
-
-if EXISTS (SELECT * FROM sysobjects  WHERE name='sp_agenda_del_profesional') 
-drop procedure BEMVINDO.sp_agenda_del_profesional
-
-go
-
 create procedure BEMVINDO.sp_agenda_del_profesional 
 	@id_profesional numeric(10,0)
 as begin
@@ -977,11 +986,6 @@ as begin
 	where 
 		A.profesional = @id_profesional
 end
-
-go
-
-if EXISTS (SELECT * FROM sysobjects  WHERE name='sp_nombre_de_especialidades_del_profesional') 
-drop procedure BEMVINDO.sp_nombre_de_especialidades_del_profesional
 
 go
 
