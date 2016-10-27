@@ -456,33 +456,6 @@ end
 ---------------------------------------USUARIO----------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-create trigger BEMVINDO.tg_hashear_pass  
-on BEMVINDO.USUARIO  
-instead of insert  
-as begin  
-    
-  insert into BEMVINDO.USUARIO  
-    select  
-	 id_usuario,
-    nick,
-    BEMVINDO.fn_hashear_pass(pass),
-    intentos_login,
-    activo,
-    nombre,
-    apellido,
-    tipo_documento,
-    documento;
-    fecha_nacimiento;
-    direccion,
-    telefono,
-    mail,
-    sexo;
-    from inserted   
-
-end
-
-go
-
 create procedure BEMVINDO.VERIFICAR_LOGUEO
 	@nick nvarchar(255), 
 	@pass nvarchar(255)
@@ -490,7 +463,7 @@ as begin
 	
 	declare @filas int;
 
-	select top 1 @filas = COUNT(baja_logica)
+	select top 1 @filas = COUNT(id_usuario)
 	from BEMVINDO.USUARIO
 	where 
 		nick = @nick and 
