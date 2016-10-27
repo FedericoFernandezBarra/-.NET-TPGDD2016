@@ -25,5 +25,15 @@ namespace ClinicaFrba.Clases.POJOS
             fecha_final = fecha_fin;
             listaDeDiasAgenda = listaDias;
         }
+        
+        public List<DiaAgenda> diasAgendaDelDia(string dia)
+        {
+            return listaDeDiasAgenda.FindAll(diaAgenda => diaAgenda.nombreDia == dia);
+        }
+
+        public bool esteHorarioEstaOcupado(string dia, TimeSpan horario)
+        {
+            return listaDeDiasAgenda.Exists(diaAgenda => (diaAgenda.horaInicial <= horario && horario <= diaAgenda.horaFinal) && diaAgenda.nombreDia == dia);
+        }
     }
 }

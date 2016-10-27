@@ -6,6 +6,8 @@ go
 /*VERIFICO EXISTENCIA DE PROCEDIMIENTOS, FUNCIONES, ETC ANTSES DE CREARLOS*/
 /********************************************************************************************************************************/
 
+--REGSITRAR AGENDA MEDICO
+-------------------------------------------------------------------------------------------------------
 if EXISTS (SELECT * FROM sysobjects  WHERE name='sp_agenda_del_profesional') 
 drop procedure BEMVINDO.sp_agenda_del_profesional
 
@@ -13,6 +15,16 @@ go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='sp_nombre_de_especialidades_del_profesional') 
 drop procedure BEMVINDO.sp_nombre_de_especialidades_del_profesional
+
+go
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='sp_insertar_nueva_agenda') 
+drop procedure BEMVINDO.sp_insertar_nueva_agenda
+
+go
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='sp_insertar_nuevo_dia_agenda') 
+drop procedure BEMVINDO.sp_insertar_nuevo_dia_agenda
 
 go
 
@@ -976,6 +988,7 @@ as begin
 		A.id_agenda,
 		A.fecha_inicial,
 		A.fecha_final,
+		E.id_especialidad as id_especialidad,
 		E.descripcion as especialidad,
 		D.dia,
 		D.horario_inicial,
@@ -999,6 +1012,34 @@ as begin
 	inner join BEMVINDO.ESPECIALIDAD as E on E.id_especialidad = EP.id_especialidad
 	where 
 		Ep.id_profesional = @id_profesional
+end
+
+go
+
+create procedure BEMVINDO.sp_insertar_nueva_agenda
+	@id_profesional numeric(10,0),
+	@fecha_inicial date,
+	@fecha_final date
+as begin
+	insert into BEMVINDO.AGENDA
+	values (@id_profesional, @fecha_inicial, @fecha_final)
+
+	select id_agenda
+	from BEMVINDO.AGENDA
+	where profesional = @id_profesional
+end
+
+go
+
+create procedure BEMVINDO.sp_insertar_nuevo_dia_agenda
+	@id_agenda numeric(10,0),
+	@id_especialidad numeric(10,0),
+	@dia nvarchar(10),
+	@hora_inicial time,
+	@hora_final time
+as begin
+	insert into BEMVINDO.DIA_AGENDA
+	values (@id_agenda, @id_especialidad, @dia, @hora_inicial, @hora_final)
 end
 
 go
