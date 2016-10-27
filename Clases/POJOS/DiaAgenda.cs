@@ -2,7 +2,7 @@
 
 namespace ClinicaFrba.Clases.POJOS
 {
-    class AgendaDia
+    class DiaAgenda
     {
         public string nombreDia { get; set; }
 
@@ -13,6 +13,15 @@ namespace ClinicaFrba.Clases.POJOS
         public TimeSpan horaInicial { get; set; }
 
         public TimeSpan horaFinal { get; set; }
+
+        public DiaAgenda(string nomDia, long idEsp, string nomEsp, TimeSpan hIni, TimeSpan hFin)
+        {
+            nombreDia = nomDia;
+            nombreEspecialidad = nomEsp;
+            idEspecialidad = idEsp;
+            horaInicial = hIni;
+            horaFinal = hFin;
+        }
     }
 
 }

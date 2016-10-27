@@ -1,4 +1,6 @@
 ﻿using ClinicaFrba.Abm_Afiliado;
+using ClinicaFrba.Clases;
+using ClinicaFrba.Registrar_Agenta_Medico;
 using System;
 using System.Windows.Forms;
 
