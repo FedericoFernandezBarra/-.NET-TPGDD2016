@@ -67,7 +67,7 @@ namespace ClinicaFrba.Clases.Otros
 
         public bool hayTurnoHoy()
         {
-            DateTime fechaActual = Sistema.Instance.getDate();
+            DateTime fechaActual = DataBase.Instance.getDate();
             return false;//Aca consulta la bd
         }
     }

@@ -16,7 +16,7 @@ namespace ClinicaFrba.Test
         public void Initialize()
         {
             dbCreator.createPersistentDefaultModel(true);
-            dbCreator.executeScript("tostado_tests.sql");
+            DataBase.Instance.executeScript("tostado_tests.sql");
         }
 
         [TestMethod]

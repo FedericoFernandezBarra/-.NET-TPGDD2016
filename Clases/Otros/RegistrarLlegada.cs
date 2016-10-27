@@ -36,7 +36,7 @@ namespace ClinicaFrba.Clases.Otros
 
         internal void cargarTurnosDeProfesional()
         {
-            turnosDeProfesional = (new TurnoRepository()).traerTurnosDeProfesional(profesional, especialidad, Sistema.Instance.getDate());
+            turnosDeProfesional = (new TurnoRepository()).traerTurnosDeProfesional(profesional, especialidad, DataBase.Instance.getDate());
         }
 
         internal bool ejecutarExitosamente()
@@ -60,7 +60,7 @@ namespace ClinicaFrba.Clases.Otros
 
         private void registrarLlegada()
         {
-            (new TurnoRepository()).registrarLlegada(turnoDeAfiliado, bonoSeleccionado, Sistema.Instance.getDate());
+            (new TurnoRepository()).registrarLlegada(turnoDeAfiliado, bonoSeleccionado, DataBase.Instance.getDate());
         }
 
         private bool cumpleValidaciones()

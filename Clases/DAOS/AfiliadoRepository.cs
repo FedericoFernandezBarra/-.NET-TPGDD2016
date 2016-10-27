@@ -42,7 +42,7 @@ namespace ClinicaFrba.Clases.DAOS
             List<SqlParameter> parametros = new List<SqlParameter>();
 
             DataBase.Instance.agregarParametro(parametros, "id_afiliado", afiliado.id);
-            DataBase.Instance.agregarParametro(parametros, "fecha_baja", Sistema.Instance.getDate());
+            DataBase.Instance.agregarParametro(parametros, "fecha_baja", DataBase.Instance.getDate());
 
             executeStored("BEMVINDO.st_baja_afiliado", parametros);
         }
@@ -56,7 +56,7 @@ namespace ClinicaFrba.Clases.DAOS
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
             DataBase.Instance.agregarParametro(parametros, "motivo", motivo);
-            DataBase.Instance.agregarParametro(parametros, "fecha", Sistema.Instance.getDate());
+            DataBase.Instance.agregarParametro(parametros, "fecha", DataBase.Instance.getDate());
 
             executeStored("BEMVINDO.st_actualizar_afiliado", afiliado, parametros);
         }

@@ -175,7 +175,6 @@
     <Compile Include="Clases\TostadoPersistentKit\Classes\PrimaryKeyType.cs" />
     <Compile Include="Clases\TostadoPersistentKit\Classes\Repository.cs" />
     <Compile Include="Clases\TostadoPersistentKit\Classes\Serializable.cs" />
-    <Compile Include="Clases\TostadoPersistentKit\Classes\Sistema.cs" />
     <Compile Include="Compra Bono\ComprarBonosForm.cs">
       <SubType>Form</SubType>
     </Compile>

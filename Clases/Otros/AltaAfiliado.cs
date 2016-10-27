@@ -47,7 +47,7 @@ namespace ClinicaFrba.Clases.Otros
 
         public bool cumpleValidaciones()
         {
-            if (nuevoAfiliado.usuario.fechaDeNacimiento>=Sistema.Instance.getDate())
+            if (nuevoAfiliado.usuario.fechaDeNacimiento>=DataBase.Instance.getDate())
             {
                 mensajeDeError = "La fecha de nacimiento no puede ser mayor o igual a la fecha actual";
                 return false;

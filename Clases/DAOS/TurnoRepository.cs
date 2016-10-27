@@ -64,7 +64,7 @@ namespace ClinicaFrba.Clases.DAOS
             DataBase.Instance.agregarParametro(parametros,"@tipo_cancelacion", tipoDeCancelacion.id);
             DataBase.Instance.agregarParametro(parametros, "@turno", turnoACancelar.id);
             DataBase.Instance.agregarParametro(parametros, "@motivo", motivoDeCancelacion);
-            DataBase.Instance.agregarParametro(parametros, "@fecha_sistema", Sistema.Instance.getDate());
+            DataBase.Instance.agregarParametro(parametros, "@fecha_sistema", DataBase.Instance.getDate());
 
             DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_cancelar_turno_afiliado", parametros);
         }

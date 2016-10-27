@@ -45,8 +45,8 @@ namespace ClinicaFrba.Cancelar_Atencion
                 cmbCancelacion.Items.Add(item);
             }
 
-            //fechaInicioCancelacion.Value = Sistema.Instance.getDate();
-            //fechaFinCancelacion.Value = Sistema.Instance.getDate();
+            //fechaInicioCancelacion.Value = DataBase.Instance.getDate();
+            //fechaFinCancelacion.Value = DataBase.Instance.getDate();
         }
 
         private void btnAction_Click(object sender, EventArgs e)

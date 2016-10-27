@@ -19,7 +19,7 @@ namespace ClinicaFrba.Clases.Otros
         public Profesional profesional { get; set; }
         public string mensajeDeError { get; set; }
         public List<TipoCancelacion> tiposDeCancelacion { get; set; }
-        private DateTime fechaActual = Sistema.Instance.getDate();
+        private DateTime fechaActual = DataBase.Instance.getDate();
         private TurnoRepository repoTurno = new TurnoRepository();
 
         public CancelarDias()
