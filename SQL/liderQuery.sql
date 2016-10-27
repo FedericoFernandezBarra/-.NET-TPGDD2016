@@ -6,7 +6,6 @@ create procedure BEMVINDO.st_insertar_afiliado
 @nro_grupo_familiar char(4),
 @estado_civil numeric(10,0),
 @plan_medico numeric(10,0),
-@cantidad_hijos smallint,
 @nombre  nvarchar(255),
 @apellido    nvarchar(255),
 @tipo_documento  numeric(10,0),  
@@ -20,7 +19,7 @@ create procedure BEMVINDO.st_insertar_afiliado
 
 AS
 begin
-     declare @idAfiliado numeric(10,0)
+     declare @nroAfiliado numeric(10,0)
 	 declare @id_numerito numeric(10,0)
 	 declare @error varchar(255) 
 	 declare @idUsuario numeric(10,0)
@@ -29,7 +28,7 @@ begin
      BEGIN TRY
 
 
-     select @id_numerito =max(id_afiliado) from BEMVINDO.AFILIADO
+     select @id_numerito =max(numero_afiliado) from BEMVINDO.AFILIADO
      set @id_numerito= (@id_numerito/100)
 
 	  if(@nro_grupo_familiar='01')
@@ -37,7 +36,7 @@ begin
 	       set @id_numerito= (@id_numerito+1)
 	  end
 
-	 select @idAfiliado =  Concat(@id_numerito,@nro_grupo_familiar)
+	 select @nroAfiliado =  Concat(@id_numerito,@nro_grupo_familiar)
 		   
 
 	insert into BEMVINDO.USUARIO(nick,pass,intentos_login,activo,nombre,apellido,tipo_documento,
@@ -47,9 +46,8 @@ begin
 
 	select @idUsuario =max(id_usuario) from BEMVINDO.USUARIO
 
-		
-	insert into BEMVINDO.AFILIADO(id_afiliado,usuario,estado_civil,plan_medico,cantidad_hijos)
-	    values (@idAfiliado,@idUsuario,@estado_civil,@plan_medico,@cantidad_hijos)
+	insert into BEMVINDO.AFILIADO(id_afiliado,estado_civil,plan_medico,baja_logica,numero_afiliado)
+	    values (@idUsuario,@estado_civil,@plan_medico,0,@nroAfiliado)	    
 
 
 	 COMMIT TRAN  
@@ -60,7 +58,7 @@ begin
      END CATCH 
 
 
-     select @documento as nick,@documento as pass,@idAfiliado as id_afiliado,@error as error
+     select @documento as nick,@documento as pass,@nroAfiliado as id_afiliado,@error as error
 
 end
 
@@ -68,29 +66,29 @@ end
 go
 
 create procedure BEMVINDO.st_buscar_afiliados
-@id_afiliado numeric(10,0)
+@nroAfiliado numeric(10,0)
 
 AS
 begin
 
       select *
       from BEMVINDO.USUARIO
-      inner join BEMVINDO.AFILIADO on id_usuario = usuario
-	  where (id_afiliado = @id_afiliado OR @id_afiliado IS NULL) 
+      inner join BEMVINDO.AFILIADO on id_usuario = id_afiliado
+	  where (numero_afiliado = @nroAfiliado OR @nroAfiliado IS NULL) 
 
 end
 
 go
 
 create procedure BEMVINDO.st_baja_afiliado
-@id_afiliado numeric(10,0),
+@nroAfiliado numeric(10,0),
 @fecha_baja date
 
 AS
 begin
 
 	 update BEMVINDO.AFILIADO SET baja_logica = 1, fecha_baja=@fecha_baja 
-	 where id_afiliado = @id_afiliado
+	 where numero_afiliado = @nroAfiliado
 
 end
 
@@ -152,14 +150,14 @@ go
 
 CREATE procedure BEMVINDO.st_insertar_agenda
 @profesional    numeric(10,0),
-@fecha_desde    date,
-@fecha_hasta    date,
+@fecha_inicial    date,
+@fecha_final    date,
 @id_agenda      numeric(10,0) out
 AS
 begin
 	 
-	 	insert into BEMVINDO.AGENDA(profesional,fecha_desde,fecha_hasta)
-	    values (@profesional,@fecha_desde,@fecha_hasta)
+	 	insert into BEMVINDO.AGENDA(profesional,fecha_inicial,fecha_final)
+	    values (@profesional,@fecha_inicial,@fecha_final)
 
 	    set @id_agenda = scope_identity()
 
@@ -178,7 +176,7 @@ CREATE procedure BEMVINDO.st_insertar_dia
 AS
 begin
 	 
-	 	insert into BEMVINDO.DIA_AGENDA(especialidad,dia,hora_desde,hora_hasta)
+	 	insert into BEMVINDO.DIA_AGENDA(especialidad,dia,horario_inicial,horario_final)
 	    values (@especialidad,@dia,@hora_desde,@hora_hasta)
 
 end
@@ -222,8 +220,7 @@ go
 
 CREATE procedure BEMVINDO.st_insertar_bono
 @plan_medico numeric(10,0),
-@compra      numeric(10,0),
-@turno       numeric(10,0)
+@compra      numeric(10,0)
 
 AS
 begin
@@ -243,7 +240,7 @@ go
 
 
 CREATE procedure BEMVINDO.st_insertar_turno
-@afiliado       numeric(10,0),
+@id_afiliado    numeric(10,0),
 @profesional    numeric(10,0),
 @especialidad   numeric(10,0),
 @fecha_turno    datetime
@@ -252,7 +249,7 @@ AS
 begin
 	 
 	 	insert into BEMVINDO.TURNO(afiliado,profesional,especialidad,fecha_turno,activo)
-	    values (@afiliado,@profesional,@especialidad,@fecha_turno,1)
+	    values (@id_afiliado,@profesional,@especialidad,@fecha_turno,1)
 
 end
 
@@ -281,7 +278,7 @@ as
 begin
 
 	select * from BEMVINDO.USUARIO as u
-	inner join BEMVINDO.PROFESIONAL as p on u.id_usuario=p.usuario
+	inner join BEMVINDO.PROFESIONAL as p on u.id_usuario=p.id_profesional
 	inner join BEMVINDO.ESPECIALIDAD_POR_PROFESIONAL as e on p.id_profesional=e.id_profesional
 	where (p.id_profesional=@profesional or @profesional is null) and 
 		  (u.apellido=@apellido or @apellido is null) and (p.matricula=@matricula or @matricula is null) and
@@ -436,6 +433,7 @@ declare @id_agenda numeric(10,0)
 
 end
 
+go
 -----------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------CANCELAR ATENCION MEDICA POR PARTE DEL MEDICO----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------
