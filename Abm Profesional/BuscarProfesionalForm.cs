@@ -16,6 +16,8 @@ namespace ClinicaFrba.Abm_Profesional
     {
         BuscarProfesional buscarProfesional = new BuscarProfesional();
 
+        private bool busquedaOK = false;
+
         public BuscarProfesionalForm()
         {
             InitializeComponent();
@@ -50,9 +52,19 @@ namespace ClinicaFrba.Abm_Profesional
             return buscarProfesional.especialidad;
         }
 
+        public bool seSeleccionoUnProfesional()
+        {
+            return busquedaOK;
+        }
+
         private void btnAction_Click(object sender, EventArgs e)
         {
             bindearProfesional();
+
+            if (buscarProfesional.profesional != null)
+            {
+                busquedaOK = true;
+            }
 
             Close();
         }
