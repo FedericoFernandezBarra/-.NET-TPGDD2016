@@ -21,6 +21,11 @@ namespace ClinicaFrba.Clases.DAOS
             return usuarios.Count > 0 ? usuarios[0] : null;
         }
 
+        internal void cargarRoles(Usuario usuario)
+        {
+            completeProperty("roles", usuario);
+        }
+
         internal override Type getModelClassType()
         {
             return typeof(Usuario);

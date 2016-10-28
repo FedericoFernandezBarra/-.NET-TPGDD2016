@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClinicaFrba.Clases.Otros
 {
-    class Login
+    public class Login
     {
         private bool bajaLogica;
 
@@ -48,14 +48,21 @@ namespace ClinicaFrba.Clases.Otros
 
         public bool logueoExitoso()
         {
+            if (bajaLogica)
+            {
+                mensajeDeError = "Ha sido bloqueado, comuniquese con el Administrador";
+                return false;
+            }
             if (!existeUserNameYPass())
             {
                 mensajeDeError = "El Nick o el Pass son incorrectos";
                 return false;
             }
-            if (bajaLogica)
+            if (!usuarioLogueado.activo)
             {
+                bajaLogica = true;
                 mensajeDeError = "Ha sido bloqueado, comuniquese con el Administrador";
+                usuarioLogueado = null;
                 return false;
             }
 
@@ -73,7 +80,7 @@ namespace ClinicaFrba.Clases.Otros
                 if (intentosDeLogueo >= MAX_CANTIDAD_INTENTOS)
                 {
                     bajaLogica = true;
-                    darDeBaja();
+                    //darDeBaja();
                 }
 
                 return false;

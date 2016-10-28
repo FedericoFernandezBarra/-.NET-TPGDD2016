@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClinicaFrba.Clases;
 
 namespace ClinicaFrba.Logueo
 {
@@ -39,6 +40,15 @@ namespace ClinicaFrba.Logueo
                 MessageBox.Show(login.mensajeDeError);
                 return;
             }
+
+            MessageBox.Show("Logueo exitoso");
+
+            Close();
+        }
+
+        internal Usuario getUsuarioLogueado()
+        {
+            return login.usuarioLogueado;
         }
     }
 }

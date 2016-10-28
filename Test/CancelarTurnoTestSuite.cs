@@ -100,7 +100,7 @@ namespace ClinicaFrba.Test
             CancelarTurno cancelarAfiliado = new CancelarTurno();
             cancelarAfiliado.motivoDeCancelacion = "Porque si vieja";
             cancelarAfiliado.afiliado = new Afiliado();
-            cancelarAfiliado.afiliado.id = 1;
+            cancelarAfiliado.afiliado.numeroDeAfiliado = 1;
             cancelarAfiliado.tipoDeCancelacion = new TipoCancelacion();
             cancelarAfiliado.tipoDeCancelacion.id = 1;
 

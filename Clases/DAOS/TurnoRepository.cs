@@ -71,7 +71,7 @@ namespace ClinicaFrba.Clases.DAOS
 
         internal List<Turno> traerTurnosDeAfiliado(Afiliado afiliado)
         {
-            return (List<Turno>)selectByProperty("afiliado", afiliado.id);
+            return (List<Turno>)selectByProperty("afiliado", afiliado.numeroDeAfiliado);
         }
 
         internal override Type getModelClassType()

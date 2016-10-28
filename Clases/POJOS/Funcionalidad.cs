@@ -8,7 +8,10 @@ namespace ClinicaFrba.Clases.POJOS
         [Id(name = "id_funcionalidad",type =PrimaryKeyType.SURROGATE)]
         public long id { get; set; }
 
-        [Column(name ="nombre")]
+        [Column(name = "descripcion")]
         public string nombre { get; set; }
+
+        [Column(name = "activo")]
+        public bool activo { get; set; }
     }
 }

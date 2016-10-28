@@ -33,21 +33,12 @@
             this.tsmArchivo = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmSesion = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmSesion_IniciarSesion = new System.Windows.Forms.ToolStripMenuItem();
+            this.seleccionarRolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmSesion_CerrarSesion = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.estadísticasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmSalir = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmGestionDeClinica = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmPlanes = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmRoles = new System.Windows.Forms.ToolStripMenuItem();
-            this.crearModificarRolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmUsuarios = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmCancelaciones = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmCancelaciones_Afiliado = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmCancelaciones_Profesional = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmGestionDeAfiliados = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAfiliados = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -56,14 +47,19 @@
             this.tsmRegistroDeLlegada = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmRegistroDeResultados = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmRecetar = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmGestionDeProfesionales = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmProfesionales = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmEspecialidades = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmAgenda = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAgenda_Consultar = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAgenda_Registrar = new System.Windows.Forms.ToolStripMenuItem();
+            this.registrarAfiliadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modificarAfiliadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bloquearAfiliadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buscarAfiliadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buscarProfesionalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmRoles = new System.Windows.Forms.ToolStripMenuItem();
+            this.crearModificarRolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuPrincipal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,7 +68,6 @@
             this.mnuPrincipal.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.mnuPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmArchivo,
-            this.tsmGestionDeClinica,
             this.tsmGestionDeAfiliados,
             this.tsmGestionDeProfesionales,
             this.tsmAgenda});
@@ -101,132 +96,68 @@
             // 
             this.tsmSesion.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmSesion_IniciarSesion,
+            this.seleccionarRolToolStripMenuItem,
             this.tsmSesion_CerrarSesion});
             this.tsmSesion.Name = "tsmSesion";
-            this.tsmSesion.Size = new System.Drawing.Size(134, 22);
+            this.tsmSesion.Size = new System.Drawing.Size(152, 22);
             this.tsmSesion.Text = "Sesión";
             // 
             // tsmSesion_IniciarSesion
             // 
             this.tsmSesion_IniciarSesion.Name = "tsmSesion_IniciarSesion";
-            this.tsmSesion_IniciarSesion.Size = new System.Drawing.Size(142, 22);
+            this.tsmSesion_IniciarSesion.Size = new System.Drawing.Size(154, 22);
             this.tsmSesion_IniciarSesion.Text = "Iniciar sesión";
             this.tsmSesion_IniciarSesion.Click += new System.EventHandler(this.tsmSesion_IniciarSesion_Click);
+            // 
+            // seleccionarRolToolStripMenuItem
+            // 
+            this.seleccionarRolToolStripMenuItem.Name = "seleccionarRolToolStripMenuItem";
+            this.seleccionarRolToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.seleccionarRolToolStripMenuItem.Text = "Seleccionar Rol";
+            this.seleccionarRolToolStripMenuItem.Click += new System.EventHandler(this.seleccionarRolToolStripMenuItem_Click);
             // 
             // tsmSesion_CerrarSesion
             // 
             this.tsmSesion_CerrarSesion.Name = "tsmSesion_CerrarSesion";
-            this.tsmSesion_CerrarSesion.Size = new System.Drawing.Size(142, 22);
+            this.tsmSesion_CerrarSesion.Size = new System.Drawing.Size(154, 22);
             this.tsmSesion_CerrarSesion.Text = "Cerrar sesión";
+            this.tsmSesion_CerrarSesion.Click += new System.EventHandler(this.tsmSesion_CerrarSesion_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(131, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
             // 
             // estadísticasToolStripMenuItem
             // 
             this.estadísticasToolStripMenuItem.Name = "estadísticasToolStripMenuItem";
-            this.estadísticasToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.estadísticasToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.estadísticasToolStripMenuItem.Text = "Estadísticas";
+            this.estadísticasToolStripMenuItem.Visible = false;
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(131, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
             // 
             // tsmSalir
             // 
             this.tsmSalir.Name = "tsmSalir";
-            this.tsmSalir.Size = new System.Drawing.Size(134, 22);
+            this.tsmSalir.Size = new System.Drawing.Size(152, 22);
             this.tsmSalir.Text = "Salir";
-            // 
-            // tsmGestionDeClinica
-            // 
-            this.tsmGestionDeClinica.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmPlanes,
-            this.toolStripSeparator6,
-            this.tsmRoles,
-            this.tsmUsuarios,
-            this.toolStripSeparator7,
-            this.tsmCancelaciones});
-            this.tsmGestionDeClinica.Image = ((System.Drawing.Image)(resources.GetObject("tsmGestionDeClinica.Image")));
-            this.tsmGestionDeClinica.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.tsmGestionDeClinica.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tsmGestionDeClinica.Name = "tsmGestionDeClinica";
-            this.tsmGestionDeClinica.Size = new System.Drawing.Size(240, 132);
-            this.tsmGestionDeClinica.Text = "Gestión de clínica";
-            // 
-            // tsmPlanes
-            // 
-            this.tsmPlanes.Name = "tsmPlanes";
-            this.tsmPlanes.Size = new System.Drawing.Size(150, 22);
-            this.tsmPlanes.Text = "Planes";
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(147, 6);
-            // 
-            // tsmRoles
-            // 
-            this.tsmRoles.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.crearModificarRolesToolStripMenuItem});
-            this.tsmRoles.Name = "tsmRoles";
-            this.tsmRoles.Size = new System.Drawing.Size(150, 22);
-            this.tsmRoles.Text = "Roles";
-            // 
-            // crearModificarRolesToolStripMenuItem
-            // 
-            this.crearModificarRolesToolStripMenuItem.Name = "crearModificarRolesToolStripMenuItem";
-            this.crearModificarRolesToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.crearModificarRolesToolStripMenuItem.Text = "Crear/Modificar Roles";
-            this.crearModificarRolesToolStripMenuItem.Click += new System.EventHandler(this.crearModificarRolesToolStripMenuItem_Click);
-            // 
-            // tsmUsuarios
-            // 
-            this.tsmUsuarios.Name = "tsmUsuarios";
-            this.tsmUsuarios.Size = new System.Drawing.Size(150, 22);
-            this.tsmUsuarios.Text = "Usuarios";
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(147, 6);
-            // 
-            // tsmCancelaciones
-            // 
-            this.tsmCancelaciones.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmCancelaciones_Afiliado,
-            this.tsmCancelaciones_Profesional});
-            this.tsmCancelaciones.Name = "tsmCancelaciones";
-            this.tsmCancelaciones.Size = new System.Drawing.Size(150, 22);
-            this.tsmCancelaciones.Text = "Cancelaciones";
-            // 
-            // tsmCancelaciones_Afiliado
-            // 
-            this.tsmCancelaciones_Afiliado.Name = "tsmCancelaciones_Afiliado";
-            this.tsmCancelaciones_Afiliado.Size = new System.Drawing.Size(133, 22);
-            this.tsmCancelaciones_Afiliado.Text = "Afiliado";
-            // 
-            // tsmCancelaciones_Profesional
-            // 
-            this.tsmCancelaciones_Profesional.Name = "tsmCancelaciones_Profesional";
-            this.tsmCancelaciones_Profesional.Size = new System.Drawing.Size(133, 22);
-            this.tsmCancelaciones_Profesional.Text = "Profesional";
-            this.tsmCancelaciones_Profesional.Click += new System.EventHandler(this.tsmCancelaciones_Profesional_Click);
+            this.tsmSalir.Click += new System.EventHandler(this.tsmSalir_Click);
             // 
             // tsmGestionDeAfiliados
             // 
             this.tsmGestionDeAfiliados.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmAfiliados,
             this.toolStripSeparator1,
+            this.tsmRoles,
             this.tsmCompraDeBonos,
             this.tsmPedirTurno,
             this.tsmRegistroDeLlegada,
             this.toolStripSeparator2,
-            this.tsmRegistroDeResultados,
-            this.tsmRecetar});
+            this.tsmRegistroDeResultados});
             this.tsmGestionDeAfiliados.Image = ((System.Drawing.Image)(resources.GetObject("tsmGestionDeAfiliados.Image")));
             this.tsmGestionDeAfiliados.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tsmGestionDeAfiliados.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -236,9 +167,15 @@
             // 
             // tsmAfiliados
             // 
+            this.tsmAfiliados.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.registrarAfiliadoToolStripMenuItem,
+            this.modificarAfiliadoToolStripMenuItem,
+            this.bloquearAfiliadoToolStripMenuItem,
+            this.buscarAfiliadoToolStripMenuItem});
             this.tsmAfiliados.Name = "tsmAfiliados";
             this.tsmAfiliados.Size = new System.Drawing.Size(190, 22);
             this.tsmAfiliados.Text = "Afiliados";
+            this.tsmAfiliados.Visible = false;
             // 
             // toolStripSeparator1
             // 
@@ -250,18 +187,21 @@
             this.tsmCompraDeBonos.Name = "tsmCompraDeBonos";
             this.tsmCompraDeBonos.Size = new System.Drawing.Size(190, 22);
             this.tsmCompraDeBonos.Text = "Compra de bonos";
+            this.tsmCompraDeBonos.Visible = false;
             // 
             // tsmPedirTurno
             // 
             this.tsmPedirTurno.Name = "tsmPedirTurno";
             this.tsmPedirTurno.Size = new System.Drawing.Size(190, 22);
             this.tsmPedirTurno.Text = "Pedir turno";
+            this.tsmPedirTurno.Visible = false;
             // 
             // tsmRegistroDeLlegada
             // 
             this.tsmRegistroDeLlegada.Name = "tsmRegistroDeLlegada";
             this.tsmRegistroDeLlegada.Size = new System.Drawing.Size(190, 22);
             this.tsmRegistroDeLlegada.Text = "Registro de llegada";
+            this.tsmRegistroDeLlegada.Visible = false;
             // 
             // toolStripSeparator2
             // 
@@ -273,18 +213,12 @@
             this.tsmRegistroDeResultados.Name = "tsmRegistroDeResultados";
             this.tsmRegistroDeResultados.Size = new System.Drawing.Size(190, 22);
             this.tsmRegistroDeResultados.Text = "Registro de resultados";
-            // 
-            // tsmRecetar
-            // 
-            this.tsmRecetar.Name = "tsmRecetar";
-            this.tsmRecetar.Size = new System.Drawing.Size(190, 22);
-            this.tsmRecetar.Text = "Recetar";
+            this.tsmRegistroDeResultados.Visible = false;
             // 
             // tsmGestionDeProfesionales
             // 
             this.tsmGestionDeProfesionales.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmProfesionales,
-            this.tsmEspecialidades,
             this.toolStripSeparator3});
             this.tsmGestionDeProfesionales.Image = ((System.Drawing.Image)(resources.GetObject("tsmGestionDeProfesionales.Image")));
             this.tsmGestionDeProfesionales.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -295,20 +229,17 @@
             // 
             // tsmProfesionales
             // 
+            this.tsmProfesionales.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buscarProfesionalToolStripMenuItem});
             this.tsmProfesionales.Name = "tsmProfesionales";
-            this.tsmProfesionales.Size = new System.Drawing.Size(180, 22);
+            this.tsmProfesionales.Size = new System.Drawing.Size(152, 22);
             this.tsmProfesionales.Text = "Profesionales";
-            // 
-            // tsmEspecialidades
-            // 
-            this.tsmEspecialidades.Name = "tsmEspecialidades";
-            this.tsmEspecialidades.Size = new System.Drawing.Size(180, 22);
-            this.tsmEspecialidades.Text = "Especialidades Méd.";
+            this.tsmProfesionales.Visible = false;
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // tsmAgenda
             // 
@@ -325,14 +256,66 @@
             // tsmAgenda_Consultar
             // 
             this.tsmAgenda_Consultar.Name = "tsmAgenda_Consultar";
-            this.tsmAgenda_Consultar.Size = new System.Drawing.Size(125, 22);
+            this.tsmAgenda_Consultar.Size = new System.Drawing.Size(152, 22);
             this.tsmAgenda_Consultar.Text = "Consultar";
+            this.tsmAgenda_Consultar.Visible = false;
             // 
             // tsmAgenda_Registrar
             // 
             this.tsmAgenda_Registrar.Name = "tsmAgenda_Registrar";
-            this.tsmAgenda_Registrar.Size = new System.Drawing.Size(125, 22);
+            this.tsmAgenda_Registrar.Size = new System.Drawing.Size(152, 22);
             this.tsmAgenda_Registrar.Text = "Registrar";
+            this.tsmAgenda_Registrar.Visible = false;
+            this.tsmAgenda_Registrar.Click += new System.EventHandler(this.tsmAgenda_Registrar_Click);
+            // 
+            // registrarAfiliadoToolStripMenuItem
+            // 
+            this.registrarAfiliadoToolStripMenuItem.Name = "registrarAfiliadoToolStripMenuItem";
+            this.registrarAfiliadoToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.registrarAfiliadoToolStripMenuItem.Text = "Registrar Afiliado";
+            this.registrarAfiliadoToolStripMenuItem.Click += new System.EventHandler(this.registrarAfiliadoToolStripMenuItem_Click);
+            // 
+            // modificarAfiliadoToolStripMenuItem
+            // 
+            this.modificarAfiliadoToolStripMenuItem.Name = "modificarAfiliadoToolStripMenuItem";
+            this.modificarAfiliadoToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.modificarAfiliadoToolStripMenuItem.Text = "Modificar Afiliado";
+            this.modificarAfiliadoToolStripMenuItem.Click += new System.EventHandler(this.modificarAfiliadoToolStripMenuItem_Click);
+            // 
+            // bloquearAfiliadoToolStripMenuItem
+            // 
+            this.bloquearAfiliadoToolStripMenuItem.Name = "bloquearAfiliadoToolStripMenuItem";
+            this.bloquearAfiliadoToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.bloquearAfiliadoToolStripMenuItem.Text = "Bloquear Afiliado";
+            this.bloquearAfiliadoToolStripMenuItem.Click += new System.EventHandler(this.bloquearAfiliadoToolStripMenuItem_Click);
+            // 
+            // buscarAfiliadoToolStripMenuItem
+            // 
+            this.buscarAfiliadoToolStripMenuItem.Name = "buscarAfiliadoToolStripMenuItem";
+            this.buscarAfiliadoToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.buscarAfiliadoToolStripMenuItem.Text = "Buscar Afiliado";
+            // 
+            // buscarProfesionalToolStripMenuItem
+            // 
+            this.buscarProfesionalToolStripMenuItem.Name = "buscarProfesionalToolStripMenuItem";
+            this.buscarProfesionalToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.buscarProfesionalToolStripMenuItem.Text = "Buscar Profesional";
+            // 
+            // tsmRoles
+            // 
+            this.tsmRoles.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.crearModificarRolToolStripMenuItem});
+            this.tsmRoles.Name = "tsmRoles";
+            this.tsmRoles.Size = new System.Drawing.Size(190, 22);
+            this.tsmRoles.Text = "Roles";
+            this.tsmRoles.Visible = false;
+            // 
+            // crearModificarRolToolStripMenuItem
+            // 
+            this.crearModificarRolToolStripMenuItem.Name = "crearModificarRolToolStripMenuItem";
+            this.crearModificarRolToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.crearModificarRolToolStripMenuItem.Text = "Crear/Modificar Rol";
+            this.crearModificarRolToolStripMenuItem.Click += new System.EventHandler(this.crearModificarRolToolStripMenuItem_Click);
             // 
             // PaginaPrincipalForm
             // 
@@ -341,7 +324,7 @@
             this.ClientSize = new System.Drawing.Size(1167, 139);
             this.Controls.Add(this.mnuPrincipal);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "PaginaPrincipalForm";
             this.Text = "ClinicaFrba";
@@ -364,15 +347,6 @@
         private System.Windows.Forms.ToolStripMenuItem estadísticasToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem tsmSalir;
-        private System.Windows.Forms.ToolStripMenuItem tsmGestionDeClinica;
-        private System.Windows.Forms.ToolStripMenuItem tsmPlanes;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-        private System.Windows.Forms.ToolStripMenuItem tsmRoles;
-        private System.Windows.Forms.ToolStripMenuItem tsmUsuarios;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-        private System.Windows.Forms.ToolStripMenuItem tsmCancelaciones;
-        private System.Windows.Forms.ToolStripMenuItem tsmCancelaciones_Afiliado;
-        private System.Windows.Forms.ToolStripMenuItem tsmCancelaciones_Profesional;
         private System.Windows.Forms.ToolStripMenuItem tsmGestionDeAfiliados;
         private System.Windows.Forms.ToolStripMenuItem tsmAfiliados;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -381,15 +355,20 @@
         private System.Windows.Forms.ToolStripMenuItem tsmRegistroDeLlegada;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem tsmRegistroDeResultados;
-        private System.Windows.Forms.ToolStripMenuItem tsmRecetar;
         private System.Windows.Forms.ToolStripMenuItem tsmGestionDeProfesionales;
         private System.Windows.Forms.ToolStripMenuItem tsmProfesionales;
-        private System.Windows.Forms.ToolStripMenuItem tsmEspecialidades;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem tsmAgenda;
         private System.Windows.Forms.ToolStripMenuItem tsmAgenda_Consultar;
         private System.Windows.Forms.ToolStripMenuItem tsmAgenda_Registrar;
-        private System.Windows.Forms.ToolStripMenuItem crearModificarRolesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem seleccionarRolToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registrarAfiliadoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem modificarAfiliadoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bloquearAfiliadoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem buscarAfiliadoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem buscarProfesionalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmRoles;
+        private System.Windows.Forms.ToolStripMenuItem crearModificarRolToolStripMenuItem;
     }
 }
 

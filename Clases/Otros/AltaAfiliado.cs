@@ -152,9 +152,9 @@ namespace ClinicaFrba.Clases.Otros
             return descripcionEstadoCivil == "casado" || descripcionEstadoCivil == "concubinato";
         }
 
-        private long mayorNumeroFamiliar()
+        private int mayorNumeroFamiliar()
         {
-            long mayorNro = nuevoAfiliado.conyuge == null ? nuevoAfiliado.numeroFamiliar : nuevoAfiliado.conyuge.numeroFamiliar;
+            int mayorNro = nuevoAfiliado.conyuge == null ? nuevoAfiliado.numeroFamiliar : nuevoAfiliado.conyuge.numeroFamiliar;
 
             foreach (Afiliado hijo in nuevoAfiliado.hijos)
             {

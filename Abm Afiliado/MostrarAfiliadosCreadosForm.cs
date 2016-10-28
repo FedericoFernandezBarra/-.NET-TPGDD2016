@@ -54,7 +54,7 @@ namespace ClinicaFrba.Abm_Afiliado
             cPass.ReadOnly = true;
             dataGridView1.Columns.Add(cPass);
 
-            afiliados.ForEach(a => dataGridView1.Rows.Add(a.id, a.usuario.nick, a.usuario.pass));
+            afiliados.ForEach(a => dataGridView1.Rows.Add(a.numeroDeAfiliado, a.usuario.nick, a.usuario.pass));
         }
     }
 }

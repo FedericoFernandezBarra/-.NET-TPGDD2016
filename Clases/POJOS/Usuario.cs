@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ClinicaFrba.Clases.POJOS;
+using System;
+using System.Collections.Generic;
 using TostadoPersistentKit;
 
 namespace ClinicaFrba.Clases
@@ -47,6 +49,9 @@ namespace ClinicaFrba.Clases
 
         [Column(name = "sexo")]
         public char sexo { get; set; }
+
+        [OneToMany(pkName = "id_usuario",tableName = "BEMVINDO.ROL_POR_USUARIO",fkName = "id_rol",fetch =FetchType.LAZY)]
+        public List<Rol> roles { get; set; }
 
         public Usuario()
         {

@@ -19,5 +19,12 @@ namespace ClinicaFrba.Clases.DAOS
         {
             throw new NotImplementedException();
         }
+
+        internal Profesional traerProfesionalPorUser(Usuario usuario)
+        {
+            List<Profesional> profesionales = (List<Profesional>)selectByProperty("usuario", usuario.id);
+
+            return profesionales.Count > 0 ? profesionales[0] : null;
+        }
     }
 }

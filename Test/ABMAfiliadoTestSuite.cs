@@ -28,7 +28,7 @@ namespace ClinicaFrba.Test
 
             repoAfiliado.insertarAfiliado(afiliadoCorrecto);
 
-            Afiliado afiliadoExistente = repoAfiliado.traerAfiliadoPorId(afiliadoCorrecto.id);
+            Afiliado afiliadoExistente = repoAfiliado.traerAfiliadoPorId(afiliadoCorrecto.numeroDeAfiliado);
 
             Assert.IsNotNull(afiliadoExistente);
         }
@@ -52,9 +52,9 @@ namespace ClinicaFrba.Test
 
             AfiliadoRepository repoAfiliado = new AfiliadoRepository();
 
-            Afiliado afiliadoPrincipal = repoAfiliado.traerAfiliadoPorId(afiliadoConFamilia.id);
-            Afiliado conyuge = repoAfiliado.traerAfiliadoPorId(afiliadoConFamilia.id+1);
-            Afiliado hijo = repoAfiliado.traerAfiliadoPorId(afiliadoConFamilia.id+2);
+            Afiliado afiliadoPrincipal = repoAfiliado.traerAfiliadoPorId(afiliadoConFamilia.numeroDeAfiliado);
+            Afiliado conyuge = repoAfiliado.traerAfiliadoPorId(afiliadoConFamilia.numeroDeAfiliado+1);
+            Afiliado hijo = repoAfiliado.traerAfiliadoPorId(afiliadoConFamilia.numeroDeAfiliado+2);
 
             Assert.IsNotNull(afiliadoPrincipal);
             Assert.IsNotNull(conyuge);
@@ -95,7 +95,7 @@ namespace ClinicaFrba.Test
 
             bool modificacionExitosa = modificarAfiliado.ejecutarModificacionesExitosamente();
 
-            PlanMedico nuevoPlan = repoAfiliado.traerAfiliadoPorId(modificarAfiliado.afiliado.id).planMedico;
+            PlanMedico nuevoPlan = repoAfiliado.traerAfiliadoPorId(modificarAfiliado.afiliado.numeroDeAfiliado).planMedico;
 
             Assert.IsTrue(modificacionExitosa);
             Assert.AreEqual(modificarAfiliado.afiliado.planMedico.id, nuevoPlan.id);
@@ -114,7 +114,7 @@ namespace ClinicaFrba.Test
 
             bool bajaExitosa = bajaAfiliado.darDeBajaExitosa();
 
-            Afiliado afiliadoDadoDeBaja = repoAfiliado.traerAfiliadoPorId(bajaAfiliado.afiliado.id);
+            Afiliado afiliadoDadoDeBaja = repoAfiliado.traerAfiliadoPorId(bajaAfiliado.afiliado.numeroDeAfiliado);
 
             Assert.IsTrue(bajaExitosa);
             Assert.IsTrue(afiliadoDadoDeBaja.bajaLogica);

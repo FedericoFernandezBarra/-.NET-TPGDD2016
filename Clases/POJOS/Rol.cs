@@ -9,7 +9,7 @@ namespace ClinicaFrba.Clases.POJOS
         [Id(name = "id_rol",type =PrimaryKeyType.SURROGATE)]
         public long id { get; set; }
 
-        [Column(name = "nombre")]
+        [Column(name = "descripcion")]
         public string nombre { get; set; }
 
         [OneToMany(pkName ="id_rol",tableName = "BEMVINDO.FUNCIONALIDAD_POR_ROL",fkName ="id_funcionalidad",fetch =FetchType.EAGER)]

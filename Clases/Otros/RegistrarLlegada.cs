@@ -31,7 +31,7 @@ namespace ClinicaFrba.Clases.Otros
 
         internal void cargarTurnosFiltrados()
         {
-            turnosFiltrados = turnosDeProfesional.FindAll(t => t.afiliado.id.ToString().Contains(numeroAfiliado));
+            turnosFiltrados = turnosDeProfesional.FindAll(t => t.afiliado.numeroDeAfiliado.ToString().Contains(numeroAfiliado));
         }
 
         internal void cargarTurnosDeProfesional()

@@ -32,16 +32,23 @@ namespace ClinicaFrba.Clases.DAOS
 
             afiliado.usuario.nick = result["nick"].ToString();
             afiliado.usuario.pass = result["pass"].ToString();
-            afiliado.id = Convert.ToInt64(result["id_afiliado"]);//Seteo las nuevas propiedades
+            afiliado.numeroDeAfiliado = Convert.ToInt64(result["id_afiliado"]);//Seteo las nuevas propiedades
 
             return result["error"].ToString();
+        }
+
+        internal Afiliado traerAfiliadoPorUser(Usuario usuario)
+        {
+            List<Afiliado> afiliados = (List<Afiliado>)selectByProperty("usuario", usuario.id);
+
+            return afiliados.Count > 0 ? afiliados[0] : null;
         }
 
         internal void darDeBajaAfiliado(Afiliado afiliado)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
 
-            DataBase.Instance.agregarParametro(parametros, "id_afiliado", afiliado.id);
+            DataBase.Instance.agregarParametro(parametros, "id_afiliado", afiliado.numeroDeAfiliado);
             DataBase.Instance.agregarParametro(parametros, "fecha_baja", DataBase.Instance.getDate());
 
             executeStored("BEMVINDO.st_baja_afiliado", parametros);

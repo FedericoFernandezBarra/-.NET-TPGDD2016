@@ -460,6 +460,7 @@ create procedure BEMVINDO.VERIFICAR_LOGUEO
 as begin
 	
 	declare @filas int;
+	declare @intentos_login int
 
 	select top 1 @filas = COUNT(id_usuario)
 	from BEMVINDO.USUARIO
@@ -471,6 +472,10 @@ as begin
 		update BEMVINDO.USUARIO
 		set intentos_login = (intentos_login +1)
 		where nick = @nick;
+
+		update BEMVINDO.USUARIO
+		set activo=0
+		where nick = @nick and intentos_login>=3
 	end
 	else begin
 		update BEMVINDO.USUARIO
@@ -482,13 +487,12 @@ as begin
 	from BEMVINDO.USUARIO as u
 	where 
 		u.nick = @nick and 
-		u.pass = BEMVINDO.fn_hashear_pass(@pass) and
-		u.activo = 1;
+		u.pass = BEMVINDO.fn_hashear_pass(@pass)
 end
 
 go
 
-	CREATE PROCEDURE BEMVINDO.st_dar_de_baja_usuario(@nick nvarchar(255))
+	create PROCEDURE BEMVINDO.st_dar_de_baja_usuario(@nick nvarchar(255))
 	AS BEGIN
 		UPDATE USUARIO SET
 		activo = 0

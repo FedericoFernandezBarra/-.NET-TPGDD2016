@@ -143,9 +143,11 @@
     <Compile Include="Clases\Otros\CrearRolAction.cs" />
     <Compile Include="Clases\Otros\EditorDeRol.cs" />
     <Compile Include="Clases\Otros\EditorDeRolAction.cs" />
+    <Compile Include="Clases\Otros\MenuPrincipal.cs" />
     <Compile Include="Clases\Otros\ModificarAfiliado.cs" />
     <Compile Include="Clases\Otros\ModificarRolAction.cs" />
     <Compile Include="Clases\Otros\RegistrarLlegada.cs" />
+    <Compile Include="Clases\Otros\SeleccionDeRol.cs" />
     <Compile Include="Clases\POJOS\Afiliado.cs" />
     <Compile Include="Clases\Otros\CancelarDias.cs" />
     <Compile Include="Clases\Otros\CancelarTurno.cs" />
@@ -186,6 +188,12 @@
     </Compile>
     <Compile Include="Compra Bono\ImprimirBonoForm.Designer.cs">
       <DependentUpon>ImprimirBonoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\SeleccionDeRolForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\SeleccionDeRolForm.Designer.cs">
+      <DependentUpon>SeleccionDeRolForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PaginaPrincipalForm.cs">
       <SubType>Form</SubType>
@@ -279,6 +287,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compra Bono\ImprimirBonoForm.resx">
       <DependentUpon>ImprimirBonoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\SeleccionDeRolForm.resx">
+      <DependentUpon>SeleccionDeRolForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PaginaPrincipalForm.resx">
       <DependentUpon>PaginaPrincipalForm.cs</DependentUpon>
