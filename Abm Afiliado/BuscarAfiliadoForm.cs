@@ -15,6 +15,8 @@ namespace ClinicaFrba.Abm_Afiliado
     public partial class BuscarAfiliadoForm : Form
     {
         BuscarAfiliado buscarAfiliado = new BuscarAfiliado();
+        private bool busquedaOK = false;
+
         public BuscarAfiliadoForm()
         {
             InitializeComponent();
@@ -52,9 +54,19 @@ namespace ClinicaFrba.Abm_Afiliado
             return buscarAfiliado.afiliado;
         }
 
+        public bool seSeleccionoUnAfiliado()
+        {
+            return busquedaOK;
+        }
+
         private void btnAction_Click(object sender, EventArgs e)
         {
             bindearAfiliado();
+
+            if (buscarAfiliado.afiliado != null)
+            {
+                busquedaOK = true;
+            }
 
             Close();
         }

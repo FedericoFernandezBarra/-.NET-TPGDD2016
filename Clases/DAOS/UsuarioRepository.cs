@@ -35,5 +35,10 @@ namespace ClinicaFrba.Clases.DAOS
         {
             DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_dar_de_baja_usuario", new List<SqlParameter> { new SqlParameter("@nick", username) });
         }
+
+        internal Usuario traerUsuarioPorId(long id)
+        {
+            return (Usuario)selectById(id);
+        }
     }
 }
