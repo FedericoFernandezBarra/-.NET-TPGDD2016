@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ClinicaFrba.Clases.Otros
 {
@@ -16,6 +17,9 @@ namespace ClinicaFrba.Clases.Otros
 
         public object usuarioPosta { get; set; }
 
+        private const string AFILIADO = "afiliado";
+        private const string PROFESIONAL = "profesional";
+
         internal bool usuarioLogueado()
         {
             return usuario != null;
@@ -23,12 +27,12 @@ namespace ClinicaFrba.Clases.Otros
 
         internal void cargarDatosDeRol()
         {
-            switch (rol.nombre)
+            switch (rol.nombre.ToLower())
             {
-                case "AFILIADO": usuarioPosta = (new AfiliadoRepository()).traerAfiliadoPorUser(usuario);
+                case AFILIADO: usuarioPosta = (new AfiliadoRepository()).traerAfiliadoPorUser(usuario);
                     break;
 
-                case "PROFESIONAL":
+                case PROFESIONAL:
                     usuarioPosta = (new ProfesionalRepository()).traerProfesionalPorUser(usuario);
                     break;
 
@@ -48,6 +52,16 @@ namespace ClinicaFrba.Clases.Otros
             rol = null;
             usuario = null;
             usuarioPosta = null;
+        }
+
+        internal bool userEsAfiliado()
+        {
+            return rol.nombre.ToLower() == AFILIADO.ToLower();
+        }
+
+        internal bool userEsProfesional()
+        {
+            return rol.nombre.ToLower() == PROFESIONAL.ToLower();
         }
     }
 }

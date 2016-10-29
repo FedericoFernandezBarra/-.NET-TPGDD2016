@@ -19,7 +19,7 @@ namespace ClinicaFrba.Clases.POJOS
         [Column(name = "matricula")]
         public string matricula { get; set; }
 
-        [OneToMany(pkName = "id_profesional", tableName = "ESPECIALIDAD_POR_PROFESIONAL", fkName = "id_especialidad", fetch = FetchType.EAGER)]
+        [OneToMany(pkName = "id_profesional", tableName = "BEMVINDO.ESPECIALIDAD_POR_PROFESIONAL", fkName = "id_especialidad", fetch = FetchType.EAGER)]
         public List<Especialidad> especialidades { get; set; }
 
     }

@@ -16,8 +16,9 @@ namespace ClinicaFrba.Cancelar_Atencion
     {
         private CancelarTurno cancelarTurno = new CancelarTurno();
 
-        public CancelarTurnoForm()
+        public CancelarTurnoForm(Afiliado afiliado)
         {
+            cancelarTurno.afiliado = afiliado;
             cancelarTurno.inicializarListas();
             InitializeComponent();
         }

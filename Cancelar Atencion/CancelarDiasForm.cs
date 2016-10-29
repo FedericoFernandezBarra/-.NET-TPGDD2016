@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TostadoPersistentKit;
+using ClinicaFrba.Clases.POJOS;
 
 namespace ClinicaFrba.Cancelar_Atencion
 {
@@ -16,8 +17,9 @@ namespace ClinicaFrba.Cancelar_Atencion
     {
         CancelarDias cancelarDias = new CancelarDias();
 
-        public CancelarDiasForm()
+        public CancelarDiasForm(Profesional profesional)
         {
+            cancelarDias.profesional = profesional;
             InitializeComponent();
         }
 

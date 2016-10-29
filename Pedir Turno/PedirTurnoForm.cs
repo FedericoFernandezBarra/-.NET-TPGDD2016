@@ -50,7 +50,7 @@ namespace ClinicaFrba.Pedir_Turno
 
             if (buscarAfiliadoForm.seSeleccionoUnAfiliado())
             {
-                afiliadoASacarTurno = usuarioRepository.traerUsuarioPorId(buscarAfiliadoForm.getAfiliadoSeleccionado().idUsuario);
+                afiliadoASacarTurno = usuarioRepository.traerUsuarioPorId(buscarAfiliadoForm.getAfiliadoSeleccionado().id);
 
                 txtAfiliado.Text = afiliadoASacarTurno.apellido + " " + afiliadoASacarTurno.nombre;
 

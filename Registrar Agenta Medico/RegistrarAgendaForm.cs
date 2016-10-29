@@ -23,13 +23,13 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         AgendaRepository agendaDAO { get; set; }
 
-        Form formAnterior { get; set; }
+        //Form formAnterior { get; set; }
 
 
         /*FUNCIONES*/
         /*************************************************************************************/
 
-        public RegistrarAgendaForm(Form formAnterior, Usuario usua)
+        public RegistrarAgendaForm(/*Form formAnterior, */Usuario usua)
         {
             InitializeComponent();
 
@@ -202,8 +202,13 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         private void botonVolver_Click(object sender, EventArgs e)
         {
             //PROBAR LO DE CAMBIAR DE VENTANA
-            formAnterior.Show();
+            //formAnterior.Show();
             Close();
+        }
+
+        private void RegistrarAgendaForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

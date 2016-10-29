@@ -29,7 +29,7 @@ namespace ClinicaFrba.Pedir_Turno
             InitializeComponent();
             afiliado = usuario;
             turno = new Turno();
-            turno.afiliado.idUsuario = usuario.id;
+            turno.afiliado.id = usuario.id;
         }
 
         private void btnConsultarDisponibilidad_Click(object sender, EventArgs e)
@@ -125,7 +125,6 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void ConsultarTurnosForm_Load(object sender, EventArgs e)
         {
-
             txtAfiliado.Text = afiliado.apellido + " " + afiliado.nombre;
 
             mcFechaDeTurno.MinDate = DataBase.Instance.getDate();

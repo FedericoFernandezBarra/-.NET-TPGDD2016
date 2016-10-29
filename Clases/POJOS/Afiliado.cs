@@ -8,9 +8,9 @@ namespace ClinicaFrba.Clases.POJOS
     public class Afiliado:Serializable
     {
         [Id(name = "id_afiliado", type = PrimaryKeyType.NATURAL)]
-        public long idUsuario { get; set; }
+        public long id { get; set; }
 
-        [Column(name = "id_afiliado", fetch =FetchType.LAZY)]
+        [Column(name = "id_afiliado", fetch =FetchType.EAGER)]
         public Usuario usuario { get; set; }
 
         [Column(name = "estado_civil", fetch = FetchType.EAGER)]

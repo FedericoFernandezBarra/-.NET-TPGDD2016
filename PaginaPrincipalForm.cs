@@ -1,10 +1,17 @@
 ﻿using ClinicaFrba.Abm_Afiliado;
 using ClinicaFrba.AbmRol;
 using ClinicaFrba.Cancelar_Atencion;
+using ClinicaFrba.Clases;
+using ClinicaFrba.Clases.DAOS;
 using ClinicaFrba.Clases.Otros;
 using ClinicaFrba.Clases.POJOS;
+using ClinicaFrba.Compra_Bono;
+using ClinicaFrba.Listados;
 using ClinicaFrba.Logueo;
+using ClinicaFrba.Pedir_Turno;
 using ClinicaFrba.Registrar_Agenta_Medico;
+using ClinicaFrba.Registro_Llegada;
+using ClinicaFrba.Registro_Resultado;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,28 +43,6 @@ namespace ClinicaFrba
             Show();
         }
 
-        private void tsmCancelaciones_Profesional_Click(object sender, EventArgs e)
-        {
-            CancelarDiasForm cancelacionProfesional = new CancelarDiasForm();
-
-            Hide();
-
-            cancelacionProfesional.ShowDialog();
-
-            Show();
-        }
-
-        private void tsmCancelaciones_Afiliado_Click(object sender, EventArgs e)
-        {
-            CancelarTurnoForm cancelacionAfiliado = new CancelarTurnoForm();
-
-            Hide();
-
-            cancelacionAfiliado.ShowDialog();
-
-            Show();
-        }
-
         private void PaginaPrincipalForm_Load(object sender, EventArgs e)
         {
             initForm();
@@ -71,6 +56,10 @@ namespace ClinicaFrba
             actions.Add(tsmPedirTurno, "PEDIR TURNO");
             actions.Add(tsmCompraDeBonos, "COMPRA DE BONOS");
             actions.Add(tsmAgenda_Registrar, "REGISTRAR AGENDA DEL MEDICO");
+            actions.Add(tsmRegistroDeLlegada, "REGISTRO DE LLEGADA PARA ATENCION MEDICA");
+            actions.Add(tsmRegistroDeResultados, "REGISTRO DE RESULTADO PARA ATENCION MEDICA");
+            actions.Add(estadísticasToolStripMenuItem, "LISTADO ESTADISTICO");
+            actions.Add(tsmCancelaciones, "CANCELAR ATENCION MEDICA");
 
             initBotones();
         }
@@ -112,8 +101,7 @@ namespace ClinicaFrba
 
             menu.rol = seleccionDeRol.getRolSeleccionado();
 
-            //Esto carga el usuario posta que esta logueado (Ej un Afiliado)
-            //menu.cargarDatosDeRol();
+            menu.cargarDatosDeRol();
 
             cargarFormSegunRol();
 
@@ -133,6 +121,7 @@ namespace ClinicaFrba
         {
             menu.cerrarSesion();
             initBotones();
+            MessageBox.Show("Sesion cerrada");
         }
 
         private void registrarAfiliadoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -193,13 +182,93 @@ namespace ClinicaFrba
 
         private void tsmAgenda_Registrar_Click(object sender, EventArgs e)
         {
-            RegistrarAgendaForm registrarAgenda = new RegistrarAgendaForm(this, menu.usuario);
+            RegistrarAgendaForm registrarAgenda = new RegistrarAgendaForm(/*this, */menu.usuario);
 
             Hide();
 
             registrarAgenda.ShowDialog();
 
             Show();
+        }
+
+        private void estadísticasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListadoEstadisticoForm listadoEstadistico = new ListadoEstadisticoForm();
+
+            Hide();
+
+            listadoEstadistico.ShowDialog();
+
+            Show();
+        }
+
+        private void tsmCompraDeBonos_Click(object sender, EventArgs e)
+        {
+            ComprarBonosForm comprarBono = new ComprarBonosForm();
+
+            Hide();
+
+            comprarBono.ShowDialog();
+
+            Show();
+        }
+
+        private void tsmPedirTurno_Click(object sender, EventArgs e)
+        {
+            ConsultarTurnosForm pedirTurno = new ConsultarTurnosForm(menu.usuario);
+
+            Hide();
+
+            pedirTurno.ShowDialog();
+
+            Show();
+        }
+
+        private void tsmRegistroDeLlegada_Click(object sender, EventArgs e)
+        {
+            RegistrarLlegadaForm registrarLlegada = new RegistrarLlegadaForm();
+
+            Hide();
+
+            registrarLlegada.ShowDialog();
+
+            Show();
+        }
+
+        private void tsmRegistroDeResultados_Click(object sender, EventArgs e)
+        {
+            RegistrarResultadoAtencionForm registrarResultado = new RegistrarResultadoAtencionForm();
+
+            Hide();
+
+            registrarResultado.ShowDialog();
+
+            Show();
+        }
+
+        private void tsmCancelaciones_Click(object sender, EventArgs e)
+        {
+            Form cancelacion = getFormDeCancelacion();
+
+            Hide();
+
+            cancelacion.ShowDialog();
+
+            Show();
+        }
+
+        internal Form getFormDeCancelacion()
+        {
+            if (menu.userEsAfiliado())
+            {
+                return new CancelarTurnoForm((Afiliado)menu.usuarioPosta);
+            }
+            if (menu.userEsProfesional())
+            {
+                return new CancelarDiasForm((Profesional)menu.usuarioPosta);
+            }
+
+            return new Form();
         }
     }
 }

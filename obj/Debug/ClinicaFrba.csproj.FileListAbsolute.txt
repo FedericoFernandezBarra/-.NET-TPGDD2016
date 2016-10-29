@@ -92,7 +92,6 @@ C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Listados.ListadoEst
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Logueo.LoginForm.resources
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Pedir_Turno.PedirTurnoForm.resources
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Properties.Resources.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registrar_Agenta_Medico.ConsultarTurnosForm.resources
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registrar_Agenta_Medico.RegistrarAgendaForm.resources
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registro_Llegada.RegistrarLlegadaForm.resources
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registro_Resultado.RegistrarResultadoAtencionForm.resources
@@ -107,3 +106,4 @@ C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Logueo.SeleccionDeR
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.exe
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.pdb
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.csprojResolveAssemblyReference.cache
+C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Pedir_Turno.ConsultarTurnosForm.resources
