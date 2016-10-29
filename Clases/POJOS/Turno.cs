@@ -30,5 +30,11 @@ namespace ClinicaFrba.Clases.POJOS
 
         [Column(name = "activo")]
         public bool activo { get; set; }
+
+        public Turno()
+        {
+            afiliado = new Afiliado();
+            profesional = new Profesional();
+        }
     }
 }

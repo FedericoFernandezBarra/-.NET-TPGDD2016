@@ -56,7 +56,14 @@ namespace ClinicaFrba.Clases.DAOS
 
         internal List<Afiliado> buscarAfiliados(long nroAfiliado, string nombre, string apellido, string dni, PlanMedico planMedico)
         {
-            throw new NotImplementedException();
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            DataBase.Instance.agregarParametro(parametros, "nroAfiliado", nroAfiliado);
+            DataBase.Instance.agregarParametro(parametros, "nombre", nombre);
+            DataBase.Instance.agregarParametro(parametros, "apellido", apellido);
+            DataBase.Instance.agregarParametro(parametros, "dni", dni);
+            DataBase.Instance.agregarParametro(parametros, "planMedico", planMedico);
+
+            return (List<Afiliado>)executeStored("BEMVINDO.st_buscar_afiliados", parametros);
         }
 
         internal void modificarAfiliado(Afiliado afiliado,string motivo)

@@ -29,7 +29,7 @@ namespace ClinicaFrba.Pedir_Turno
             InitializeComponent();
             afiliado = usuario;
             turno = new Turno();
-            turno.afiliado.id = usuario.id;
+            turno.afiliado.usuario.id = usuario.id;
         }
 
         private void btnConsultarDisponibilidad_Click(object sender, EventArgs e)
@@ -87,7 +87,7 @@ namespace ClinicaFrba.Pedir_Turno
 
                 UsuarioRepository usuarioRepository = new UsuarioRepository();
 
-                Usuario profesionalSeleccionado = usuarioRepository.traerUsuarioPorId(turno.profesional.id);
+                Usuario profesionalSeleccionado = usuarioRepository.traerUsuarioPorId(turno.profesional.usuario.id);
 
                 txtProfesional.Text = profesionalSeleccionado.apellido + " " + profesionalSeleccionado.nombre
                     + " - " + turno.especialidad.descripcion;
@@ -113,7 +113,7 @@ namespace ClinicaFrba.Pedir_Turno
 
             //TODO: Mandarlo al turnorepository o a la mierda objetos?
             SqlParameter pAfiliado = new SqlParameter("@afiliado", turno.id);
-            SqlParameter pProfesional = new SqlParameter("@profesional", turno.profesional.id);
+            SqlParameter pProfesional = new SqlParameter("@profesional", turno.profesional.usuario.id);
             SqlParameter pEspecialidad = new SqlParameter("@especialidad", turno.especialidad.id);
             SqlParameter pFechaTurno = new SqlParameter("@fecha_turno", fechaYHorarioDeTurno);
 

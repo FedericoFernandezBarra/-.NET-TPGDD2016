@@ -67,6 +67,10 @@ go
 
 create procedure BEMVINDO.st_buscar_afiliados
 @nroAfiliado numeric(10,0)
+/*@nombre
+@apellido
+@dni
+@planMedico*/--PARAMETROS QUE FALTAN
 
 AS
 begin

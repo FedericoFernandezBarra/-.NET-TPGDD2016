@@ -19,7 +19,7 @@ namespace ClinicaFrba.Clases.DAOS
 
             Dictionary<string, object> properties = new Dictionary<string, object>();
             properties.Add("fechaDeTurno", fecha);
-            properties.Add("profesional", profesional.id);
+            properties.Add("profesional", profesional.usuario.id);
 
             return selectByProperties(properties).Count > 0;
         }
@@ -27,7 +27,7 @@ namespace ClinicaFrba.Clases.DAOS
         internal void cancelarTurnoPorRangoFechas(DateTime fechaInicioCancelacion, DateTime fechaFinCancelacion, Profesional profesional, string motivoDeCancelacion, TipoCancelacion tipoDeCancelacion)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
-            DataBase.Instance.agregarParametro(parametros, "profesional", profesional.id);
+            DataBase.Instance.agregarParametro(parametros, "profesional", profesional.usuario.id);
             DataBase.Instance.agregarParametro(parametros, "tipo_cancelacion", tipoDeCancelacion.id);
             DataBase.Instance.agregarParametro(parametros, "motivo", motivoDeCancelacion);
             DataBase.Instance.agregarParametro(parametros, "fecha_cancelar_inicio", fechaInicioCancelacion);
@@ -40,7 +40,7 @@ namespace ClinicaFrba.Clases.DAOS
         internal List<Turno> traerTurnosDeProfesional(Profesional profesional, Especialidad especialidad, DateTime fecha)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
-            DataBase.Instance.agregarParametro(parametros, "@profesional", profesional.id);
+            DataBase.Instance.agregarParametro(parametros, "@profesional", profesional.usuario.id);
             DataBase.Instance.agregarParametro(parametros, "@especialidad", especialidad.id);
             DataBase.Instance.agregarParametro(parametros, "@fecha_sistema", fecha);
 

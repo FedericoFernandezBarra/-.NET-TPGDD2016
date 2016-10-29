@@ -1,6 +1,7 @@
 ﻿using ClinicaFrba.Clases.POJOS;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,15 @@ namespace ClinicaFrba.Clases.DAOS
 
         internal List<Profesional> buscarProfesionales(long nroMatricula, string nombre, string apellido, Especialidad especialidad)
         {
-            throw new NotImplementedException();
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            DataBase.Instance.agregarParametro(parametros, "@profesional", null);
+            DataBase.Instance.agregarParametro(parametros, "@nombre", nombre);
+            DataBase.Instance.agregarParametro(parametros, "@apellido", apellido);
+            DataBase.Instance.agregarParametro(parametros, "@especialidad", especialidad.id);
+            DataBase.Instance.agregarParametro(parametros, "@matricula", nroMatricula);
+
+            return (List<Profesional>)executeStored("BEMVINDO.st_buscar_profesional", parametros);
+
         }
 
         internal Profesional traerProfesionalPorUser(Usuario usuario)

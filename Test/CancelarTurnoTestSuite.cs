@@ -86,7 +86,7 @@ namespace ClinicaFrba.Test
             //En alguna parte se tiene que "loguear el porfesional"
             CancelarDias cancelarProfesional = new CancelarDias();
             cancelarProfesional.profesional = new Profesional();
-            cancelarProfesional.profesional.id = 1;
+            cancelarProfesional.profesional.usuario.id = 1;
             cancelarProfesional.tipoDeCancelacion = new TipoCancelacion();
             cancelarProfesional.tipoDeCancelacion.id = 1;
             cancelarProfesional.motivoDeCancelacion = "Porque si vieja";

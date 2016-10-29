@@ -7,11 +7,12 @@ namespace ClinicaFrba.Clases.POJOS
     [Table(name = "BEMVINDO.AFILIADO")]
     public class Afiliado:Serializable
     {
-        [Id(name = "id_afiliado", type = PrimaryKeyType.NATURAL)]
-        public long id { get; set; }
-
-        [Column(name = "id_afiliado", fetch =FetchType.EAGER)]
+        [Id(name = "id_afiliado", type = PrimaryKeyType.NATURAL,fetch =FetchType.EAGER)]
         public Usuario usuario { get; set; }
+        //public long id { get; set; }
+
+        //[Column(name = "id_afiliado", fetch =FetchType.EAGER)]
+        //public Usuario usuario { get; set; }
 
         [Column(name = "estado_civil", fetch = FetchType.EAGER)]
         public EstadoCivil estadoCivil { get; set; }
@@ -35,6 +36,7 @@ namespace ClinicaFrba.Clases.POJOS
 
         public Afiliado()
         {
+            usuario = new Usuario();
             cantidadDeHijos = 0;
             numeroFamiliar = 1;
         }
