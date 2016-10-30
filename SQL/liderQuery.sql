@@ -63,24 +63,6 @@ begin
 end
 
 
-go
-
-create procedure BEMVINDO.st_buscar_afiliados
-@nroAfiliado numeric(10,0)
-/*@nombre
-@apellido
-@dni
-@planMedico*/--PARAMETROS QUE FALTAN
-
-AS
-begin
-
-      select *
-      from BEMVINDO.USUARIO
-      inner join BEMVINDO.AFILIADO on id_usuario = id_afiliado
-	  where (numero_afiliado = @nroAfiliado OR @nroAfiliado IS NULL) 
-
-end
 
 go
 
@@ -142,6 +124,31 @@ begin
 	 where afiliado = @id_afiliado
 
 end
+
+
+go
+
+create procedure BEMVINDO.st_buscar_afiliados
+@nroAfiliado numeric(10,0),
+@nombre      nvarchar(255),
+@apellido    nvarchar(255),
+@dni         nvarchar(12),
+@planMedico  numeric(10,0) --id_plan_medico
+
+AS
+begin
+
+      select *
+      from BEMVINDO.USUARIO
+      inner join BEMVINDO.AFILIADO on id_usuario = id_afiliado
+	  where (numero_afiliado = @nroAfiliado OR @nroAfiliado IS NULL) and
+	        (nombre = @nombre OR @nombre IS NULL) and
+	        (apellido = @apellido OR @apellido IS NULL) and
+	        (documento = @dni OR @dni IS NULL) and
+	        (plan_medico = @planMedico OR @planMedico IS NULL) 
+
+end
+
 
 go
 -----------------------------------------------------------------------------------------------------------------------------------------
