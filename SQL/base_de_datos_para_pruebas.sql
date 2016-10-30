@@ -350,4 +350,42 @@ insert into BEMVINDO.PLAN_MEDICO(descripcion)
 values 
     ('PLAN_POBREZA')
 
-go
+GO
+
+INSERT INTO BEMVINDO.TIPO_CANCELACION
+(descripcion)
+VALUES ('Licencia')
+
+INSERT INTO BEMVINDO.Tipo_Cancelacion
+(descripcion)
+VALUES ('Sin justificacion')
+
+INSERT INTO BEMVINDO.Tipo_Cancelacion
+(descripcion)
+VALUES ('Compromisos Personales')
+
+INSERT INTO BEMVINDO.Tipo_Cancelacion
+(descripcion)
+VALUES ('Fallecimiento')
+
+INSERT INTO BEMVINDO.Tipo_Cancelacion
+(descripcion)
+VALUES ('Problemas de salud')
+
+INSERT INTO BEMVINDO.Tipo_Cancelacion
+(descripcion)
+VALUES ('Conflicto gremial')
+
+INSERT INTO BEMVINDO.Tipo_Cancelacion
+(descripcion)
+VALUES ('Problemas Renales')
+
+INSERT INTO BEMVINDO.Tipo_Cancelacion
+(descripcion)
+VALUES ('CIRUGIA ORTOMOLECULAR')
+
+INSERT INTO BEMVINDO.Tipo_Cancelacion
+(descripcion)
+VALUES ('Otro')
+
+GO

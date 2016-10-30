@@ -63,24 +63,6 @@ begin
 end
 
 
-go
-
-create procedure BEMVINDO.st_buscar_afiliados
-@nroAfiliado numeric(10,0)
-/*@nombre
-@apellido
-@dni
-@planMedico*/--PARAMETROS QUE FALTAN
-
-AS
-begin
-
-      select *
-      from BEMVINDO.USUARIO
-      inner join BEMVINDO.AFILIADO on id_usuario = id_afiliado
-	  where (numero_afiliado = @nroAfiliado OR @nroAfiliado IS NULL) 
-
-end
 
 go
 
@@ -143,56 +125,35 @@ begin
 
 end
 
+
 go
------------------------------------------------------------------------------------------------------------------------------------------
----------------------------------------ABM AFILIADO AGENDA PROFESIONAL----------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------
 
------------------------------------------------------------------------------------------------------------------------------------------
----------------------------------------REGISTRAR AGENDA PROFESIONAL----------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------
+create procedure BEMVINDO.st_buscar_afiliados
+@nroAfiliado numeric(10,0),
+@nombre      nvarchar(255),
+@apellido    nvarchar(255),
+@dni         nvarchar(12),
+@planMedico  numeric(10,0) --id_plan_medico
 
-CREATE procedure BEMVINDO.st_insertar_agenda
-@profesional    numeric(10,0),
-@fecha_inicial    date,
-@fecha_final    date,
-@id_agenda      numeric(10,0) out
 AS
 begin
-	 
-	 	insert into BEMVINDO.AGENDA(profesional,fecha_inicial,fecha_final)
-	    values (@profesional,@fecha_inicial,@fecha_final)
 
-	    set @id_agenda = scope_identity()
+      select *
+      from BEMVINDO.USUARIO
+      inner join BEMVINDO.AFILIADO on id_usuario = id_afiliado
+	  where (numero_afiliado = @nroAfiliado OR @nroAfiliado IS NULL) and
+	        (nombre = @nombre OR @nombre IS NULL) and
+	        (apellido = @apellido OR @apellido IS NULL) and
+	        (documento = @dni OR @dni IS NULL) and
+	        (plan_medico = @planMedico OR @planMedico IS NULL) 
 
 end
 
 
 go
-
-CREATE procedure BEMVINDO.st_insertar_dia
-@id_agenda      numeric(10,0),
-@especialidad   numeric(10,0),
-@dia            nvarchar(10),
-@hora_desde     time,
-@hora_hasta     time
-
-AS
-begin
-	 
-	 	insert into BEMVINDO.DIA_AGENDA(especialidad,dia,horario_inicial,horario_final)
-	    values (@especialidad,@dia,@hora_desde,@hora_hasta)
-
-end
-
-
-go
-
-
 -----------------------------------------------------------------------------------------------------------------------------------------
----------------------------------------REGISTRAR AGENDA PROFESIONAL----------------------------------------------------------------------------------------------
+---------------------------------------ABM AFILIADO ----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------
-
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -252,8 +213,20 @@ CREATE procedure BEMVINDO.st_insertar_turno
 AS
 begin
 	 
-	 	insert into BEMVINDO.TURNO(afiliado,profesional,especialidad,fecha_turno,activo)
-	    values (@id_afiliado,@profesional,@especialidad,@fecha_turno,1)
+
+	  if EXISTS (SELECT * FROM BEMVINDO.TURNO WHERE
+	                                               profesional=@profesional and
+												   especialidad=@especialidad and
+												   fecha_turno=@fecha_turno and
+												   activo=1)
+	  begin
+	       select 'Error, este turno esta ocupado, intente con otro'
+	  end
+	  else
+	  begin
+	       insert into BEMVINDO.TURNO(afiliado,profesional,especialidad,fecha_turno,activo)
+	        values (@id_afiliado,@profesional,@especialidad,@fecha_turno,1)
+	  end
 
 end
 
@@ -394,7 +367,7 @@ go
 -----------------------------------------------------------------------------------------------------------------------------------------
 
 
-create procedure BEMVINDO.st_cancelar_turno_medico -- hay q cambiarlo para q sea por un rango de fechas
+create procedure BEMVINDO.st_cancelar_turno_medico 
 @tipo_cancelacion   numeric(10,0),
 @profesional        numeric(10,0),
 @motivo             nvarchar(255),
@@ -430,6 +403,11 @@ declare @id_agenda numeric(10,0)
  
  	insert into BEMVINDO.CANCELACION(tipo_cancelacion,turno,fecha,motivo,tipo_usuario)
 	 values (@tipo_cancelacion,@id_turno,@fecha_sistema,@motivo,'M')
+
+	UPDATE BEMVINDO.TURNO
+	  SET
+	  activo=0
+	 where  id_turno=@id_turno and activo =1
 
     fetch next from miCursor into @id_turno
 
