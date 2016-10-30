@@ -114,7 +114,7 @@ drop procedure BEMVINDO.st_cancelar_turno_medico
 
 go
 
---USUARIO
+--USUARIO LOGUIN
 -------------------------------------------------------------------------------------------------------
 if EXISTS (SELECT * FROM sysobjects  WHERE name='VERIFICAR_LOGUEO') 
 drop procedure BEMVINDO.VERIFICAR_LOGUEO
@@ -1107,7 +1107,7 @@ values('admin','w23e',0,1,null,null,null,null,null,null,null,null,null)
 go
 
 insert into BEMVINDO.AFILIADO
-values(5579, null, null, null, 0, 101)
+values(5579, null, 1, null, 0, 101)
 
 go
 
@@ -1176,7 +1176,11 @@ begin
     select @idUsuario =max(id_usuario) from BEMVINDO.USUARIO
 
     insert into BEMVINDO.AFILIADO(id_afiliado,estado_civil,plan_medico,baja_logica,numero_afiliado)
-        values (@idUsuario,@estado_civil,@plan_medico,0,@nroAfiliado)       
+        values (@idUsuario,@estado_civil,@plan_medico,0,@nroAfiliado)
+
+    insert into BEMVINDO.ROL_POR_USUARIO
+      values 
+    (2,@idUsuario)           
 
 
      COMMIT TRAN  
@@ -1632,7 +1636,7 @@ go
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------------------------------------------------------------
----------------------------------------USUARIO----------------------------------------------------------------------------------------------
+---------------------------------------USUARIO LOGUIN----------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 create procedure BEMVINDO.VERIFICAR_LOGUEO
