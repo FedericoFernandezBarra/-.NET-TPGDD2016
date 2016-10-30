@@ -20,7 +20,10 @@ namespace ClinicaFrba.Clases.DAOS
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
 
-            //DataBase.Instance.agregarParametro(parametros, "error", "");
+            long nroRaiz = afiliado.numeroDeAfiliado - afiliado.numeroFamiliar;
+            nroRaiz = nroRaiz < 0 ? 0 : nroRaiz;
+
+            DataBase.Instance.agregarParametro(parametros, "nro_raiz",nroRaiz );
 
             autoMapping = false;
 
@@ -56,12 +59,18 @@ namespace ClinicaFrba.Clases.DAOS
 
         internal List<Afiliado> buscarAfiliados(long nroAfiliado, string nombre, string apellido, string dni, PlanMedico planMedico)
         {
+            object nroAfiliadoValue = nroAfiliado == 0 ? null : (object)nroAfiliado;
+            object nombreValue = nombre == "" ? null : nombre;
+            object apellidoValue = apellido == "" ? null : apellido;
+            object dniValue = dni == "" ? null : dni;
+            object planValue = planMedico.descripcion == "" ? null : (object)planMedico.id;
+
             List<SqlParameter> parametros = new List<SqlParameter>();
-            DataBase.Instance.agregarParametro(parametros, "nroAfiliado", nroAfiliado);
-            DataBase.Instance.agregarParametro(parametros, "nombre", nombre);
-            DataBase.Instance.agregarParametro(parametros, "apellido", apellido);
+            DataBase.Instance.agregarParametro(parametros, "nroAfiliado", nroAfiliadoValue);
+            DataBase.Instance.agregarParametro(parametros, "nombre", nombreValue);
+            DataBase.Instance.agregarParametro(parametros, "apellido", apellidoValue);
             DataBase.Instance.agregarParametro(parametros, "dni", dni);
-            DataBase.Instance.agregarParametro(parametros, "planMedico", planMedico);
+            DataBase.Instance.agregarParametro(parametros, "planMedico", planValue);
 
             return (List<Afiliado>)executeStored("BEMVINDO.st_buscar_afiliados", parametros);
         }

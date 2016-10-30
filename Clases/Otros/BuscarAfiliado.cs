@@ -31,6 +31,8 @@ namespace ClinicaFrba.Clases.Otros
         {
             planesMedicosSistema = (new PlanMedicoRepository()).traerPlanesMedicos();
             afiliados = new List<Afiliado>();
+
+            planesMedicosSistema.Add(new PlanMedico());
         }
 
         internal bool busquedaExitosa()

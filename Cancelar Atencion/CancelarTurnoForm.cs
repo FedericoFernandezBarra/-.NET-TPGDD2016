@@ -48,8 +48,17 @@ namespace ClinicaFrba.Cancelar_Atencion
             cmbCancelacion.DataBindings.Add("SelectedItem", cancelarTurno, "tipoDeCancelacion");
             txtMotivo.DataBindings.Add("Text", cancelarTurno, "motivoDeCancelacion");
 
-            grillaTurnos.DataSource = cancelarTurno.turnosDeAfiliado;
+            cargarDataGrid();
+
+            //grillaTurnos.DataSource = cancelarTurno.turnosDeAfiliado;
             //Tengo que bindear que turno quiere cancelar del datagrid
+        }
+
+        private void cargarDataGrid()
+        {
+            grillaTurnos.Rows.Clear();
+
+            cancelarTurno.turnosDeAfiliado.ForEach(t => grillaTurnos.Rows.Add(t.profesional.usuario.nombre + " " + t.profesional.usuario.apellido, t.especialidad.descripcion, t.fechaDeTurno));
         }
 
         private void inicializarForm()
@@ -59,6 +68,20 @@ namespace ClinicaFrba.Cancelar_Atencion
                 cmbCancelacion.Items.Add(item);
             }
 
+            DataGridViewTextBoxColumn cProfesional = new DataGridViewTextBoxColumn();
+            cProfesional.HeaderText = "Profesional";
+            cProfesional.ReadOnly = true;
+            grillaTurnos.Columns.Add(cProfesional);
+
+            DataGridViewTextBoxColumn cEspecialidad = new DataGridViewTextBoxColumn();
+            cEspecialidad.HeaderText = "Especialidad";
+            cEspecialidad.ReadOnly = true;
+            grillaTurnos.Columns.Add(cEspecialidad);
+
+            DataGridViewTextBoxColumn cFecha = new DataGridViewTextBoxColumn();
+            cFecha.HeaderText = "Fecha";
+            cFecha.ReadOnly = true;
+            grillaTurnos.Columns.Add(cFecha);
         }
 
         private void grillaTurnos_CellClick(object sender, DataGridViewCellEventArgs e)

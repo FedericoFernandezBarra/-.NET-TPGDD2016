@@ -46,6 +46,11 @@ namespace ClinicaFrba.Clases.Otros
                 mensajeDeError = "Debe seleccionar una especialidad";
                 return false;
             }
+            if (especialidad.descripcion==""&&filtroEspecialidadObligatorio)
+            {
+                mensajeDeError = "Debe seleccionar una especialidad";
+                return false;
+            }
 
             return true;
         }
@@ -59,6 +64,7 @@ namespace ClinicaFrba.Clases.Otros
         {
             profesionales = new List<Profesional>();
             especialidadesSistema = (new EspecialidadRepository()).traerEspecialidades();
+            especialidadesSistema.Add(new Especialidad());
         }
 
         internal void buscar()

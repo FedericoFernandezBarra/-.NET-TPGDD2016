@@ -55,14 +55,58 @@ namespace ClinicaFrba.Registro_Llegada
             txtNroAfiliado.DataBindings.Add("Text", registrarLlegada, "numeroAfiliado");
             txtBono.DataBindings.Add("Text", registrarLlegada, "numeroBono");
 
+            initDataGrid();
+
             registrarLlegada.cargarTurnosFiltrados();//Inicializo turnos filtrados
 
-            grillaTurnos.DataSource = registrarLlegada.turnosFiltrados;
+            cargarDataGrid();
+
+            //grillaTurnos.DataSource = registrarLlegada.turnosFiltrados;
+        }
+
+        private void initDataGrid()
+        {
+            DataGridViewTextBoxColumn cNroAfiliado = new DataGridViewTextBoxColumn();
+            cNroAfiliado.HeaderText = "Nro de Afiliado";
+            cNroAfiliado.ReadOnly = true;
+            grillaTurnos.Columns.Add(cNroAfiliado);
+
+            DataGridViewTextBoxColumn cAfiliado = new DataGridViewTextBoxColumn();
+            cAfiliado.HeaderText = "Afiliado";
+            cAfiliado.ReadOnly = true;
+            grillaTurnos.Columns.Add(cAfiliado);
+
+            DataGridViewTextBoxColumn cProfesional = new DataGridViewTextBoxColumn();
+            cProfesional.HeaderText = "Profesional";
+            cProfesional.ReadOnly = true;
+            grillaTurnos.Columns.Add(cProfesional);
+
+            DataGridViewTextBoxColumn cEspecialidad = new DataGridViewTextBoxColumn();
+            cEspecialidad.HeaderText = "Especialidad";
+            cEspecialidad.ReadOnly = true;
+            grillaTurnos.Columns.Add(cEspecialidad);
+
+            DataGridViewTextBoxColumn cFecha = new DataGridViewTextBoxColumn();
+            cFecha.HeaderText = "Fecha";
+            cFecha.ReadOnly = true;
+            grillaTurnos.Columns.Add(cFecha);
         }
 
         private void txtNroAfiliado_TextChanged(object sender, EventArgs e)
         {
             registrarLlegada.cargarTurnosFiltrados();
+
+            cargarDataGrid();
+        }
+
+        private void cargarDataGrid()
+        {
+            grillaTurnos.Rows.Clear();
+
+            registrarLlegada.turnosFiltrados.ForEach(t => grillaTurnos.Rows.Add(t.afiliado.numeroDeAfiliado, 
+                                                    t.afiliado.usuario.nombre + " " + t.afiliado.usuario.apellido, 
+                                                    t.profesional.usuario.nombre + " " + t.profesional.usuario.apellido,
+                                                    t.especialidad.descripcion, t.fechaDeTurno));
         }
 
         private void cmdConfirmarBono_Click(object sender, EventArgs e)

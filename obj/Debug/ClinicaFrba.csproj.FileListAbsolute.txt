@@ -107,3 +107,4 @@ C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.exe
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.pdb
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.csprojResolveAssemblyReference.cache
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Pedir_Turno.ConsultarTurnosForm.resources
+C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.ConsultarHistorialCambiosForm.resources

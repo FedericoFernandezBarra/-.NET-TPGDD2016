@@ -69,6 +69,12 @@
     <Compile Include="Abm Afiliado\BuscarGrupoForm.Designer.cs">
       <DependentUpon>BuscarGrupoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Afiliado\ConsultarHistorialCambiosForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Afiliado\ConsultarHistorialCambiosForm.Designer.cs">
+      <DependentUpon>ConsultarHistorialCambiosForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Afiliado\ModificarAfiliadoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -260,6 +266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Afiliado\BuscarGrupoForm.resx">
       <DependentUpon>BuscarGrupoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Afiliado\ConsultarHistorialCambiosForm.resx">
+      <DependentUpon>ConsultarHistorialCambiosForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Afiliado\ModificarAfiliadoForm.resx">
       <DependentUpon>ModificarAfiliadoForm.cs</DependentUpon>

@@ -34,11 +34,41 @@ namespace ClinicaFrba.Abm_Afiliado
             txtDni.DataBindings.Add("Text", buscarAfiliado, "dni");
             txtNumAfiliado.DataBindings.Add("Text", buscarAfiliado, "nroAfiliado");
 
-            grillaPacientes.DataSource = buscarAfiliado.afiliados;
+            initDatagrid();
+
+            //grillaPacientes.DataSource = buscarAfiliado.afiliados;
 
             cmbPlanes.DisplayMember = "descripcion";
             cmbPlanes.DataSource = buscarAfiliado.planesMedicosSistema;
             cmbPlanes.DataBindings.Add("SelectedItem", buscarAfiliado, "planMedico");
+        }
+
+        private void initDatagrid()
+        {
+            DataGridViewTextBoxColumn cNroAfiliado = new DataGridViewTextBoxColumn();
+            cNroAfiliado.HeaderText = "Nro de Afiliado";
+            cNroAfiliado.ReadOnly = true;
+            grillaPacientes.Columns.Add(cNroAfiliado);
+
+            DataGridViewTextBoxColumn cNombre = new DataGridViewTextBoxColumn();
+            cNombre.HeaderText = "Nombre";
+            cNombre.ReadOnly = true;
+            grillaPacientes.Columns.Add(cNombre);
+
+            DataGridViewTextBoxColumn cApellido = new DataGridViewTextBoxColumn();
+            cApellido.HeaderText = "Apellido";
+            cApellido.ReadOnly = true;
+            grillaPacientes.Columns.Add(cApellido);
+
+            DataGridViewTextBoxColumn cDni = new DataGridViewTextBoxColumn();
+            cDni.HeaderText = "Dni";
+            cDni.ReadOnly = true;
+            grillaPacientes.Columns.Add(cDni);
+
+            DataGridViewTextBoxColumn cPlan = new DataGridViewTextBoxColumn();
+            cPlan.HeaderText = "Plan Medico";
+            cPlan.ReadOnly = true;
+            grillaPacientes.Columns.Add(cPlan);
         }
 
         private void cmdBuscar_Click(object sender, EventArgs e)
@@ -47,6 +77,14 @@ namespace ClinicaFrba.Abm_Afiliado
             {
                 MessageBox.Show(buscarAfiliado.mensajeDeError);
             }
+
+            cargarDataGrid();
+        }
+
+        private void cargarDataGrid()
+        {
+            grillaPacientes.Rows.Clear();
+            buscarAfiliado.afiliados.ForEach(a => grillaPacientes.Rows.Add(a.numeroDeAfiliado, a.usuario.nombre, a.usuario.apellido, a.usuario.documento, a.planMedico.descripcion));
         }
 
         internal Afiliado getAfiliadoSeleccionado()

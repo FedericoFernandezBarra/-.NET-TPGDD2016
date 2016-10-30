@@ -53,6 +53,7 @@
             this.tsmRegistroDeLlegada = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmRegistroDeResultados = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmCancelaciones = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmGestionDeProfesionales = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmProfesionales = new System.Windows.Forms.ToolStripMenuItem();
             this.buscarProfesionalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,7 +61,6 @@
             this.tsmAgenda = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAgenda_Consultar = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAgenda_Registrar = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmCancelaciones = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuPrincipal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -100,7 +100,7 @@
             this.seleccionarRolToolStripMenuItem,
             this.tsmSesion_CerrarSesion});
             this.tsmSesion.Name = "tsmSesion";
-            this.tsmSesion.Size = new System.Drawing.Size(152, 22);
+            this.tsmSesion.Size = new System.Drawing.Size(134, 22);
             this.tsmSesion.Text = "Sesión";
             // 
             // tsmSesion_IniciarSesion
@@ -127,12 +127,12 @@
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(131, 6);
             // 
             // estadísticasToolStripMenuItem
             // 
             this.estadísticasToolStripMenuItem.Name = "estadísticasToolStripMenuItem";
-            this.estadísticasToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.estadísticasToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.estadísticasToolStripMenuItem.Text = "Estadísticas";
             this.estadísticasToolStripMenuItem.Visible = false;
             this.estadísticasToolStripMenuItem.Click += new System.EventHandler(this.estadísticasToolStripMenuItem_Click);
@@ -140,12 +140,12 @@
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(131, 6);
             // 
             // tsmSalir
             // 
             this.tsmSalir.Name = "tsmSalir";
-            this.tsmSalir.Size = new System.Drawing.Size(152, 22);
+            this.tsmSalir.Size = new System.Drawing.Size(134, 22);
             this.tsmSalir.Text = "Salir";
             this.tsmSalir.Click += new System.EventHandler(this.tsmSalir_Click);
             // 
@@ -183,29 +183,30 @@
             // registrarAfiliadoToolStripMenuItem
             // 
             this.registrarAfiliadoToolStripMenuItem.Name = "registrarAfiliadoToolStripMenuItem";
-            this.registrarAfiliadoToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.registrarAfiliadoToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
             this.registrarAfiliadoToolStripMenuItem.Text = "Registrar Afiliado";
             this.registrarAfiliadoToolStripMenuItem.Click += new System.EventHandler(this.registrarAfiliadoToolStripMenuItem_Click);
             // 
             // modificarAfiliadoToolStripMenuItem
             // 
             this.modificarAfiliadoToolStripMenuItem.Name = "modificarAfiliadoToolStripMenuItem";
-            this.modificarAfiliadoToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.modificarAfiliadoToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
             this.modificarAfiliadoToolStripMenuItem.Text = "Modificar Afiliado";
             this.modificarAfiliadoToolStripMenuItem.Click += new System.EventHandler(this.modificarAfiliadoToolStripMenuItem_Click);
             // 
             // bloquearAfiliadoToolStripMenuItem
             // 
             this.bloquearAfiliadoToolStripMenuItem.Name = "bloquearAfiliadoToolStripMenuItem";
-            this.bloquearAfiliadoToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.bloquearAfiliadoToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
             this.bloquearAfiliadoToolStripMenuItem.Text = "Bloquear Afiliado";
             this.bloquearAfiliadoToolStripMenuItem.Click += new System.EventHandler(this.bloquearAfiliadoToolStripMenuItem_Click);
             // 
             // buscarAfiliadoToolStripMenuItem
             // 
             this.buscarAfiliadoToolStripMenuItem.Name = "buscarAfiliadoToolStripMenuItem";
-            this.buscarAfiliadoToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.buscarAfiliadoToolStripMenuItem.Text = "Buscar Afiliado";
+            this.buscarAfiliadoToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
+            this.buscarAfiliadoToolStripMenuItem.Text = "Consultar Historial de Cambios";
+            this.buscarAfiliadoToolStripMenuItem.Click += new System.EventHandler(this.buscarAfiliadoToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -265,6 +266,14 @@
             this.tsmRegistroDeResultados.Visible = false;
             this.tsmRegistroDeResultados.Click += new System.EventHandler(this.tsmRegistroDeResultados_Click);
             // 
+            // tsmCancelaciones
+            // 
+            this.tsmCancelaciones.Name = "tsmCancelaciones";
+            this.tsmCancelaciones.Size = new System.Drawing.Size(190, 22);
+            this.tsmCancelaciones.Text = "Cancelaciones";
+            this.tsmCancelaciones.Visible = false;
+            this.tsmCancelaciones.Click += new System.EventHandler(this.tsmCancelaciones_Click);
+            // 
             // tsmGestionDeProfesionales
             // 
             this.tsmGestionDeProfesionales.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -282,7 +291,7 @@
             this.tsmProfesionales.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buscarProfesionalToolStripMenuItem});
             this.tsmProfesionales.Name = "tsmProfesionales";
-            this.tsmProfesionales.Size = new System.Drawing.Size(152, 22);
+            this.tsmProfesionales.Size = new System.Drawing.Size(144, 22);
             this.tsmProfesionales.Text = "Profesionales";
             this.tsmProfesionales.Visible = false;
             // 
@@ -295,7 +304,7 @@
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(141, 6);
             // 
             // tsmAgenda
             // 
@@ -312,25 +321,17 @@
             // tsmAgenda_Consultar
             // 
             this.tsmAgenda_Consultar.Name = "tsmAgenda_Consultar";
-            this.tsmAgenda_Consultar.Size = new System.Drawing.Size(152, 22);
+            this.tsmAgenda_Consultar.Size = new System.Drawing.Size(125, 22);
             this.tsmAgenda_Consultar.Text = "Consultar";
             this.tsmAgenda_Consultar.Visible = false;
             // 
             // tsmAgenda_Registrar
             // 
             this.tsmAgenda_Registrar.Name = "tsmAgenda_Registrar";
-            this.tsmAgenda_Registrar.Size = new System.Drawing.Size(152, 22);
+            this.tsmAgenda_Registrar.Size = new System.Drawing.Size(125, 22);
             this.tsmAgenda_Registrar.Text = "Registrar";
             this.tsmAgenda_Registrar.Visible = false;
             this.tsmAgenda_Registrar.Click += new System.EventHandler(this.tsmAgenda_Registrar_Click);
-            // 
-            // tsmCancelaciones
-            // 
-            this.tsmCancelaciones.Name = "tsmCancelaciones";
-            this.tsmCancelaciones.Size = new System.Drawing.Size(190, 22);
-            this.tsmCancelaciones.Text = "Cancelaciones";
-            this.tsmCancelaciones.Visible = false;
-            this.tsmCancelaciones.Click += new System.EventHandler(this.tsmCancelaciones_Click);
             // 
             // PaginaPrincipalForm
             // 

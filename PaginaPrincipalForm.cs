@@ -270,5 +270,22 @@ namespace ClinicaFrba
 
             return new Form();
         }
+
+        private void buscarAfiliadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BuscarAfiliadoForm buscarAfiliado = new BuscarAfiliadoForm();
+
+            Hide();
+
+            buscarAfiliado.ShowDialog();
+
+            Afiliado afiliado = buscarAfiliado.getAfiliadoSeleccionado();
+
+            ConsultarHistorialCambiosForm consultarHistorial = new ConsultarHistorialCambiosForm(afiliado);
+
+            consultarHistorial.ShowDialog();
+
+            Show();
+        }
     }
 }

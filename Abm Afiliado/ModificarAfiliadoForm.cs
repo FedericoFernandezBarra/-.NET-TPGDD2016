@@ -12,7 +12,7 @@ namespace ClinicaFrba.Abm_Afiliado
         public ModificarAfiliadoForm(Afiliado afiliado)
         {
             modificarAfiliado.afiliado = afiliado;
-            modificarAfiliado.planMedicoActual = afiliado.planMedico;
+             modificarAfiliado.planMedicoActual = afiliado.planMedico;
 
             InitializeComponent();
         }
