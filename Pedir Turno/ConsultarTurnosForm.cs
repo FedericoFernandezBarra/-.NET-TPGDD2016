@@ -20,6 +20,7 @@ namespace ClinicaFrba.Pedir_Turno
     public partial class ConsultarTurnosForm : Form
     {
         Turno turno { get; set; }
+        TurnoRepository turnoRepository;
         Usuario afiliado;
         List<String> horariosPosibles = new List<String>();
         Agenda agendaDelProfesional;
@@ -29,6 +30,7 @@ namespace ClinicaFrba.Pedir_Turno
             InitializeComponent();
             afiliado = usuario;
             turno = new Turno();
+            turnoRepository = new TurnoRepository();
             turno.afiliado.usuario.id = usuario.id;
         }
 
@@ -38,32 +40,32 @@ namespace ClinicaFrba.Pedir_Turno
             //Primer filtro: la fecha esta dentro de la agenda
             if(obtenerFechaSeleccionada() < agendaDelProfesional.fecha_inicial || obtenerFechaSeleccionada() > agendaDelProfesional.fecha_final)
             {
-                MessageBox.Show("La fecha seleccionada está fuera de la agenda del profesional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("La fecha seleccionada está fuera de la agenda del profesional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
                 //Segundo filtro: el dia no es domingo
                 if (obtenerFechaSeleccionada().DayOfWeek.Equals(DayOfWeek.Sunday))
                 {
-                    MessageBox.Show("El profesional no trabaja en el día seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("El profesional no trabaja en el día seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
                     //Tercer filtro: el profesional atiende esa especialidad en ese dia
-                    if (agendaDelProfesional.diasAgendaDelDia(obtenerDiaSeleccionado()).Any(unDia => unDia.idEspecialidad.Equals(turno.especialidad.id)))
+                    List<DiaAgenda> diaSeleccionado = agendaDelProfesional.diasAgendaDelDia(obtenerDiaSeleccionado());
+                    if (diaSeleccionado.Any(unDia => unDia.idEspecialidad.Equals(turno.especialidad.id)))
                     {
-                        //Cuarto filtro: horariosFull con horariosDeAgenda
-                        obtenerHorariosPosibles(new DateTime(1990, 1, 1, 7, 0, 0), new DateTime(1990, 1, 1, 19, 30, 0));
-
+                        //Cuarto filtro: horarios definidos en la agenda de ese dia
+                        diaSeleccionado.ForEach(unHorario => obtenerHorariosPosibles(unHorario.horaInicial, unHorario.horaFinal));
+                        
+                        //Quinto filtro: eliminar horarios que ya posee turno asignado
+                        filtrarHorariosYaTomados();
                         cmbHorariosDisponibles.DataSource = horariosPosibles;
                         cmbHorariosDisponibles.Enabled = true;
-
-                        //Quinto filtro: horarios de cuarto filtro con TurnoRepository.existeTurno(Profesional profesional, DateTime fecha)
-
                     }
                     else
                     {
-                        MessageBox.Show("El profesional no trabaja en la especialidad elegida en el día seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("El profesional no trabaja en la especialidad elegida en el día seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 
@@ -82,21 +84,25 @@ namespace ClinicaFrba.Pedir_Turno
 
             if (buscarProfesionalForm.seSeleccionoUnProfesional())
             {
-                turno.profesional = buscarProfesionalForm.getProfesionalSeleccionado();
-                turno.especialidad = buscarProfesionalForm.getEspecialidadSeleccionada();
-
                 UsuarioRepository usuarioRepository = new UsuarioRepository();
-
-                Usuario profesionalSeleccionado = usuarioRepository.traerUsuarioPorId(turno.profesional.usuario.id);
-
-                txtProfesional.Text = profesionalSeleccionado.apellido + " " + profesionalSeleccionado.nombre
-                    + " - " + turno.especialidad.descripcion;
-
                 AgendaRepository agendaRepository = new AgendaRepository();
+                Usuario profesionalSeleccionado = usuarioRepository.traerUsuarioPorId(buscarProfesionalForm.getProfesionalSeleccionado().usuario.id);
+                try
+                {
+                    agendaDelProfesional = agendaRepository.traerAgendaDelProfesional(profesionalSeleccionado);
 
-                agendaDelProfesional = agendaRepository.traerAgendaDelProfesional(profesionalSeleccionado);
+                    turno.profesional = buscarProfesionalForm.getProfesionalSeleccionado();
+                    turno.especialidad = buscarProfesionalForm.getEspecialidadSeleccionada();
 
-                btnConsultarDisponibilidad.Enabled = true;
+                    txtProfesional.Text = profesionalSeleccionado.apellido + " " + profesionalSeleccionado.nombre
+                        + " - " + turno.especialidad.descripcion;
+
+                    btnConsultarDisponibilidad.Enabled = true;
+                }
+                catch
+                {
+                    MessageBox.Show("ERROR: El profesional seleccionado no dispone de una agenda.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }        
             }
         }
 
@@ -111,15 +117,10 @@ namespace ClinicaFrba.Pedir_Turno
             DateTime fechaYHorarioDeTurno = new DateTime(obtenerFechaSeleccionada().Year, obtenerFechaSeleccionada().Month, 
                 obtenerFechaSeleccionada().Day, horarioDeTurno.Hour, horarioDeTurno.Minute, 0);
 
-            //TODO: Mandarlo al turnorepository o a la mierda objetos?
-            SqlParameter pAfiliado = new SqlParameter("@afiliado", turno.id);
-            SqlParameter pProfesional = new SqlParameter("@profesional", turno.profesional.usuario.id);
-            SqlParameter pEspecialidad = new SqlParameter("@especialidad", turno.especialidad.id);
-            SqlParameter pFechaTurno = new SqlParameter("@fecha_turno", fechaYHorarioDeTurno);
+            turno.fechaDeTurno = fechaYHorarioDeTurno;
 
-            //TODO: El stored tiene que verificar que el turno no esta ocupado, para evitar concurrencia
-            //Inserta el turno en la tabla y devuelve el numero de turno (puede devolver un numero negativo para caso de turno ocupado)
-            MessageBox.Show("TURNO GENERADO. NÚMERO DE TURNO: ");
+            //Inserta el turno en la tabla y devuelve la respuesta del stored
+            MessageBox.Show(turnoRepository.reservarTurno(turno));
             Close();
         }
 
@@ -132,7 +133,6 @@ namespace ClinicaFrba.Pedir_Turno
             mcFechaDeTurno.SetDate(DataBase.Instance.getDate());
 
             lblFechaElegida.Text = obtenerFechaSeleccionada().ToString("dd/MM/yyyy");
-            
         }
 
         private DateTime obtenerFechaSeleccionada()
@@ -162,13 +162,24 @@ namespace ClinicaFrba.Pedir_Turno
             }
         }
 
-        private void obtenerHorariosPosibles(DateTime horarioDesde, DateTime horarioHasta)
+        private void obtenerHorariosPosibles(TimeSpan horarioDesde, TimeSpan horarioHasta)
         {
-            DateTime horarioAcumulador = horarioDesde;
+            TimeSpan horarioAcumulador = horarioDesde;
             while (horarioAcumulador.CompareTo(horarioHasta) < 0)
             {
-                horarioAcumulador = horarioAcumulador.AddMinutes(30);
+                horarioAcumulador = horarioAcumulador.Add(TimeSpan.FromMinutes(30));
                 horariosPosibles.Add(horarioAcumulador.ToString("HH:mm"));
+            }
+        }
+
+        private void filtrarHorariosYaTomados()
+        {
+            foreach (String horario in horariosPosibles)
+            {
+                if (turnoRepository.existeTurnoActivo(turno.profesional, DateTime.Parse(horario)))
+                {
+                    horariosPosibles.Remove(horario);
+                }
             }
         }
 

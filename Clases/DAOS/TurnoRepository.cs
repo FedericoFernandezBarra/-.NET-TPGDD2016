@@ -24,6 +24,27 @@ namespace ClinicaFrba.Clases.DAOS
             return selectByProperties(properties).Count > 0;
         }
 
+        public bool existeTurnoActivo(Profesional profesional, DateTime fecha)
+        {
+
+            Dictionary<string, object> properties = new Dictionary<string, object>();
+            properties.Add("fechaDeTurno", fecha);
+            properties.Add("activo", true);
+            properties.Add("profesional", profesional.usuario.id);
+
+            return selectByProperties(properties).Count > 0;
+        }
+
+        public String reservarTurno(Turno turno) {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            DataBase.Instance.agregarParametro(parametros, "afiliado", turno.id);
+            DataBase.Instance.agregarParametro(parametros, "profesional", turno.profesional);
+            DataBase.Instance.agregarParametro(parametros, "especialidad", turno.especialidad);
+            DataBase.Instance.agregarParametro(parametros, "fecha_turno", turno.fechaDeTurno);
+
+            return DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_insertar_turno", parametros).First()["resultado"].ToString();
+        }
+
         internal void cancelarTurnoPorRangoFechas(DateTime fechaInicioCancelacion, DateTime fechaFinCancelacion, Profesional profesional, string motivoDeCancelacion, TipoCancelacion tipoDeCancelacion)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
