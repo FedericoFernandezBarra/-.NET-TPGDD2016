@@ -145,6 +145,12 @@ namespace ClinicaFrba
 
             Afiliado afiliado = buscarAfiliado.getAfiliadoSeleccionado();
 
+            if (!buscarAfiliado.seSeleccionoUnAfiliado())
+            {
+                Show();
+                return;
+            }
+
             ModificarAfiliadoForm modificarAfiliado = new ModificarAfiliadoForm(afiliado);
 
             modificarAfiliado.ShowDialog();
@@ -161,6 +167,12 @@ namespace ClinicaFrba
             buscarAfiliado.ShowDialog();
 
             Afiliado afiliado = buscarAfiliado.getAfiliadoSeleccionado();
+
+            if (!buscarAfiliado.seSeleccionoUnAfiliado())
+            {
+                Show();
+                return;
+            }
 
             BajaAfiliadoForm bajaAfiliado = new BajaAfiliadoForm(afiliado);
 
@@ -281,9 +293,26 @@ namespace ClinicaFrba
 
             Afiliado afiliado = buscarAfiliado.getAfiliadoSeleccionado();
 
+            if (!buscarAfiliado.seSeleccionoUnAfiliado())
+            {
+                Show();
+                return;
+            }
+
             ConsultarHistorialCambiosForm consultarHistorial = new ConsultarHistorialCambiosForm(afiliado);
 
             consultarHistorial.ShowDialog();
+
+            Show();
+        }
+
+        private void buscarAfiliadoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            BuscarAfiliadoForm buscarAfiliado = new BuscarAfiliadoForm();
+
+            Hide();
+
+            buscarAfiliado.ShowDialog();
 
             Show();
         }
