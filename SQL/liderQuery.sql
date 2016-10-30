@@ -259,8 +259,20 @@ CREATE procedure BEMVINDO.st_insertar_turno
 AS
 begin
 	 
-	 	insert into BEMVINDO.TURNO(afiliado,profesional,especialidad,fecha_turno,activo)
-	    values (@id_afiliado,@profesional,@especialidad,@fecha_turno,1)
+
+	  if EXISTS (SELECT * FROM BEMVINDO.TURNO WHERE
+	                                               profesional=@profesional and
+												   especialidad=@especialidad and
+												   fecha_turno=@fecha_turno and
+												   activo=1)
+	  begin
+	       select 'Error, este turno esta ocupado, intente con otro'
+	  end
+	  else
+	  begin
+	       insert into BEMVINDO.TURNO(afiliado,profesional,especialidad,fecha_turno,activo)
+	        values (@id_afiliado,@profesional,@especialidad,@fecha_turno,1)
+	  end
 
 end
 
