@@ -168,7 +168,7 @@ namespace ClinicaFrba.Pedir_Turno
             while (horarioAcumulador.CompareTo(horarioHasta) < 0)
             {
                 horarioAcumulador = horarioAcumulador.Add(TimeSpan.FromMinutes(30));
-                horariosPosibles.Add(horarioAcumulador.ToString("HH:mm"));
+                horariosPosibles.Add(horarioAcumulador.ToString(@"hh\:mm"));
             }
         }
 
