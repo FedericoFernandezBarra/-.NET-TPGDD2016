@@ -63,6 +63,11 @@ namespace ClinicaFrba.Clases.Otros
                 mensajeDeError = "Debe especificar un comprador";
                 return false;
             }
+            if (!compra.comprador.usuario.activo)
+            {
+                mensajeDeError = "No puede comprar un afiliado bloqueado";
+                return false;
+            }
             if (compra.cantidad==0)
             {
                 mensajeDeError = "Debe comprar al menos 1 bono";

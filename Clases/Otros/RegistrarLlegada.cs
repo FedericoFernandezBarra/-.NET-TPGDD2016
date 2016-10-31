@@ -86,8 +86,28 @@ namespace ClinicaFrba.Clases.Otros
                 mensajeDeError = "Numero de bono erroneo";
                 return false;
             }
+            if (bonoSeleccionado.yaFueUsado())
+            {
+                mensajeDeError = "El bono especificado ya fue gastado";
+                return false;
+            }
+            if (!afiliadoPerteneceAGrupoFamiliarComprador())
+            {
+                mensajeDeError = "Bono perteneciente a otro grupo familiar";
+                return false;
+            }
 
             return true;
+        }
+
+        private bool afiliadoPerteneceAGrupoFamiliarComprador()
+        {
+            long nroAfiliado = Convert.ToInt64(numeroAfiliado);
+            long nroRaiz = nroAfiliado - nroAfiliado % 100;
+            long nroComprador = bonoSeleccionado.compra.comprador.numeroDeAfiliado;
+            long nroFamiliar = nroComprador - nroComprador % 100;
+
+            return nroRaiz == nroFamiliar;
         }
     }
 }

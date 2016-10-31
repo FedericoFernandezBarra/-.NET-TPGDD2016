@@ -16,10 +16,19 @@ namespace ClinicaFrba.Clases.POJOS
         [Column(name = "plan_medico",fetch =FetchType.EAGER)]
         public PlanMedico planMedico { get; set; }
 
-        [Column(name = "compra",fetch =FetchType.LAZY)]
+        [Column(name = "compra",fetch =FetchType.EAGER)]
         public Compra compra { get; set; }
 
         [Column(name = "turno",fetch =FetchType.EAGER)]
         public Turno turno { get; set; }
+
+        public bool yaFueUsado()
+        {
+            if (turno==null)
+            {
+                return true;
+            }
+            return turno.id == 0;
+        }
     }
 }
