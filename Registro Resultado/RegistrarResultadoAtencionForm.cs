@@ -65,10 +65,17 @@ namespace ClinicaFrba.Registro_Resultado
 
         private void cmbPacientes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //TODO: Verificar que no tenga diagnostico todavia
-            resultadoAtencionMedica.turnoID = ((Turno)cmbPacientes.SelectedItem).id;
-            dtpFechaDiagnostico.Enabled = true;
-            dtpHoraDiagnostico.Enabled = true;
+            if (true) //TODO: Verificar que no tenga diagnostico todavia
+            {
+                lblAfiliado.Text = lblAfiliado.Text + " " + cmbPacientes.SelectedText;
+                resultadoAtencionMedica.turnoID = ((Turno)cmbPacientes.SelectedItem).id;
+                dtpFechaDiagnostico.Enabled = true;
+                dtpHoraDiagnostico.Enabled = true;
+            }
+            else
+            {
+                MessageBox.Show("ERROR: El paciente ya tiene su diagnóstico.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void activarBotonConfirmar()
