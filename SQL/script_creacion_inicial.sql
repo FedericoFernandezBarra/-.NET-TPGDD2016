@@ -490,8 +490,8 @@ create table BEMVINDO.AGENDA
 (
     id_agenda       numeric(10,0) identity(1,1),
     profesional     numeric(10,0),
-    fecha_inicial   datetime,
-    fecha_final     datetime,
+    fecha_inicial   date,
+    fecha_final     date,
 
     PRIMARY KEY (id_agenda),
     FOREIGN KEY (profesional)   references BEMVINDO.PROFESIONAL(id_profesional),
@@ -711,7 +711,7 @@ values
     ('REGISTRO DE RESULTADO PARA ATENCION MEDICA', 1),
     ('CANCELAR ATENCION MEDICA', 1),
     ('LISTADO ESTADISTICO', 1),
-	('ASIGNAR Nº AFILIADOS A AFILIADOS MIGRADOS',1)
+    ('ASIGNAR Nº AFILIADOS A AFILIADOS MIGRADOS',1)
 
 go
 
@@ -736,7 +736,7 @@ values
     (13,2),
     (13,1),
     (14,3),
-	(15,3)
+    (15,3)
 
 go
 
@@ -1733,75 +1733,75 @@ go
 
 create procedure BEMVINDO.sp_afiliados_sin_numero_afiliado
 as begin
-	select 
-		A.id_afiliado as ID,
-		U.documento as DNI,
-		U.nombre as NOMBRE,
-		U.apellido AS APELLIDO
-	from BEMVINDO.USUARIO as U
-	inner join BEMVINDO.AFILIADO as A on A.id_afiliado = U.id_usuario
-	where A.numero_afiliado is null
+    select 
+        A.id_afiliado as ID,
+        U.documento as DNI,
+        U.nombre as NOMBRE,
+        U.apellido AS APELLIDO
+    from BEMVINDO.USUARIO as U
+    inner join BEMVINDO.AFILIADO as A on A.id_afiliado = U.id_usuario
+    where A.numero_afiliado is null
 end
 
 go
 
 create procedure BEMVINDO.sp_agregar_numero_afiliado_a_afiliado_principal_migrado
-	@id_principal numeric(10,0)
+    @id_principal numeric(10,0)
 as begin 
-	
-	declare @numero_nuevo_grupo numeric(10,0)
+    
+    declare @numero_nuevo_grupo numeric(10,0)
 
-	select @numero_nuevo_grupo = MAX(numero_afiliado)
-	from BEMVINDO.AFILIADO
-	where numero_afiliado is not null
+    select @numero_nuevo_grupo = MAX(numero_afiliado)
+    from BEMVINDO.AFILIADO
+    where numero_afiliado is not null
 
-	update BEMVINDO.AFILIADO
-	set numero_afiliado = ((@numero_nuevo_grupo%100) * 100 + 101)
-	where id_afiliado = @id_principal
+    update BEMVINDO.AFILIADO
+    set numero_afiliado = ((@numero_nuevo_grupo%100) * 100 + 101)
+    where id_afiliado = @id_principal
 end
 
 go
 
 create procedure BEMVINDO.sp_agregar_numero_afiliado_a_conyuge_migrado
-	@id_conyuge numeric(10,0),
-	@id_principal numeric(10,0)
+    @id_conyuge numeric(10,0),
+    @id_principal numeric(10,0)
 as begin 
-	
-	declare @numero_grupo numeric(10,0)
+    
+    declare @numero_grupo numeric(10,0)
 
-	select @numero_grupo = numero_afiliado
-	from BEMVINDO.AFILIADO
-	where id_afiliado = @id_principal
+    select @numero_grupo = numero_afiliado
+    from BEMVINDO.AFILIADO
+    where id_afiliado = @id_principal
 
-	update BEMVINDO.AFILIADO
-	set numero_afiliado = ((@numero_grupo%100)+1)*100 + 2
-	where id_afiliado = @id_conyuge
+    update BEMVINDO.AFILIADO
+    set numero_afiliado = ((@numero_grupo%100)+1)*100 + 2
+    where id_afiliado = @id_conyuge
 end
 
 go
 
 create procedure BEMVINDO.sp_agregar_numero_afiliado_a_hijo_migrado
-	@id_hijo numeric(10,0),
-	@id_principal numeric(10,0)
+    @id_hijo numeric(10,0),
+    @id_principal numeric(10,0)
 as begin 
-	
-	declare 
-		@numero_principal numeric(10,0),
-		@numero_hijo numeric(10,0)
+    
+    declare 
+        @numero_principal numeric(10,0),
+        @numero_hijo numeric(10,0)
 
-	select @numero_principal = numero_afiliado
-	from BEMVINDO.AFILIADO
-	where id_afiliado = @id_principal
+    select @numero_principal = numero_afiliado
+    from BEMVINDO.AFILIADO
+    where id_afiliado = @id_principal
 
-	select @numero_hijo = MAX(numero_afiliado)
-	from BEMVINDO.AFILIADO
-	where numero_afiliado between ((@numero_principal%100)+1)*100 and ((@numero_principal%100)+1)*100 +99
+    select @numero_hijo = MAX(numero_afiliado)
+    from BEMVINDO.AFILIADO
+    where numero_afiliado between ((@numero_principal%100)+1)*100 and ((@numero_principal%100)+1)*100 +99
 
-	update BEMVINDO.AFILIADO
-	set numero_afiliado = 
-		case 
-			when @numero_hijo+1 = ((@numero_principal%100)+1)*100 +2 then @numero_hijo+2
-			else @numero_hijo+1
-		end
-	where id_afiliado = @id_hijo
+    update BEMVINDO.AFILIADO
+    set numero_afiliado = 
+        case 
+            when @numero_hijo+1 = ((@numero_principal%100)+1)*100 +2 then @numero_hijo+2
+            else @numero_hijo+1
+        end
+    where id_afiliado = @id_hijo
 end
