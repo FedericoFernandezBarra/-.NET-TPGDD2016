@@ -66,6 +66,7 @@
             // 
             // rtxtSintomas
             // 
+            this.rtxtSintomas.Enabled = false;
             this.rtxtSintomas.Location = new System.Drawing.Point(6, 19);
             this.rtxtSintomas.MaxLength = 255;
             this.rtxtSintomas.Name = "rtxtSintomas";
@@ -77,6 +78,7 @@
             // 
             // rtxtDiagnostico
             // 
+            this.rtxtDiagnostico.Enabled = false;
             this.rtxtDiagnostico.Location = new System.Drawing.Point(7, 17);
             this.rtxtDiagnostico.MaxLength = 255;
             this.rtxtDiagnostico.Name = "rtxtDiagnostico";
@@ -123,6 +125,7 @@
             this.dtpHoraDiagnostico.Name = "dtpHoraDiagnostico";
             this.dtpHoraDiagnostico.Size = new System.Drawing.Size(96, 20);
             this.dtpHoraDiagnostico.TabIndex = 19;
+            this.dtpHoraDiagnostico.ValueChanged += new System.EventHandler(this.dtpHoraDiagnostico_ValueChanged);
             // 
             // cmbPacientes
             // 

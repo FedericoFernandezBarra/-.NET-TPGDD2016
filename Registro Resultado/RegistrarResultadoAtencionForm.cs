@@ -67,6 +67,8 @@ namespace ClinicaFrba.Registro_Resultado
         {
             //TODO: Verificar que no tenga diagnostico todavia
             resultadoAtencionMedica.turnoID = ((Turno)cmbPacientes.SelectedItem).id;
+            dtpFechaDiagnostico.Enabled = true;
+            dtpHoraDiagnostico.Enabled = true;
         }
 
         private void activarBotonConfirmar()
@@ -89,6 +91,12 @@ namespace ClinicaFrba.Registro_Resultado
         private void rtxtSintomas_TextChanged(object sender, EventArgs e)
         {
             activarBotonConfirmar();
+        }
+
+        private void dtpHoraDiagnostico_ValueChanged(object sender, EventArgs e)
+        {
+            rtxtSintomas.Enabled = true;
+            rtxtDiagnostico.Enabled = true;
         }
     }
 }
