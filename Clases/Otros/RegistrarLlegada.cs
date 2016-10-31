@@ -65,6 +65,11 @@ namespace ClinicaFrba.Clases.Otros
 
         private bool cumpleValidaciones()
         {
+            if (profesional==null)
+            {
+                mensajeDeError = "Debe seleccionar un profesional";
+                return false;
+            }
             if (turnoDeAfiliado == null)
             {
                 mensajeDeError = "Debe seleccionar un turno";

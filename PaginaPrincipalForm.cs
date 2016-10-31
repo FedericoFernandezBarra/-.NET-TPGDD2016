@@ -216,9 +216,30 @@ namespace ClinicaFrba
 
         private void tsmCompraDeBonos_Click(object sender, EventArgs e)
         {
-            ComprarBonosForm comprarBono = new ComprarBonosForm();
-
             Hide();
+
+            Afiliado afiliado;
+
+            if (!menu.userEsAfiliado())
+            {
+                BuscarAfiliadoForm buscarAfiliado = new BuscarAfiliadoForm();
+
+                buscarAfiliado.ShowDialog();
+
+                afiliado = buscarAfiliado.getAfiliadoSeleccionado();
+
+                if (!buscarAfiliado.seSeleccionoUnAfiliado())
+                {
+                    Show();
+                    return;
+                }
+            }
+            else
+            {
+                afiliado = (Afiliado)menu.usuarioPosta;
+            }
+
+            ComprarBonosForm comprarBono = new ComprarBonosForm(afiliado);
 
             comprarBono.ShowDialog();
 

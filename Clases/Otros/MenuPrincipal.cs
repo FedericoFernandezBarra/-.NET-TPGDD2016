@@ -19,6 +19,7 @@ namespace ClinicaFrba.Clases.Otros
 
         private const string AFILIADO = "afiliado";
         private const string PROFESIONAL = "profesional";
+        private const string ADMINISTRATIVO = "administrativo";
 
         internal bool usuarioLogueado()
         {
@@ -62,6 +63,11 @@ namespace ClinicaFrba.Clases.Otros
         internal bool userEsProfesional()
         {
             return rol.nombre.ToLower() == PROFESIONAL.ToLower();
+        }
+
+        internal bool userEsAdministrativo()
+        {
+            return rol.nombre.ToLower() == ADMINISTRATIVO.ToLower();
         }
     }
 }

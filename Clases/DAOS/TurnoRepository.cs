@@ -37,7 +37,7 @@ namespace ClinicaFrba.Clases.DAOS
 
         public String reservarTurno(Turno turno) {
             List<SqlParameter> parametros = new List<SqlParameter>();
-            DataBase.Instance.agregarParametro(parametros, "afiliado", turno.id);
+            DataBase.Instance.agregarParametro(parametros, "afiliado", turno.afiliado.usuario.id);
             DataBase.Instance.agregarParametro(parametros, "profesional", turno.profesional);
             DataBase.Instance.agregarParametro(parametros, "especialidad", turno.especialidad);
             DataBase.Instance.agregarParametro(parametros, "fecha_turno", turno.fechaDeTurno);
@@ -92,7 +92,7 @@ namespace ClinicaFrba.Clases.DAOS
 
         internal List<Turno> traerTurnosDeAfiliado(Afiliado afiliado)
         {
-            return (List<Turno>)selectByProperty("afiliado", afiliado.numeroDeAfiliado);
+            return (List<Turno>)selectByProperty("afiliado", afiliado.usuario.id);
         }
 
         internal override Type getModelClassType()

@@ -51,7 +51,7 @@ namespace ClinicaFrba.Clases.DAOS
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
 
-            DataBase.Instance.agregarParametro(parametros, "id_afiliado", afiliado.numeroDeAfiliado);
+            DataBase.Instance.agregarParametro(parametros, "id_afiliado", afiliado.usuario.id);
             DataBase.Instance.agregarParametro(parametros, "fecha_baja", DataBase.Instance.getDate());
 
             executeStored("BEMVINDO.st_baja_afiliado", parametros);
@@ -69,7 +69,7 @@ namespace ClinicaFrba.Clases.DAOS
             DataBase.Instance.agregarParametro(parametros, "nroAfiliado", nroAfiliadoValue);
             DataBase.Instance.agregarParametro(parametros, "nombre", nombreValue);
             DataBase.Instance.agregarParametro(parametros, "apellido", apellidoValue);
-            DataBase.Instance.agregarParametro(parametros, "dni", dni);
+            DataBase.Instance.agregarParametro(parametros, "dni", dniValue);
             DataBase.Instance.agregarParametro(parametros, "planMedico", planValue);
 
             return (List<Afiliado>)executeStored("BEMVINDO.st_buscar_afiliados", parametros);
