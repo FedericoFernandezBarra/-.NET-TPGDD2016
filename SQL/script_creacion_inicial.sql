@@ -1439,7 +1439,11 @@ CREATE procedure BEMVINDO.st_insertar_turno
 
 AS
 begin
-     
+     declare @idAgenda numeric(10,0)
+
+     select @idAgenda =id_agenda from BEMVINDO.AGENDA
+     where profesional=@profesional
+
 
       if EXISTS (SELECT * FROM BEMVINDO.TURNO WHERE
                                                    profesional=@profesional and
@@ -1447,15 +1451,28 @@ begin
                                                    fecha_turno=@fecha_turno and
                                                    activo=1)
       begin
-           select 'Error, este turno esta ocupado, intente con otro'
+           select 'ERROR: el turno ya se encuentra ocupado en el horario seleccionado.' as resultado
+      end
+      else
+      if EXISTS (SELECT * FROM BEMVINDO.CANCELACION_DIA WHERE
+                                                   agenda = @idAgenda and
+                                                   ((CONVERT(date, @fecha_turno) between cancelacion_desde and cancelacion_hasta)))
+
+      begin
+           select 'ERROR: El profesional cancelo sus turnos en el dia seleccionado.' as resultado
       end
       else
       begin
-           insert into BEMVINDO.TURNO(afiliado,profesional,especialidad,fecha_turno,activo)
-            values (@id_afiliado,@profesional,@especialidad,@fecha_turno,1)
+          insert into BEMVINDO.TURNO(afiliado,profesional,especialidad,fecha_turno,activo)
+          values (@id_afiliado,@profesional,@especialidad,@fecha_turno,1)
+
+          DECLARE @idTurno numeric (10,0) = SCOPE_IDENTITY()
+          select Concat('Turno generado exitosamente. ID de turno: ',@idTurno) as resultado
+
       end
 
 end
+
 
 
 
