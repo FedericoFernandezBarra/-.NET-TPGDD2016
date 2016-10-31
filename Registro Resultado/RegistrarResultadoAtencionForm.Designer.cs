@@ -28,245 +28,252 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gpHistoriaClinica = new System.Windows.Forms.GroupBox();
-            this.txtDiagnostico = new System.Windows.Forms.RichTextBox();
-            this.cmdConfirmarSintomas = new System.Windows.Forms.Button();
-            this.txtSintomas = new System.Windows.Forms.RichTextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.gbDatos = new System.Windows.Forms.GroupBox();
-            this.lbl2 = new System.Windows.Forms.Label();
-            this.btnConfEsp = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cmbEspecialidades = new System.Windows.Forms.ComboBox();
-            this.cmbHora = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cmdAceptar = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dtpFechaAtencion = new System.Windows.Forms.DateTimePicker();
-            this.lbl1 = new System.Windows.Forms.Label();
-            this.cmdFinalizar = new System.Windows.Forms.Button();
-            this.gpHistoriaClinica.SuspendLayout();
-            this.gbDatos.SuspendLayout();
+            this.components = new System.ComponentModel.Container();
+            this.lblProfesional = new System.Windows.Forms.Label();
+            this.rtxtSintomas = new System.Windows.Forms.RichTextBox();
+            this.rtxtDiagnostico = new System.Windows.Forms.RichTextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dtpFechaTurno = new System.Windows.Forms.DateTimePicker();
+            this.dtpHoraDiagnostico = new System.Windows.Forms.DateTimePicker();
+            this.cmbPacientes = new System.Windows.Forms.ComboBox();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.dtpFechaDiagnostico = new System.Windows.Forms.DateTimePicker();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.lblAfiliado = new System.Windows.Forms.Label();
+            this.btnConfirmar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
-            // gpHistoriaClinica
+            // lblProfesional
             // 
-            this.gpHistoriaClinica.Controls.Add(this.txtDiagnostico);
-            this.gpHistoriaClinica.Controls.Add(this.cmdConfirmarSintomas);
-            this.gpHistoriaClinica.Controls.Add(this.txtSintomas);
-            this.gpHistoriaClinica.Controls.Add(this.label5);
-            this.gpHistoriaClinica.Controls.Add(this.label4);
-            this.gpHistoriaClinica.Location = new System.Drawing.Point(19, 201);
-            this.gpHistoriaClinica.Name = "gpHistoriaClinica";
-            this.gpHistoriaClinica.Size = new System.Drawing.Size(543, 168);
-            this.gpHistoriaClinica.TabIndex = 9;
-            this.gpHistoriaClinica.TabStop = false;
-            this.gpHistoriaClinica.Text = "Resultado";
-            this.gpHistoriaClinica.Visible = false;
+            this.lblProfesional.AutoSize = true;
+            this.lblProfesional.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProfesional.Location = new System.Drawing.Point(12, 9);
+            this.lblProfesional.Name = "lblProfesional";
+            this.lblProfesional.Size = new System.Drawing.Size(121, 16);
+            this.lblProfesional.TabIndex = 11;
+            this.lblProfesional.Text = "PROFESIONAL: ";
             // 
-            // txtDiagnostico
+            // rtxtSintomas
             // 
-            this.txtDiagnostico.Location = new System.Drawing.Point(259, 35);
-            this.txtDiagnostico.Name = "txtDiagnostico";
-            this.txtDiagnostico.Size = new System.Drawing.Size(213, 96);
-            this.txtDiagnostico.TabIndex = 12;
-            this.txtDiagnostico.Text = "";
+            this.rtxtSintomas.Enabled = false;
+            this.rtxtSintomas.Location = new System.Drawing.Point(6, 19);
+            this.rtxtSintomas.MaxLength = 255;
+            this.rtxtSintomas.Name = "rtxtSintomas";
+            this.rtxtSintomas.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.rtxtSintomas.Size = new System.Drawing.Size(276, 238);
+            this.rtxtSintomas.TabIndex = 14;
+            this.rtxtSintomas.Text = "";
+            this.rtxtSintomas.TextChanged += new System.EventHandler(this.rtxtSintomas_TextChanged);
             // 
-            // cmdConfirmarSintomas
+            // rtxtDiagnostico
             // 
-            this.cmdConfirmarSintomas.Location = new System.Drawing.Point(221, 137);
-            this.cmdConfirmarSintomas.Name = "cmdConfirmarSintomas";
-            this.cmdConfirmarSintomas.Size = new System.Drawing.Size(75, 23);
-            this.cmdConfirmarSintomas.TabIndex = 7;
-            this.cmdConfirmarSintomas.Text = "Confirmar";
-            this.cmdConfirmarSintomas.UseVisualStyleBackColor = true;
+            this.rtxtDiagnostico.Enabled = false;
+            this.rtxtDiagnostico.Location = new System.Drawing.Point(7, 17);
+            this.rtxtDiagnostico.MaxLength = 255;
+            this.rtxtDiagnostico.Name = "rtxtDiagnostico";
+            this.rtxtDiagnostico.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.rtxtDiagnostico.Size = new System.Drawing.Size(375, 118);
+            this.rtxtDiagnostico.TabIndex = 15;
+            this.rtxtDiagnostico.Text = "";
+            this.rtxtDiagnostico.TextChanged += new System.EventHandler(this.rtxtDiagnostico_TextChanged);
             // 
-            // txtSintomas
+            // groupBox1
             // 
-            this.txtSintomas.Location = new System.Drawing.Point(9, 35);
-            this.txtSintomas.Name = "txtSintomas";
-            this.txtSintomas.Size = new System.Drawing.Size(213, 96);
-            this.txtSintomas.TabIndex = 11;
-            this.txtSintomas.Text = "";
+            this.groupBox1.Controls.Add(this.rtxtDiagnostico);
+            this.groupBox1.Location = new System.Drawing.Point(333, 210);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(388, 148);
+            this.groupBox1.TabIndex = 16;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Diagnóstico";
             // 
-            // label5
+            // groupBox2
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(256, 18);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(66, 13);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "Diagnóstico:";
+            this.groupBox2.Controls.Add(this.rtxtSintomas);
+            this.groupBox2.Location = new System.Drawing.Point(15, 210);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(288, 270);
+            this.groupBox2.TabIndex = 17;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Síntomas";
             // 
-            // label4
+            // dtpFechaTurno
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 18);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 13);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Sintomas:";
+            this.dtpFechaTurno.Location = new System.Drawing.Point(31, 19);
+            this.dtpFechaTurno.Name = "dtpFechaTurno";
+            this.dtpFechaTurno.Size = new System.Drawing.Size(200, 20);
+            this.dtpFechaTurno.TabIndex = 18;
+            this.dtpFechaTurno.ValueChanged += new System.EventHandler(this.dtpFechaTurno_ValueChanged);
             // 
-            // gbDatos
+            // dtpHoraDiagnostico
             // 
-            this.gbDatos.Controls.Add(this.lbl2);
-            this.gbDatos.Controls.Add(this.btnConfEsp);
-            this.gbDatos.Controls.Add(this.label3);
-            this.gbDatos.Controls.Add(this.cmbEspecialidades);
-            this.gbDatos.Controls.Add(this.cmbHora);
-            this.gbDatos.Controls.Add(this.label2);
-            this.gbDatos.Controls.Add(this.cmdAceptar);
-            this.gbDatos.Controls.Add(this.label1);
-            this.gbDatos.Controls.Add(this.dtpFechaAtencion);
-            this.gbDatos.Location = new System.Drawing.Point(10, 11);
-            this.gbDatos.Name = "gbDatos";
-            this.gbDatos.Size = new System.Drawing.Size(552, 184);
-            this.gbDatos.TabIndex = 8;
-            this.gbDatos.TabStop = false;
-            this.gbDatos.Text = "Datos Atención";
+            this.dtpHoraDiagnostico.CustomFormat = "HH:mm";
+            this.dtpHoraDiagnostico.Enabled = false;
+            this.dtpHoraDiagnostico.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpHoraDiagnostico.Location = new System.Drawing.Point(17, 20);
+            this.dtpHoraDiagnostico.Name = "dtpHoraDiagnostico";
+            this.dtpHoraDiagnostico.Size = new System.Drawing.Size(96, 20);
+            this.dtpHoraDiagnostico.TabIndex = 19;
+            this.dtpHoraDiagnostico.ValueChanged += new System.EventHandler(this.dtpHoraDiagnostico_ValueChanged);
             // 
-            // lbl2
+            // cmbPacientes
             // 
-            this.lbl2.AutoSize = true;
-            this.lbl2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl2.Location = new System.Drawing.Point(6, 16);
-            this.lbl2.Name = "lbl2";
-            this.lbl2.Size = new System.Drawing.Size(44, 13);
-            this.lbl2.TabIndex = 60;
-            this.lbl2.Text = "Afiliado:";
+            this.cmbPacientes.Enabled = false;
+            this.cmbPacientes.FormattingEnabled = true;
+            this.cmbPacientes.Location = new System.Drawing.Point(6, 19);
+            this.cmbPacientes.Name = "cmbPacientes";
+            this.cmbPacientes.Size = new System.Drawing.Size(376, 21);
+            this.cmbPacientes.TabIndex = 21;
+            this.cmbPacientes.SelectedIndexChanged += new System.EventHandler(this.cmbPacientes_SelectedIndexChanged);
             // 
-            // btnConfEsp
+            // notifyIcon1
             // 
-            this.btnConfEsp.Location = new System.Drawing.Point(230, 74);
-            this.btnConfEsp.Name = "btnConfEsp";
-            this.btnConfEsp.Size = new System.Drawing.Size(75, 23);
-            this.btnConfEsp.TabIndex = 59;
-            this.btnConfEsp.Text = "Confirmar";
-            this.btnConfEsp.UseVisualStyleBackColor = true;
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
             // 
-            // label3
+            // groupBox3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(204, 31);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(141, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Especialidad de la Atención:";
+            this.groupBox3.Controls.Add(this.cmbPacientes);
+            this.groupBox3.Location = new System.Drawing.Point(333, 43);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(388, 50);
+            this.groupBox3.TabIndex = 22;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Paciente";
             // 
-            // cmbEspecialidades
+            // groupBox4
             // 
-            this.cmbEspecialidades.FormattingEnabled = true;
-            this.cmbEspecialidades.Location = new System.Drawing.Point(207, 47);
-            this.cmbEspecialidades.Name = "cmbEspecialidades";
-            this.cmbEspecialidades.Size = new System.Drawing.Size(121, 21);
-            this.cmbEspecialidades.TabIndex = 9;
+            this.groupBox4.Controls.Add(this.dtpFechaTurno);
+            this.groupBox4.Location = new System.Drawing.Point(15, 43);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(282, 50);
+            this.groupBox4.TabIndex = 23;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Fecha del Turno";
             // 
-            // cmbHora
+            // groupBox5
             // 
-            this.cmbHora.FormattingEnabled = true;
-            this.cmbHora.Location = new System.Drawing.Point(300, 120);
-            this.cmbHora.Name = "cmbHora";
-            this.cmbHora.Size = new System.Drawing.Size(121, 21);
-            this.cmbHora.TabIndex = 8;
-            this.cmbHora.Visible = false;
+            this.groupBox5.Controls.Add(this.dtpFechaDiagnostico);
+            this.groupBox5.Location = new System.Drawing.Point(15, 140);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(282, 50);
+            this.groupBox5.TabIndex = 24;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Fecha del Diagnóstico";
             // 
-            // label2
+            // dtpFechaDiagnostico
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(297, 104);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(104, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Hora de la Atención:";
-            this.label2.Visible = false;
+            this.dtpFechaDiagnostico.Enabled = false;
+            this.dtpFechaDiagnostico.Location = new System.Drawing.Point(31, 19);
+            this.dtpFechaDiagnostico.Name = "dtpFechaDiagnostico";
+            this.dtpFechaDiagnostico.Size = new System.Drawing.Size(200, 20);
+            this.dtpFechaDiagnostico.TabIndex = 18;
             // 
-            // cmdAceptar
+            // groupBox6
             // 
-            this.cmdAceptar.Location = new System.Drawing.Point(237, 147);
-            this.cmdAceptar.Name = "cmdAceptar";
-            this.cmdAceptar.Size = new System.Drawing.Size(75, 23);
-            this.cmdAceptar.TabIndex = 5;
-            this.cmdAceptar.Text = "Confirmar";
-            this.cmdAceptar.UseVisualStyleBackColor = true;
-            this.cmdAceptar.Visible = false;
+            this.groupBox6.Controls.Add(this.dtpHoraDiagnostico);
+            this.groupBox6.Location = new System.Drawing.Point(340, 140);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(145, 50);
+            this.groupBox6.TabIndex = 25;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Hora del Diagnóstico";
             // 
-            // label1
+            // lblAfiliado
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(85, 104);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Fecha de la Atención:";
-            this.label1.Visible = false;
+            this.lblAfiliado.AutoSize = true;
+            this.lblAfiliado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAfiliado.Location = new System.Drawing.Point(12, 107);
+            this.lblAfiliado.Name = "lblAfiliado";
+            this.lblAfiliado.Size = new System.Drawing.Size(91, 16);
+            this.lblAfiliado.TabIndex = 26;
+            this.lblAfiliado.Text = "PACIENTE: ";
             // 
-            // dtpFechaAtencion
+            // btnConfirmar
             // 
-            this.dtpFechaAtencion.Location = new System.Drawing.Point(64, 121);
-            this.dtpFechaAtencion.Name = "dtpFechaAtencion";
-            this.dtpFechaAtencion.Size = new System.Drawing.Size(200, 20);
-            this.dtpFechaAtencion.TabIndex = 5;
-            this.dtpFechaAtencion.Visible = false;
+            this.btnConfirmar.Enabled = false;
+            this.btnConfirmar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirmar.Location = new System.Drawing.Point(474, 387);
+            this.btnConfirmar.Name = "btnConfirmar";
+            this.btnConfirmar.Size = new System.Drawing.Size(114, 61);
+            this.btnConfirmar.TabIndex = 27;
+            this.btnConfirmar.Text = "CONFIRMAR";
+            this.btnConfirmar.UseVisualStyleBackColor = true;
+            this.btnConfirmar.Click += new System.EventHandler(this.btnConfirmar_Click);
             // 
-            // lbl1
+            // btnCancelar
             // 
-            this.lbl1.AutoSize = true;
-            this.lbl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl1.Location = new System.Drawing.Point(26, 428);
-            this.lbl1.Name = "lbl1";
-            this.lbl1.Size = new System.Drawing.Size(62, 13);
-            this.lbl1.TabIndex = 59;
-            this.lbl1.Text = "Profesional:";
-            // 
-            // cmdFinalizar
-            // 
-            this.cmdFinalizar.Location = new System.Drawing.Point(240, 387);
-            this.cmdFinalizar.Name = "cmdFinalizar";
-            this.cmdFinalizar.Size = new System.Drawing.Size(75, 23);
-            this.cmdFinalizar.TabIndex = 60;
-            this.cmdFinalizar.Text = "Finalizar";
-            this.cmdFinalizar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Location = new System.Drawing.Point(333, 460);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(99, 30);
+            this.btnCancelar.TabIndex = 28;
+            this.btnCancelar.Text = "CANCELAR";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // RegistrarResultadoAtencionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(578, 458);
-            this.Controls.Add(this.lbl1);
-            this.Controls.Add(this.cmdFinalizar);
-            this.Controls.Add(this.gpHistoriaClinica);
-            this.Controls.Add(this.gbDatos);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ClientSize = new System.Drawing.Size(731, 502);
+            this.Controls.Add(this.btnCancelar);
+            this.Controls.Add(this.btnConfirmar);
+            this.Controls.Add(this.lblAfiliado);
+            this.Controls.Add(this.groupBox6);
+            this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.lblProfesional);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximizeBox = false;
             this.Name = "RegistrarResultadoAtencionForm";
-            this.Text = "Form1";
-            this.gpHistoriaClinica.ResumeLayout(false);
-            this.gpHistoriaClinica.PerformLayout();
-            this.gbDatos.ResumeLayout(false);
-            this.gbDatos.PerformLayout();
+            this.Text = "Diagnóstico Médico";
+            this.Load += new System.EventHandler(this.RegistrarResultadoAtencionForm_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.GroupBox gpHistoriaClinica;
-        private System.Windows.Forms.RichTextBox txtDiagnostico;
-        private System.Windows.Forms.Button cmdConfirmarSintomas;
-        private System.Windows.Forms.RichTextBox txtSintomas;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.GroupBox gbDatos;
-        private System.Windows.Forms.Label lbl2;
-        private System.Windows.Forms.Button btnConfEsp;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox cmbEspecialidades;
-        private System.Windows.Forms.ComboBox cmbHora;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button cmdAceptar;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DateTimePicker dtpFechaAtencion;
-        private System.Windows.Forms.Label lbl1;
-        private System.Windows.Forms.Button cmdFinalizar;
+
+        private System.Windows.Forms.Label lblProfesional;
+        private System.Windows.Forms.RichTextBox rtxtSintomas;
+        private System.Windows.Forms.RichTextBox rtxtDiagnostico;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.DateTimePicker dtpFechaTurno;
+        private System.Windows.Forms.DateTimePicker dtpHoraDiagnostico;
+        private System.Windows.Forms.ComboBox cmbPacientes;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.DateTimePicker dtpFechaDiagnostico;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Label lblAfiliado;
+        private System.Windows.Forms.Button btnConfirmar;
+        private System.Windows.Forms.Button btnCancelar;
+
     }
 }

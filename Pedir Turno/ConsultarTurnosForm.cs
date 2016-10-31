@@ -87,10 +87,14 @@ namespace ClinicaFrba.Pedir_Turno
                 UsuarioRepository usuarioRepository = new UsuarioRepository();
                 AgendaRepository agendaRepository = new AgendaRepository();
                 Usuario profesionalSeleccionado = usuarioRepository.traerUsuarioPorId(buscarProfesionalForm.getProfesionalSeleccionado().usuario.id);
-                try
-                {
-                    agendaDelProfesional = agendaRepository.traerAgendaDelProfesional(profesionalSeleccionado);
 
+                agendaDelProfesional = agendaRepository.traerAgendaDelProfesional(profesionalSeleccionado);
+                if (agendaDelProfesional == null)
+                {
+                    MessageBox.Show("ERROR: El profesional seleccionado no dispone de una agenda.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
                     turno.profesional = buscarProfesionalForm.getProfesionalSeleccionado();
                     turno.especialidad = buscarProfesionalForm.getEspecialidadSeleccionada();
 
@@ -98,11 +102,7 @@ namespace ClinicaFrba.Pedir_Turno
                         + " - " + turno.especialidad.descripcion;
 
                     btnConsultarDisponibilidad.Enabled = true;
-                }
-                catch
-                {
-                    MessageBox.Show("ERROR: El profesional seleccionado no dispone de una agenda.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }        
+                }                    
             }
         }
 

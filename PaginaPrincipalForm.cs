@@ -270,7 +270,7 @@ namespace ClinicaFrba
 
         private void tsmRegistroDeResultados_Click(object sender, EventArgs e)
         {
-            RegistrarResultadoAtencionForm registrarResultado = new RegistrarResultadoAtencionForm();
+            RegistrarResultadoAtencionForm registrarResultado = new RegistrarResultadoAtencionForm(menu.usuario);
 
             Hide();
 
