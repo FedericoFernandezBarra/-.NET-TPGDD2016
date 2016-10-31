@@ -93,6 +93,12 @@
     <Compile Include="Abm Especialidades Medicas\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Grupo Afiliado Viejo\GrupoAfiliadoViejo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Grupo Afiliado Viejo\GrupoAfiliadoViejo.Designer.cs">
+      <DependentUpon>GrupoAfiliadoViejo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Planes\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +141,7 @@
     <Compile Include="Clases\DAOS\EspecialidadRepository.cs" />
     <Compile Include="Clases\DAOS\EstadoCivilRepository.cs" />
     <Compile Include="Clases\DAOS\FuncionalidadRepository.cs" />
+    <Compile Include="Clases\DAOS\GrupoAfiliadoViejoRepository.cs" />
     <Compile Include="Clases\DAOS\HistorialCambiosDePlanRepository.cs" />
     <Compile Include="Clases\DAOS\PlanMedicoRepository.cs" />
     <Compile Include="Clases\DAOS\ProfesionalRepository.cs" />
@@ -278,6 +285,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Afiliado\MostrarAfiliadosCreadosForm.resx">
       <DependentUpon>MostrarAfiliadosCreadosForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Grupo Afiliado Viejo\GrupoAfiliadoViejo.resx">
+      <DependentUpon>GrupoAfiliadoViejo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Profesional\BuscarProfesionalForm.resx">
       <DependentUpon>BuscarProfesionalForm.cs</DependentUpon>

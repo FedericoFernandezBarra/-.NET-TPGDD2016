@@ -69,7 +69,6 @@ D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.L
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Logueo.LoginForm.resources
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Pedir_Turno.PedirTurnoForm.resources
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Properties.Resources.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registrar_Agenta_Medico.ConsultarTurnosForm.resources
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registrar_Agenta_Medico.RegistrarAgendaForm.resources
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registro_Llegada.RegistrarLlegadaForm.resources
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registro_Resultado.RegistrarResultadoAtencionForm.resources
@@ -108,3 +107,7 @@ C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.pdb
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.csprojResolveAssemblyReference.cache
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Pedir_Turno.ConsultarTurnosForm.resources
 C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.ConsultarHistorialCambiosForm.resources
+D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.ConsultarHistorialCambiosForm.resources
+D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Grupo_Afiliado_Viejo.GrupoAfiliadoViejo.resources
+D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Logueo.SeleccionDeRolForm.resources
+D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Pedir_Turno.ConsultarTurnosForm.resources
