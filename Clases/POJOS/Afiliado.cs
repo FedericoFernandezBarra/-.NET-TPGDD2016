@@ -37,6 +37,7 @@ namespace ClinicaFrba.Clases.POJOS
         public Afiliado()
         {
             usuario = new Usuario();
+            hijos = new List<Afiliado>();
             cantidadDeHijos = 0;
             numeroFamiliar = 1;
         }

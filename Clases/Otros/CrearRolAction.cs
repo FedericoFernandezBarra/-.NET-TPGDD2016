@@ -10,10 +10,29 @@ namespace ClinicaFrba.Clases.Otros
 {
     public class CrearRolAction : EditorDeRolAction
     {
-        public void execute(Rol rol)
+        public override bool cumpleValidaciones()
         {
+            if (yaExisteRolConMismoNombre())
+            {
+                mensajeDeError = "El nombre del rol ya existe";
+                return false;
+            }
+            return true;
+        }
+
+        public override void execute(Rol rol)
+        {
+            base.execute(rol);
+
             RolRepository repoRol = new RolRepository();
             repoRol.insertarRol(rol);
+        }
+
+        private bool yaExisteRolConMismoNombre()
+        {
+            RolRepository repoRol = new RolRepository();
+
+            return repoRol.traerRolPorNombre(rol.nombre) != null;
         }
     }
 }

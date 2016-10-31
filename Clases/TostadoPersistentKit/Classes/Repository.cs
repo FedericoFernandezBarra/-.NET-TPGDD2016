@@ -61,7 +61,6 @@ namespace TostadoPersistentKit
                         Serializable serializableProperty = (Serializable)dataValue;
                         dataValue = serializableProperty.getPkValue();
                     }
-
                 }
 
                 DataBase.Instance.agregarParametro(parameters, parameterName, dataValue);
@@ -442,7 +441,7 @@ namespace TostadoPersistentKit
                             expectedFk + ")";
                 }
 
-                DataBase.Instance.ejecutarConsulta(query);
+                DataBase.Instance.ejecutarConsulta(query,sqlParameters);
             }
         }
 

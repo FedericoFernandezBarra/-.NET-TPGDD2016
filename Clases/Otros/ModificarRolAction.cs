@@ -10,8 +10,15 @@ namespace ClinicaFrba.Clases.Otros
 {
     public class ModificarRolAction : EditorDeRolAction
     {
-        public void execute(Rol rol)
+        public override bool cumpleValidaciones()
         {
+            return true;
+        }
+
+        public override void execute(Rol rol)
+        {
+            base.execute(rol);
+
             RolRepository repoRol = new RolRepository();
             repoRol.modificarRol(rol);
         }

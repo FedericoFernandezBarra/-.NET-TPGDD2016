@@ -31,7 +31,7 @@ namespace ClinicaFrba.Abm_Afiliado
         private void initForm()
         {
             txtNick.DataBindings.Add("Text", bajaAfiliado.afiliado.usuario, "nick");
-            txtNroAfliado.DataBindings.Add("Text", bajaAfiliado.afiliado, "id");
+            txtNroAfliado.DataBindings.Add("Text", bajaAfiliado.afiliado, "numeroDeAfiliado");
             txtPass.DataBindings.Add("Text", bajaAfiliado.afiliado.usuario, "pass");
         }
 

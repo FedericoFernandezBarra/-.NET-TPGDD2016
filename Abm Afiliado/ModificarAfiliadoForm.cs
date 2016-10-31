@@ -24,7 +24,9 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void cmbPlanes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtMotivo.Enabled = ((PlanMedico)cmbPlanes.SelectedItem).id != modificarAfiliado.planMedicoActual.id;
+            bool hayCambioDePlan= ((PlanMedico)cmbPlanes.SelectedItem).id != modificarAfiliado.planMedicoActual.id;
+            txtMotivo.Visible = hayCambioDePlan;
+            lblMotivo.Visible = hayCambioDePlan;
         }
 
         private void initForm()

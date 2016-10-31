@@ -1,6 +1,8 @@
 ﻿using ClinicaFrba.Clases.POJOS;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using TostadoPersistentKit;
 
 namespace ClinicaFrba.Clases.DAOS
@@ -22,6 +24,16 @@ namespace ClinicaFrba.Clases.DAOS
         internal void modificarRol(Rol rol)
         {
             update(rol);
+        }
+
+        internal void borrarFuncionalidades(Rol rol)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            DataBase.Instance.agregarParametro(parametros, "@id", rol.id);
+
+            string query = "delete from " + rol.getOneToManyTable("funcionalidades") + " where " + rol.getOneToManyPk("funcionalidades") + "=@id";
+
+            DataBase.Instance.ejecutarConsulta(query, parametros);
         }
 
         internal List<Rol> traerRoles()

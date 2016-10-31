@@ -24,6 +24,7 @@ namespace ClinicaFrba.Clases.DAOS
             nroRaiz = nroRaiz < 0 ? 0 : nroRaiz;
 
             DataBase.Instance.agregarParametro(parametros, "nro_raiz",nroRaiz );
+            DataBase.Instance.agregarParametro(parametros, "nro_grupo_familiar", afiliado.numeroFamiliar);
 
             autoMapping = false;
 
@@ -63,7 +64,7 @@ namespace ClinicaFrba.Clases.DAOS
             object nombreValue = nombre == "" ? null : nombre;
             object apellidoValue = apellido == "" ? null : apellido;
             object dniValue = dni == "" ? null : dni;
-            object planValue = planMedico.descripcion == "" ? null : (object)planMedico.id;
+            object planValue = planMedico.id==0 ? null : (object)planMedico.id;
 
             List<SqlParameter> parametros = new List<SqlParameter>();
             DataBase.Instance.agregarParametro(parametros, "nroAfiliado", nroAfiliadoValue);
@@ -79,7 +80,7 @@ namespace ClinicaFrba.Clases.DAOS
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
             DataBase.Instance.agregarParametro(parametros, "motivo", motivo);
-            DataBase.Instance.agregarParametro(parametros, "fecha", DataBase.Instance.getDate());
+            DataBase.Instance.agregarParametro(parametros, "fecha_sistema", DataBase.Instance.getDate());
 
             executeStored("BEMVINDO.st_actualizar_afiliado", afiliado, parametros);
         }

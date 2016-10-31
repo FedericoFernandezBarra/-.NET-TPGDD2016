@@ -31,7 +31,14 @@ namespace ClinicaFrba.AbmRol
 
         private void initForm()
         {
-            editorDeRoles.funcionalidadesSistema.ForEach(funcionalidad => cbxFuncionalidades.Items.Add(funcionalidad.nombre));
+            foreach (Funcionalidad item in editorDeRoles.funcionalidadesSistema)
+            {
+                bool isChecked = editorDeRoles.rol.funcionalidades.Exists(f => f.nombre == item.nombre);
+                cbxFuncionalidades.Items.Add(item, isChecked);
+            }
+
+            cbxFuncionalidades.DisplayMember = "nombre";
+            //cmbEstadoCivil.DataSource = altaAfiliado.estadosCivilesSistema;
 
             txtNombre.DataBindings.Add("Text", editorDeRoles.rol, "nombre");
             cbxHabilitado.DataBindings.Add("Checked", editorDeRoles.rol, "habilitado");
@@ -61,11 +68,9 @@ namespace ClinicaFrba.AbmRol
         {
             editorDeRoles.rol.funcionalidades.Clear();
 
-            foreach (string item in cbxFuncionalidades.SelectedItems)
+            foreach (Funcionalidad item in cbxFuncionalidades.CheckedItems)
             {
-                Funcionalidad func = editorDeRoles.
-                        funcionalidadesSistema.Find(f => f.nombre == item);
-                editorDeRoles.rol.funcionalidades.Add(func);
+                editorDeRoles.rol.funcionalidades.Add(item);
             }
         }
     }

@@ -46,25 +46,21 @@ namespace ClinicaFrba.Clases.Otros
                 mensajeDeError = "El rol debe tener un nombre";
                 return false;
             }
-            if (yaExisteRolConMismoNombre())
-            {
-                mensajeDeError = "El nombre del rol ya existe";
-                return false;
-            }
             if (rol.funcionalidades.Count==0)
             {
                 mensajeDeError = "Un rol debe tener al menos 1 funcionalidad";
                 return false;
             }
 
+            accion.rol = rol;
+
+            if (!accion.cumpleValidaciones())
+            {
+                mensajeDeError = accion.mensajeDeError;
+                return false;
+            }
+
             return true;
-        }
-
-        private bool yaExisteRolConMismoNombre()
-        {
-            RolRepository repoRol = new RolRepository();
-
-            return repoRol.traerRolPorNombre(rol.nombre) != null;
         }
     }
 }

@@ -63,7 +63,7 @@ namespace ClinicaFrba.Clases.Otros
                 mensajeDeError = "Debe especificar un comprador";
                 return false;
             }
-            if (!compra.comprador.usuario.activo)
+            if (compra.comprador.bajaLogica)
             {
                 mensajeDeError = "No puede comprar un afiliado bloqueado";
                 return false;

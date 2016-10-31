@@ -1,10 +1,6 @@
 ﻿using ClinicaFrba.Clases.DAOS;
 using ClinicaFrba.Clases.POJOS;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TostadoPersistentKit;
 
 namespace ClinicaFrba.Clases.Otros
@@ -52,7 +48,7 @@ namespace ClinicaFrba.Clases.Otros
                 mensajeDeError = "La fecha de nacimiento no puede ser mayor o igual a la fecha actual";
                 return false;
             }
-            if (datosIncompletos())
+            if (datosIncompletos()||hayCamposNoSeleccionados())
             {
                 mensajeDeError = "Deben completarse todos los campos marcados con *";
                 return false;
@@ -62,7 +58,13 @@ namespace ClinicaFrba.Clases.Otros
                 mensajeDeError = "La cantidad de hijos no puede ser negativa";
                 return false;
             }
+
             return true;
+        }
+
+        private bool hayCamposNoSeleccionados()
+        {
+            return nuevoAfiliado.estadoCivil == null || nuevoAfiliado.planMedico == null || nuevoAfiliado.usuario.tipoDeDocumento == null;
         }
 
         private bool datosIncompletos()
@@ -147,9 +149,14 @@ namespace ClinicaFrba.Clases.Otros
 
         internal bool afiliadoTieneConyuge()
         {
+            if (nuevoAfiliado.estadoCivil==null)
+            {
+                return false;
+            }
+
             string descripcionEstadoCivil = nuevoAfiliado.estadoCivil.descripcion.ToLower();
 
-            return descripcionEstadoCivil == "casado" || descripcionEstadoCivil == "concubinato";
+            return descripcionEstadoCivil == "casado/a" || descripcionEstadoCivil == "concubinato";
         }
 
         private int mayorNumeroFamiliar()

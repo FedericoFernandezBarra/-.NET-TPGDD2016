@@ -88,6 +88,9 @@ namespace ClinicaFrba.Abm_Afiliado
                 MessageBox.Show(altaAfiliado.mensajeDeError);
                 return;
             }
+
+            altaExitosa = true;
+
             if (!altaFamiliar())
             {
                 if (!altaAfiliado.guardarAfiliado())
@@ -97,13 +100,11 @@ namespace ClinicaFrba.Abm_Afiliado
                 }
                 
                 MessageBox.Show("Afiliado creado exitosamente");
+
+                Hide();
+
+                (new MostrarAfiliadosCreadosForm(altaAfiliado.nuevoAfiliado)).ShowDialog();
             }
-
-            altaExitosa = true;
-
-            Hide();
-
-            (new MostrarAfiliadosCreadosForm(altaAfiliado.nuevoAfiliado)).ShowDialog();
 
             Close();
         }
@@ -133,10 +134,9 @@ namespace ClinicaFrba.Abm_Afiliado
         {
             if (cmbEstadoCivil.SelectedItem!=null)
             {
-                if (altaAfiliado.afiliadoTieneConyuge())
-                {
-                    btnConyuge.Enabled = true;
-                }
+                altaAfiliado.nuevoAfiliado.estadoCivil = (EstadoCivil)cmbEstadoCivil.SelectedItem;
+
+                btnConyuge.Enabled = altaAfiliado.afiliadoTieneConyuge();
             }
         }
 
@@ -176,7 +176,8 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void txtHijos_TextChanged(object sender, EventArgs e)
         {
-            btnHijo.Enabled = Convert.ToInt64(txtHijos.Text) > 0;
+            long cantHijos = txtHijos.Text == "" ? 0 : Convert.ToInt64(txtHijos.Text);
+            btnHijo.Enabled = cantHijos > 0;
         }
 
         private void btnHijo_Click(object sender, EventArgs e)
