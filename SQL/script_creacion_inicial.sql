@@ -1200,14 +1200,14 @@ end
 go
 
 create procedure BEMVINDO.st_baja_afiliado
-@nroAfiliado numeric(10,0),
+@id_afiliado numeric(10,0),
 @fecha_baja date
 
 AS
 begin
 
      update BEMVINDO.AFILIADO SET baja_logica = 1, fecha_baja=@fecha_baja 
-     where numero_afiliado = @nroAfiliado
+     where numero_afiliado = @id_afiliado
 
 end
 
