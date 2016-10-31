@@ -11,13 +11,10 @@ namespace ClinicaFrba.Clases.POJOS
         [Column(name = "descripcion")]
         public string descripcion { get; set; }
 
-        [Column(name = "precio_bono_consulta")]
+        [Column(name = "precio_bono")]
         public double precioDeBonoConsulta { get; set; }
 
-        [Column(name = "precio_bono_farmacia")]
-        public double precioDeBonoFarmacia { get; set; }
-
-        [Column(name = "activo")]
-        public bool activo { get; set; }
+        //[Column(name = "activo")]
+        //public bool activo { get; set; }
     }
 }

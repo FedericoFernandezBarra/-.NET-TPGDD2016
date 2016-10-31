@@ -138,6 +138,7 @@
     <Compile Include="Clases\DAOS\AfiliadoRepository.cs" />
     <Compile Include="Clases\DAOS\AgendaRepository.cs" />
     <Compile Include="Clases\DAOS\BonoRepository.cs" />
+    <Compile Include="Clases\DAOS\CompraRepository.cs" />
     <Compile Include="Clases\DAOS\EspecialidadRepository.cs" />
     <Compile Include="Clases\DAOS\EstadoCivilRepository.cs" />
     <Compile Include="Clases\DAOS\FuncionalidadRepository.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Clases\Otros\BajaAfiliado.cs" />
     <Compile Include="Clases\Otros\BuscarAfiliado.cs" />
     <Compile Include="Clases\Otros\BuscarProfesional.cs" />
+    <Compile Include="Clases\Otros\ComprarBonos.cs" />
     <Compile Include="Clases\Otros\ConsultarHistorialCambios.cs" />
     <Compile Include="Clases\Otros\CrearRolAction.cs" />
     <Compile Include="Clases\Otros\EditorDeRol.cs" />
@@ -168,6 +170,7 @@
     <Compile Include="Clases\Otros\CancelarTurno.cs" />
     <Compile Include="Clases\Otros\Login.cs" />
     <Compile Include="Clases\POJOS\Agenda.cs" />
+    <Compile Include="Clases\POJOS\Compra.cs" />
     <Compile Include="Clases\POJOS\DiaAgenda.cs" />
     <Compile Include="Clases\POJOS\Bono.cs" />
     <Compile Include="Clases\POJOS\Especialidad.cs" />

@@ -230,7 +230,11 @@ namespace TostadoPersistentKit
 
                             object dataValue = dictionaryAux[dataName];
                             dictionaryAux.Remove(dataName);
-                            dictionaryAux.Add(keyToRemove, dataValue);
+
+                            if (!dictionaryAux.ContainsKey(keyToRemove))//parchado porque rompio en un test diciendo que ya se habia insertado la clave
+                            {
+                                dictionaryAux.Add(keyToRemove, dataValue);
+                            }
 
                             objeto.GetType().GetProperty(propertyName).SetValue(objeto, unSerialize(dictionaryAux, propertyType));
                         }
