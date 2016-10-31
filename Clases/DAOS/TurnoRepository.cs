@@ -69,6 +69,15 @@ namespace ClinicaFrba.Clases.DAOS
 
         }
 
+        internal List<Turno> traerTurnosDeProfesional(Profesional profesional, DateTime fecha)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            DataBase.Instance.agregarParametro(parametros, "@profesional", profesional.usuario.id);
+            DataBase.Instance.agregarParametro(parametros, "@fecha_sistema", fecha);
+
+            return (List<Turno>)executeStored("BEMVINDO.st_obtener_turnos", parametros);
+        }
+
         internal void registrarLlegada(Turno turno, Bono bono, DateTime fecha)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();

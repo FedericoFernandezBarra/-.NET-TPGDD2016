@@ -1510,7 +1510,7 @@ go
 
 create procedure BEMVINDO.st_obtener_turnos
 @profesional numeric(10,0),
-@especialidad   numeric(10,0),
+@especialidad   numeric(10,0)=null,
 @fecha_sistema datetime
 
 AS
@@ -1518,7 +1518,7 @@ begin
 
      select * from BEMVINDO.TURNO
      where profesional =@profesional and CONVERT(date, fecha_turno)= CONVERT(date, @fecha_sistema)
-      and especialidad=@especialidad
+      and (especialidad=@especialidad or @especialidad is null)
 
 
 end

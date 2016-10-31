@@ -146,6 +146,7 @@
     <Compile Include="Clases\DAOS\HistorialCambiosDePlanRepository.cs" />
     <Compile Include="Clases\DAOS\PlanMedicoRepository.cs" />
     <Compile Include="Clases\DAOS\ProfesionalRepository.cs" />
+    <Compile Include="Clases\DAOS\ResultadoAtencionMedicaRepository.cs" />
     <Compile Include="Clases\DAOS\RolRepository.cs" />
     <Compile Include="Clases\DAOS\TipoDocumentoRepository.cs" />
     <Compile Include="Clases\DAOS\TurnoRepository.cs" />
@@ -179,6 +180,7 @@
     <Compile Include="Clases\POJOS\HistorialCambiosDePlan.cs" />
     <Compile Include="Clases\POJOS\PlanMedico.cs" />
     <Compile Include="Clases\POJOS\Profesional.cs" />
+    <Compile Include="Clases\POJOS\ResultadoAtencionMedica.cs" />
     <Compile Include="Clases\POJOS\Rol.cs" />
     <Compile Include="Clases\POJOS\TipoCancelacion.cs" />
     <Compile Include="Clases\POJOS\TipoDocumento.cs" />
