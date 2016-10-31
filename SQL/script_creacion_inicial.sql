@@ -1200,14 +1200,14 @@ end
 go
 
 create procedure BEMVINDO.st_baja_afiliado
-@nroAfiliado numeric(10,0),
+@id_afiliado numeric(10,0),
 @fecha_baja date
 
 AS
 begin
 
      update BEMVINDO.AFILIADO SET baja_logica = 1, fecha_baja=@fecha_baja 
-     where numero_afiliado = @nroAfiliado
+     where numero_afiliado = @id_afiliado
 
 end
 
@@ -1262,11 +1262,11 @@ end
 go
 
 create procedure BEMVINDO.st_buscar_afiliados
-@nroAfiliado numeric(10,0),
-@nombre      nvarchar(255),
-@apellido    nvarchar(255),
-@dni         nvarchar(12),
-@planMedico  numeric(10,0) --id_plan_medico
+@nroAfiliado numeric(10,0)=null,
+@nombre      nvarchar(255)=null,
+@apellido    nvarchar(255)=null,
+@dni         nvarchar(12)=null,
+@planMedico  numeric(10,0)=null --id_plan_medico
 
 AS
 begin
@@ -1449,11 +1449,11 @@ go
 
 --store para buscar profesional por nombre,apellido,matricula y especialidad
 create procedure BEMVINDO.st_buscar_profesional
-@profesional numeric(10,0),
-@nombre nvarchar(50),
-@apellido nvarchar(255),
-@matricula nvarchar(30),
-@especialidad numeric(10,0)
+@profesional numeric(10,0)=null,
+@nombre nvarchar(50)=null,
+@apellido nvarchar(255)=null,
+@matricula nvarchar(30)=null,
+@especialidad numeric(10,0)=null
 as
 begin
 
