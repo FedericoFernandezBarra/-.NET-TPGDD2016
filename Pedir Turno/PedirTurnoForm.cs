@@ -28,6 +28,9 @@ namespace ClinicaFrba.Pedir_Turno
         public PedirTurnoForm(Usuario usuario, Rol rol)
         {
             InitializeComponent();
+            turno = new Turno();
+            turnoRepository = new TurnoRepository();
+            horariosPosibles = new List<String>();
             if (rol.nombre == "AFILIADO")
             {
                 turno.afiliado.usuario.id = usuario.id;
@@ -36,10 +39,7 @@ namespace ClinicaFrba.Pedir_Turno
             else
             {
                 btnBuscarAfiliado.Visible = true;
-            }
-            turno = new Turno();
-            turnoRepository = new TurnoRepository();
-            horariosPosibles = new List<String>();
+            }   
         }
 
         private void btnConsultarDisponibilidad_Click(object sender, EventArgs e)
