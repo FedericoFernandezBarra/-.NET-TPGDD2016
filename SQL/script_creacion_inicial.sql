@@ -1769,7 +1769,10 @@ create procedure BEMVINDO.st_top5_afiliados_mas_bonos_comprados
 
 AS BEGIN
  
-select top 5 comprador,numero_afiliado, nombre, apellido, sum(cantidad) as cant_bonos_comprados
+select top 5 comprador,numero_afiliado, nombre, apellido,
+             sum(cantidad) as cant_bonos_comprados,case when numero_afiliado is null then 'NO'
+                                                    when numero_afiliado is not null then 'SI'
+                                                    end as pertenece_grupo_familiar
 FROM BEMVINDO.USUARIO
 inner join BEMVINDO.AFILIADO on id_usuario = id_afiliado
 inner join BEMVINDO.COMPRA on id_afiliado = comprador
@@ -1934,4 +1937,3 @@ as begin
         end
     where id_afiliado = @id_hijo
 end
-
