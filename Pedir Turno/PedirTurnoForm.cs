@@ -70,6 +70,7 @@ namespace ClinicaFrba.Pedir_Turno
                         filtrarHorariosYaTomados();
                         cmbHorariosDisponibles.DataSource = horariosPosibles;
                         cmbHorariosDisponibles.Enabled = true;
+                        btnConfirmarTurno.Enabled = true;
                     }
                     else
                     {
