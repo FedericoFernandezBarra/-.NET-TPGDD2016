@@ -16,7 +16,6 @@ namespace ClinicaFrba.Clases.POJOS
 
         public List<DiaAgenda> listaDeDiasAgenda { get; set; }
 
-
         public Agenda(long idAge, long idProf, DateTime fecha_ini, DateTime fecha_fin, List<DiaAgenda> listaDias)
         {
             idAgenda = idAge;
@@ -34,6 +33,19 @@ namespace ClinicaFrba.Clases.POJOS
         public bool esteHorarioEstaOcupado(string dia, TimeSpan horario)
         {
             return listaDeDiasAgenda.Exists(diaAgenda => (diaAgenda.horaInicial <= horario && horario <= diaAgenda.horaFinal) && diaAgenda.nombreDia == dia);
+        }
+
+        public double horasTrabajadasEnLaSemana()
+        {
+            double horasTrabajadas = 0;
+
+            foreach (DiaAgenda dia in listaDeDiasAgenda)
+            {
+                horasTrabajadas += dia.horasTrabajadasEnElDia().Hours;
+
+                if (dia.horasTrabajadasEnElDia().Minutes != 0) horasTrabajadas += 0.5;
+            }
+            return horasTrabajadas;
         }
     }
 }

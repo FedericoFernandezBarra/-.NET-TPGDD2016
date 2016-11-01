@@ -22,6 +22,11 @@ namespace ClinicaFrba.Clases.POJOS
             horaInicial = hIni;
             horaFinal = hFin;
         }
+
+        public TimeSpan horasTrabajadasEnElDia()
+        {
+            return horaFinal.Subtract(horaInicial);
+        }
     }
 
 }

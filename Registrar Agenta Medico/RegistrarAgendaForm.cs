@@ -23,18 +23,15 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         AgendaRepository agendaDAO { get; set; }
 
-        //Form formAnterior { get; set; }
-
 
         /*FUNCIONES*/
         /*************************************************************************************/
 
-        public RegistrarAgendaForm(/*Form formAnterior, */Usuario usua)
+        public RegistrarAgendaForm(Usuario usua)
         {
             InitializeComponent();
-
-            //objetos
-            usuario = usua;// new Usuario(); usuario.id = 5579;
+            
+            usuario = usua;
             agendaDAO = new AgendaRepository();
 
             agenda = agendaDAO.traerAgendaDelProfesional(usuario);
@@ -68,6 +65,21 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 timerFechaHasta.Value = agenda.fecha_final;
                 timerFechaHasta.Enabled = false;
             }
+
+            actualizarHorasTrabajadas();
+        }
+
+        private void actualizarHorasTrabajadas()
+        {
+            if (agenda.listaDeDiasAgenda.Count == 0) return;
+
+            double horas = Math.Floor(agenda.horasTrabajadasEnLaSemana());
+            double minutos = agenda.horasTrabajadasEnLaSemana() - horas;
+
+            lbHorasTotales.Text = horas.ToString() + ":";
+
+            if (minutos != 0) lbHorasTotales.Text += "30 hs.";
+            else lbHorasTotales.Text += "00 hs.";
         }
 
         private void cargarGriedViewDeHorarios()
@@ -87,7 +99,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         private bool seCumplenLasValidacionesParaAgregar()
         {
-            if (timeHoraDesde.Value.TimeOfDay < new TimeSpan(7, 0, 0) || timeHoraHasta.Value.TimeOfDay > new TimeSpan(20, 0, 0))
+            if ((timeHoraDesde.Value.TimeOfDay < new TimeSpan(7, 0, 0) || timeHoraHasta.Value.TimeOfDay > new TimeSpan(20, 0, 0) )&& listBoxDias.SelectedItem.ToString() != "SABADO" || 
+                ((timeHoraDesde.Value.TimeOfDay < new TimeSpan(10, 0, 0) || timeHoraHasta.Value.TimeOfDay > new TimeSpan(15, 0, 0)) && listBoxDias.SelectedItem.ToString() == "SABADO") )
             {
                 MessageBox.Show("Los horarios no concuerdan con el rango de horarios de atencion del Hospital", "Error", MessageBoxButtons.OK);
                 return false;
@@ -117,6 +130,12 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 return false;
             }
 
+            if (agenda.horasTrabajadasEnLaSemana() > 48)
+            {
+                MessageBox.Show("El maximo de horas a trabajar es de 48 horas", "Error", MessageBoxButtons.OK);
+                return false;
+            }
+
             return true;
         }
 
@@ -141,7 +160,6 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             TimeSpan horaDesde = new TimeSpan(timeHoraDesde.Value.Hour, timeHoraDesde.Value.Minute, 0);
             TimeSpan horaHasta = new TimeSpan(timeHoraHasta.Value.Hour, timeHoraHasta.Value.Minute, 0);
 
-
             long idEspecialidad = 0;
             foreach (KeyValuePair<long, string> dic in especialidadesDelPersonal)
             {
@@ -154,41 +172,28 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             diasAgendaAAgregar.Add(new DiaAgenda(nombreDia, idEspecialidad, nombreEspecialidad, horaDesde, horaHasta));
             agenda.listaDeDiasAgenda.Add(new DiaAgenda(nombreDia, idEspecialidad, nombreEspecialidad, horaDesde, horaHasta));
 
-            cargarGriedViewDeHorarios(); 
+            cargarGriedViewDeHorarios();
+            actualizarHorasTrabajadas();
         }
         
         private void botonGuardarCambios_Click(object sender, EventArgs e)
         {
-            //se crea la agenda por primera vez
-            if (agenda.idAgenda == 0)
+            try
             {
-                try
-                {
+                //se crea la agenda por primera vez
+                if (agenda.idAgenda == 0)
                     agendaDAO.insertarAgendaNueva(usuario.id, timerFechaDesde.Value.Date, timerFechaHasta.Value.Date, diasAgendaAAgregar);
-                    MessageBox.Show("Se han guardado los cambios exitosamente");
-                    return;
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("No se pudo guardar los cambios", "Error", MessageBoxButtons.OK);
-                    throw;
-                }
-                
-            }
-            //la agenda ya existe y le esta agregando mas horas
-            else
-            {
-                try
-                {
+                //la agenda ya existe y le esta agregando mas horas
+                else
                     agendaDAO.insertarNuevosDiasAgenda(agenda, diasAgendaAAgregar);
-                    MessageBox.Show("Se han guardado los cambios exitosamente");
-                    return;
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("No se pudo guardar los cambios", "Error", MessageBoxButtons.OK);
-                    throw;
-                }
+
+                MessageBox.Show("Se han guardado los cambios exitosamente");
+                return;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No se pudo guardar los cambios", "Error", MessageBoxButtons.OK);
+                return;
             }
         }
 
@@ -201,14 +206,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         private void botonVolver_Click(object sender, EventArgs e)
         {
-            //PROBAR LO DE CAMBIAR DE VENTANA
-            //formAnterior.Show();
             Close();
         }
 
-        private void RegistrarAgendaForm_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

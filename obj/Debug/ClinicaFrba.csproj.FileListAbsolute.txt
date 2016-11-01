@@ -110,4 +110,3 @@ C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.Consul
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.ConsultarHistorialCambiosForm.resources
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Grupo_Afiliado_Viejo.GrupoAfiliadoViejo.resources
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Logueo.SeleccionDeRolForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Pedir_Turno.ConsultarTurnosForm.resources

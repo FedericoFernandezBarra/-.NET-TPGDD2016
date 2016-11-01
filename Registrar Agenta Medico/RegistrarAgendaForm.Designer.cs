@@ -39,8 +39,6 @@
             this.botonAgregar = new System.Windows.Forms.Button();
             this.listBoxDias = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.lblNombre = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.botonVolver = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -50,13 +48,15 @@
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lbHorasTotales = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgHorarios)).BeginInit();
             this.SuspendLayout();
             // 
             // botonGuardarCambios
             // 
-            this.botonGuardarCambios.Location = new System.Drawing.Point(115, 410);
+            this.botonGuardarCambios.Location = new System.Drawing.Point(112, 418);
             this.botonGuardarCambios.Name = "botonGuardarCambios";
             this.botonGuardarCambios.Size = new System.Drawing.Size(100, 23);
             this.botonGuardarCambios.TabIndex = 13;
@@ -73,7 +73,7 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.botonAgregar);
-            this.groupBox1.Location = new System.Drawing.Point(21, 246);
+            this.groupBox1.Location = new System.Drawing.Point(15, 245);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(449, 143);
             this.groupBox1.TabIndex = 10;
@@ -147,7 +147,7 @@
             // listBoxDias
             // 
             this.listBoxDias.FormattingEnabled = true;
-            this.listBoxDias.Location = new System.Drawing.Point(21, 52);
+            this.listBoxDias.Location = new System.Drawing.Point(15, 25);
             this.listBoxDias.Name = "listBoxDias";
             this.listBoxDias.Size = new System.Drawing.Size(121, 21);
             this.listBoxDias.TabIndex = 8;
@@ -156,33 +156,15 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 36);
+            this.label2.Location = new System.Drawing.Point(12, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(28, 13);
             this.label2.TabIndex = 7;
             this.label2.Text = "Día:";
             // 
-            // lblNombre
-            // 
-            this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(138, 11);
-            this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(35, 13);
-            this.lblNombre.TabIndex = 9;
-            this.lblNombre.Text = "label2";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Nombre del Profesional:";
-            // 
             // botonVolver
             // 
-            this.botonVolver.Location = new System.Drawing.Point(279, 410);
+            this.botonVolver.Location = new System.Drawing.Point(275, 418);
             this.botonVolver.Name = "botonVolver";
             this.botonVolver.Size = new System.Drawing.Size(100, 23);
             this.botonVolver.TabIndex = 16;
@@ -193,7 +175,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(187, 36);
+            this.label5.Location = new System.Drawing.Point(181, 9);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(74, 13);
             this.label5.TabIndex = 21;
@@ -202,7 +184,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(340, 36);
+            this.label6.Location = new System.Drawing.Point(334, 9);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(71, 13);
             this.label6.TabIndex = 22;
@@ -211,7 +193,7 @@
             // timerFechaDesde
             // 
             this.timerFechaDesde.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.timerFechaDesde.Location = new System.Drawing.Point(190, 53);
+            this.timerFechaDesde.Location = new System.Drawing.Point(184, 26);
             this.timerFechaDesde.Name = "timerFechaDesde";
             this.timerFechaDesde.Size = new System.Drawing.Size(110, 20);
             this.timerFechaDesde.TabIndex = 23;
@@ -219,7 +201,7 @@
             // timerFechaHasta
             // 
             this.timerFechaHasta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.timerFechaHasta.Location = new System.Drawing.Point(343, 52);
+            this.timerFechaHasta.Location = new System.Drawing.Point(337, 25);
             this.timerFechaHasta.Name = "timerFechaHasta";
             this.timerFechaHasta.Size = new System.Drawing.Size(110, 20);
             this.timerFechaHasta.TabIndex = 24;
@@ -231,9 +213,11 @@
             this.Column1,
             this.Column2,
             this.Column3});
-            this.dgHorarios.Location = new System.Drawing.Point(21, 79);
+            this.dgHorarios.Location = new System.Drawing.Point(15, 52);
+            this.dgHorarios.MultiSelect = false;
             this.dgHorarios.Name = "dgHorarios";
             this.dgHorarios.ReadOnly = true;
+            this.dgHorarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgHorarios.Size = new System.Drawing.Size(449, 161);
             this.dgHorarios.TabIndex = 25;
             // 
@@ -255,11 +239,31 @@
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 225);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(136, 13);
+            this.label8.TabIndex = 26;
+            this.label8.Text = "Horas Trabajadas en Total:";
+            // 
+            // lbHorasTotales
+            // 
+            this.lbHorasTotales.AutoSize = true;
+            this.lbHorasTotales.Location = new System.Drawing.Point(154, 225);
+            this.lbHorasTotales.Name = "lbHorasTotales";
+            this.lbHorasTotales.Size = new System.Drawing.Size(51, 13);
+            this.lbHorasTotales.TabIndex = 27;
+            this.lbHorasTotales.Text = "00:00 hs.";
+            // 
             // RegistrarAgendaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 454);
+            this.ClientSize = new System.Drawing.Size(479, 470);
+            this.Controls.Add(this.lbHorasTotales);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.dgHorarios);
             this.Controls.Add(this.timerFechaHasta);
             this.Controls.Add(this.timerFechaDesde);
@@ -268,8 +272,6 @@
             this.Controls.Add(this.botonVolver);
             this.Controls.Add(this.botonGuardarCambios);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.lblNombre);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.listBoxDias);
             this.Controls.Add(this.label2);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -293,8 +295,6 @@
         private System.Windows.Forms.ComboBox listBoxDias;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button botonAgregar;
-        private System.Windows.Forms.Label lblNombre;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button botonVolver;
         private System.Windows.Forms.DateTimePicker timeHoraDesde;
         private System.Windows.Forms.DateTimePicker timeHoraHasta;
@@ -306,5 +306,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lbHorasTotales;
     }
 }
