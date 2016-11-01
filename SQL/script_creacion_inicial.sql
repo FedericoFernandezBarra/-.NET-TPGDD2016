@@ -148,6 +148,35 @@ drop procedure BEMVINDO.st_dar_de_baja_usuario
 
 go
 
+
+--LISTADO ESTADISTICO
+-------------------------------------------------------------------------------------------------------
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_top5_especialidades_mas_canceladas') 
+drop procedure BEMVINDO.st_top5_especialidades_mas_canceladas
+
+go
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_top5_profesionales_mas_consultados') 
+drop procedure BEMVINDO.st_top5_profesionales_mas_consultados
+
+go
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_top5_profesionales_menos_horas_trabajdas') 
+drop procedure BEMVINDO.st_top5_profesionales_menos_horas_trabajdas
+
+go
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_top5_afiliados_mas_bonos_comprados') 
+drop procedure BEMVINDO.st_top5_afiliados_mas_bonos_comprados
+
+go
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_top5_especialidades_mas_bonos_consulta') 
+drop procedure BEMVINDO.st_top5_especialidades_mas_bonos_consulta
+
+go
+
+
 -------------------------------------------------------------------------------------------------------
 
 /********************************************************************************************************************************/
@@ -1665,16 +1694,116 @@ go
 -----------------------------------------------------------------------------------------------------------------------------------------
 
 
-
 -----------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------LISTADO ESTADISTICO----------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------el enunciado se refiere a que el usuario deberia seleccionar el año, el semestre y luego el mes dentro del mismo.---------------------------------------------------------------------------------------------------------------------
 
 
+--1
+create procedure BEMVINDO.st_top5_especialidades_mas_canceladas
+@mes int,
+@anio int
 
+AS BEGIN
+ 
+select top 5 id_especialidad,descripcion,count(*) as cant_cancelaciones
+FROM BEMVINDO.TURNO
+inner join BEMVINDO.CANCELACION on turno = id_turno
+inner join BEMVINDO.ESPECIALIDAD on especialidad = id_especialidad
+ where year(fecha)= @anio and (month(fecha)=@mes) and activo=0
+ group by id_especialidad,descripcion
+ order by cant_cancelaciones desc
+
+ end
+
+ go
+
+ --2
+ create procedure BEMVINDO.st_top5_profesionales_mas_consultados
+@mes int,
+@anio int,
+@plan_medico numeric(10,0)=null
+
+AS BEGIN
+ 
+select top 5 profesional, nombre, apellido, sum(turno) as cant_de_consultas
+FROM BEMVINDO.USUARIO
+inner join BEMVINDO.PROFESIONAL on id_usuario = id_profesional
+inner join BEMVINDO.TURNO on profesional = id_profesional
+inner join BEMVINDO.BONO on id_turno = turno
+ where year(fecha_llegada)= @anio and (month(fecha_llegada)=@mes) and (@plan_medico=plan_medico or @plan_medico is null)
+ group by profesional, nombre, apellido
+ order by cant_de_consultas desc
+
+ end
+
+ go
+
+--3
+ create procedure BEMVINDO.st_top5_profesionales_menos_horas_trabajdas
+@mes int,
+@anio int,
+@especialidad numeric(10,0)=null
+
+AS BEGIN
+ 
+select top 5 profesional,nombre, apellido, count(turno)*0.5 as cant_horas_trabajadas
+FROM BEMVINDO.USUARIO
+inner join BEMVINDO.PROFESIONAL on id_usuario = id_profesional
+inner join BEMVINDO.TURNO on profesional = id_profesional
+inner join BEMVINDO.CONSULTA on id_turno = turno
+ where year(fecha_diagnostico)= @anio and (month(fecha_diagnostico)=@mes) and (@especialidad=especialidad or @especialidad is null)
+ group by profesional,nombre, apellido
+ order by cant_horas_trabajadas asc
+
+ end
+
+
+ go
+
+--4
+create procedure BEMVINDO.st_top5_afiliados_mas_bonos_comprados
+@mes int,
+@anio int
+
+AS BEGIN
+ 
+select top 5 comprador,numero_afiliado, nombre, apellido, sum(cantidad) as cant_bonos_comprados
+FROM BEMVINDO.USUARIO
+inner join BEMVINDO.AFILIADO on id_usuario = id_afiliado
+inner join BEMVINDO.COMPRA on id_afiliado = comprador
+ where year(fecha_compra)= @anio and (month(fecha_compra)=@mes)
+ group by comprador,numero_afiliado, nombre, apellido
+ order by cant_bonos_comprados desc
+
+ end
+
+
+ go
+
+--5
+create procedure BEMVINDO.st_top5_especialidades_mas_bonos_consulta
+@mes int,
+@anio int
+
+AS BEGIN
+ 
+select top 5 id_especialidad,descripcion,count(*) as cant_bonos_utilizados
+FROM BEMVINDO.TURNO
+inner join BEMVINDO.BONO on turno = id_turno
+inner join BEMVINDO.ESPECIALIDAD on especialidad = id_especialidad
+ where year(fecha_llegada)= @anio and (month(fecha_llegada)=@mes) and activo=1
+ group by id_especialidad,descripcion
+ order by cant_bonos_utilizados desc
+
+ end
+
+ go
 -----------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------LISTADO ESTADISTICO----------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------
+
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------USUARIO LOGUIN----------------------------------------------------------------------------------------------
@@ -1805,3 +1934,4 @@ as begin
         end
     where id_afiliado = @id_hijo
 end
+
