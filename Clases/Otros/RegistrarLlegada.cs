@@ -26,16 +26,26 @@ namespace ClinicaFrba.Clases.Otros
             mensajeDeError = "";
             numeroAfiliado = "";
             turnosFiltrados = new List<Turno>();
+            turnosDeProfesional = new List<Turno>();
             profesional = new Profesional();
         }
 
         internal void cargarTurnosFiltrados()
         {
+            if (numeroAfiliado=="")
+            {
+                turnosFiltrados = turnosDeProfesional;
+            }
+
             turnosFiltrados = turnosDeProfesional.FindAll(t => t.afiliado.numeroDeAfiliado.ToString().Contains(numeroAfiliado));
         }
 
         internal void cargarTurnosDeProfesional()
         {
+            if (profesional==null)
+            {
+                return;
+            }
             turnosDeProfesional = (new TurnoRepository()).traerTurnosDeProfesional(profesional, especialidad, DataBase.Instance.getDate());
         }
 
@@ -102,7 +112,7 @@ namespace ClinicaFrba.Clases.Otros
 
         private bool afiliadoPerteneceAGrupoFamiliarComprador()
         {
-            long nroAfiliado = Convert.ToInt64(numeroAfiliado);
+            long nroAfiliado = turnoDeAfiliado.afiliado.numeroDeAfiliado;//Convert.ToInt64(numeroAfiliado);
             long nroRaiz = nroAfiliado - nroAfiliado % 100;
             long nroComprador = bonoSeleccionado.compra.comprador.numeroDeAfiliado;
             long nroFamiliar = nroComprador - nroComprador % 100;

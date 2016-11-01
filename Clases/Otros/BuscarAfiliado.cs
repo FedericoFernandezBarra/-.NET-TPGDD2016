@@ -29,10 +29,11 @@ namespace ClinicaFrba.Clases.Otros
 
         private void inicializarListas()
         {
-            planesMedicosSistema = (new PlanMedicoRepository()).traerPlanesMedicos();
             afiliados = new List<Afiliado>();
 
-            planesMedicosSistema.Add(new PlanMedico());
+            planesMedicosSistema = new List<PlanMedico> { new PlanMedico() };
+
+            (new PlanMedicoRepository()).traerPlanesMedicos().ForEach(p=>planesMedicosSistema.Add(p));
         }
 
         internal bool busquedaExitosa()

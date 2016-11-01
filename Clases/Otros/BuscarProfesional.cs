@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ClinicaFrba.Clases.POJOS;
 using ClinicaFrba.Clases.DAOS;
+using System;
 
 namespace ClinicaFrba.Clases.Otros
 {
@@ -46,7 +47,7 @@ namespace ClinicaFrba.Clases.Otros
                 mensajeDeError = "Debe seleccionar una especialidad";
                 return false;
             }
-            if (especialidad.descripcion==""&&filtroEspecialidadObligatorio)
+            if (especialidadNoSeleccionada()&&filtroEspecialidadObligatorio)
             {
                 mensajeDeError = "Debe seleccionar una especialidad";
                 return false;
@@ -57,14 +58,24 @@ namespace ClinicaFrba.Clases.Otros
 
         private bool ningunFiltroSeleccionado()
         {
-            return (especialidad == null) && (nombre == "") && (apellido == "") && (nroMatricula == 0);
+            return especialidadNoSeleccionada() && (nombre == "") && (apellido == "") && (nroMatricula == 0);
+        }
+
+        private bool especialidadNoSeleccionada()
+        {
+            if (especialidad==null)
+            {
+                return true;
+            }
+
+            return especialidad.id == 0;
         }
 
         private void inicializarListas()
         {
             profesionales = new List<Profesional>();
-            especialidadesSistema = (new EspecialidadRepository()).traerEspecialidades();
-            especialidadesSistema.Add(new Especialidad());
+            especialidadesSistema = new List<Especialidad> { new Especialidad() };
+            (new EspecialidadRepository()).traerEspecialidades().ForEach(e => especialidadesSistema.Add(e));
         }
 
         internal void buscar()

@@ -78,7 +78,6 @@
             // 
             // txtBono
             // 
-            this.txtBono.Enabled = false;
             this.txtBono.Location = new System.Drawing.Point(156, 35);
             this.txtBono.Name = "txtBono";
             this.txtBono.Size = new System.Drawing.Size(130, 20);
@@ -98,7 +97,6 @@
             // 
             // txtNroAfiliado
             // 
-            this.txtNroAfiliado.Enabled = false;
             this.txtNroAfiliado.Location = new System.Drawing.Point(177, 24);
             this.txtNroAfiliado.Name = "txtNroAfiliado";
             this.txtNroAfiliado.Size = new System.Drawing.Size(136, 20);
@@ -152,7 +150,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.SeleccionTurno);
             this.Controls.Add(this.Medico);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "RegistrarLlegadaForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.RegistrarLlegadaForm_Load);

@@ -34,7 +34,16 @@ namespace ClinicaFrba.Abm_Profesional
             if (!buscarProfesional.busquedaExitosa())
             {
                 MessageBox.Show(buscarProfesional.mensajeDeError);
+                return;
             }
+
+            cargarDataGrid();
+        }
+
+        private void cargarDataGrid()
+        {
+            grillaProfesionales.Rows.Clear();
+            buscarProfesional.profesionales.ForEach(p => grillaProfesionales.Rows.Add(p.matricula, p.usuario.nombre, p.usuario.apellido));
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -98,11 +107,31 @@ namespace ClinicaFrba.Abm_Profesional
             txtApellido.DataBindings.Add("Text", buscarProfesional, "apellido");
             txtNumMatricula.DataBindings.Add("Text", buscarProfesional, "nroMatricula");
 
-            grillaProfesionales.DataSource = buscarProfesional.profesionales;
+            //grillaProfesionales.DataSource = buscarProfesional.profesionales;
 
             cmbEspecialidades.DisplayMember = "descripcion";
             cmbEspecialidades.DataSource = buscarProfesional.especialidadesSistema;
             cmbEspecialidades.DataBindings.Add("SelectedItem", buscarProfesional, "especialidad");
+
+            initDataGrid();
+        }
+
+        private void initDataGrid()
+        {
+            DataGridViewTextBoxColumn cMatricula = new DataGridViewTextBoxColumn();
+            cMatricula.HeaderText = "Matricula";
+            cMatricula.ReadOnly = true;
+            grillaProfesionales.Columns.Add(cMatricula);
+
+            DataGridViewTextBoxColumn cNombre = new DataGridViewTextBoxColumn();
+            cNombre.HeaderText = "Nombre";
+            cNombre.ReadOnly = true;
+            grillaProfesionales.Columns.Add(cNombre);
+
+            DataGridViewTextBoxColumn cApellido = new DataGridViewTextBoxColumn();
+            cApellido.HeaderText = "Apellido";
+            cApellido.ReadOnly = true;
+            grillaProfesionales.Columns.Add(cApellido);
         }
     }
 }

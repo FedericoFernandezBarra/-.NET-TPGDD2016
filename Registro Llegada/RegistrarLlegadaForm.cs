@@ -57,7 +57,7 @@ namespace ClinicaFrba.Registro_Llegada
 
             initDataGrid();
 
-            registrarLlegada.cargarTurnosFiltrados();//Inicializo turnos filtrados
+            //registrarLlegada.cargarTurnosFiltrados();//Inicializo turnos filtrados
 
             cargarDataGrid();
 
