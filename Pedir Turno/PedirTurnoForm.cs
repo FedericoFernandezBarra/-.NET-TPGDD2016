@@ -1,4 +1,5 @@
 ﻿using ClinicaFrba.Abm_Afiliado;
+using ClinicaFrba.Abm_Profesional;
 using ClinicaFrba.Clases;
 using ClinicaFrba.Clases.DAOS;
 using ClinicaFrba.Clases.Otros;
@@ -7,35 +8,190 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TostadoPersistentKit;
 
 namespace ClinicaFrba.Pedir_Turno
 {
     public partial class PedirTurnoForm : Form
     {
-        private Usuario afiliadoASacarTurno;
-        private UsuarioRepository usuarioRepository;
+        Turno turno { get; set; }
+        TurnoRepository turnoRepository;
+        List<String> horariosPosibles;
+        Agenda agendaDelProfesional;
 
-        public PedirTurnoForm()
+        public PedirTurnoForm(Usuario usuario, Rol rol)
         {
             InitializeComponent();
-            usuarioRepository = new UsuarioRepository();
+            if (rol.nombre == "AFILIADO")
+            {
+                turno.afiliado.usuario.id = usuario.id;
+                btnBuscarProfesional.Enabled = true;
+            }
+            else
+            {
+                btnBuscarAfiliado.Visible = true;
+            }
+            turno = new Turno();
+            turnoRepository = new TurnoRepository();
+            horariosPosibles = new List<String>();
         }
 
-        private void btnConfirmar_Click(object sender, EventArgs e)
+        private void btnConsultarDisponibilidad_Click(object sender, EventArgs e)
         {
-            ConsultarTurnosForm consultarTurnosForm = new ConsultarTurnosForm(afiliadoASacarTurno);
-            consultarTurnosForm.ShowDialog();
+
+            //Primer filtro: la fecha esta dentro de la agenda
+            if(obtenerFechaSeleccionada() < agendaDelProfesional.fecha_inicial || obtenerFechaSeleccionada() > agendaDelProfesional.fecha_final)
+            {
+                MessageBox.Show("La fecha seleccionada está fuera de la agenda del profesional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                //Segundo filtro: el dia no es domingo
+                if (obtenerFechaSeleccionada().DayOfWeek.Equals(DayOfWeek.Sunday))
+                {
+                    MessageBox.Show("El profesional no trabaja en el día seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    //Tercer filtro: el profesional atiende esa especialidad en ese dia
+                    List<DiaAgenda> diaSeleccionado = agendaDelProfesional.diasAgendaDelDia(obtenerDiaSeleccionado());
+                    if (diaSeleccionado.Any(unDia => unDia.idEspecialidad.Equals(turno.especialidad.id)))
+                    {
+                        //Cuarto filtro: horarios definidos en la agenda de ese dia
+                        diaSeleccionado.ForEach(unHorario => obtenerHorariosPosibles(unHorario.horaInicial, unHorario.horaFinal));
+                        
+                        //Quinto filtro: eliminar horarios que ya poseen turno asignado
+                        filtrarHorariosYaTomados();
+                        cmbHorariosDisponibles.DataSource = horariosPosibles;
+                        cmbHorariosDisponibles.Enabled = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("El profesional no trabaja en la especialidad elegida en el día seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                
+            }
+        }
+
+        private void btnBuscarProfesional_Click(object sender, EventArgs e)
+        {
+            BuscarProfesionalForm buscarProfesionalForm = new BuscarProfesionalForm();
+
+            Hide();
+
+            buscarProfesionalForm.ShowDialog();
+
+            Show();
+
+            if (buscarProfesionalForm.seSeleccionoUnProfesional())
+            {
+                AgendaRepository agendaRepository = new AgendaRepository();
+                Usuario profesionalSeleccionado = buscarProfesionalForm.getProfesionalSeleccionado().usuario;
+
+                agendaDelProfesional = agendaRepository.traerAgendaDelProfesional(profesionalSeleccionado);
+                if (agendaDelProfesional == null)
+                {
+                    MessageBox.Show("ERROR: El profesional seleccionado no dispone de una agenda.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    turno.profesional = buscarProfesionalForm.getProfesionalSeleccionado();
+                    turno.especialidad = buscarProfesionalForm.getEspecialidadSeleccionada();
+
+                    txtProfesional.Text = profesionalSeleccionado.nombreCompleto
+                        + " - " + turno.especialidad.descripcion;
+
+                    btnConsultarDisponibilidad.Enabled = true;
+                }                    
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
             Close();
         }
 
-        private void btnVolver_Click(object sender, EventArgs e)
+        private void btnConfirmarTurno_Click(object sender, EventArgs e)
         {
+            DateTime horarioDeTurno = Convert.ToDateTime(cmbHorariosDisponibles.SelectedItem);
+            DateTime fechaYHorarioDeTurno = new DateTime(obtenerFechaSeleccionada().Year, obtenerFechaSeleccionada().Month, 
+                obtenerFechaSeleccionada().Day, horarioDeTurno.Hour, horarioDeTurno.Minute, 0);
+
+            turno.fechaDeTurno = fechaYHorarioDeTurno;
+
+            MessageBox.Show(turnoRepository.reservarTurno(turno));
             Close();
+        }
+
+        private void ConsultarTurnosForm_Load(object sender, EventArgs e)
+        {
+            txtAfiliado.Text = turno.afiliado.usuario.nombreCompleto;
+
+            mcFechaDeTurno.MinDate = DataBase.Instance.getDate();
+            mcFechaDeTurno.TodayDate = DataBase.Instance.getDate();
+            mcFechaDeTurno.SetDate(DataBase.Instance.getDate());
+
+            lblFechaElegida.Text = obtenerFechaSeleccionada().ToString("dd/MM/yyyy");
+        }
+
+        private DateTime obtenerFechaSeleccionada()
+        {
+            return mcFechaDeTurno.SelectionRange.Start;
+        }
+
+        private String obtenerDiaSeleccionado()
+        {
+            switch (obtenerFechaSeleccionada().DayOfWeek)
+            {
+                case DayOfWeek.Monday: 
+                    return "LUNES";
+                case DayOfWeek.Tuesday: 
+                    return "MARTES";
+                case DayOfWeek.Wednesday: 
+                    return "MIERCOLES";
+                case DayOfWeek.Thursday: 
+                    return "JUEVES";
+                case DayOfWeek.Friday: 
+                    return "VIERNES";
+                case DayOfWeek.Saturday: 
+                    return "SABADO";
+                case DayOfWeek.Sunday: 
+                    return "DOMINGO";
+                default: return null;
+            }
+        }
+
+        private void obtenerHorariosPosibles(TimeSpan horarioDesde, TimeSpan horarioHasta)
+        {
+            TimeSpan horarioAcumulador = horarioDesde;
+            while (horarioAcumulador.CompareTo(horarioHasta) < 0)
+            {
+                horarioAcumulador = horarioAcumulador.Add(TimeSpan.FromMinutes(30));
+                horariosPosibles.Add(horarioAcumulador.ToString(@"hh\:mm"));
+            }
+        }
+
+        private void filtrarHorariosYaTomados()
+        {
+            foreach (String horario in horariosPosibles)
+            {
+                if (turnoRepository.existeTurnoActivo(turno.profesional, DateTime.Parse(horario)))
+                {
+                    horariosPosibles.Remove(horario);
+                }
+            }
+        }
+
+        private void mcFechaDeTurno_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            lblFechaElegida.Text = obtenerFechaSeleccionada().ToString("dd/MM/yyyy");
         }
 
         private void btnBuscarAfiliado_Click(object sender, EventArgs e)
@@ -50,11 +206,11 @@ namespace ClinicaFrba.Pedir_Turno
 
             if (buscarAfiliadoForm.seSeleccionoUnAfiliado())
             {
-                afiliadoASacarTurno = usuarioRepository.traerUsuarioPorId(buscarAfiliadoForm.getAfiliadoSeleccionado().usuario.id);
+                turno.afiliado = buscarAfiliadoForm.getAfiliadoSeleccionado();
 
-                txtAfiliado.Text = afiliadoASacarTurno.apellido + " " + afiliadoASacarTurno.nombre;
+                txtAfiliado.Text = turno.afiliado.usuario.nombreCompleto;
 
-                btnConfirmar.Enabled = true;
+                btnBuscarProfesional.Enabled = true;
             }
         }
     }

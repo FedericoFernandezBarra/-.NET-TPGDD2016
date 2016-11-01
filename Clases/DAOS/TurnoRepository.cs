@@ -38,8 +38,8 @@ namespace ClinicaFrba.Clases.DAOS
         public String reservarTurno(Turno turno) {
             List<SqlParameter> parametros = new List<SqlParameter>();
             DataBase.Instance.agregarParametro(parametros, "afiliado", turno.afiliado.usuario.id);
-            DataBase.Instance.agregarParametro(parametros, "profesional", turno.profesional);
-            DataBase.Instance.agregarParametro(parametros, "especialidad", turno.especialidad);
+            DataBase.Instance.agregarParametro(parametros, "profesional", turno.profesional.usuario.id);
+            DataBase.Instance.agregarParametro(parametros, "especialidad", turno.especialidad.id);
             DataBase.Instance.agregarParametro(parametros, "fecha_turno", turno.fechaDeTurno);
 
             return DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_insertar_turno", parametros).First()["resultado"].ToString();

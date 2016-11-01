@@ -39,7 +39,7 @@ namespace ClinicaFrba.Registro_Resultado
 
             if (turnosDelProfesionalEnEseDia.Count == 0)
             {
-                MessageBox.Show("No existen turnos en la fecha seleccionada");
+                MessageBox.Show("ERROR: No existen turnos en la fecha seleccionada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {

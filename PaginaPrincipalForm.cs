@@ -248,7 +248,7 @@ namespace ClinicaFrba
 
         private void tsmPedirTurno_Click(object sender, EventArgs e)
         {
-            ConsultarTurnosForm pedirTurno = new ConsultarTurnosForm(menu.usuario);
+            PedirTurnoForm pedirTurno = new PedirTurnoForm(menu.usuario, menu.rol);
 
             Hide();
 
