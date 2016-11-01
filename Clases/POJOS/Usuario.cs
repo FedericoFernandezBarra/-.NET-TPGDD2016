@@ -53,7 +53,7 @@ namespace ClinicaFrba.Clases
         [OneToMany(pkName = "id_usuario",tableName = "BEMVINDO.ROL_POR_USUARIO",fkName = "id_rol",fetch =FetchType.LAZY)]
         public List<Rol> roles { get; set; }
 
-        public String nombreCompleto { get { return apellido + " " + nombre; } }
+        public String nombreCompleto { get { return apellido + ", " + nombre; } }
 
         public Usuario()
         {
