@@ -31,8 +31,6 @@ namespace ClinicaFrba.Clases.POJOS
         [Column(name = "activo")]
         public bool activo { get; set; }
 
-        public String nombreAfiliadoCompleto { get { return afiliado.usuario.nombreCompleto; } }
-
         public Turno()
         {
             afiliado = new Afiliado();

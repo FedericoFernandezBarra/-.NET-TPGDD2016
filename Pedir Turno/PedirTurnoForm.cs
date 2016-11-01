@@ -22,7 +22,6 @@ namespace ClinicaFrba.Pedir_Turno
     {
         Turno turno { get; set; }
         TurnoRepository turnoRepository;
-        List<String> horariosPosibles;
         Agenda agendaDelProfesional;
 
         public PedirTurnoForm(Usuario usuario, Rol rol)
@@ -30,7 +29,7 @@ namespace ClinicaFrba.Pedir_Turno
             InitializeComponent();
             turno = new Turno();
             turnoRepository = new TurnoRepository();
-            horariosPosibles = new List<String>();
+
             if (rol.nombre == "AFILIADO")
             {
                 turno.afiliado.usuario.id = usuario.id;
@@ -64,12 +63,14 @@ namespace ClinicaFrba.Pedir_Turno
                     if (diaSeleccionado.Any(unDia => unDia.idEspecialidad.Equals(turno.especialidad.id)))
                     {
                         //Cuarto filtro: horarios definidos en la agenda de ese dia
-                        diaSeleccionado.ForEach(unHorario => obtenerHorariosPosibles(unHorario.horaInicial, unHorario.horaFinal));
+                        List<String> horariosPosibles = new List<String>();
+                        diaSeleccionado.ForEach(unHorario => obtenerHorariosPosibles(horariosPosibles, unHorario.horaInicial, unHorario.horaFinal));
                         
                         //Quinto filtro: eliminar horarios que ya poseen turno asignado
-                        filtrarHorariosYaTomados();
+                        filtrarHorariosYaTomados(horariosPosibles);
                         cmbHorariosDisponibles.DataSource = horariosPosibles;
                         cmbHorariosDisponibles.Enabled = true;
+                        btnConfirmarTurno.Enabled = true;
                     }
                     else
                     {
@@ -168,17 +169,17 @@ namespace ClinicaFrba.Pedir_Turno
             }
         }
 
-        private void obtenerHorariosPosibles(TimeSpan horarioDesde, TimeSpan horarioHasta)
+        private void obtenerHorariosPosibles(List<String> horariosPosibles, TimeSpan horarioDesde, TimeSpan horarioHasta)
         {
             TimeSpan horarioAcumulador = horarioDesde;
-            while (horarioAcumulador.CompareTo(horarioHasta) < 0)
+            while (horarioAcumulador.Add(TimeSpan.FromMinutes(30)).CompareTo(horarioHasta) < 0)
             {
                 horarioAcumulador = horarioAcumulador.Add(TimeSpan.FromMinutes(30));
                 horariosPosibles.Add(horarioAcumulador.ToString(@"hh\:mm"));
             }
         }
 
-        private void filtrarHorariosYaTomados()
+        private void filtrarHorariosYaTomados(List<String> horariosPosibles)
         {
             foreach (String horario in horariosPosibles)
             {
@@ -192,6 +193,8 @@ namespace ClinicaFrba.Pedir_Turno
         private void mcFechaDeTurno_DateChanged(object sender, DateRangeEventArgs e)
         {
             lblFechaElegida.Text = obtenerFechaSeleccionada().ToString("dd/MM/yyyy");
+            cmbHorariosDisponibles.Enabled = false;
+            btnConfirmarTurno.Enabled = false;
         }
 
         private void btnBuscarAfiliado_Click(object sender, EventArgs e)

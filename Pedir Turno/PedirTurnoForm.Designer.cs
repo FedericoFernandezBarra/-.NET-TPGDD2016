@@ -240,6 +240,7 @@
             this.btnBuscarAfiliado.TabIndex = 29;
             this.btnBuscarAfiliado.Text = "BUSCAR";
             this.btnBuscarAfiliado.UseVisualStyleBackColor = true;
+            this.btnBuscarAfiliado.Visible = false;
             this.btnBuscarAfiliado.Click += new System.EventHandler(this.btnBuscarAfiliado_Click);
             // 
             // PedirTurnoForm
