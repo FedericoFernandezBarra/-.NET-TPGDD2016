@@ -55,7 +55,7 @@
             this.mcFechaDeTurno.MinDate = new System.DateTime(1890, 1, 1, 0, 0, 0, 0);
             this.mcFechaDeTurno.Name = "mcFechaDeTurno";
             this.mcFechaDeTurno.ShowTodayCircle = false;
-            this.mcFechaDeTurno.TabIndex = 11;
+            this.mcFechaDeTurno.TabIndex = 3;
             this.mcFechaDeTurno.TodayDate = new System.DateTime(1980, 1, 1, 0, 0, 0, 0);
             this.mcFechaDeTurno.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.mcFechaDeTurno_DateChanged);
             // 
@@ -67,7 +67,7 @@
             this.btnBuscarProfesional.Location = new System.Drawing.Point(470, 79);
             this.btnBuscarProfesional.Name = "btnBuscarProfesional";
             this.btnBuscarProfesional.Size = new System.Drawing.Size(87, 39);
-            this.btnBuscarProfesional.TabIndex = 10;
+            this.btnBuscarProfesional.TabIndex = 2;
             this.btnBuscarProfesional.Text = "BUSCAR";
             this.btnBuscarProfesional.UseVisualStyleBackColor = true;
             this.btnBuscarProfesional.Click += new System.EventHandler(this.btnBuscarProfesional_Click);
@@ -100,7 +100,7 @@
             this.btnConsultarDisponibilidad.Location = new System.Drawing.Point(281, 211);
             this.btnConsultarDisponibilidad.Name = "btnConsultarDisponibilidad";
             this.btnConsultarDisponibilidad.Size = new System.Drawing.Size(263, 38);
-            this.btnConsultarDisponibilidad.TabIndex = 15;
+            this.btnConsultarDisponibilidad.TabIndex = 4;
             this.btnConsultarDisponibilidad.Text = "CONSULTAR DISPONIBILIDAD";
             this.btnConsultarDisponibilidad.UseVisualStyleBackColor = true;
             this.btnConsultarDisponibilidad.Click += new System.EventHandler(this.btnConsultarDisponibilidad_Click);
@@ -162,7 +162,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(12, 349);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(117, 38);
-            this.btnCancelar.TabIndex = 21;
+            this.btnCancelar.TabIndex = 7;
             this.btnCancelar.Text = "CANCELAR";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -175,7 +175,7 @@
             this.btnConfirmarTurno.Location = new System.Drawing.Point(438, 342);
             this.btnConfirmarTurno.Name = "btnConfirmarTurno";
             this.btnConfirmarTurno.Size = new System.Drawing.Size(118, 52);
-            this.btnConfirmarTurno.TabIndex = 23;
+            this.btnConfirmarTurno.TabIndex = 6;
             this.btnConfirmarTurno.Text = "CONFIRMAR TURNO";
             this.btnConfirmarTurno.UseVisualStyleBackColor = true;
             this.btnConfirmarTurno.Click += new System.EventHandler(this.btnConfirmarTurno_Click);
@@ -187,7 +187,7 @@
             this.cmbHorariosDisponibles.Location = new System.Drawing.Point(323, 303);
             this.cmbHorariosDisponibles.Name = "cmbHorariosDisponibles";
             this.cmbHorariosDisponibles.Size = new System.Drawing.Size(172, 21);
-            this.cmbHorariosDisponibles.TabIndex = 24;
+            this.cmbHorariosDisponibles.TabIndex = 5;
             // 
             // label7
             // 
@@ -218,7 +218,7 @@
             this.txtAfiliado.Name = "txtAfiliado";
             this.txtAfiliado.ReadOnly = true;
             this.txtAfiliado.Size = new System.Drawing.Size(347, 20);
-            this.txtAfiliado.TabIndex = 28;
+            this.txtAfiliado.TabIndex = 1;
             // 
             // label8
             // 
@@ -237,7 +237,7 @@
             this.btnBuscarAfiliado.Location = new System.Drawing.Point(470, 12);
             this.btnBuscarAfiliado.Name = "btnBuscarAfiliado";
             this.btnBuscarAfiliado.Size = new System.Drawing.Size(87, 39);
-            this.btnBuscarAfiliado.TabIndex = 29;
+            this.btnBuscarAfiliado.TabIndex = 1;
             this.btnBuscarAfiliado.Text = "BUSCAR";
             this.btnBuscarAfiliado.UseVisualStyleBackColor = true;
             this.btnBuscarAfiliado.Visible = false;

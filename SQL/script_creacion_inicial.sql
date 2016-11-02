@@ -122,6 +122,26 @@ drop procedure BEMVINDO.st_registrar_consulta
 
 go
 
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_obtener_fecha_minima_turno') 
+drop procedure BEMVINDO.st_obtener_fecha_minima_turno
+
+go
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_obtener_fecha_maxima_turno') 
+drop procedure BEMVINDO.st_obtener_fecha_maxima_turno
+
+go
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_obtener_consulta') 
+drop procedure BEMVINDO.st_obtener_consulta
+
+go
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_cantidad_turnos') 
+drop procedure BEMVINDO.st_cantidad_turnos
+
+go
+
 --CANCELAR ATENCION MEDICA POR PARTE DEL AFILIADO
 -------------------------------------------------------------------------------------------------------
 if EXISTS (SELECT * FROM sysobjects  WHERE name='st_cancelar_turno_afiliado') 
@@ -759,7 +779,9 @@ values
     (7,3),
     (8,1),
     (9,2),
+	(10,1),
     (10,2),
+	(10,3),
     (11,3),
     (12,1),
     (13,2),
@@ -1540,15 +1562,14 @@ go
 create procedure BEMVINDO.st_obtener_turnos
 @profesional numeric(10,0),
 @especialidad   numeric(10,0)=null,
-@fecha_sistema datetime
+@fecha_sistema datetime=null
 
 AS
 begin
 
      select * from BEMVINDO.TURNO
-     where profesional =@profesional and CONVERT(date, fecha_turno)= CONVERT(date, @fecha_sistema)
-      and (especialidad=@especialidad or @especialidad is null)
-
+     where profesional = @profesional and (CONVERT(date, fecha_turno) = CONVERT(date, @fecha_sistema)
+	 or @fecha_sistema is null) and (especialidad=@especialidad or @especialidad is null)
 
 end
 
@@ -1595,6 +1616,50 @@ begin
     insert into BEMVINDO.CONSULTA(turno,sintoma,enfermedad,fecha_diagnostico)
      values (@id_turno,@sintoma,@enfermedad,@fecha_diagnostico)
 
+end
+
+go
+
+CREATE PROCEDURE BEMVINDO.st_obtener_fecha_minima_turno
+@profesional			numeric(10,0)
+
+AS
+begin
+	select MIN(CONVERT(date, fecha_turno)) as 'fechaMinima' from BEMVINDO.TURNO 
+		where profesional = @profesional
+end
+
+go
+
+CREATE PROCEDURE BEMVINDO.st_obtener_fecha_maxima_turno
+@profesional			numeric(10,0)
+
+AS
+begin
+	select MAX(CONVERT(date, fecha_turno)) as 'fechaMaxima' from BEMVINDO.TURNO 
+		where profesional = @profesional
+end
+
+go
+
+CREATE PROCEDURE BEMVINDO.st_obtener_consulta
+@turno					numeric(10,0)
+
+AS
+begin
+	select * from BEMVINDO.CONSULTA
+		where turno = @turno
+end
+
+go
+
+CREATE PROCEDURE BEMVINDO.st_cantidad_turnos
+@profesional			numeric(10,0)
+
+AS
+begin
+	SELECT COUNT(*) as 'cantidad' FROM BEMVINDO.TURNO
+		where profesional = @profesional
 end
 
 go

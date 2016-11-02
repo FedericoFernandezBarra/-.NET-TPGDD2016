@@ -78,6 +78,38 @@ namespace ClinicaFrba.Clases.DAOS
             return (List<Turno>)executeStored("BEMVINDO.st_obtener_turnos", parametros);
         }
 
+        internal List<Turno> traerTurnosDeProfesional(Profesional profesional)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            DataBase.Instance.agregarParametro(parametros, "@profesional", profesional.usuario.id);
+
+            return (List<Turno>)executeStored("BEMVINDO.st_obtener_turnos", parametros);
+        }
+
+        internal DateTime obtenerFechaMinimaDeTurnoDe(Profesional profesional)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            DataBase.Instance.agregarParametro(parametros, "@profesional", profesional.usuario.id);
+
+            return DateTime.Parse(DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_obtener_fecha_minima_turno", parametros).First()["fechaMinima"].ToString());
+        }
+
+        internal DateTime obtenerFechaMaximaDeTurnoDe(Profesional profesional)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            DataBase.Instance.agregarParametro(parametros, "@profesional", profesional.usuario.id);
+
+            return DateTime.Parse(DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_obtener_fecha_maxima_turno", parametros).First()["fechaMaxima"].ToString());
+        }
+
+        public bool tieneTurno(Profesional profesional)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            DataBase.Instance.agregarParametro(parametros, "@profesional", profesional.usuario.id);
+
+            return Convert.ToInt32(DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_cantidad_turnos", parametros).First()["cantidad"].ToString()) > 0;
+        }
+
         internal void registrarLlegada(Turno turno, Bono bono, DateTime fecha)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();

@@ -46,6 +46,9 @@
             this.lblAfiliado = new System.Windows.Forms.Label();
             this.btnConfirmar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnBuscarProfesional = new System.Windows.Forms.Button();
+            this.txtProfesional = new System.Windows.Forms.TextBox();
+            this.lblNombreAfiliado = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -58,7 +61,7 @@
             // 
             this.lblProfesional.AutoSize = true;
             this.lblProfesional.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProfesional.Location = new System.Drawing.Point(12, 9);
+            this.lblProfesional.Location = new System.Drawing.Point(12, 11);
             this.lblProfesional.Name = "lblProfesional";
             this.lblProfesional.Size = new System.Drawing.Size(121, 16);
             this.lblProfesional.TabIndex = 11;
@@ -71,8 +74,8 @@
             this.rtxtSintomas.MaxLength = 255;
             this.rtxtSintomas.Name = "rtxtSintomas";
             this.rtxtSintomas.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtxtSintomas.Size = new System.Drawing.Size(276, 238);
-            this.rtxtSintomas.TabIndex = 14;
+            this.rtxtSintomas.Size = new System.Drawing.Size(276, 245);
+            this.rtxtSintomas.TabIndex = 7;
             this.rtxtSintomas.Text = "";
             this.rtxtSintomas.TextChanged += new System.EventHandler(this.rtxtSintomas_TextChanged);
             // 
@@ -83,8 +86,8 @@
             this.rtxtDiagnostico.MaxLength = 255;
             this.rtxtDiagnostico.Name = "rtxtDiagnostico";
             this.rtxtDiagnostico.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtxtDiagnostico.Size = new System.Drawing.Size(375, 118);
-            this.rtxtDiagnostico.TabIndex = 15;
+            this.rtxtDiagnostico.Size = new System.Drawing.Size(375, 132);
+            this.rtxtDiagnostico.TabIndex = 8;
             this.rtxtDiagnostico.Text = "";
             this.rtxtDiagnostico.TextChanged += new System.EventHandler(this.rtxtDiagnostico_TextChanged);
             // 
@@ -93,7 +96,7 @@
             this.groupBox1.Controls.Add(this.rtxtDiagnostico);
             this.groupBox1.Location = new System.Drawing.Point(333, 210);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(388, 148);
+            this.groupBox1.Size = new System.Drawing.Size(388, 155);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Diagnóstico";
@@ -110,11 +113,12 @@
             // 
             // dtpFechaTurno
             // 
+            this.dtpFechaTurno.Enabled = false;
             this.dtpFechaTurno.Location = new System.Drawing.Point(31, 19);
             this.dtpFechaTurno.Name = "dtpFechaTurno";
             this.dtpFechaTurno.Size = new System.Drawing.Size(200, 20);
-            this.dtpFechaTurno.TabIndex = 18;
-            this.dtpFechaTurno.ValueChanged += new System.EventHandler(this.dtpFechaTurno_ValueChanged);
+            this.dtpFechaTurno.TabIndex = 3;
+            this.dtpFechaTurno.CloseUp += new System.EventHandler(this.dtpFechaTurno_CloseUp);
             // 
             // dtpHoraDiagnostico
             // 
@@ -123,18 +127,19 @@
             this.dtpHoraDiagnostico.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpHoraDiagnostico.Location = new System.Drawing.Point(17, 20);
             this.dtpHoraDiagnostico.Name = "dtpHoraDiagnostico";
+            this.dtpHoraDiagnostico.ShowUpDown = true;
             this.dtpHoraDiagnostico.Size = new System.Drawing.Size(96, 20);
-            this.dtpHoraDiagnostico.TabIndex = 19;
-            this.dtpHoraDiagnostico.ValueChanged += new System.EventHandler(this.dtpHoraDiagnostico_ValueChanged);
+            this.dtpHoraDiagnostico.TabIndex = 6;
             // 
             // cmbPacientes
             // 
+            this.cmbPacientes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPacientes.Enabled = false;
             this.cmbPacientes.FormattingEnabled = true;
             this.cmbPacientes.Location = new System.Drawing.Point(6, 19);
             this.cmbPacientes.Name = "cmbPacientes";
             this.cmbPacientes.Size = new System.Drawing.Size(376, 21);
-            this.cmbPacientes.TabIndex = 21;
+            this.cmbPacientes.TabIndex = 4;
             this.cmbPacientes.SelectedIndexChanged += new System.EventHandler(this.cmbPacientes_SelectedIndexChanged);
             // 
             // notifyIcon1
@@ -178,7 +183,7 @@
             this.dtpFechaDiagnostico.Location = new System.Drawing.Point(31, 19);
             this.dtpFechaDiagnostico.Name = "dtpFechaDiagnostico";
             this.dtpFechaDiagnostico.Size = new System.Drawing.Size(200, 20);
-            this.dtpFechaDiagnostico.TabIndex = 18;
+            this.dtpFechaDiagnostico.TabIndex = 5;
             // 
             // groupBox6
             // 
@@ -194,7 +199,7 @@
             // 
             this.lblAfiliado.AutoSize = true;
             this.lblAfiliado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAfiliado.Location = new System.Drawing.Point(12, 107);
+            this.lblAfiliado.Location = new System.Drawing.Point(12, 109);
             this.lblAfiliado.Name = "lblAfiliado";
             this.lblAfiliado.Size = new System.Drawing.Size(91, 16);
             this.lblAfiliado.TabIndex = 26;
@@ -204,10 +209,10 @@
             // 
             this.btnConfirmar.Enabled = false;
             this.btnConfirmar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConfirmar.Location = new System.Drawing.Point(474, 387);
+            this.btnConfirmar.Location = new System.Drawing.Point(475, 394);
             this.btnConfirmar.Name = "btnConfirmar";
-            this.btnConfirmar.Size = new System.Drawing.Size(114, 61);
-            this.btnConfirmar.TabIndex = 27;
+            this.btnConfirmar.Size = new System.Drawing.Size(114, 48);
+            this.btnConfirmar.TabIndex = 9;
             this.btnConfirmar.Text = "CONFIRMAR";
             this.btnConfirmar.UseVisualStyleBackColor = true;
             this.btnConfirmar.Click += new System.EventHandler(this.btnConfirmar_Click);
@@ -218,16 +223,52 @@
             this.btnCancelar.Location = new System.Drawing.Point(333, 460);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(99, 30);
-            this.btnCancelar.TabIndex = 28;
+            this.btnCancelar.TabIndex = 10;
             this.btnCancelar.Text = "CANCELAR";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // btnBuscarProfesional
+            // 
+            this.btnBuscarProfesional.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBuscarProfesional.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscarProfesional.Location = new System.Drawing.Point(618, 7);
+            this.btnBuscarProfesional.Name = "btnBuscarProfesional";
+            this.btnBuscarProfesional.Size = new System.Drawing.Size(87, 26);
+            this.btnBuscarProfesional.TabIndex = 2;
+            this.btnBuscarProfesional.Text = "BUSCAR";
+            this.btnBuscarProfesional.UseVisualStyleBackColor = true;
+            this.btnBuscarProfesional.Visible = false;
+            this.btnBuscarProfesional.Click += new System.EventHandler(this.btnBuscarProfesional_Click);
+            // 
+            // txtProfesional
+            // 
+            this.txtProfesional.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtProfesional.Enabled = false;
+            this.txtProfesional.Location = new System.Drawing.Point(138, 10);
+            this.txtProfesional.Name = "txtProfesional";
+            this.txtProfesional.ReadOnly = true;
+            this.txtProfesional.Size = new System.Drawing.Size(463, 20);
+            this.txtProfesional.TabIndex = 1;
+            // 
+            // lblNombreAfiliado
+            // 
+            this.lblNombreAfiliado.AutoSize = true;
+            this.lblNombreAfiliado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombreAfiliado.Location = new System.Drawing.Point(96, 109);
+            this.lblNombreAfiliado.Name = "lblNombreAfiliado";
+            this.lblNombreAfiliado.Size = new System.Drawing.Size(0, 16);
+            this.lblNombreAfiliado.TabIndex = 32;
             // 
             // RegistrarResultadoAtencionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(731, 502);
+            this.Controls.Add(this.lblNombreAfiliado);
+            this.Controls.Add(this.txtProfesional);
+            this.Controls.Add(this.btnBuscarProfesional);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnConfirmar);
             this.Controls.Add(this.lblAfiliado);
@@ -243,7 +284,6 @@
             this.MaximizeBox = false;
             this.Name = "RegistrarResultadoAtencionForm";
             this.Text = "Diagnóstico Médico";
-            this.Load += new System.EventHandler(this.RegistrarResultadoAtencionForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -274,6 +314,9 @@
         private System.Windows.Forms.Label lblAfiliado;
         private System.Windows.Forms.Button btnConfirmar;
         private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Button btnBuscarProfesional;
+        private System.Windows.Forms.TextBox txtProfesional;
+        private System.Windows.Forms.Label lblNombreAfiliado;
 
     }
 }

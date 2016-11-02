@@ -38,22 +38,25 @@ namespace ClinicaFrba.Pedir_Turno
             else
             {
                 btnBuscarAfiliado.Visible = true;
-            }   
+            }
         }
 
         private void btnConsultarDisponibilidad_Click(object sender, EventArgs e)
         {
             //Primer filtro: la fecha esta dentro de la agenda
-            if(obtenerFechaSeleccionada() < agendaDelProfesional.fecha_inicial || obtenerFechaSeleccionada() > agendaDelProfesional.fecha_final)
+            if (obtenerFechaSeleccionada() < agendaDelProfesional.fecha_inicial 
+                || obtenerFechaSeleccionada() > agendaDelProfesional.fecha_final)
             {
-                MessageBox.Show("La fecha seleccionada está fuera de la agenda del profesional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("La fecha seleccionada está fuera de la agenda del profesional.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
                 //Segundo filtro: el dia no es domingo
                 if (obtenerFechaSeleccionada().DayOfWeek.Equals(DayOfWeek.Sunday))
                 {
-                    MessageBox.Show("El profesional no trabaja en el día seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("El profesional no trabaja en el día seleccionado.", "Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
@@ -63,15 +66,17 @@ namespace ClinicaFrba.Pedir_Turno
                     {
                         //Cuarto filtro: horarios definidos en la agenda de ese dia
                         List<String> horariosPosibles = new List<String>();
-                        diaSeleccionado.ForEach(unHorario => obtenerHorariosPosibles(horariosPosibles, unHorario.horaInicial, unHorario.horaFinal));
-                        
+                        diaSeleccionado.ForEach
+                            (unHorario => obtenerHorariosPosibles(horariosPosibles, unHorario.horaInicial, unHorario.horaFinal));
+
                         //Quinto filtro: eliminar horarios que ya poseen turno asignado
                         filtrarHorariosYaTomados(horariosPosibles);
 
                         //Sexto filtro: el profesional tiene todos los turnos ocupados
                         if (horariosPosibles.Count == 0)
                         {
-                            MessageBox.Show("El profesional no tiene turnos disponibles en el día seleccionado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("El profesional no tiene turnos disponibles en el día seleccionado", "Error", 
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else
                         {
@@ -82,10 +87,11 @@ namespace ClinicaFrba.Pedir_Turno
                     }
                     else
                     {
-                        MessageBox.Show("El profesional no trabaja en la especialidad elegida en el día seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("El profesional no trabaja en la especialidad elegida en el día seleccionado.", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                
+
             }
         }
 
@@ -107,18 +113,25 @@ namespace ClinicaFrba.Pedir_Turno
                 agendaDelProfesional = agendaRepository.traerAgendaDelProfesional(profesionalSeleccionado);
                 if (agendaDelProfesional == null)
                 {
-                    MessageBox.Show("ERROR: El profesional seleccionado no dispone de una agenda.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("ERROR: El profesional seleccionado no dispone de una agenda.", "Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
                     turno.profesional = buscarProfesionalForm.getProfesionalSeleccionado();
                     turno.especialidad = buscarProfesionalForm.getEspecialidadSeleccionada();
 
+                    mcFechaDeTurno.MinDate = agendaDelProfesional.fecha_inicial;
+                    mcFechaDeTurno.MaxDate = agendaDelProfesional.fecha_final;
+                    mcFechaDeTurno.SelectionRange.Start = mcFechaDeTurno.MinDate;
+
                     txtProfesional.Text = profesionalSeleccionado.nombreCompleto
                         + " - " + turno.especialidad.descripcion;
 
                     btnConsultarDisponibilidad.Enabled = true;
-                }                    
+                    cmbHorariosDisponibles.Enabled = false;
+                    btnConfirmarTurno.Enabled = false;
+                }
             }
         }
 
@@ -140,7 +153,7 @@ namespace ClinicaFrba.Pedir_Turno
             {
                 MessageBox.Show(respuesta, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
         }
 
         private void ConsultarTurnosForm_Load(object sender, EventArgs e)
@@ -173,19 +186,19 @@ namespace ClinicaFrba.Pedir_Turno
         {
             switch (obtenerFechaSeleccionada().DayOfWeek)
             {
-                case DayOfWeek.Monday: 
+                case DayOfWeek.Monday:
                     return "LUNES";
-                case DayOfWeek.Tuesday: 
+                case DayOfWeek.Tuesday:
                     return "MARTES";
-                case DayOfWeek.Wednesday: 
+                case DayOfWeek.Wednesday:
                     return "MIERCOLES";
-                case DayOfWeek.Thursday: 
+                case DayOfWeek.Thursday:
                     return "JUEVES";
-                case DayOfWeek.Friday: 
+                case DayOfWeek.Friday:
                     return "VIERNES";
-                case DayOfWeek.Saturday: 
+                case DayOfWeek.Saturday:
                     return "SABADO";
-                case DayOfWeek.Sunday: 
+                case DayOfWeek.Sunday:
                     return "DOMINGO";
                 default: return null;
             }
@@ -203,13 +216,15 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void filtrarHorariosYaTomados(List<String> horariosPosibles)
         {
-            List<String> horariosASacar = horariosPosibles.Where(unHorarioDeTurno => turnoRepository.existeTurnoActivo(turno.profesional, 
+            List<String> horariosASacar = horariosPosibles.Where
+                (unHorarioDeTurno => turnoRepository.existeTurnoActivo(turno.profesional,
                 new DateTime(obtenerFechaSeleccionada().Year, obtenerFechaSeleccionada().Month,
-                obtenerFechaSeleccionada().Day, DateTime.Parse(unHorarioDeTurno).Hour, DateTime.Parse(unHorarioDeTurno).Minute, 0))).ToList();
+                obtenerFechaSeleccionada().Day, DateTime.Parse(unHorarioDeTurno).Hour, 
+                DateTime.Parse(unHorarioDeTurno).Minute, 0))).ToList();
             foreach (String horarioASacar in horariosASacar)
             {
                 horariosPosibles.Remove(horarioASacar);
-            }      
+            }
         }
 
         private void mcFechaDeTurno_DateChanged(object sender, DateRangeEventArgs e)

@@ -1,58 +1,47 @@
-﻿using ClinicaFrba.Clases;
+﻿using ClinicaFrba.Abm_Profesional;
+using ClinicaFrba.Clases;
 using ClinicaFrba.Clases.DAOS;
 using ClinicaFrba.Clases.POJOS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TostadoPersistentKit;
 
 namespace ClinicaFrba.Registro_Resultado
 {
     public partial class RegistrarResultadoAtencionForm : Form
     {
-        Profesional profesional; //asumo que la funcionalidad sólo está disponible para el profesional, no el admin.
+        Profesional profesional;
         ResultadoAtencionMedica resultadoAtencionMedica;
 
-        public RegistrarResultadoAtencionForm(Usuario usuarioProfesional)
+        public RegistrarResultadoAtencionForm(Usuario usuarioProfesional, Rol rol)
         {
             InitializeComponent();
             ProfesionalRepository repositorioDeProfesionales = new ProfesionalRepository();
-            profesional = repositorioDeProfesionales.traerProfesionalPorUser(usuarioProfesional);
             resultadoAtencionMedica = new ResultadoAtencionMedica();
+
+            if (rol.nombre == "PROFESIONAL")
+            {
+                profesional = repositorioDeProfesionales.traerProfesionalPorUser(usuarioProfesional);
+                txtProfesional.Text = profesional.usuario.nombreCompleto;
+                filtrarCalendarioPorTurnos();
+            }
+            else
+            {
+                btnBuscarProfesional.Visible = true;
+            }   
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void dtpFechaTurno_ValueChanged(object sender, EventArgs e)
-        {
-            TurnoRepository repositorioDeTurnos = new TurnoRepository();
-            List<Turno> turnosDelProfesionalEnEseDia = new List<Turno>();
-            turnosDelProfesionalEnEseDia = repositorioDeTurnos.traerTurnosDeProfesional(profesional, dtpFechaTurno.Value);
-
-            if (turnosDelProfesionalEnEseDia.Count == 0)
-            {
-                MessageBox.Show("ERROR: No existen turnos en la fecha seleccionada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                cmbPacientes.DataSource = turnosDelProfesionalEnEseDia;
-                cmbPacientes.DisplayMember = "nombreAfiliadoCompleto";
-                cmbPacientes.Enabled = true;
-                dtpFechaDiagnostico.MinDate = dtpFechaTurno.Value;
-            }
-        }
-
-        private void RegistrarResultadoAtencionForm_Load(object sender, EventArgs e)
-        {
-            lblProfesional.Text = lblProfesional.Text + " " + profesional.usuario.nombreCompleto;
         }
 
         private void btnConfirmar_Click(object sender, EventArgs e)
@@ -61,13 +50,25 @@ namespace ClinicaFrba.Registro_Resultado
             resultadoAtencionMedica.diagnostico = rtxtDiagnostico.Text;
             resultadoAtencionMedica.fechaDeDiagnostico = new DateTime(dtpFechaDiagnostico.Value.Year, dtpFechaDiagnostico.Value.Month, 
                 dtpFechaDiagnostico.Value.Day, dtpHoraDiagnostico.Value.Hour, dtpHoraDiagnostico.Value.Minute, dtpHoraDiagnostico.Value.Second);
+
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            DataBase.Instance.agregarParametro(parametros, "@id_turno", resultadoAtencionMedica.turnoID);
+            DataBase.Instance.agregarParametro(parametros, "@sintoma", resultadoAtencionMedica.sintomas);
+            DataBase.Instance.agregarParametro(parametros, "@enfermedad", resultadoAtencionMedica.diagnostico);
+            DataBase.Instance.agregarParametro(parametros, "@fecha_diagnostico", resultadoAtencionMedica.fechaDeDiagnostico);
+
+            DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_registrar_consulta", parametros);
+
+            MessageBox.Show("Se ha guardado el diagnóstico exitosamente.", "Resultado de Atención Médica", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            Close();
         }
 
         private void cmbPacientes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (true) //TODO: Verificar que no tenga diagnostico todavia
+            if (true) //TODO: Verificar que no tenga diagnostico todavia (con turno id)
             {
-                lblAfiliado.Text = lblAfiliado.Text + " " + cmbPacientes.SelectedText;
+                lblNombreAfiliado.Text = ((Turno)cmbPacientes.SelectedItem).nombreAfiliadoCompleto;
                 resultadoAtencionMedica.turnoID = ((Turno)cmbPacientes.SelectedItem).id;
                 dtpFechaDiagnostico.Enabled = true;
                 dtpHoraDiagnostico.Enabled = true;
@@ -100,10 +101,69 @@ namespace ClinicaFrba.Registro_Resultado
             activarBotonConfirmar();
         }
 
-        private void dtpHoraDiagnostico_ValueChanged(object sender, EventArgs e)
+        private void dtpFechaTurno_CloseUp(object sender, EventArgs e)
         {
-            rtxtSintomas.Enabled = true;
-            rtxtDiagnostico.Enabled = true;
+            TurnoRepository repositorioDeTurnos = new TurnoRepository();
+            List<Turno> turnosDelProfesionalEnEseDia = new List<Turno>();
+            turnosDelProfesionalEnEseDia = repositorioDeTurnos.traerTurnosDeProfesional(profesional, dtpFechaTurno.Value);
+
+            if (turnosDelProfesionalEnEseDia.Count == 0)
+            {
+                MessageBox.Show("ERROR: No existen turnos en la fecha seleccionada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                cmbPacientes.DataSource = turnosDelProfesionalEnEseDia;
+                cmbPacientes.DisplayMember = "nombreAfiliadoCompleto";
+                cmbPacientes.Enabled = true;
+                rtxtSintomas.Enabled = true;
+                rtxtDiagnostico.Enabled = true;
+                lblNombreAfiliado.Text = ((Turno)cmbPacientes.SelectedItem).nombreAfiliadoCompleto;
+                dtpFechaDiagnostico.MinDate = dtpFechaTurno.Value;
+            }
+        }
+
+        private void btnBuscarProfesional_Click(object sender, EventArgs e)
+        {
+            BuscarProfesionalForm buscarProfesionalForm = new BuscarProfesionalForm();
+
+            Hide();
+
+            buscarProfesionalForm.ShowDialog();
+
+            Show();
+
+            if (buscarProfesionalForm.seSeleccionoUnProfesional())
+            {
+                profesional = buscarProfesionalForm.getProfesionalSeleccionado();
+                txtProfesional.Text = profesional.usuario.nombreCompleto;
+                cmbPacientes.Enabled = false;
+                rtxtSintomas.Enabled = false;
+                rtxtDiagnostico.Enabled = false;
+                btnConfirmar.Enabled = false;
+                filtrarCalendarioPorTurnos();
+            }
+        }
+
+        private void filtrarCalendarioPorTurnos()
+        {
+            TurnoRepository turnoRepository = new TurnoRepository();
+            if (turnoRepository.tieneTurno(profesional))
+            {
+                dtpFechaTurno.MinDate = turnoRepository.obtenerFechaMinimaDeTurnoDe(profesional);
+                dtpFechaTurno.MaxDate = turnoRepository.obtenerFechaMaximaDeTurnoDe(profesional);
+                dtpFechaTurno.Value = dtpFechaTurno.MinDate;
+                dtpFechaTurno.Enabled = true;
+            }
+            else
+            {
+                MessageBox.Show("ERROR: El profesional no tiene turnos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                dtpFechaTurno.Enabled = false;
+                cmbPacientes.Enabled = false;
+                rtxtSintomas.Enabled = false;
+                rtxtDiagnostico.Enabled = false;
+                btnConfirmar.Enabled = false;
+            } 
         }
     }
 }
