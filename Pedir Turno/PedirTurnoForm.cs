@@ -120,8 +120,10 @@ namespace ClinicaFrba.Pedir_Turno
                 {
                     turno.profesional = buscarProfesionalForm.getProfesionalSeleccionado();
                     turno.especialidad = buscarProfesionalForm.getEspecialidadSeleccionada();
-
-                    mcFechaDeTurno.MinDate = agendaDelProfesional.fecha_inicial;
+                    if(mcFechaDeTurno.MinDate < agendaDelProfesional.fecha_inicial)
+                    {
+                        mcFechaDeTurno.MinDate = agendaDelProfesional.fecha_inicial;
+                    }
                     mcFechaDeTurno.MaxDate = agendaDelProfesional.fecha_final;
                     mcFechaDeTurno.SelectionRange.Start = mcFechaDeTurno.MinDate;
 
