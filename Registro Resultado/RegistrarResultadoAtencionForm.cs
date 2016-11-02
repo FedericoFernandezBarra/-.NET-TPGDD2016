@@ -66,16 +66,18 @@ namespace ClinicaFrba.Registro_Resultado
 
         private void cmbPacientes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (true) //TODO: Verificar que no tenga diagnostico todavia (con turno id)
+            Turno turnoSeleccionado = ((Turno)cmbPacientes.SelectedItem);
+
+            if (yaTieneDiagnostico(turnoSeleccionado))
             {
-                lblNombreAfiliado.Text = ((Turno)cmbPacientes.SelectedItem).nombreAfiliadoCompleto;
-                resultadoAtencionMedica.turnoID = ((Turno)cmbPacientes.SelectedItem).id;
-                dtpFechaDiagnostico.Enabled = true;
-                dtpHoraDiagnostico.Enabled = true;
+                MessageBox.Show("ERROR: El paciente seleccionado ya tiene su diagnóstico.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                MessageBox.Show("ERROR: El paciente ya tiene su diagnóstico.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lblNombreAfiliado.Text = turnoSeleccionado.nombreAfiliadoCompleto;
+                resultadoAtencionMedica.turnoID = turnoSeleccionado.id;
+                dtpFechaDiagnostico.Enabled = true;
+                dtpHoraDiagnostico.Enabled = true;    
             }
         }
 
@@ -164,6 +166,14 @@ namespace ClinicaFrba.Registro_Resultado
                 rtxtDiagnostico.Enabled = false;
                 btnConfirmar.Enabled = false;
             } 
+        }
+
+        private bool yaTieneDiagnostico(Turno unTurno)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            DataBase.Instance.agregarParametro(parametros, "@turno", unTurno.id);
+
+            return DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_obtener_consulta", parametros).Count > 0;
         }
     }
 }
