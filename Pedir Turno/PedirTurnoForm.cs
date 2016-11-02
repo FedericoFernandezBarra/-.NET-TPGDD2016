@@ -43,7 +43,6 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void btnConsultarDisponibilidad_Click(object sender, EventArgs e)
         {
-
             //Primer filtro: la fecha esta dentro de la agenda
             if(obtenerFechaSeleccionada() < agendaDelProfesional.fecha_inicial || obtenerFechaSeleccionada() > agendaDelProfesional.fecha_final)
             {
@@ -68,9 +67,18 @@ namespace ClinicaFrba.Pedir_Turno
                         
                         //Quinto filtro: eliminar horarios que ya poseen turno asignado
                         filtrarHorariosYaTomados(horariosPosibles);
-                        cmbHorariosDisponibles.DataSource = horariosPosibles;
-                        cmbHorariosDisponibles.Enabled = true;
-                        btnConfirmarTurno.Enabled = true;
+
+                        //Sexto filtro: el profesional tiene todos los turnos ocupados
+                        if (horariosPosibles.Count == 0)
+                        {
+                            MessageBox.Show("El profesional no tiene turnos disponibles en el día seleccionado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            cmbHorariosDisponibles.DataSource = horariosPosibles;
+                            cmbHorariosDisponibles.Enabled = true;
+                            btnConfirmarTurno.Enabled = true;
+                        }
                     }
                     else
                     {
@@ -121,19 +129,26 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void btnConfirmarTurno_Click(object sender, EventArgs e)
         {
-            DateTime horarioDeTurno = Convert.ToDateTime(cmbHorariosDisponibles.SelectedItem);
-            DateTime fechaYHorarioDeTurno = new DateTime(obtenerFechaSeleccionada().Year, obtenerFechaSeleccionada().Month, 
-                obtenerFechaSeleccionada().Day, horarioDeTurno.Hour, horarioDeTurno.Minute, 0);
-
-            turno.fechaDeTurno = fechaYHorarioDeTurno;
-
-            MessageBox.Show(turnoRepository.reservarTurno(turno));
-            Close();
+            turno.fechaDeTurno = obtenerFechaYHorarioDeTurno();
+            String respuesta = turnoRepository.reservarTurno(turno);
+            if (respuesta.Contains("exitosamente")) //D'fiesta pura
+            {
+                MessageBox.Show(respuesta, "Pedido de turno", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Close();
+            }
+            else
+            {
+                MessageBox.Show(respuesta, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private void ConsultarTurnosForm_Load(object sender, EventArgs e)
         {
-            txtAfiliado.Text = turno.afiliado.usuario.nombreCompleto;
+            if (!btnBuscarAfiliado.Visible) //D'fiesta parte 2
+            {
+                txtAfiliado.Text = turno.afiliado.usuario.nombreCompleto;
+            }
 
             mcFechaDeTurno.MinDate = DataBase.Instance.getDate();
             mcFechaDeTurno.TodayDate = DataBase.Instance.getDate();
@@ -145,6 +160,13 @@ namespace ClinicaFrba.Pedir_Turno
         private DateTime obtenerFechaSeleccionada()
         {
             return mcFechaDeTurno.SelectionRange.Start;
+        }
+
+        private DateTime obtenerFechaYHorarioDeTurno()
+        {
+            DateTime horarioDeTurno = Convert.ToDateTime(cmbHorariosDisponibles.SelectedItem);
+            return new DateTime(obtenerFechaSeleccionada().Year, obtenerFechaSeleccionada().Month,
+                obtenerFechaSeleccionada().Day, horarioDeTurno.Hour, horarioDeTurno.Minute, 0);
         }
 
         private String obtenerDiaSeleccionado()
@@ -181,13 +203,13 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void filtrarHorariosYaTomados(List<String> horariosPosibles)
         {
-            foreach (String horario in horariosPosibles)
+            List<String> horariosASacar = horariosPosibles.Where(unHorarioDeTurno => turnoRepository.existeTurnoActivo(turno.profesional, 
+                new DateTime(obtenerFechaSeleccionada().Year, obtenerFechaSeleccionada().Month,
+                obtenerFechaSeleccionada().Day, DateTime.Parse(unHorarioDeTurno).Hour, DateTime.Parse(unHorarioDeTurno).Minute, 0))).ToList();
+            foreach (String horarioASacar in horariosASacar)
             {
-                if (turnoRepository.existeTurnoActivo(turno.profesional, DateTime.Parse(horario)))
-                {
-                    horariosPosibles.Remove(horario);
-                }
-            }
+                horariosPosibles.Remove(horarioASacar);
+            }      
         }
 
         private void mcFechaDeTurno_DateChanged(object sender, DateRangeEventArgs e)

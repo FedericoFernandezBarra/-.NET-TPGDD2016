@@ -37,7 +37,7 @@ namespace ClinicaFrba.Clases.DAOS
 
         public String reservarTurno(Turno turno) {
             List<SqlParameter> parametros = new List<SqlParameter>();
-            DataBase.Instance.agregarParametro(parametros, "afiliado", turno.afiliado.usuario.id);
+            DataBase.Instance.agregarParametro(parametros, "id_afiliado", turno.afiliado.usuario.id);
             DataBase.Instance.agregarParametro(parametros, "profesional", turno.profesional.usuario.id);
             DataBase.Instance.agregarParametro(parametros, "especialidad", turno.especialidad.id);
             DataBase.Instance.agregarParametro(parametros, "fecha_turno", turno.fechaDeTurno);
