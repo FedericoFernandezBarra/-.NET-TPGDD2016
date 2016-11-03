@@ -779,9 +779,9 @@ values
     (7,3),
     (8,1),
     (9,2),
-	(10,1),
+    (10,1),
     (10,2),
-	(10,3),
+    (10,3),
     (11,3),
     (12,1),
     (13,2),
@@ -1291,11 +1291,10 @@ go
 
 create procedure BEMVINDO.st_actualizar_afiliado
 @id_afiliado numeric(10,0),
-@id_usuario     numeric(10,0),
 @direccion   nvarchar(255),
 @telefono    nvarchar(255),
 @mail    nvarchar(255),
-@plan_medico numeric(10,0),
+@plan_medico numeric(10,0)=null,
 @motivo     nvarchar(255),
 @fecha_sistema      date
 
@@ -1303,7 +1302,7 @@ AS
 begin
 
      update BEMVINDO.USUARIO SET direccion = @direccion, telefono=@telefono,mail=@mail
-     where id_usuario = @id_usuario
+     where id_usuario = @id_afiliado
 
 
      if(@plan_medico is not null)
@@ -1569,7 +1568,7 @@ begin
 
      select * from BEMVINDO.TURNO
      where profesional = @profesional and (CONVERT(date, fecha_turno) = CONVERT(date, @fecha_sistema)
-	 or @fecha_sistema is null) and (especialidad=@especialidad or @especialidad is null)
+     or @fecha_sistema is null) and (especialidad=@especialidad or @especialidad is null)
 
 end
 
@@ -1621,45 +1620,45 @@ end
 go
 
 CREATE PROCEDURE BEMVINDO.st_obtener_fecha_minima_turno
-@profesional			numeric(10,0)
+@profesional            numeric(10,0)
 
 AS
 begin
-	select MIN(CONVERT(date, fecha_turno)) as 'fechaMinima' from BEMVINDO.TURNO 
-		where profesional = @profesional
+    select MIN(CONVERT(date, fecha_turno)) as 'fechaMinima' from BEMVINDO.TURNO 
+        where profesional = @profesional
 end
 
 go
 
 CREATE PROCEDURE BEMVINDO.st_obtener_fecha_maxima_turno
-@profesional			numeric(10,0)
+@profesional            numeric(10,0)
 
 AS
 begin
-	select MAX(CONVERT(date, fecha_turno)) as 'fechaMaxima' from BEMVINDO.TURNO 
-		where profesional = @profesional
+    select MAX(CONVERT(date, fecha_turno)) as 'fechaMaxima' from BEMVINDO.TURNO 
+        where profesional = @profesional
 end
 
 go
 
 CREATE PROCEDURE BEMVINDO.st_obtener_consulta
-@turno					numeric(10,0)
+@turno                  numeric(10,0)
 
 AS
 begin
-	select * from BEMVINDO.CONSULTA
-		where turno = @turno
+    select * from BEMVINDO.CONSULTA
+        where turno = @turno
 end
 
 go
 
 CREATE PROCEDURE BEMVINDO.st_cantidad_turnos
-@profesional			numeric(10,0)
+@profesional            numeric(10,0)
 
 AS
 begin
-	SELECT COUNT(*) as 'cantidad' FROM BEMVINDO.TURNO
-		where profesional = @profesional
+    SELECT COUNT(*) as 'cantidad' FROM BEMVINDO.TURNO
+        where profesional = @profesional
 end
 
 go
