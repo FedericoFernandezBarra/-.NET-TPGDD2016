@@ -10,6 +10,13 @@ namespace ClinicaFrba.Clases.DAOS
     {
         DataBase db = DataBase.Instance;
 
+        public DateTime fechaSistema;
+
+        public AgendaRepository()
+        {
+            fechaSistema = db.getDate();
+        }
+
         internal override Type getModelClassType()
         {
             throw new NotImplementedException();

@@ -147,7 +147,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 return false;
             }
 
-            if (timerFechaDesde.Value.Date < DateTime.Now || timerFechaHasta.Value.Date < DateTime.Now)
+            if (timerFechaDesde.Value.Date < agendaDAO.fechaSistema || timerFechaHasta.Value.Date < DateTime.Now)
             {
                 MessageBox.Show("Las fechas ingresadas son anteriores a las del dia de hoy", "Error", MessageBoxButtons.OK);
                 return false;
