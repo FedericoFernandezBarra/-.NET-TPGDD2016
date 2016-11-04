@@ -85,7 +85,7 @@ namespace ClinicaFrba.Abm_Afiliado
         {
             if (!altaAfiliado.cumpleValidaciones())
             {
-                MessageBox.Show(altaAfiliado.mensajeDeError);
+                MessageBox.Show(altaAfiliado.mensajeDeError, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -95,7 +95,7 @@ namespace ClinicaFrba.Abm_Afiliado
             {
                 if (!altaAfiliado.guardarAfiliado())
                 {
-                    MessageBox.Show(altaAfiliado.mensajeDeError);
+                    MessageBox.Show(altaAfiliado.mensajeDeError, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 
@@ -144,7 +144,7 @@ namespace ClinicaFrba.Abm_Afiliado
         {
             if (!altaAfiliado.cumpleValidaciones())
             {
-                MessageBox.Show(altaAfiliado.mensajeDeError);
+                MessageBox.Show(altaAfiliado.mensajeDeError, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -184,7 +184,7 @@ namespace ClinicaFrba.Abm_Afiliado
         {
             if (!altaAfiliado.cumpleValidaciones())
             {
-                MessageBox.Show(altaAfiliado.mensajeDeError);
+                MessageBox.Show(altaAfiliado.mensajeDeError, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -192,7 +192,7 @@ namespace ClinicaFrba.Abm_Afiliado
 
             if (hijoAfiliado==null)
             {
-                MessageBox.Show(altaAfiliado.mensajeDeError);
+                MessageBox.Show(altaAfiliado.mensajeDeError, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

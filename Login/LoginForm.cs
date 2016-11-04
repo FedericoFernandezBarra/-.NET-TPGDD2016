@@ -31,13 +31,13 @@ namespace ClinicaFrba.Logueo
         {
             if (!login.cumpleValidaciones())
             {
-                MessageBox.Show(login.mensajeDeError);
+                MessageBox.Show(login.mensajeDeError, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (!login.logueoExitoso())
             {
-                MessageBox.Show(login.mensajeDeError);
+                MessageBox.Show(login.mensajeDeError, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

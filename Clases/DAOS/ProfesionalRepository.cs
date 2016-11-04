@@ -40,5 +40,63 @@ namespace ClinicaFrba.Clases.DAOS
 
             return profesionales.Count > 0 ? profesionales[0] : null;
         }
+
+        internal List<Dictionary<string, object>> top5ProfesionalesMasConsultas(int mes, int anio, PlanMedico filtroPlan)
+        {
+            object planValue = filtroPlan == null ? null : (object)filtroPlan.id;
+
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            DataBase.Instance.agregarParametro(parametros, "mes", mes);
+            DataBase.Instance.agregarParametro(parametros, "anio", anio);
+            DataBase.Instance.agregarParametro(parametros, "@plan_medico", planValue);
+
+            List<Dictionary<string, object>> lista = new List<Dictionary<string, object>>();
+
+            autoMapping = false;
+
+            List<Dictionary<string, object>> result = (List<Dictionary<string, object>>)executeStored("BEMVINDO.st_top5_profesionales_mas_consultados", parametros);
+
+            autoMapping = true;
+
+            foreach (Dictionary<string, object> item in result)
+            {
+                Dictionary<string, object> dictionary = new Dictionary<string, object>();
+                Profesional profesional = (Profesional)unSerialize(item);
+                completeProperty("profesional", profesional);
+                dictionary.Add("consultas", item["cant_de_consultas"]);
+                lista.Add(dictionary);
+            }
+
+            return lista;
+        }
+
+        internal List<Dictionary<string, object>> top5ProfesionalesMenosHorasTRabajadas(int mes, int anio, Especialidad filtroEspecialidad)
+        {
+            object especialidadValue = filtroEspecialidad == null ? null : (object)filtroEspecialidad.id;
+
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            DataBase.Instance.agregarParametro(parametros, "mes", mes);
+            DataBase.Instance.agregarParametro(parametros, "anio", anio);
+            DataBase.Instance.agregarParametro(parametros, "@especialidad", especialidadValue);
+
+            List<Dictionary<string, object>> lista = new List<Dictionary<string, object>>();
+
+            autoMapping = false;
+
+            List<Dictionary<string, object>> result = (List<Dictionary<string, object>>)executeStored("BEMVINDO.st_top5_profesionales_menos_horas_trabajdas", parametros);
+
+            autoMapping = true;
+
+            foreach (Dictionary<string, object> item in result)
+            {
+                Dictionary<string, object> dictionary = new Dictionary<string, object>();
+                Profesional profesional = (Profesional)unSerialize(item);
+                completeProperty("profesional", profesional);
+                dictionary.Add("horas", item["cant_horas_trabajadas"]);
+                lista.Add(dictionary);
+            }
+
+            return lista;
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace ClinicaFrba.Compra_Bono
         {
             if (!comprarBonos.compraExitosa())
             {
-                MessageBox.Show(comprarBonos.mensajeDeError);
+                MessageBox.Show(comprarBonos.mensajeDeError, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }

@@ -27,7 +27,7 @@ namespace ClinicaFrba.Cancelar_Atencion
         {
             if (!cancelarTurno.cancelacionExitosa())
             {
-                MessageBox.Show(cancelarTurno.mensajeDeError);
+                MessageBox.Show(cancelarTurno.mensajeDeError, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

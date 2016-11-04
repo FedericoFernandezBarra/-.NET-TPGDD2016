@@ -33,7 +33,7 @@ namespace ClinicaFrba.Abm_Profesional
         {
             if (!buscarProfesional.busquedaExitosa())
             {
-                MessageBox.Show(buscarProfesional.mensajeDeError);
+                MessageBox.Show(buscarProfesional.mensajeDeError, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

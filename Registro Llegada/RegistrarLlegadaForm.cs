@@ -113,7 +113,7 @@ namespace ClinicaFrba.Registro_Llegada
         {
             if (!registrarLlegada.ejecutarExitosamente())
             {
-                MessageBox.Show(registrarLlegada.mensajeDeError);
+                MessageBox.Show(registrarLlegada.mensajeDeError, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

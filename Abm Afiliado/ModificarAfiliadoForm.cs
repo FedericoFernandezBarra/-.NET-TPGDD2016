@@ -58,7 +58,7 @@ namespace ClinicaFrba.Abm_Afiliado
         {
             if (!modificarAfiliado.ejecutarModificacionesExitosamente())
             {
-                MessageBox.Show(modificarAfiliado.mensajeDeError);
+                MessageBox.Show(modificarAfiliado.mensajeDeError, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

@@ -48,6 +48,32 @@ namespace ClinicaFrba.Clases.DAOS
             return afiliados.Count > 0 ? afiliados[0] : null;
         }
 
+        internal List<Dictionary<string, object>> top5AfiliadosConMasBonos(int mes, int anio)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            DataBase.Instance.agregarParametro(parametros, "mes", mes);
+            DataBase.Instance.agregarParametro(parametros, "anio", anio);
+
+            List<Dictionary<string, object>> lista = new List<Dictionary<string, object>>();
+
+            autoMapping = false;
+
+            List<Dictionary<string, object>> result = (List<Dictionary<string, object>>)executeStored("BEMVINDO.st_top5_especialidades_mas_bonos_consulta", parametros);
+
+            autoMapping = true;
+
+            foreach (Dictionary<string, object> item in result)
+            {
+                Dictionary<string, object> dictionary = new Dictionary<string, object>();
+                Afiliado profesional = (Afiliado)unSerialize(item);
+                completeProperty("afiliado", profesional);
+                dictionary.Add("bonos", item["cant_bonos_utilizados"]);
+                lista.Add(dictionary);
+            }
+
+            return lista;
+        }
+
         internal void darDeBajaAfiliado(Afiliado afiliado)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();

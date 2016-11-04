@@ -75,7 +75,7 @@ namespace ClinicaFrba.Abm_Afiliado
         {
             if (!buscarAfiliado.busquedaExitosa())
             {
-                MessageBox.Show(buscarAfiliado.mensajeDeError);
+                MessageBox.Show(buscarAfiliado.mensajeDeError, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             cargarDataGrid();

@@ -55,7 +55,7 @@ namespace ClinicaFrba.AbmRol
 
             if (!editorDeRoles.ejecutarAccion())
             {
-                MessageBox.Show(editorDeRoles.mensajeDeError);
+                MessageBox.Show(editorDeRoles.mensajeDeError, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

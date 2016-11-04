@@ -55,7 +55,7 @@ namespace ClinicaFrba.Cancelar_Atencion
         {
             if (!cancelarDias.cancelacionExitosa())
             {
-                MessageBox.Show(cancelarDias.mensajeDeError);
+                MessageBox.Show(cancelarDias.mensajeDeError, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
