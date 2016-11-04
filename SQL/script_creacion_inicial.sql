@@ -122,6 +122,12 @@ drop procedure BEMVINDO.st_registrar_consulta
 
 go
 
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_actualizar_consulta') 
+drop procedure BEMVINDO.st_actualizar_consulta
+
+go
+
+
 if EXISTS (SELECT * FROM sysobjects  WHERE name='st_obtener_fecha_minima_turno') 
 drop procedure BEMVINDO.st_obtener_fecha_minima_turno
 
@@ -784,6 +790,7 @@ values
     (10,3),
     (11,3),
     (12,1),
+	(12,3),
     (13,2),
     (13,1),
     (14,3),
@@ -1587,6 +1594,22 @@ begin
     insert into BEMVINDO.CONSULTA(turno,sintoma,enfermedad,fecha_diagnostico)
      values (@id_turno,@sintoma,@enfermedad,@fecha_diagnostico)
 
+end
+
+go
+
+create procedure BEMVINDO.st_actualizar_consulta
+@id_turno               numeric(10,0),
+@sintoma                nvarchar(255),
+@enfermedad             nvarchar(255),
+@fecha_diagnostico      datetime
+
+AS
+begin
+
+    update BEMVINDO.CONSULTA set sintoma = @sintoma, enfermedad = @enfermedad,
+	fecha_diagnostico = @fecha_diagnostico
+	where turno = @id_turno
 end
 
 go
