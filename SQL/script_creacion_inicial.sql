@@ -801,47 +801,19 @@ go
 --TIPO DE CANCELACIONES
 -------------------------------------------------------------------------------------------------------
 INSERT INTO BEMVINDO.TIPO_CANCELACION
-(descripcion)
-VALUES ('Licencia')
-
-INSERT INTO BEMVINDO.Tipo_Cancelacion
-(descripcion)
-VALUES ('Sin justificacion')
-
-INSERT INTO BEMVINDO.Tipo_Cancelacion
-(descripcion)
-VALUES ('Compromisos Personales')
-
-INSERT INTO BEMVINDO.Tipo_Cancelacion
-(descripcion)
-VALUES ('Fallecimiento')
-
-INSERT INTO BEMVINDO.Tipo_Cancelacion
-(descripcion)
-VALUES ('Problemas de salud')
-
-INSERT INTO BEMVINDO.Tipo_Cancelacion
-(descripcion)
-VALUES ('Conflicto gremial')
-
-INSERT INTO BEMVINDO.Tipo_Cancelacion
-(descripcion)
-VALUES ('Problemas Renales')
-
-INSERT INTO BEMVINDO.Tipo_Cancelacion
-(descripcion)
-VALUES ('CIRUGIA ORTOMOLECULAR')
-
-INSERT INTO BEMVINDO.Tipo_Cancelacion
-(descripcion)
-VALUES ('Otro')
+VALUES 
+	('Licencia'),
+	('Sin justificacion'),
+	('Compromisos Personales'),
+	('Fallecimiento'),
+	('Problemas de salud'),
+	('Conflicto gremial'),
+	('Problemas Renales'),
+	('CIRUGIA ORTOMOLECULAR'),
+	('Otro')
 
 go
--------------------------------------------------------------------------------------------------------
-insert into BEMVINDO.TIPO_DOCUMENTO
-values ('DNI')
 
-go
 --ESTADO CIVIL
 -------------------------------------------------------------------------------------------------------
 insert into BEMVINDO.ESTADO_CIVIL
@@ -1771,7 +1743,7 @@ create procedure BEMVINDO.st_top5_especialidades_mas_canceladas
 
 AS BEGIN
  
-select top 5 id_especialidad,descripcion,TIPO_ESPECIALIDAD,count(*) as cant_cancelaciones
+select top 5 id_especialidad,descripcion,count(*) as cant_cancelaciones
 FROM BEMVINDO.TURNO
 inner join BEMVINDO.CANCELACION on turno = id_turno
 inner join BEMVINDO.ESPECIALIDAD on especialidad = id_especialidad
@@ -1791,7 +1763,7 @@ inner join BEMVINDO.ESPECIALIDAD on especialidad = id_especialidad
 
 AS BEGIN
  
-select top 5 id_profesional, nombre, apellido,matricula, sum(turno) as cant_de_consultas
+select top 5 profesional, nombre, apellido, sum(turno) as cant_de_consultas
 FROM BEMVINDO.USUARIO
 inner join BEMVINDO.PROFESIONAL on id_usuario = id_profesional
 inner join BEMVINDO.TURNO on profesional = id_profesional
@@ -1812,7 +1784,7 @@ inner join BEMVINDO.BONO on id_turno = turno
 
 AS BEGIN
  
-select top 5 id_profesional,nombre, apellido,matricula, count(turno)*0.5 as cant_horas_trabajadas
+select top 5 profesional,nombre, apellido, count(turno)*0.5 as cant_horas_trabajadas
 FROM BEMVINDO.USUARIO
 inner join BEMVINDO.PROFESIONAL on id_usuario = id_profesional
 inner join BEMVINDO.TURNO on profesional = id_profesional
@@ -1833,7 +1805,7 @@ create procedure BEMVINDO.st_top5_afiliados_mas_bonos_comprados
 
 AS BEGIN
  
-select top 5 id_afiliado,numero_afiliado, nombre, apellido,
+select top 5 comprador,numero_afiliado, nombre, apellido,
              sum(cantidad) as cant_bonos_comprados,case when numero_afiliado is null then 'NO'
                                                     when numero_afiliado is not null then 'SI'
                                                     end as pertenece_grupo_familiar
@@ -1856,7 +1828,7 @@ create procedure BEMVINDO.st_top5_especialidades_mas_bonos_consulta
 
 AS BEGIN
  
-select top 5 id_especialidad,descripcion,tipo_especialidad,count(*) as cant_bonos_utilizados
+select top 5 id_especialidad,descripcion,count(*) as cant_bonos_utilizados
 FROM BEMVINDO.TURNO
 inner join BEMVINDO.BONO on turno = id_turno
 inner join BEMVINDO.ESPECIALIDAD on especialidad = id_especialidad
