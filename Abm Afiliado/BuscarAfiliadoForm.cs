@@ -85,6 +85,7 @@ namespace ClinicaFrba.Abm_Afiliado
         {
             grillaPacientes.Rows.Clear();
             buscarAfiliado.afiliados.ForEach(a => grillaPacientes.Rows.Add(a.numeroDeAfiliado, a.usuario.nombre, a.usuario.apellido, a.usuario.documento, a.planMedico.descripcion));
+            grillaPacientes.Enabled = buscarAfiliado.afiliados.Count > 0;
         }
 
         internal Afiliado getAfiliadoSeleccionado()
@@ -146,6 +147,19 @@ namespace ClinicaFrba.Abm_Afiliado
         private void button1_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void cmdLimpiar_Click(object sender, EventArgs e)
+        {
+            txtNumAfiliado.Text = "";
+            txtNombre.Text = "";
+            txtApellido.Text = "";
+            txtDni.Text = "";
+
+            if (cmbPlanes.Items.Count>0)
+            {
+                cmbPlanes.SelectedIndex = 0;
+            }
         }
     }
 }

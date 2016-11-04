@@ -230,17 +230,17 @@ namespace ClinicaFrba.Listados
             bool anioSonNumeros = regAnio.IsMatch(anio.Text);
             if (anio.Text.Length != 4 || !anioSonNumeros)
             {
-                MessageBox.Show("Año ingresado no valido");
+                MessageBox.Show("Año ingresado no valido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (Convert.ToInt16(semestre.SelectedItem) == 0)
             {
-                MessageBox.Show("Debe seleccionar un semestre");
+                MessageBox.Show("Debe seleccionar un semestre", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (mes.SelectedIndex==0)
             {
-                MessageBox.Show("Debe seleccionar un mes");
+                MessageBox.Show("Debe seleccionar un mes", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -250,13 +250,13 @@ namespace ClinicaFrba.Listados
 
             if ((semestreSeleccionado * 6 < mes.SelectedIndex || mes.SelectedIndex < (semestreSeleccionado * 6 - 5)) && mes.SelectedIndex > 0)
             {
-                MessageBox.Show("Mes seleccionado no corresponde a semestre");
+                MessageBox.Show("Mes seleccionado no corresponde a semestre", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (listado==null)
             {
-                MessageBox.Show("Debe seleccionar un listado");
+                MessageBox.Show("Debe seleccionar un listado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

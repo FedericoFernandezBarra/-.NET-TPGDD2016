@@ -68,7 +68,7 @@ namespace ClinicaFrba.Clases.DAOS
                 Especialidad especialidad = (Especialidad)unSerialize(item);
                 completeProperty("tipoDeEspecialidad", especialidad);
                 dictionary.Add("especialidad", especialidad);
-                dictionary.Add("bonos", item["bonos"]);
+                dictionary.Add("bonos", item["cant_bonos_utilizados"]);
                 lista.Add(dictionary);
             }
 

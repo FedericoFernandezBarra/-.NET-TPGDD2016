@@ -60,6 +60,7 @@
             // 
             this.grillaProfesionales.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.grillaProfesionales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grillaProfesionales.Enabled = false;
             this.grillaProfesionales.Location = new System.Drawing.Point(19, 136);
             this.grillaProfesionales.Name = "grillaProfesionales";
             this.grillaProfesionales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -84,6 +85,7 @@
             this.cmdLimpiar.TabIndex = 12;
             this.cmdLimpiar.Text = "Limpiar";
             this.cmdLimpiar.UseVisualStyleBackColor = true;
+            this.cmdLimpiar.Click += new System.EventHandler(this.cmdLimpiar_Click);
             // 
             // groupBox1
             // 
@@ -192,7 +194,7 @@
             this.Controls.Add(this.btnAction);
             this.Controls.Add(this.grillaProfesionales);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "BuscarProfesionalForm";
             this.Text = "BuscarProfesionalForm";
             this.Load += new System.EventHandler(this.BuscarProfesionalForm_Load);

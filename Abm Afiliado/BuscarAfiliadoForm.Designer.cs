@@ -62,6 +62,7 @@
             // 
             this.grillaPacientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.grillaPacientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grillaPacientes.Enabled = false;
             this.grillaPacientes.Location = new System.Drawing.Point(19, 150);
             this.grillaPacientes.Name = "grillaPacientes";
             this.grillaPacientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -86,6 +87,7 @@
             this.cmdLimpiar.TabIndex = 7;
             this.cmdLimpiar.Text = "Limpiar";
             this.cmdLimpiar.UseVisualStyleBackColor = true;
+            this.cmdLimpiar.Click += new System.EventHandler(this.cmdLimpiar_Click);
             // 
             // groupBox1
             // 

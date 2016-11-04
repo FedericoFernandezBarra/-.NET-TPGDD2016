@@ -85,15 +85,15 @@ namespace ClinicaFrba.Clases.Otros
                 mensajeDeError = "Debe seleccionar un turno";
                 return false;
             }
+            if (bonoSeleccionado == null)//No se si el bono es obligatorio
+            {
+                mensajeDeError = "Numero de bono erroneo";
+                return false;
+            }
             if (bonoSeleccionado.planMedico.id!=turnoDeAfiliado.afiliado.planMedico.id)
             {
                 bonoSeleccionado = null;
                 mensajeDeError = "Debe seleccionar un bono perteneciente al plan actual";
-                return false;
-            }
-            if (bonoSeleccionado==null)//No se si el bono es obligatorio
-            {
-                mensajeDeError = "Numero de bono erroneo";
                 return false;
             }
             if (bonoSeleccionado.yaFueUsado())

@@ -53,7 +53,7 @@ namespace ClinicaFrba.Clases.Otros
 
             grilla.Rows.Clear();
 
-            profesionalesYconsultas.ToList().ForEach(o => grilla.Rows.Add(((Profesional)o["profesional"]).matricula, ((Profesional)o["profesional"]).usuario.nombre, ((Profesional)o["especialidad"]).usuario.apellido, o["consultas"]));
+            profesionalesYconsultas.ToList().ForEach(o => grilla.Rows.Add(((Profesional)o["profesional"]).matricula, ((Profesional)o["profesional"]).usuario.nombre, ((Profesional)o["profesional"]).usuario.apellido, o["consultas"]));
         }
 
         public override void llenarDataGrid(ref DataGridView grilla, List<int> meses, int anio)

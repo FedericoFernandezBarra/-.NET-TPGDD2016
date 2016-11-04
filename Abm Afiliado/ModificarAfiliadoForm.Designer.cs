@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtMotivo = new System.Windows.Forms.TextBox();
             this.lblMotivo = new System.Windows.Forms.Label();
             this.cmbPlanes = new System.Windows.Forms.ComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.cmbVolver = new System.Windows.Forms.Button();
-            this.cmdLimpiar = new System.Windows.Forms.Button();
             this.cmdAceptar = new System.Windows.Forms.Button();
             this.txtMail = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -41,7 +41,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txtTel = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtMotivo = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,7 +51,6 @@
             this.groupBox1.Controls.Add(this.cmbPlanes);
             this.groupBox1.Controls.Add(this.label26);
             this.groupBox1.Controls.Add(this.cmbVolver);
-            this.groupBox1.Controls.Add(this.cmdLimpiar);
             this.groupBox1.Controls.Add(this.cmdAceptar);
             this.groupBox1.Controls.Add(this.txtMail);
             this.groupBox1.Controls.Add(this.label5);
@@ -67,6 +65,14 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos Personales";
+            // 
+            // txtMotivo
+            // 
+            this.txtMotivo.Location = new System.Drawing.Point(132, 137);
+            this.txtMotivo.Name = "txtMotivo";
+            this.txtMotivo.Size = new System.Drawing.Size(465, 20);
+            this.txtMotivo.TabIndex = 65;
+            this.txtMotivo.Visible = false;
             // 
             // lblMotivo
             // 
@@ -108,18 +114,9 @@
             this.cmbVolver.UseVisualStyleBackColor = true;
             this.cmbVolver.Click += new System.EventHandler(this.cmbVolver_Click);
             // 
-            // cmdLimpiar
-            // 
-            this.cmdLimpiar.Location = new System.Drawing.Point(253, 186);
-            this.cmdLimpiar.Name = "cmdLimpiar";
-            this.cmdLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.cmdLimpiar.TabIndex = 59;
-            this.cmdLimpiar.Text = "Limpiar";
-            this.cmdLimpiar.UseVisualStyleBackColor = true;
-            // 
             // cmdAceptar
             // 
-            this.cmdAceptar.Location = new System.Drawing.Point(93, 186);
+            this.cmdAceptar.Location = new System.Drawing.Point(178, 186);
             this.cmdAceptar.Name = "cmdAceptar";
             this.cmdAceptar.Size = new System.Drawing.Size(75, 23);
             this.cmdAceptar.TabIndex = 57;
@@ -178,14 +175,6 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Teléfono:";
             // 
-            // txtMotivo
-            // 
-            this.txtMotivo.Location = new System.Drawing.Point(132, 137);
-            this.txtMotivo.Name = "txtMotivo";
-            this.txtMotivo.Size = new System.Drawing.Size(465, 20);
-            this.txtMotivo.TabIndex = 65;
-            this.txtMotivo.Visible = false;
-            // 
             // ModificarAfiliadoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -209,7 +198,6 @@
         private System.Windows.Forms.ComboBox cmbPlanes;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Button cmbVolver;
-        private System.Windows.Forms.Button cmdLimpiar;
         private System.Windows.Forms.Button cmdAceptar;
         private System.Windows.Forms.TextBox txtMail;
         private System.Windows.Forms.Label label5;

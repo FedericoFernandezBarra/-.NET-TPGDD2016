@@ -1776,7 +1776,7 @@ FROM BEMVINDO.TURNO
 inner join BEMVINDO.CANCELACION on turno = id_turno
 inner join BEMVINDO.ESPECIALIDAD on especialidad = id_especialidad
  where year(fecha)= @anio and (month(fecha)=@mes) and activo=0
- group by id_especialidad,descripcion
+ group by id_especialidad,descripcion,TIPO_ESPECIALIDAD
  order by cant_cancelaciones desc
 
  end
@@ -1797,7 +1797,7 @@ inner join BEMVINDO.PROFESIONAL on id_usuario = id_profesional
 inner join BEMVINDO.TURNO on profesional = id_profesional
 inner join BEMVINDO.BONO on id_turno = turno
  where year(fecha_llegada)= @anio and (month(fecha_llegada)=@mes) and (@plan_medico=plan_medico or @plan_medico is null)
- group by profesional, nombre, apellido
+ group by id_profesional, nombre, apellido,matricula
  order by cant_de_consultas desc
 
  end
@@ -1818,7 +1818,7 @@ inner join BEMVINDO.PROFESIONAL on id_usuario = id_profesional
 inner join BEMVINDO.TURNO on profesional = id_profesional
 inner join BEMVINDO.CONSULTA on id_turno = turno
  where year(fecha_diagnostico)= @anio and (month(fecha_diagnostico)=@mes) and (@especialidad=especialidad or @especialidad is null)
- group by profesional,nombre, apellido
+ group by id_profesional,nombre, apellido,matricula
  order by cant_horas_trabajadas asc
 
  end
@@ -1841,7 +1841,7 @@ FROM BEMVINDO.USUARIO
 inner join BEMVINDO.AFILIADO on id_usuario = id_afiliado
 inner join BEMVINDO.COMPRA on id_afiliado = comprador
  where year(fecha_compra)= @anio and (month(fecha_compra)=@mes)
- group by comprador,numero_afiliado, nombre, apellido
+ group by id_afiliado,numero_afiliado, nombre, apellido
  order by cant_bonos_comprados desc
 
  end
@@ -1861,7 +1861,7 @@ FROM BEMVINDO.TURNO
 inner join BEMVINDO.BONO on turno = id_turno
 inner join BEMVINDO.ESPECIALIDAD on especialidad = id_especialidad
  where year(fecha_llegada)= @anio and (month(fecha_llegada)=@mes) and activo=1
- group by id_especialidad,descripcion
+ group by id_especialidad,descripcion,tipo_especialidad
  order by cant_bonos_utilizados desc
 
  end

@@ -29,6 +29,10 @@ namespace ClinicaFrba.Clases.Otros
             cConsultas.HeaderText = "Bonos comprados";
             cConsultas.ReadOnly = true;
             grilla.Columns.Add(cConsultas);
+            DataGridViewTextBoxColumn cGrupoFamiliar = new DataGridViewTextBoxColumn();
+            cGrupoFamiliar.HeaderText = "Pertenece a grupo familiar";
+            cGrupoFamiliar.ReadOnly = true;
+            grilla.Columns.Add(cGrupoFamiliar);
         }
 
         public override string initFiltros(ComboBox filtro)
@@ -44,7 +48,7 @@ namespace ClinicaFrba.Clases.Otros
 
             grilla.Rows.Clear();
 
-            afiliadosYBonos.ToList().ForEach(o => grilla.Rows.Add(((Afiliado)o["afiliado"]).numeroDeAfiliado, ((Afiliado)o["afiliado"]).usuario.nombre, ((Afiliado)o["afiliado"]).usuario.apellido, o["bonos"]));
+            afiliadosYBonos.ToList().ForEach(o => grilla.Rows.Add(((Afiliado)o["afiliado"]).numeroDeAfiliado, ((Afiliado)o["afiliado"]).usuario.nombre, ((Afiliado)o["afiliado"]).usuario.apellido, o["bonos"],o["grupo_familiar"]));
         }
 
         public override void llenarDataGrid(ref DataGridView grilla, List<int> meses, int anio)

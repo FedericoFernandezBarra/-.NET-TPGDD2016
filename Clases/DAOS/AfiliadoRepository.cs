@@ -58,16 +58,17 @@ namespace ClinicaFrba.Clases.DAOS
 
             autoMapping = false;
 
-            List<Dictionary<string, object>> result = (List<Dictionary<string, object>>)executeStored("BEMVINDO.st_top5_especialidades_mas_bonos_consulta", parametros);
+            List<Dictionary<string, object>> result = (List<Dictionary<string, object>>)executeStored("BEMVINDO.st_top5_afiliados_mas_bonos_comprados", parametros);
 
             autoMapping = true;
 
             foreach (Dictionary<string, object> item in result)
             {
                 Dictionary<string, object> dictionary = new Dictionary<string, object>();
-                Afiliado profesional = (Afiliado)unSerialize(item);
-                completeProperty("afiliado", profesional);
-                dictionary.Add("bonos", item["cant_bonos_utilizados"]);
+                Afiliado afiliado = (Afiliado)unSerialize(item);
+                dictionary.Add("afiliado", afiliado);
+                dictionary.Add("bonos", item["cant_bonos_comprados"]);
+                dictionary.Add("grupo_familiar", item["pertenece_grupo_familiar"]);
                 lista.Add(dictionary);
             }
 

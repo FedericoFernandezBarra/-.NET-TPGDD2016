@@ -62,7 +62,7 @@ namespace ClinicaFrba.Clases.DAOS
             {
                 Dictionary<string, object> dictionary = new Dictionary<string, object>();
                 Profesional profesional = (Profesional)unSerialize(item);
-                completeProperty("profesional", profesional);
+                dictionary.Add("profesional", profesional);
                 dictionary.Add("consultas", item["cant_de_consultas"]);
                 lista.Add(dictionary);
             }
@@ -91,7 +91,7 @@ namespace ClinicaFrba.Clases.DAOS
             {
                 Dictionary<string, object> dictionary = new Dictionary<string, object>();
                 Profesional profesional = (Profesional)unSerialize(item);
-                completeProperty("profesional", profesional);
+                dictionary.Add("profesional", profesional);
                 dictionary.Add("horas", item["cant_horas_trabajadas"]);
                 lista.Add(dictionary);
             }

@@ -15,6 +15,7 @@ namespace ClinicaFrba.Clases.Otros
         public string motivo { get; set; }
         public List<EstadoCivil> estadosCivilesSistema { get; set; }
         public List<PlanMedico> planesMedicosSistema { get; set; }
+
         public PlanMedico planMedicoActual { get; set; }
         private AfiliadoRepository repoAfiliado = new AfiliadoRepository();
 
