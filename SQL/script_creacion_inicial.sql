@@ -790,7 +790,7 @@ values
     (10,3),
     (11,3),
     (12,1),
-    (12,3),
+	(12,3),
     (13,2),
     (13,1),
     (14,3),
@@ -809,15 +809,15 @@ go
 -------------------------------------------------------------------------------------------------------
 INSERT INTO BEMVINDO.TIPO_CANCELACION
 VALUES 
-    ('Licencia'),
-    ('Sin justificacion'),
-    ('Compromisos Personales'),
-    ('Fallecimiento'),
-    ('Problemas de salud'),
-    ('Conflicto gremial'),
-    ('Problemas Renales'),
-    ('CIRUGIA ORTOMOLECULAR'),
-    ('Otro')
+	('Licencia'),
+	('Sin justificacion'),
+	('Compromisos Personales'),
+	('Fallecimiento'),
+	('Problemas de salud'),
+	('Conflicto gremial'),
+	('Problemas Renales'),
+	('CIRUGIA ORTOMOLECULAR'),
+	('Otro')
 
 go
 
@@ -1178,21 +1178,6 @@ values
 
 go
 
----DOCTOR
-
-insert into BEMVINDO.USUARIO
-values('Dr.House','w23e',0,1,null,null,null,null,null,null,null,null,null)
-
-go
-
-insert into BEMVINDO.PROFESIONAL
-values(5580, 123)
-
-insert into BEMVINDO.ROL_POR_USUARIO
-values 
-    (1,5580)
-go
-
 /********************************************************************************************************************************/
 /*CREACION DE PROCEDIMIENTOS PARA LA APLICACION*/
 /********************************************************************************************************************************/
@@ -1225,7 +1210,6 @@ begin
      BEGIN TRANSACTION  
      BEGIN TRY
 
-     set @nro_grupo_familiar = concat('0',@nro_grupo_familiar)
 
      select @id_numerito =max(numero_afiliado) from BEMVINDO.AFILIADO
      set @id_numerito= (@id_numerito/100)
@@ -1624,8 +1608,8 @@ AS
 begin
 
     update BEMVINDO.CONSULTA set sintoma = @sintoma, enfermedad = @enfermedad,
-    fecha_diagnostico = @fecha_diagnostico
-    where turno = @id_turno
+	fecha_diagnostico = @fecha_diagnostico
+	where turno = @id_turno
 end
 
 go
