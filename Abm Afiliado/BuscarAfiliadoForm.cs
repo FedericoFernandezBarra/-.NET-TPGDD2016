@@ -160,6 +160,13 @@ namespace ClinicaFrba.Abm_Afiliado
             {
                 cmbPlanes.SelectedIndex = 0;
             }
+
+            buscarAfiliado.afiliados.Clear();
+
+            grillaPacientes.Rows.Clear();
+
+            grillaPacientes.Enabled = false;
+
         }
     }
 }

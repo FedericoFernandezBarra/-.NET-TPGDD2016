@@ -145,6 +145,12 @@ namespace ClinicaFrba.Abm_Profesional
             {
                 cmbEspecialidades.SelectedIndex = 0;
             }
+
+            buscarProfesional.profesionales.Clear();
+
+            grillaProfesionales.Rows.Clear();
+
+            grillaProfesionales.Enabled = false;
         }
     }
 }

@@ -3,6 +3,7 @@ using ClinicaFrba.Clases.POJOS;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using TostadoPersistentKit;
 
 namespace ClinicaFrba.Abm_Afiliado
 {
@@ -79,6 +80,32 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void cmdLimpiar_Click(object sender, EventArgs e)
         {
+            txtApellido.Text = "";
+            txtDir.Text = "";
+            txtDni.Text = "";
+            txtHijos.Text = "";
+            txtMail.Text = "";
+            txtNombre.Text = "";
+            txtTel.Text = "";
+
+            dtpFechaNacimiento.Value=DataBase.Instance.getDate();
+
+            if (cmbEstadoCivil.Items.Count>0)
+            {
+                cmbEstadoCivil.SelectedIndex = 0;
+            }
+            if (cmbPlanes.Items.Count > 0)
+            {
+                cmbPlanes.SelectedIndex = 0;
+            }
+            if (cmbSexo.Items.Count > 0)
+            {
+                cmbSexo.SelectedIndex = 0;
+            }
+            if (cmbTipoDocumento.Items.Count > 0)
+            {
+                cmbTipoDocumento.SelectedIndex = 0;
+            }
         }
 
         private void cmdAceptar_Click(object sender, EventArgs e)
