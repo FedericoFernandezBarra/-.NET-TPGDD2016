@@ -1181,7 +1181,7 @@ go
 ---DOCTOR
 
 insert into BEMVINDO.USUARIO
-values('Dr.House','w23e',0,1,null,null,null,null,null,null,null,null,null)
+values('Dr.House','w23e',0,1,'Gregory','House',null,null,null,null,null,null,null)
 
 go
 
