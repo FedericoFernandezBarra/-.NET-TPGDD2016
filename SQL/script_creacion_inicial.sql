@@ -1309,11 +1309,16 @@ create procedure BEMVINDO.st_actualizar_afiliado
 AS
 begin
 
+     declare @planMedico numeric(10,0)
+
+      (select @planMedico =plan_medico from BEMVINDO.AFILIADO
+                                            where id_afiliado=@id_afiliado)
+
      update BEMVINDO.USUARIO SET direccion = @direccion, telefono=@telefono,mail=@mail
      where id_usuario = @id_afiliado
 
 
-     if(@plan_medico is not null)
+     if(@plan_medico <> @planMedico)
      begin
          insert into BEMVINDO.HISTORIAL_CAMBIOS_DE_PLAN values
          (@plan_medico,@id_afiliado,@motivo,@fecha_sistema)
