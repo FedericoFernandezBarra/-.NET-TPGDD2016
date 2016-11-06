@@ -165,6 +165,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.SeleccionTurno);
             this.Controls.Add(this.Medico);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "RegistrarLlegadaForm";
             this.Text = "Form1";

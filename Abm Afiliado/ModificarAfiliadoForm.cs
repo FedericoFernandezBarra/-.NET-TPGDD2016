@@ -12,7 +12,7 @@ namespace ClinicaFrba.Abm_Afiliado
         public ModificarAfiliadoForm(Afiliado afiliado)
         {
             modificarAfiliado.afiliado = afiliado;
-            modificarAfiliado.planMedicoActual = afiliado.planMedico;
+            modificarAfiliado.cargarPlanMedicoActual();
 
             InitializeComponent();
         }
@@ -39,6 +39,16 @@ namespace ClinicaFrba.Abm_Afiliado
             cmbPlanes.DisplayMember = "descripcion";
             cmbPlanes.DataSource = modificarAfiliado.planesMedicosSistema;
             cmbPlanes.DataBindings.Add("SelectedItem", modificarAfiliado.afiliado, "planMedico");
+
+            //Por las dudas vieja
+            foreach (PlanMedico item in cmbPlanes.Items)
+            {
+                if (item.id==modificarAfiliado.afiliado.planMedico.id)
+                {
+                    cmbPlanes.SelectedItem = item;
+                }
+            }
+            
         }
 
         private void txtHijos_KeyPress(object sender, KeyPressEventArgs e)

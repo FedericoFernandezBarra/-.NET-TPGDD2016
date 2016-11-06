@@ -28,6 +28,11 @@ namespace ClinicaFrba.Clases.Otros
 
         internal void cargarDatosDeRol()
         {
+            if (rol==null)
+            {
+                return;
+            }
+
             switch (rol.nombre.ToLower())
             {
                 case AFILIADO: usuarioPosta = (new AfiliadoRepository()).traerAfiliadoPorUser(usuario);
@@ -45,6 +50,10 @@ namespace ClinicaFrba.Clases.Otros
 
         internal bool usuarioPuedeUsar(string accion)
         {
+            if (rol==null)
+            {
+                return false;
+            }
             return rol.funcionalidades.Exists(f => f.nombre.ToLower()==accion.ToLower());
         }
 

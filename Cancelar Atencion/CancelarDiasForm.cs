@@ -37,15 +37,19 @@ namespace ClinicaFrba.Cancelar_Atencion
             cmbCancelacion.DataBindings.Add("SelectedItem", cancelarDias, "tipoDeCancelacion");
             txtMotivo.DataBindings.Add("Text", cancelarDias, "motivoDeCancelacion");
 
-            lblProfesional.Text += cancelarDias.profesional.usuario.nombre + " " + cancelarDias.profesional.usuario.apellido;
+            cmbCancelacion.DisplayMember = "descripcion";
+            cmbCancelacion.DataSource = cancelarDias.tiposDeCancelacion;
+            cmbCancelacion.DataBindings.Add("SelectedItem", cancelarDias, "tipoDeCancelacion");
+
+            lblProfesional.Text += " "+cancelarDias.profesional.usuario.nombre + " " + cancelarDias.profesional.usuario.apellido;
         }
 
         private void inicializarForm()
         {
-            foreach (var item in cancelarDias.tiposDeCancelacion)
+            /*foreach (var item in cancelarDias.tiposDeCancelacion)
             {
                 cmbCancelacion.Items.Add(item);
-            }
+            }*/
 
             //fechaInicioCancelacion.Value = DataBase.Instance.getDate();
             //fechaFinCancelacion.Value = DataBase.Instance.getDate();

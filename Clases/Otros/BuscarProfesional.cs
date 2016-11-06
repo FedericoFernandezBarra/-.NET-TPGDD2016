@@ -80,7 +80,17 @@ namespace ClinicaFrba.Clases.Otros
 
         internal void buscar()
         {
-            profesionales = (new ProfesionalRepository()).buscarProfesionales(nroMatricula, nombre, apellido, especialidad);
+            List<Profesional> result = (new ProfesionalRepository()).buscarProfesionales(nroMatricula, nombre, apellido, especialidad);
+
+            profesionales = new List<Profesional>();
+
+            foreach (Profesional p in result)
+            {
+                if (!profesionales.Exists(pr => pr.matricula == p.matricula))
+                {
+                    profesionales.Add(p);
+                }
+            }
         }
     }
 }

@@ -43,7 +43,9 @@ namespace ClinicaFrba.Abm_Profesional
         private void cargarDataGrid()
         {
             grillaProfesionales.Rows.Clear();
-            buscarProfesional.profesionales.ForEach(p => grillaProfesionales.Rows.Add(p.matricula, p.usuario.nombre, p.usuario.apellido));
+
+            buscarProfesional.profesionales.ForEach(p=> grillaProfesionales.Rows.Add(p.matricula, p.usuario.nombre, p.usuario.apellido));
+
             grillaProfesionales.Enabled = buscarProfesional.profesionales.Count > 0;
         }
 
@@ -133,6 +135,11 @@ namespace ClinicaFrba.Abm_Profesional
             cApellido.HeaderText = "Apellido";
             cApellido.ReadOnly = true;
             grillaProfesionales.Columns.Add(cApellido);
+
+            DataGridViewTextBoxColumn cEspecialidad = new DataGridViewTextBoxColumn();
+            cEspecialidad.HeaderText = "Especialidad";
+            cEspecialidad.ReadOnly = true;
+            grillaProfesionales.Columns.Add(cEspecialidad);
         }
 
         private void cmdLimpiar_Click(object sender, EventArgs e)

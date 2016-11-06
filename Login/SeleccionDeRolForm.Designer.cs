@@ -39,26 +39,31 @@
             // 
             this.groupBox1.Controls.Add(this.comboBox_Roles);
             this.groupBox1.Controls.Add(this.continuar_Boton);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(16, 15);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(269, 90);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(359, 111);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Roles disponibles";
             // 
             // comboBox_Roles
             // 
+            this.comboBox_Roles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_Roles.FormattingEnabled = true;
-            this.comboBox_Roles.Location = new System.Drawing.Point(10, 20);
+            this.comboBox_Roles.Location = new System.Drawing.Point(13, 25);
+            this.comboBox_Roles.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox_Roles.Name = "comboBox_Roles";
-            this.comboBox_Roles.Size = new System.Drawing.Size(248, 21);
+            this.comboBox_Roles.Size = new System.Drawing.Size(329, 24);
             this.comboBox_Roles.TabIndex = 0;
             // 
             // continuar_Boton
             // 
-            this.continuar_Boton.Location = new System.Drawing.Point(139, 50);
+            this.continuar_Boton.Location = new System.Drawing.Point(185, 62);
+            this.continuar_Boton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.continuar_Boton.Name = "continuar_Boton";
-            this.continuar_Boton.Size = new System.Drawing.Size(120, 30);
+            this.continuar_Boton.Size = new System.Drawing.Size(160, 37);
             this.continuar_Boton.TabIndex = 1;
             this.continuar_Boton.Text = "Continuar >>";
             this.continuar_Boton.UseVisualStyleBackColor = true;
@@ -67,19 +72,21 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 15);
+            this.label1.Location = new System.Drawing.Point(19, 18);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 13);
+            this.label1.Size = new System.Drawing.Size(159, 17);
             this.label1.TabIndex = 6;
             this.label1.Text = "Por favor, escoja un rol:";
             // 
             // SeleccionDeRolForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(293, 111);
+            this.ClientSize = new System.Drawing.Size(391, 137);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "SeleccionDeRolForm";
             this.Text = "SeleccionDeRolForm";
             this.Load += new System.EventHandler(this.SeleccionDeRolForm_Load);

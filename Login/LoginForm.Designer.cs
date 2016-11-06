@@ -95,6 +95,7 @@
             this.Controls.Add(this.Ingresar);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUserName);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "LoginForm";
             this.Text = "LoginForm";
             this.Load += new System.EventHandler(this.LoginForm_Load);

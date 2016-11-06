@@ -48,6 +48,10 @@ namespace ClinicaFrba.Cancelar_Atencion
             cmbCancelacion.DataBindings.Add("SelectedItem", cancelarTurno, "tipoDeCancelacion");
             txtMotivo.DataBindings.Add("Text", cancelarTurno, "motivoDeCancelacion");
 
+            cmbCancelacion.DisplayMember = "descripcion";
+            cmbCancelacion.DataSource = cancelarTurno.tiposDeCancelacion;
+            cmbCancelacion.DataBindings.Add("SelectedItem", cancelarTurno, "tipoDeCancelacion");
+
             cargarDataGrid();
 
             //grillaTurnos.DataSource = cancelarTurno.turnosDeAfiliado;
@@ -63,10 +67,12 @@ namespace ClinicaFrba.Cancelar_Atencion
 
         private void inicializarForm()
         {
-            foreach (var item in cancelarTurno.tiposDeCancelacion)
+            /*foreach (var item in cancelarTurno.tiposDeCancelacion)
             {
                 cmbCancelacion.Items.Add(item);
-            }
+            }*/
+
+            lbl1.Text += " " + cancelarTurno.afiliado.usuario.nombreCompleto;
 
             DataGridViewTextBoxColumn cProfesional = new DataGridViewTextBoxColumn();
             cProfesional.HeaderText = "Profesional";

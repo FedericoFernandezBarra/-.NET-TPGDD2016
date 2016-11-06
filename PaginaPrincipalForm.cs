@@ -40,6 +40,22 @@ namespace ClinicaFrba
 
             menu.usuario = login.getUsuarioLogueado();
 
+            actions.Keys.ToList().ForEach(a => a.Visible = (a == tsmSesion));
+
+            if (menu.usuarioLogueado())
+            {
+                SeleccionDeRolForm seleccionDeRol = new SeleccionDeRolForm(menu.usuario);
+
+                if (menu.usuario.roles.Count==1)
+                {
+                    menu.rol = menu.usuario.roles[0];
+
+                    menu.cargarDatosDeRol();
+
+                    cargarFormSegunRol();
+                }
+            }
+
             Show();
         }
 

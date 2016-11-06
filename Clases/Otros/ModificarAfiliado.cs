@@ -61,5 +61,13 @@ namespace ClinicaFrba.Clases.Otros
         {
             return planMedicoActual.id != afiliado.planMedico.id;
         }
+
+        internal void cargarPlanMedicoActual()
+        {
+            planMedicoActual = new PlanMedico();
+            planMedicoActual.id = afiliado.planMedico.id;
+            planMedicoActual.descripcion = afiliado.planMedico.descripcion;
+            planMedicoActual.precioDeBonoConsulta = afiliado.planMedico.precioDeBonoConsulta;
+        }
     }
 }

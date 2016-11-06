@@ -111,6 +111,7 @@
             this.ClientSize = new System.Drawing.Size(576, 397);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Volver_Button);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "AbmRolForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.AbmRolForm_Load);

@@ -30,9 +30,9 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void initForm()
         {
-            txtNick.DataBindings.Add("Text", bajaAfiliado.afiliado.usuario, "nick");
+            txtNombre.DataBindings.Add("Text", bajaAfiliado.afiliado.usuario, "nombre");
             txtNroAfliado.DataBindings.Add("Text", bajaAfiliado.afiliado, "numeroDeAfiliado");
-            txtPass.DataBindings.Add("Text", bajaAfiliado.afiliado.usuario, "pass");
+            txtApellido.DataBindings.Add("Text", bajaAfiliado.afiliado.usuario, "apellido");
         }
 
         private void cmdBaja_Click(object sender, EventArgs e)
@@ -45,6 +45,11 @@ namespace ClinicaFrba.Abm_Afiliado
 
             MessageBox.Show("Baja ejecutada exitosamente");
 
+            Close();
+        }
+
+        private void cmbVolver_Click(object sender, EventArgs e)
+        {
             Close();
         }
     }

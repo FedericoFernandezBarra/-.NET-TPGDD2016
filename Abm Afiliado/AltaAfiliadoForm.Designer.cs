@@ -184,6 +184,7 @@
             // 
             // cmbPlanes
             // 
+            this.cmbPlanes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPlanes.FormattingEnabled = true;
             this.cmbPlanes.Location = new System.Drawing.Point(176, 251);
             this.cmbPlanes.Margin = new System.Windows.Forms.Padding(4);
@@ -365,6 +366,7 @@
             // 
             // cmbSexo
             // 
+            this.cmbSexo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSexo.FormattingEnabled = true;
             this.cmbSexo.Location = new System.Drawing.Point(176, 95);
             this.cmbSexo.Margin = new System.Windows.Forms.Padding(4);
@@ -374,6 +376,7 @@
             // 
             // cmbEstadoCivil
             // 
+            this.cmbEstadoCivil.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbEstadoCivil.FormattingEnabled = true;
             this.cmbEstadoCivil.Location = new System.Drawing.Point(176, 218);
             this.cmbEstadoCivil.Margin = new System.Windows.Forms.Padding(4);
@@ -397,6 +400,7 @@
             this.cmbTipoDocumento.AutoCompleteCustomSource.AddRange(new string[] {
             "DNI",
             "Pasaporte"});
+            this.cmbTipoDocumento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTipoDocumento.FormattingEnabled = true;
             this.cmbTipoDocumento.Location = new System.Drawing.Point(176, 126);
             this.cmbTipoDocumento.Margin = new System.Windows.Forms.Padding(4);
@@ -603,6 +607,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(863, 454);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "AltaAfiliadoForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.AltaAfiliadoForm_Load);
