@@ -51,9 +51,9 @@ namespace ClinicaFrba.Clases.DAOS
             DataBase.Instance.agregarParametro(parametros, "profesional", profesional.usuario.id);
             DataBase.Instance.agregarParametro(parametros, "tipo_cancelacion", tipoDeCancelacion.id);
             DataBase.Instance.agregarParametro(parametros, "motivo", motivoDeCancelacion);
-            DataBase.Instance.agregarParametro(parametros, "fecha_cancelar_inicio", fechaInicioCancelacion);
-            DataBase.Instance.agregarParametro(parametros, "fecha_cancelar_fin", fechaFinCancelacion);
-            DataBase.Instance.agregarParametro(parametros, "tipo_usuario", profesional.usuario.sexo);//no se que es este campo!!
+            DataBase.Instance.agregarParametro(parametros, "@cancelacion_desde", fechaInicioCancelacion);
+            DataBase.Instance.agregarParametro(parametros, "@cancelacion_hasta", fechaFinCancelacion);
+            DataBase.Instance.agregarParametro(parametros, "@fecha_sistema", DataBase.Instance.getDate()); 
 
             DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_cancelar_turno_medico", parametros);
         }
@@ -134,7 +134,8 @@ namespace ClinicaFrba.Clases.DAOS
 
         internal List<Turno> traerTurnosDeAfiliado(Afiliado afiliado)
         {
-            return (List<Turno>)selectByProperty("afiliado", afiliado.usuario.id);
+            //return (List<Turno>)selectByProperty("afiliado", afiliado.usuario.id);
+            return (List<Turno>)executeStored("BEMVINDO.st_obtener_turnos_afiliado", afiliado);
         }
 
         internal override Type getModelClassType()

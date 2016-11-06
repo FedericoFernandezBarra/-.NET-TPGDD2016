@@ -45,7 +45,6 @@ namespace ClinicaFrba.Cancelar_Atencion
 
         private void bindearForm()
         {
-            cmbCancelacion.DataBindings.Add("SelectedItem", cancelarTurno, "tipoDeCancelacion");
             txtMotivo.DataBindings.Add("Text", cancelarTurno, "motivoDeCancelacion");
 
             cmbCancelacion.DisplayMember = "descripcion";

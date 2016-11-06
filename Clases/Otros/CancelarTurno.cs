@@ -23,6 +23,7 @@ namespace ClinicaFrba.Clases.Otros
         public CancelarTurno()
         {
             mensajeDeError = "";
+            motivoDeCancelacion = "";
 
             //inicializarListas();
         }
@@ -60,9 +61,13 @@ namespace ClinicaFrba.Clases.Otros
             {
                 mensajeDeError = "Debe seleccionar un turno a cancelar";
                 return false;
-
             }
-            if (hayTurnoHoy())
+            if (turnoYaPaso())
+            {
+                mensajeDeError = "No se puede cancelar un turno en el que ya ocurrio la fecha pactada";
+                return false;
+            }
+            if (turnoEsDeHoy())
             {
                 mensajeDeError = "Se necesita al menos 1 dia de antelacion para cancelar un turno";
                 return false;
@@ -76,10 +81,15 @@ namespace ClinicaFrba.Clases.Otros
             return true;
         }
 
-        public bool hayTurnoHoy()
+        private bool turnoYaPaso()
+        {
+            return DataBase.Instance.getDate() > turnoACancelar.fechaDeTurno;
+        }
+
+        public bool turnoEsDeHoy()
         {
             DateTime fechaActual = DataBase.Instance.getDate();
-            return false;//Aca consulta la bd
+            return (turnoACancelar.fechaDeTurno - fechaActual).Days == 0;
         }
     }
 }

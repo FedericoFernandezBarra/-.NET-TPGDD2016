@@ -25,6 +25,7 @@ namespace ClinicaFrba.Clases.Otros
         public CancelarDias()
         {
             mensajeDeError = "";
+            motivoDeCancelacion = "";
             fechaFinCancelacion = fechaActual;
             fechaInicioCancelacion = fechaActual;
             inicializarListas();

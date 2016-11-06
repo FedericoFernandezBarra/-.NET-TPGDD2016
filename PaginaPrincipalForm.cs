@@ -132,6 +132,10 @@ namespace ClinicaFrba
 
                 cargarFormSegunRol();
             }
+            else
+            {
+                initBotones();
+            }
 
             Show();
         }

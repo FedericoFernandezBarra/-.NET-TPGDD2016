@@ -1593,6 +1593,21 @@ end
 
 go
 
+create procedure BEMVINDO.st_obtener_turnos_afiliado
+@id_afiliado numeric(10,0)
+
+AS
+begin
+
+     select * from BEMVINDO.TURNO
+     where afiliado=@id_afiliado 
+	 and fecha_llegada is null
+	 and activo=1
+
+end
+
+go
+
 create procedure BEMVINDO.st_registrar_fecha_llegada
 @id_turno numeric(10,0),
 @id_bono numeric(10,0),
@@ -1744,7 +1759,7 @@ create procedure BEMVINDO.st_cancelar_turno_medico
 @profesional        numeric(10,0),
 @motivo             nvarchar(255),
 @fecha_sistema      datetime,
-@tipo_usuario       char,
+--@tipo_usuario       char,
 @cancelacion_desde  date,
 @cancelacion_hasta  date
 
