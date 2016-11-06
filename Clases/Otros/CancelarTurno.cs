@@ -56,6 +56,12 @@ namespace ClinicaFrba.Clases.Otros
                 mensajeDeError = "Debe completar el motivo de cancelacion";
                 return false;
             }
+            if (turnoACancelar==null)
+            {
+                mensajeDeError = "Debe seleccionar un turno a cancelar";
+                return false;
+
+            }
             if (hayTurnoHoy())
             {
                 mensajeDeError = "Se necesita al menos 1 dia de antelacion para cancelar un turno";
