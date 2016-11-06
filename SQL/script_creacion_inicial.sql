@@ -650,8 +650,8 @@ create table BEMVINDO.COMPRA
 (
     id_compra  numeric(10,0) identity(1,1),
     comprador  numeric(10,0) ,
-    cantidad numeric(3,0) ,
-    monto  float,--numeric(5,2),
+    cantidad numeric(10,0) ,
+    monto  numeric(10,2),
     fecha_compra      datetime,
 
     PRIMARY KEY (id_compra), 
@@ -1453,14 +1453,13 @@ go
 CREATE procedure BEMVINDO.st_insertar_compra
 
 @comprador numeric(10,0),
-@cantidad numeric(3,0),
-@monto    float,--numeric(5,2),
+@cantidad numeric(10,0),
+@monto    numeric(10,2),
 @fecha_compra  datetime,
 
 @id_compra numeric(10,0) output
 AS
 begin
---SELECT  CAST(@monto as decimal(5,2))
 
         insert into BEMVINDO.COMPRA(comprador,cantidad,monto,fecha_compra )
         values (@comprador,@cantidad,@monto,@fecha_compra)
