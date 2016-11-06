@@ -1181,7 +1181,7 @@ go
 ---DOCTOR
 
 insert into BEMVINDO.USUARIO
-values('Dr.House','w23e',0,1,'Gregory','House',null,null,null,null,null,null,null)
+values('Dr.House','w23e',0,1,null,null,null,null,null,null,null,null,null)
 
 go
 
@@ -1293,7 +1293,7 @@ AS
 begin
 
      update BEMVINDO.AFILIADO SET baja_logica = 1, fecha_baja=@fecha_baja 
-     where id_afiliado = @id_afiliado
+     where numero_afiliado = @id_afiliado
 
 end
 
@@ -1572,8 +1572,7 @@ go
 create procedure BEMVINDO.st_obtener_turnos
 @profesional numeric(10,0),
 @especialidad   numeric(10,0)=null,
-@fecha_sistema datetime=null,
-@activo bit=null
+@fecha_sistema datetime=null
 
 AS
 begin
@@ -1581,7 +1580,6 @@ begin
      select * from BEMVINDO.TURNO
      where profesional = @profesional and (CONVERT(date, fecha_turno) = CONVERT(date, @fecha_sistema)
      or @fecha_sistema is null) and (especialidad=@especialidad or @especialidad is null)
-	 and (@activo=activo or @activo is null)
 
 end
 
