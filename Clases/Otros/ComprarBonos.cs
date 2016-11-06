@@ -14,6 +14,7 @@ namespace ClinicaFrba.Clases.Otros
         public string mensajeDeError { get; set; }
         //public Afiliado afiliado { get; set; }
         public Compra compra { get; set; }
+        public List<Bono> bonosComprados = new List<Bono>();
 
         public ComprarBonos()
         {
@@ -47,7 +48,7 @@ namespace ClinicaFrba.Clases.Otros
 
             for (int i = 0; i < compra.cantidad; i++)
             {
-                repoBono.insertarBono(compra);
+                bonosComprados.Add(repoBono.insertarBono(compra));
             }
         }
 

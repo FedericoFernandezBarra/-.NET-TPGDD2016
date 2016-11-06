@@ -34,7 +34,7 @@
             this.btnHijo = new System.Windows.Forms.Button();
             this.btnConyuge = new System.Windows.Forms.Button();
             this.cmbPlanes = new System.Windows.Forms.ComboBox();
-            this.label26 = new System.Windows.Forms.Label();
+            this.lblPlanMedico = new System.Windows.Forms.Label();
             this.cmbVolver = new System.Windows.Forms.Button();
             this.cmdLimpiar = new System.Windows.Forms.Button();
             this.txtDni = new System.Windows.Forms.TextBox();
@@ -45,7 +45,7 @@
             this.label23 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.txtHijos = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
+            this.lblCantHijos = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
@@ -57,7 +57,7 @@
             this.cmbTipoDocumento = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblEstadoCivil = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.txtMail = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -68,7 +68,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.lblFechaNac = new System.Windows.Forms.Label();
             this.txtDir = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
+            this.lblDireccion = new System.Windows.Forms.Label();
             this.txtTel = new System.Windows.Forms.TextBox();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -84,7 +84,7 @@
             this.groupBox1.Controls.Add(this.btnHijo);
             this.groupBox1.Controls.Add(this.btnConyuge);
             this.groupBox1.Controls.Add(this.cmbPlanes);
-            this.groupBox1.Controls.Add(this.label26);
+            this.groupBox1.Controls.Add(this.lblPlanMedico);
             this.groupBox1.Controls.Add(this.cmbVolver);
             this.groupBox1.Controls.Add(this.cmdLimpiar);
             this.groupBox1.Controls.Add(this.txtDni);
@@ -95,7 +95,7 @@
             this.groupBox1.Controls.Add(this.label23);
             this.groupBox1.Controls.Add(this.label22);
             this.groupBox1.Controls.Add(this.txtHijos);
-            this.groupBox1.Controls.Add(this.label21);
+            this.groupBox1.Controls.Add(this.lblCantHijos);
             this.groupBox1.Controls.Add(this.label20);
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.label17);
@@ -107,7 +107,7 @@
             this.groupBox1.Controls.Add(this.cmbTipoDocumento);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.lblEstadoCivil);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.txtMail);
             this.groupBox1.Controls.Add(this.label5);
@@ -118,7 +118,7 @@
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.lblFechaNac);
             this.groupBox1.Controls.Add(this.txtDir);
-            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.lblDireccion);
             this.groupBox1.Controls.Add(this.txtTel);
             this.groupBox1.Controls.Add(this.txtNombre);
             this.groupBox1.Controls.Add(this.label4);
@@ -192,16 +192,16 @@
             this.cmbPlanes.Size = new System.Drawing.Size(160, 25);
             this.cmbPlanes.TabIndex = 6;
             // 
-            // label26
+            // lblPlanMedico
             // 
-            this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(8, 251);
-            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(89, 17);
-            this.label26.TabIndex = 5;
-            this.label26.Text = "Plan Medico:";
+            this.lblPlanMedico.AutoSize = true;
+            this.lblPlanMedico.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlanMedico.Location = new System.Drawing.Point(8, 251);
+            this.lblPlanMedico.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPlanMedico.Name = "lblPlanMedico";
+            this.lblPlanMedico.Size = new System.Drawing.Size(89, 17);
+            this.lblPlanMedico.TabIndex = 5;
+            this.lblPlanMedico.Text = "Plan Medico:";
             // 
             // cmbVolver
             // 
@@ -304,16 +304,16 @@
             this.txtHijos.TextChanged += new System.EventHandler(this.txtHijos_TextChanged);
             this.txtHijos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHijos_KeyPress);
             // 
-            // label21
+            // lblCantHijos
             // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(409, 223);
-            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(80, 17);
-            this.label21.TabIndex = 48;
-            this.label21.Text = "Cant. Hijos:";
+            this.lblCantHijos.AutoSize = true;
+            this.lblCantHijos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCantHijos.Location = new System.Drawing.Point(409, 223);
+            this.lblCantHijos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCantHijos.Name = "lblCantHijos";
+            this.lblCantHijos.Size = new System.Drawing.Size(80, 17);
+            this.lblCantHijos.TabIndex = 48;
+            this.lblCantHijos.Text = "Cant. Hijos:";
             // 
             // label20
             // 
@@ -430,16 +430,16 @@
             this.label8.TabIndex = 36;
             this.label8.Text = "Tipo:";
             // 
-            // label7
+            // lblEstadoCivil
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(8, 222);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(85, 17);
-            this.label7.TabIndex = 35;
-            this.label7.Text = "Estado Civil:";
+            this.lblEstadoCivil.AutoSize = true;
+            this.lblEstadoCivil.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEstadoCivil.Location = new System.Drawing.Point(8, 222);
+            this.lblEstadoCivil.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblEstadoCivil.Name = "lblEstadoCivil";
+            this.lblEstadoCivil.Size = new System.Drawing.Size(85, 17);
+            this.lblEstadoCivil.TabIndex = 35;
+            this.lblEstadoCivil.Text = "Estado Civil:";
             // 
             // label6
             // 
@@ -540,16 +540,16 @@
             this.txtDir.Size = new System.Drawing.Size(324, 23);
             this.txtDir.TabIndex = 18;
             // 
-            // label9
+            // lblDireccion
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(8, 164);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(71, 17);
-            this.label9.TabIndex = 17;
-            this.label9.Text = "Dirección:";
+            this.lblDireccion.AutoSize = true;
+            this.lblDireccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDireccion.Location = new System.Drawing.Point(8, 164);
+            this.lblDireccion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDireccion.Name = "lblDireccion";
+            this.lblDireccion.Size = new System.Drawing.Size(71, 17);
+            this.lblDireccion.TabIndex = 17;
+            this.lblDireccion.Text = "Dirección:";
             // 
             // txtTel
             // 
@@ -625,7 +625,7 @@
         private System.Windows.Forms.Button btnHijo;
         private System.Windows.Forms.Button btnConyuge;
         private System.Windows.Forms.ComboBox cmbPlanes;
-        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label lblPlanMedico;
         private System.Windows.Forms.Button cmbVolver;
         private System.Windows.Forms.Button cmdLimpiar;
         private System.Windows.Forms.TextBox txtDni;
@@ -636,7 +636,7 @@
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox txtHijos;
-        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label lblCantHijos;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
@@ -648,7 +648,7 @@
         private System.Windows.Forms.ComboBox cmbTipoDocumento;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblEstadoCivil;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtMail;
         private System.Windows.Forms.Label label5;
@@ -659,7 +659,7 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label lblFechaNac;
         private System.Windows.Forms.TextBox txtDir;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblDireccion;
         private System.Windows.Forms.TextBox txtTel;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Label label4;

@@ -1,4 +1,5 @@
-﻿using ClinicaFrba.Clases.Otros;
+﻿using ClinicaFrba.Clases;
+using ClinicaFrba.Clases.Otros;
 using ClinicaFrba.Clases.POJOS;
 using System;
 using System.Collections.Generic;
@@ -43,33 +44,64 @@ namespace ClinicaFrba.Abm_Afiliado
             txtMail.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado.usuario, "mail");
             txtHijos.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado, "cantidadDeHijos");
 
-            cmbEstadoCivil.DisplayMember = "descripcion";
-            cmbEstadoCivil.DataSource = altaAfiliado.estadosCivilesSistema;
-            cmbEstadoCivil.DataBindings.Add("SelectedItem", altaAfiliado.nuevoAfiliado, "estadoCivil");
+            if (!altaConyuge)
+            {
+                cmbEstadoCivil.DisplayMember = "descripcion";
+                cmbEstadoCivil.DataSource = altaAfiliado.estadosCivilesSistema;
+                cmbEstadoCivil.DataBindings.Add("SelectedItem", altaAfiliado.nuevoAfiliado, "estadoCivil");
+
+                if (cmbEstadoCivil.Items.Count > 0)
+                {
+                    cmbEstadoCivil.SelectedItem = cmbEstadoCivil.Items[0];
+                }
+            }
 
             cmbSexo.DataSource = altaAfiliado.sexosSistema;
             cmbSexo.DataBindings.Add("SelectedItem", altaAfiliado.nuevoAfiliado.usuario, "sexo");
+
+            if (cmbSexo.Items.Count > 0)
+            {
+                cmbSexo.SelectedItem = cmbSexo.Items[0];
+            }
 
             cmbTipoDocumento.DisplayMember = "descripcion";
             cmbTipoDocumento.DataSource = altaAfiliado.tiposDeDocumentoSistema;
             cmbTipoDocumento.DataBindings.Add("SelectedItem", altaAfiliado.nuevoAfiliado.usuario, "tipoDeDocumento");
 
-            cmbPlanes.DisplayMember = "descripcion";
-            cmbPlanes.DataSource = altaAfiliado.planesMedicosSistema;
-            cmbPlanes.DataBindings.Add("SelectedItem", altaAfiliado.nuevoAfiliado, "planMedico");
+            if (cmbTipoDocumento.Items.Count > 0)
+            {
+                cmbTipoDocumento.SelectedItem = cmbTipoDocumento.Items[0];
+                altaAfiliado.nuevoAfiliado.usuario.tipoDeDocumento=(TipoDocumento)cmbTipoDocumento.Items[0];
+            }
+
+            if (!altaFamiliar())
+            {
+                cmbPlanes.DisplayMember = "descripcion";
+                cmbPlanes.DataSource = altaAfiliado.planesMedicosSistema;
+                cmbPlanes.DataBindings.Add("SelectedItem", altaAfiliado.nuevoAfiliado, "planMedico");
+
+                if (cmbPlanes.Items.Count>0)
+                {
+                    cmbPlanes.SelectedItem = cmbPlanes.Items[0];
+                }
+            }
 
             if (altaConyuge)
             {
-                cmbEstadoCivil.Enabled = false;
-                txtHijos.Enabled = false;
-                txtDir.Enabled = false;                            
+                lblEstadoCivil.Visible = false;
+                cmbEstadoCivil.Visible = false;
+                lblCantHijos.Visible = false;
+                txtHijos.Visible = false;
+                lblDireccion.Visible = false;
+                txtDir.Visible = false;                            
             }
 
             if (altaFamiliar())
             {
-                cmbPlanes.Enabled = false;
-                btnConyuge.Enabled = false;
-                btnHijo.Enabled = false;
+                lblPlanMedico.Visible = false;
+                cmbPlanes.Visible = false;
+                btnConyuge.Visible = false;
+                btnHijo.Visible = false;
             }
         }
 
@@ -90,11 +122,11 @@ namespace ClinicaFrba.Abm_Afiliado
 
             dtpFechaNacimiento.Value=DataBase.Instance.getDate();
 
-            if (cmbEstadoCivil.Items.Count>0)
+            if (cmbEstadoCivil.Items.Count>0&&!altaConyuge)
             {
                 cmbEstadoCivil.SelectedIndex = 0;
             }
-            if (cmbPlanes.Items.Count > 0)
+            if (cmbPlanes.Items.Count > 0&&!altaFamiliar())
             {
                 cmbPlanes.SelectedIndex = 0;
             }

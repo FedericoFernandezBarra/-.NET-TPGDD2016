@@ -25,6 +25,12 @@ namespace ClinicaFrba.Compra_Bono
 
             MessageBox.Show("Compra realizada exitosamente");
 
+            ImprimirBonosForm imprimirBonos = new ImprimirBonosForm(comprarBonos.bonosComprados);
+
+            Hide();
+
+            imprimirBonos.ShowDialog();
+
             Close();
         }
 

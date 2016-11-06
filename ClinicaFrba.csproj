@@ -63,12 +63,6 @@
     <Compile Include="Abm Afiliado\BuscarAfiliadoForm.Designer.cs">
       <DependentUpon>BuscarAfiliadoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Afiliado\BuscarGrupoForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Afiliado\BuscarGrupoForm.Designer.cs">
-      <DependentUpon>BuscarGrupoForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Abm Afiliado\ConsultarHistorialCambiosForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -211,11 +205,11 @@
     <Compile Include="Compra Bono\ComprarBonosForm.Designer.cs">
       <DependentUpon>ComprarBonosForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Compra Bono\ImprimirBonoForm.cs">
+    <Compile Include="Compra Bono\ImprimirBonosForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Compra Bono\ImprimirBonoForm.Designer.cs">
-      <DependentUpon>ImprimirBonoForm.cs</DependentUpon>
+    <Compile Include="Compra Bono\ImprimirBonosForm.Designer.cs">
+      <DependentUpon>ImprimirBonosForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\SeleccionDeRolForm.cs">
       <SubType>Form</SubType>
@@ -267,10 +261,6 @@
     <Compile Include="Registro Resultado\RegistrarResultadoAtencionForm.Designer.cs">
       <DependentUpon>RegistrarResultadoAtencionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Test\ABMAfiliadoTestSuite.cs" />
-    <Compile Include="Test\CancelarTurnoTestSuite.cs" />
-    <Compile Include="Test\DummyClasses\HistorialCambiosDePlan.cs" />
-    <Compile Include="Test\LoginTestSuite.cs" />
     <EmbeddedResource Include="Abm Afiliado\AltaAfiliadoForm.resx">
       <DependentUpon>AltaAfiliadoForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -279,9 +269,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Afiliado\BuscarAfiliadoForm.resx">
       <DependentUpon>BuscarAfiliadoForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm Afiliado\BuscarGrupoForm.resx">
-      <DependentUpon>BuscarGrupoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Afiliado\ConsultarHistorialCambiosForm.resx">
       <DependentUpon>ConsultarHistorialCambiosForm.cs</DependentUpon>
@@ -313,8 +300,8 @@
     <EmbeddedResource Include="Compra Bono\ComprarBonosForm.resx">
       <DependentUpon>ComprarBonosForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Compra Bono\ImprimirBonoForm.resx">
-      <DependentUpon>ImprimirBonoForm.cs</DependentUpon>
+    <EmbeddedResource Include="Compra Bono\ImprimirBonosForm.resx">
+      <DependentUpon>ImprimirBonosForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\SeleccionDeRolForm.resx">
       <DependentUpon>SeleccionDeRolForm.cs</DependentUpon>

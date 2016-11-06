@@ -21,13 +21,19 @@ namespace ClinicaFrba.Clases.DAOS
             return (Bono)selectById(numeroBono);
         }
 
-        internal void insertarBono(Compra compra)
+        internal Bono insertarBono(Compra compra)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
             DataBase.Instance.agregarParametro(parametros, "@plan_medico", compra.comprador.planMedico.id);
             DataBase.Instance.agregarParametro(parametros, "@compra", compra.id);
 
-            DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_insertar_bono", parametros);
+            long id_bono = Convert.ToInt64(DataBase.Instance.ejecutarStoredConRetorno("BEMVINDO.st_insertar_bono", parametros, "@id_bono", 0));
+
+            Bono bonoRetorno = new Bono();
+            bonoRetorno.id = id_bono;
+            bonoRetorno.compra = compra;
+
+            return bonoRetorno;
         }
     }
 }

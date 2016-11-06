@@ -1,6 +1,6 @@
 ﻿namespace ClinicaFrba.Compra_Bono
 {
-    partial class ImprimirBonoForm
+    partial class ImprimirBonosForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,8 +30,6 @@
         {
             this.label2 = new System.Windows.Forms.Label();
             this.btnCerrar = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.lstBonosFarmacia = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lstBonosConsulta = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -40,7 +38,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -48,7 +45,7 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(17, 535);
+            this.label2.Location = new System.Drawing.Point(18, 375);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(716, 43);
@@ -58,43 +55,20 @@
             // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(741, 539);
+            this.btnCerrar.Location = new System.Drawing.Point(742, 379);
             this.btnCerrar.Margin = new System.Windows.Forms.Padding(4);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(100, 28);
             this.btnCerrar.TabIndex = 10;
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.UseVisualStyleBackColor = true;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.lstBonosFarmacia);
-            this.groupBox3.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(12, 359);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(837, 172);
-            this.groupBox3.TabIndex = 9;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Bonos de farmacia";
-            // 
-            // lstBonosFarmacia
-            // 
-            this.lstBonosFarmacia.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lstBonosFarmacia.FormattingEnabled = true;
-            this.lstBonosFarmacia.ItemHeight = 18;
-            this.lstBonosFarmacia.Location = new System.Drawing.Point(8, 23);
-            this.lstBonosFarmacia.Margin = new System.Windows.Forms.Padding(4);
-            this.lstBonosFarmacia.Name = "lstBonosFarmacia";
-            this.lstBonosFarmacia.Size = new System.Drawing.Size(821, 108);
-            this.lstBonosFarmacia.TabIndex = 1;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.lstBonosConsulta);
             this.groupBox2.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(13, 179);
+            this.groupBox2.Location = new System.Drawing.Point(22, 180);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
@@ -121,7 +95,7 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Font = new System.Drawing.Font("Courier New", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(13, 57);
+            this.groupBox1.Location = new System.Drawing.Point(22, 58);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
@@ -172,28 +146,28 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(4, 8);
+            this.label1.Location = new System.Drawing.Point(13, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(810, 42);
             this.label1.TabIndex = 6;
             this.label1.Text = "Clinica FRBA - Impresión de bonos";
             // 
-            // ImprimirBonoForm
+            // ImprimirBonosForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(878, 615);
+            this.ClientSize = new System.Drawing.Size(875, 425);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnCerrar);
-            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
-            this.Name = "ImprimirBonoForm";
-            this.Text = "ImprimirBonoForm";
-            this.groupBox3.ResumeLayout(false);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Name = "ImprimirBonosForm";
+            this.Text = "ImprimirBonosForm";
+            this.Load += new System.EventHandler(this.ImprimirBonosForm_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -206,8 +180,6 @@
 
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnCerrar;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.ListBox lstBonosFarmacia;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ListBox lstBonosConsulta;
         private System.Windows.Forms.GroupBox groupBox1;

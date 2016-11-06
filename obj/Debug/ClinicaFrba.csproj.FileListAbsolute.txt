@@ -1,112 +1,34 @@
-C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaFrba.exe.config
-C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaFrba.exe
-C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaFrba.pdb
-C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.csprojResolveAssemblyReference.cache
-C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Properties.Resources.resources
-C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.csproj.GenerateResource.Cache
-C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.exe
-C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.pdb
-C:\Users\Alexis\Downloads\TP CLINICA FRBA 1.0 - 2C 2016\Aplicacion Desktop\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaFrba.exe.config
-C:\Users\Alexis\Downloads\TP CLINICA FRBA 1.0 - 2C 2016\Aplicacion Desktop\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.exe
-C:\Users\Alexis\Downloads\TP CLINICA FRBA 1.0 - 2C 2016\Aplicacion Desktop\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.pdb
+C:\Users\Alexis\GddUtn-Clinica\bin\Debug\configuracion_sistema.txt
+C:\Users\Alexis\GddUtn-Clinica\bin\Debug\tostado_tests.sql
+C:\Users\Alexis\GddUtn-Clinica\bin\Debug\ClinicaFrba.exe.config
+C:\Users\Alexis\GddUtn-Clinica\bin\Debug\ClinicaFrba.exe
+C:\Users\Alexis\GddUtn-Clinica\bin\Debug\ClinicaFrba.pdb
+C:\Users\Alexis\GddUtn-Clinica\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Alexis\GddUtn-Clinica\bin\Debug\es\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.AltaAfiliadoForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.BajaAfiliadoForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.BuscarAfiliadoForm.resources
-C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.BuscarGrupoForm.resources
+C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.ConsultarHistorialCambiosForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.ModificarAfiliadoForm.resources
+C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.MostrarAfiliadosCreadosForm.resources
+C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Grupo_Afiliado_Viejo.GrupoAfiliadoViejo.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Profesional.BuscarProfesionalForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.AbmRol.AbmRolForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.AbmRol.EditorDeRolesForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Cancelar_Atencion.CancelarDiasForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Cancelar_Atencion.CancelarTurnoForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Compra_Bono.ComprarBonosForm.resources
-C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Compra_Bono.ImprimirBonoForm.resources
+C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Logueo.SeleccionDeRolForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.PaginaPrincipalForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Listados.ListadoEstadisticoForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Logueo.LoginForm.resources
-C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Pedir_Turno.PedirTurnoForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Properties.Resources.resources
-C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registrar_Agenta_Medico.ConsultarTurnosForm.resources
+C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Pedir_Turno.PedirTurnoForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registrar_Agenta_Medico.RegistrarAgendaForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registro_Llegada.RegistrarLlegadaForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registro_Resultado.RegistrarResultadoAtencionForm.resources
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.csproj.GenerateResource.Cache
-C:\Users\Alexis\GddUtn-Clinica\bin\Debug\configuracion_sistema.txt
-C:\Users\Alexis\GddUtn-Clinica\bin\Debug\tostado_tests.sql
-C:\Users\Alexis\GddUtn-Clinica\bin\Debug\ClinicaFrba.exe.config
-C:\Users\Alexis\GddUtn-Clinica\bin\Debug\ClinicaFrba.exe
-C:\Users\Alexis\GddUtn-Clinica\bin\Debug\ClinicaFrba.pdb
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.exe
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.pdb
 C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.csprojResolveAssemblyReference.cache
-C:\Users\Alexis\GddUtn-Clinica\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
-C:\Users\Alexis\GddUtn-Clinica\bin\Debug\es\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\bin\Debug\ClinicaFrba.exe.config
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.exe
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.pdb
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\bin\Debug\configuracion_sistema.txt
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\bin\Debug\tostado_tests.sql
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\bin\Debug\ClinicaFrba.exe
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\bin\Debug\ClinicaFrba.pdb
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\bin\Debug\es\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.csprojResolveAssemblyReference.cache
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.AltaAfiliadoForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.BajaAfiliadoForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.BuscarAfiliadoForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.BuscarGrupoForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.ModificarAfiliadoForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.MostrarAfiliadosCreadosForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Profesional.BuscarProfesionalForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.AbmRol.AbmRolForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.AbmRol.EditorDeRolesForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Cancelar_Atencion.CancelarDiasForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Cancelar_Atencion.CancelarTurnoForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Compra_Bono.ComprarBonosForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Compra_Bono.ImprimirBonoForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.PaginaPrincipalForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Listados.ListadoEstadisticoForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Logueo.LoginForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Pedir_Turno.PedirTurnoForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Properties.Resources.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registrar_Agenta_Medico.RegistrarAgendaForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registro_Llegada.RegistrarLlegadaForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registro_Resultado.RegistrarResultadoAtencionForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.csproj.GenerateResource.Cache
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.AltaAfiliadoForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.BajaAfiliadoForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.BuscarAfiliadoForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.BuscarGrupoForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.ModificarAfiliadoForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.MostrarAfiliadosCreadosForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Profesional.BuscarProfesionalForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.AbmRol.AbmRolForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.AbmRol.EditorDeRolesForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Cancelar_Atencion.CancelarDiasForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Cancelar_Atencion.CancelarTurnoForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Compra_Bono.ComprarBonosForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Compra_Bono.ImprimirBonoForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.PaginaPrincipalForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Listados.ListadoEstadisticoForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Logueo.LoginForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Pedir_Turno.PedirTurnoForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Properties.Resources.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registrar_Agenta_Medico.RegistrarAgendaForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registro_Llegada.RegistrarLlegadaForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registro_Resultado.RegistrarResultadoAtencionForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.csproj.GenerateResource.Cache
-C:\Users\alexiscaspell3\GddUtn-Clinica\bin\Debug\configuracion_sistema.txt
-C:\Users\alexiscaspell3\GddUtn-Clinica\bin\Debug\tostado_tests.sql
-C:\Users\alexiscaspell3\GddUtn-Clinica\bin\Debug\ClinicaFrba.exe.config
-C:\Users\alexiscaspell3\GddUtn-Clinica\bin\Debug\ClinicaFrba.exe
-C:\Users\alexiscaspell3\GddUtn-Clinica\bin\Debug\ClinicaFrba.pdb
-C:\Users\alexiscaspell3\GddUtn-Clinica\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Logueo.SeleccionDeRolForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.exe
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.pdb
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.csprojResolveAssemblyReference.cache
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Pedir_Turno.ConsultarTurnosForm.resources
-C:\Users\alexiscaspell3\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.ConsultarHistorialCambiosForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Afiliado.ConsultarHistorialCambiosForm.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Abm_Grupo_Afiliado_Viejo.GrupoAfiliadoViejo.resources
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Logueo.SeleccionDeRolForm.resources
+C:\Users\Alexis\GddUtn-Clinica\obj\Debug\ClinicaFrba.Compra_Bono.ImprimirBonosForm.resources
