@@ -752,26 +752,30 @@ go
 -------------------------------------------------------------------------------------------------------
 insert into BEMVINDO.FUNCIONALIDAD
 values 
-    ('ABM ROL', 1),
-    ('LOGIN Y SEGURIDAD',1),
-    ('REGISTRO DE USUARIOS',1),
-    ('ABM AFILIADO',1),
-    ('ABM PROFESIONAL',1),
-    ('ABM ESPECIALIDADES MEDICAS',1),
-    ('ABM PLANES',1),
-    ('REGISTRAR AGENDA DEL MEDICO',1),
-    ('COMPRA DE BONOS',1),
-    ('PEDIR TURNO', 1),
-    ('REGISTRO DE LLEGADA PARA ATENCION MEDICA', 1),
-    ('REGISTRO DE RESULTADO PARA ATENCION MEDICA', 1),
-    ('CANCELAR ATENCION MEDICA', 1),
-    ('LISTADO ESTADISTICO', 1),
-    ('ASIGNAR Nº AFILIADOS A AFILIADOS MIGRADOS',1)
+    ('ABM ROL', 1), --1
+    ('LOGIN Y SEGURIDAD',1),--2
+    ('REGISTRO DE USUARIOS',1),--3
+    ('ABM AFILIADO',1),--4
+    ('ABM PROFESIONAL',1),--5
+    ('ABM ESPECIALIDADES MEDICAS',1),--6
+    ('ABM PLANES',1),--7
+    ('REGISTRAR AGENDA DEL MEDICO',1),--8
+    ('COMPRA DE BONOS',1),--9
+    ('PEDIR TURNO', 1),--10
+    ('REGISTRO DE LLEGADA PARA ATENCION MEDICA', 1),--11
+    ('REGISTRO DE RESULTADO PARA ATENCION MEDICA', 1),--12
+    ('CANCELAR ATENCION MEDICA', 1),--13
+    ('LISTADO ESTADISTICO', 1),--14
+    ('ASIGNAR Nº AFILIADOS A AFILIADOS MIGRADOS',1)--15
 
 go
 
 --FUNCIONALIDAD POR ROL
 -------------------------------------------------------------------------------------------------------
+    ('PROFESIONAL', 1),
+    ('AFILIADO', 1),
+    ('ADMINISTRADOR', 1)
+
 insert into BEMVINDO.FUNCIONALIDAD_POR_ROL
 values 
     (1,3),
@@ -785,12 +789,9 @@ values
     (7,3),
     (8,1),
     (9,2),
-    (10,1),
     (10,2),
-    (10,3),
     (11,3),
     (12,1),
-    (12,3),
     (13,2),
     (13,1),
     (14,3),
@@ -1581,7 +1582,7 @@ begin
      select * from BEMVINDO.TURNO
      where profesional = @profesional and (CONVERT(date, fecha_turno) = CONVERT(date, @fecha_sistema)
      or @fecha_sistema is null) and (especialidad=@especialidad or @especialidad is null)
-	 and (@activo=activo or @activo is null)
+     and (@activo=activo or @activo is null)
 
 end
 
