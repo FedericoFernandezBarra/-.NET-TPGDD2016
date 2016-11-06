@@ -147,9 +147,15 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 return false;
             }
 
-            if (timerFechaDesde.Value.Date < agendaDAO.fechaSistema || timerFechaHasta.Value.Date < DateTime.Now)
+            if (timerFechaDesde.Value.Date < agendaDAO.fechaSistema || timerFechaHasta.Value.Date < agendaDAO.fechaSistema)
             {
                 MessageBox.Show("Las fechas ingresadas son anteriores a las del dia de hoy", "Error", MessageBoxButtons.OK);
+                return false;
+            }
+
+            if (diasAgendaAAgregar.Count == 0)
+            {
+                MessageBox.Show("No se han realizado cambios para guardar", "Error", MessageBoxButtons.OK);
                 return false;
             }
 
@@ -184,6 +190,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         
         private void botonGuardarCambios_Click(object sender, EventArgs e)
         {
+            if (!seCumpleLasValidacionesParaGuardarCambios()) return;
             try
             {
                 //se crea la agenda por primera vez
