@@ -50,9 +50,16 @@ namespace ClinicaFrba
                 if (menu.usuario.roles.Count==1)
                 {
                     menu.rol = menu.usuario.roles[0];
-
+                }
+                if (menu.usuario.roles.Count>1)
+                {
+                    Hide();
+                    seleccionDeRol.ShowDialog();
+                    menu.rol = seleccionDeRol.getRolSeleccionado();
+                }
+                if (menu.rol!=null)
+                {
                     menu.cargarDatosDeRol();
-
                     cargarFormSegunRol();
                 }
             }
