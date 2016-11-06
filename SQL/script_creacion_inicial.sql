@@ -772,10 +772,6 @@ go
 
 --FUNCIONALIDAD POR ROL
 -------------------------------------------------------------------------------------------------------
-    ('PROFESIONAL', 1),
-    ('AFILIADO', 1),
-    ('ADMINISTRADOR', 1)
-
 insert into BEMVINDO.FUNCIONALIDAD_POR_ROL
 values 
     (1,3),
@@ -1474,13 +1470,17 @@ go
 
 CREATE procedure BEMVINDO.st_insertar_bono
 @plan_medico numeric(10,0),
-@compra      numeric(10,0)
+@compra      numeric(10,0),
+
+@id_bono numeric(10,0) output
 
 AS
 begin
 
         insert into BEMVINDO.BONO(plan_medico,compra)
         values (@plan_medico,@compra)
+
+       SET @id_bono = SCOPE_IDENTITY();
 
 end
 
