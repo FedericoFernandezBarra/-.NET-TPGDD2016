@@ -1,4 +1,5 @@
 ﻿using ClinicaFrba.Abm_Afiliado;
+using ClinicaFrba.Abm_Grupo_Afiliado_Viejo;
 using ClinicaFrba.AbmRol;
 using ClinicaFrba.Cancelar_Atencion;
 using ClinicaFrba.Clases;
@@ -76,6 +77,7 @@ namespace ClinicaFrba
             actions.Add(tsmRegistroDeResultados, "REGISTRO DE RESULTADO PARA ATENCION MEDICA");
             actions.Add(estadísticasToolStripMenuItem, "LISTADO ESTADISTICO");
             actions.Add(tsmCancelaciones, "CANCELAR ATENCION MEDICA");
+            actions.Add(tsmAgregarNAfiliadoMigrado, "ASIGNAR Nº AFILIADOS A AFILIADOS MIGRADOS");
 
             initBotones();
         }
@@ -350,6 +352,17 @@ namespace ClinicaFrba
             Hide();
 
             buscarAfiliado.ShowDialog();
+
+            Show();
+        }
+
+        private void tsmAgregarNAfiliadoMigrado_Click(object sender, EventArgs e)
+        {
+            GrupoAfiliadoViejo grupoAFiliadoViejo = new GrupoAfiliadoViejo();
+
+            Hide();
+
+            grupoAFiliadoViejo.ShowDialog();
 
             Show();
         }
