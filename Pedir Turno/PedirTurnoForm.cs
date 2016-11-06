@@ -97,7 +97,7 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void btnBuscarProfesional_Click(object sender, EventArgs e)
         {
-            BuscarProfesionalForm buscarProfesionalForm = new BuscarProfesionalForm();
+            BuscarProfesionalForm buscarProfesionalForm = new BuscarProfesionalForm(true);
 
             Hide();
 
@@ -209,6 +209,7 @@ namespace ClinicaFrba.Pedir_Turno
         private void obtenerHorariosPosibles(List<String> horariosPosibles, TimeSpan horarioDesde, TimeSpan horarioHasta)
         {
             TimeSpan horarioAcumulador = horarioDesde;
+            horariosPosibles.Add(horarioAcumulador.ToString(@"hh\:mm"));
             while (horarioAcumulador.Add(TimeSpan.FromMinutes(30)).CompareTo(horarioHasta) < 0)
             {
                 horarioAcumulador = horarioAcumulador.Add(TimeSpan.FromMinutes(30));
