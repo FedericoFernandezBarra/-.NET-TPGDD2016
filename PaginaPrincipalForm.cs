@@ -117,9 +117,12 @@ namespace ClinicaFrba
 
             menu.rol = seleccionDeRol.getRolSeleccionado();
 
-            menu.cargarDatosDeRol();
+            if (menu.rol!=null)
+            {
+                menu.cargarDatosDeRol();
 
-            cargarFormSegunRol();
+                cargarFormSegunRol();
+            }
 
             Show();
         }
