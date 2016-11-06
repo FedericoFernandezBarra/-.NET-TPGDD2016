@@ -85,6 +85,38 @@ namespace ClinicaFrba.Abm_Grupo_Afiliado_Viejo
                     datos["APELLIDO"]);   
             }
         }
+
+        private void reiniciarVariablesYElementosDeLAVista()
+        {
+            idPrincipal = 0;
+            idConyuge = 0;
+            diccionarioHijos.Clear();
+
+            lbPrincipal.Text = "";
+            lbConyuge.Text = "";
+            listBoxHijos.Items.Clear();
+        }
+
+        private void bloquearBotones()
+        {
+            bGuardarCambios.Enabled = false;
+            bVolverAtras.Enabled = false;
+            bAgregarHijo.Enabled = false;
+            bEliminarHijo.Enabled = false;
+            bAsignarPrincipal.Enabled = false;
+            bAsignarConyuge.Enabled = false;
+        }
+
+        private void desbloquearBotones()
+        {
+            bGuardarCambios.Enabled = true;
+            bVolverAtras.Enabled = true;
+            bAgregarHijo.Enabled = true;
+            bEliminarHijo.Enabled = true;
+            bAsignarPrincipal.Enabled = true;
+            bAsignarConyuge.Enabled = true;
+        }
+
         /*VALIDACIONES*/
         /*************************************************************************************/
         private bool cumpleValidacionesParaAgregarHijo()
@@ -120,7 +152,9 @@ namespace ClinicaFrba.Abm_Grupo_Afiliado_Viejo
         private void bGuardarCambios_Click(object sender, EventArgs e)
         {
             if (!cumpleValidacionesParaGuardarCambios()) return;
-            
+
+            bloquearBotones();
+
             try
             {
                 db.asignarNuerosDeUsuario(idPrincipal, idConyuge, diccionarioHijos.Values.ToList());
@@ -133,6 +167,9 @@ namespace ClinicaFrba.Abm_Grupo_Afiliado_Viejo
             }
 
             cargarDataGrid();
+            reiniciarVariablesYElementosDeLAVista();
+
+            desbloquearBotones();
         }
 
         private void bAsignarPrincipal_Click(object sender, EventArgs e)

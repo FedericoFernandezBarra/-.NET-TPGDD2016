@@ -46,6 +46,7 @@
             this.bloquearAfiliadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buscarAfiliadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buscarAfiliadoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmAgregarNAfiliadoMigrado = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmRoles = new System.Windows.Forms.ToolStripMenuItem();
             this.crearModificarRolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -148,6 +149,7 @@
             // 
             this.tsmGestionDeAfiliados.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmAfiliados,
+            this.tsmAgregarNAfiliadoMigrado,
             this.toolStripSeparator1,
             this.tsmRoles,
             this.tsmCompraDeBonos,
@@ -172,7 +174,7 @@
             this.buscarAfiliadoToolStripMenuItem,
             this.buscarAfiliadoToolStripMenuItem1});
             this.tsmAfiliados.Name = "tsmAfiliados";
-            this.tsmAfiliados.Size = new System.Drawing.Size(190, 22);
+            this.tsmAfiliados.Size = new System.Drawing.Size(221, 22);
             this.tsmAfiliados.Text = "Afiliados";
             this.tsmAfiliados.Visible = false;
             // 
@@ -211,17 +213,24 @@
             this.buscarAfiliadoToolStripMenuItem1.Text = "Buscar Afiliado";
             this.buscarAfiliadoToolStripMenuItem1.Click += new System.EventHandler(this.buscarAfiliadoToolStripMenuItem1_Click);
             // 
+            // tsmAgregarNAfiliadoMigrado
+            // 
+            this.tsmAgregarNAfiliadoMigrado.Name = "tsmAgregarNAfiliadoMigrado";
+            this.tsmAgregarNAfiliadoMigrado.Size = new System.Drawing.Size(221, 22);
+            this.tsmAgregarNAfiliadoMigrado.Text = "Agregar nº afiliado migrado";
+            this.tsmAgregarNAfiliadoMigrado.Click += new System.EventHandler(this.tsmAgregarNAfiliadoMigrado_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(187, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(218, 6);
             // 
             // tsmRoles
             // 
             this.tsmRoles.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.crearModificarRolToolStripMenuItem});
             this.tsmRoles.Name = "tsmRoles";
-            this.tsmRoles.Size = new System.Drawing.Size(190, 22);
+            this.tsmRoles.Size = new System.Drawing.Size(221, 22);
             this.tsmRoles.Text = "Roles";
             this.tsmRoles.Visible = false;
             // 
@@ -235,7 +244,7 @@
             // tsmCompraDeBonos
             // 
             this.tsmCompraDeBonos.Name = "tsmCompraDeBonos";
-            this.tsmCompraDeBonos.Size = new System.Drawing.Size(190, 22);
+            this.tsmCompraDeBonos.Size = new System.Drawing.Size(221, 22);
             this.tsmCompraDeBonos.Text = "Compra de bonos";
             this.tsmCompraDeBonos.Visible = false;
             this.tsmCompraDeBonos.Click += new System.EventHandler(this.tsmCompraDeBonos_Click);
@@ -243,7 +252,7 @@
             // tsmPedirTurno
             // 
             this.tsmPedirTurno.Name = "tsmPedirTurno";
-            this.tsmPedirTurno.Size = new System.Drawing.Size(190, 22);
+            this.tsmPedirTurno.Size = new System.Drawing.Size(221, 22);
             this.tsmPedirTurno.Text = "Pedir turno";
             this.tsmPedirTurno.Visible = false;
             this.tsmPedirTurno.Click += new System.EventHandler(this.tsmPedirTurno_Click);
@@ -251,7 +260,7 @@
             // tsmRegistroDeLlegada
             // 
             this.tsmRegistroDeLlegada.Name = "tsmRegistroDeLlegada";
-            this.tsmRegistroDeLlegada.Size = new System.Drawing.Size(190, 22);
+            this.tsmRegistroDeLlegada.Size = new System.Drawing.Size(221, 22);
             this.tsmRegistroDeLlegada.Text = "Registro de llegada";
             this.tsmRegistroDeLlegada.Visible = false;
             this.tsmRegistroDeLlegada.Click += new System.EventHandler(this.tsmRegistroDeLlegada_Click);
@@ -259,12 +268,12 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(187, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(218, 6);
             // 
             // tsmRegistroDeResultados
             // 
             this.tsmRegistroDeResultados.Name = "tsmRegistroDeResultados";
-            this.tsmRegistroDeResultados.Size = new System.Drawing.Size(190, 22);
+            this.tsmRegistroDeResultados.Size = new System.Drawing.Size(221, 22);
             this.tsmRegistroDeResultados.Text = "Registro de resultados";
             this.tsmRegistroDeResultados.Visible = false;
             this.tsmRegistroDeResultados.Click += new System.EventHandler(this.tsmRegistroDeResultados_Click);
@@ -272,7 +281,7 @@
             // tsmCancelaciones
             // 
             this.tsmCancelaciones.Name = "tsmCancelaciones";
-            this.tsmCancelaciones.Size = new System.Drawing.Size(190, 22);
+            this.tsmCancelaciones.Size = new System.Drawing.Size(221, 22);
             this.tsmCancelaciones.Text = "Cancelaciones";
             this.tsmCancelaciones.Visible = false;
             this.tsmCancelaciones.Click += new System.EventHandler(this.tsmCancelaciones_Click);
@@ -291,7 +300,7 @@
             // tsmAgenda_Registrar
             // 
             this.tsmAgenda_Registrar.Name = "tsmAgenda_Registrar";
-            this.tsmAgenda_Registrar.Size = new System.Drawing.Size(152, 22);
+            this.tsmAgenda_Registrar.Size = new System.Drawing.Size(120, 22);
             this.tsmAgenda_Registrar.Text = "Registrar";
             this.tsmAgenda_Registrar.Visible = false;
             this.tsmAgenda_Registrar.Click += new System.EventHandler(this.tsmAgenda_Registrar_Click);
@@ -345,6 +354,7 @@
         private System.Windows.Forms.ToolStripMenuItem crearModificarRolToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsmCancelaciones;
         private System.Windows.Forms.ToolStripMenuItem buscarAfiliadoToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem tsmAgregarNAfiliadoMigrado;
     }
 }
 
