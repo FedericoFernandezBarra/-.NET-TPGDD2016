@@ -19,7 +19,7 @@ namespace ClinicaFrba.Clases.DAOS
         internal void insertarCompra(Compra compra)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
-            DataBase.Instance.agregarParametro(parametros, "@comprador", compra.comprador);
+            DataBase.Instance.agregarParametro(parametros, "@comprador", compra.comprador.usuario.id);
             DataBase.Instance.agregarParametro(parametros, "@cantidad", compra.cantidad);
             DataBase.Instance.agregarParametro(parametros, "@monto", compra.monto);
             DataBase.Instance.agregarParametro(parametros, "@fecha_compra", compra.fecha);

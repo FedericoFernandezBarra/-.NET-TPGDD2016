@@ -138,6 +138,21 @@ namespace ClinicaFrba.Registro_Llegada
 
             registrarLlegada.turnoDeAfiliado = indiceSeleccionado < registrarLlegada.turnosFiltrados.Count ?
                                         registrarLlegada.turnosFiltrados[indiceSeleccionado] : null;
+
+            txtBono.Enabled = registrarLlegada.turnoDeAfiliado != null;
+        }
+
+        private void txtBono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtBono_TextChanged(object sender, EventArgs e)
+        {
+            cmdConfirmarBono.Enabled = txtBono.Text != "" && txtBono.Text != "0";
         }
     }
 }

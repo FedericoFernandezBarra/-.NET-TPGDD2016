@@ -58,12 +58,13 @@ namespace ClinicaFrba.Clases.DAOS
             DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_cancelar_turno_medico", parametros);
         }
 
-        internal List<Turno> traerTurnosDeProfesional(Profesional profesional, Especialidad especialidad, DateTime fecha)
+        internal List<Turno> traerTurnosDeProfesional(Profesional profesional, Especialidad especialidad, DateTime fecha,bool activo)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
             DataBase.Instance.agregarParametro(parametros, "@profesional", profesional.usuario.id);
             DataBase.Instance.agregarParametro(parametros, "@especialidad", especialidad.id);
             DataBase.Instance.agregarParametro(parametros, "@fecha_sistema", fecha);
+            DataBase.Instance.agregarParametro(parametros, "@activo", activo);
 
             return (List<Turno>)executeStored("BEMVINDO.st_obtener_turnos", parametros);
 

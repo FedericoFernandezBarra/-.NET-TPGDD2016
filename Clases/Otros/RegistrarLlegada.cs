@@ -24,7 +24,7 @@ namespace ClinicaFrba.Clases.Otros
         public RegistrarLlegada()
         {
             mensajeDeError = "";
-            numeroAfiliado = "";
+            numeroAfiliado = "0";
             turnosFiltrados = new List<Turno>();
             turnosDeProfesional = new List<Turno>();
             profesional = new Profesional();
@@ -46,7 +46,7 @@ namespace ClinicaFrba.Clases.Otros
             {
                 return;
             }
-            turnosDeProfesional = (new TurnoRepository()).traerTurnosDeProfesional(profesional, especialidad, DataBase.Instance.getDate());
+            turnosDeProfesional = (new TurnoRepository()).traerTurnosDeProfesional(profesional, especialidad, DataBase.Instance.getDate(),true);
         }
 
         internal bool ejecutarExitosamente()

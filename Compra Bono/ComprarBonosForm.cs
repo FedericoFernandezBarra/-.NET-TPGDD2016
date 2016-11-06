@@ -22,6 +22,10 @@ namespace ClinicaFrba.Compra_Bono
                 MessageBox.Show(comprarBonos.mensajeDeError, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            MessageBox.Show("Compra realizada exitosamente");
+
+            Close();
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -39,18 +43,17 @@ namespace ClinicaFrba.Compra_Bono
 
         private void initForm()
         {
-            textBox1.DataBindings.Add("Text", comprarBonos.compra, "cantidad");
-
             if (comprarBonos.compra.comprador!=null)
             {
-                textBox1.Enabled = true;
+                cantidad.Enabled = true;
                 btnComprar.Enabled = true;
                 tbAfiliado.Text = comprarBonos.compra.comprador.numeroDeAfiliado.ToString();
             }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void cantidad_TextChanged(object sender, EventArgs e)
         {
+            comprarBonos.compra.cantidad = Convert.ToInt32(cantidad.Text);
             comprarBonos.cargarMonto();
             tbPrecioTotal.Text = comprarBonos.compra.monto.ToString();
         }

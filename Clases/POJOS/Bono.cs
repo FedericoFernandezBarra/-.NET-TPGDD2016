@@ -26,9 +26,9 @@ namespace ClinicaFrba.Clases.POJOS
         {
             if (turno==null)
             {
-                return true;
+                return false;
             }
-            return turno.id == 0;
+            return turno.id != 0;
         }
     }
 }

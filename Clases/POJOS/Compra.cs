@@ -7,6 +7,7 @@ using TostadoPersistentKit;
 
 namespace ClinicaFrba.Clases.POJOS
 {
+    [Table(name ="BEMVINDO.COMPRA")]
     public class Compra:Serializable
     {
         [Id(name = "id_compra",type =PrimaryKeyType.SURROGATE)]
