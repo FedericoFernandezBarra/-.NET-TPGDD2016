@@ -3,18 +3,18 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 
 exec BEMVINDO.st_insertar_afiliado 
-'01' --nro_grupo_familiar
+1 --nro_grupo_familiar
 ,3 --estado_civil
 ,1--plan_medico
 ,'Roli'--nombre
 ,'Bergara'--apellido
 ,1--tipo_documento
-,'434'--documento
+,'123'--documento
 ,'2016-10-02 02:01:54.560'--fecha_nacimiento
 ,'sara sara'--direccion
 ,'4392-3945'--telefono
 ,'roli76@hotmail.com'--mail
-,'F'--sexo
+,'M'--sexo
 ,4 --nro_raiz
 
 
@@ -24,15 +24,13 @@ exec BEMVINDO.st_baja_afiliado
 
 
 exec BEMVINDO.st_actualizar_afiliado
-3,--@id_afiliado 
-3,--@id_usuario     
+5581,--@id_afiliado     
 'CALLE ACTUALIZAR',--@direccion   
 'XXXX-XXXX',--@telefono    
 '@@@@@@@@@@',--@mail    
 1,--@plan_medico 
 'PORQUE SE ME CANTA',--@motivo     
 '2016-10-02 02:01:54.560'--@fecha_sistema 
-
 
 exec BEMVINDO.buscar_historial_de_cambios
 3 --@id_afiliado
@@ -97,3 +95,27 @@ exec BEMVINDO.st_insertar_turno
 ---------------------------------------PEDIDO DE TURNOS-----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------
 
+-----
+
+insert into BEMVINDO.USUARIO
+values('Dr.House','w23e',0,1,null,null,null,null,null,null,null,null,null)
+
+go
+
+insert into BEMVINDO.PROFESIONAL
+values(5579, null, 1, null, 0, 101)
+
+go
+
+insert into BEMVINDO.PROFESIONAL
+values(5579, null)
+
+go
+
+insert into BEMVINDO.ROL_POR_USUARIO
+values 
+    (1,5579),
+    (2,5579),
+    (3,5579)
+
+go
