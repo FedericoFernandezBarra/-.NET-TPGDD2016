@@ -1471,9 +1471,10 @@ as begin
         D.horario_inicial,
         D.horario_final
     from BEMVINDO.AGENDA as A
-    inner join BEMVINDO.DIA_AGENDA as D on A.id_agenda = D.agenda
-    inner join BEMVINDO.ESPECIALIDAD as E on D.especialidad = E.id_especialidad
+    left join BEMVINDO.DIA_AGENDA as D on A.id_agenda = D.agenda
+    left join BEMVINDO.ESPECIALIDAD as E on D.especialidad = E.id_especialidad
     where 
+		D.dia != 'DOMINGO' and
         A.profesional = @id_profesional
 end
 
