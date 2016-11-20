@@ -574,7 +574,7 @@ create table BEMVINDO.DIA_AGENDA
     id_dia_agenda       numeric(10,0) identity(1,1),
     agenda      numeric(10,0),
     especialidad    numeric(10,0),
-    dia     nvarchar(10) check (dia in('LUNES','MARTES', 'MIERCOLES','JUEVES', 'VIERNES', 'SABADO')),
+    dia     nvarchar(10) check (dia in('LUNES','MARTES', 'MIÉRCOLES','JUEVES', 'VIERNES', 'SABADO', 'DOMINGO')),
     horario_inicial     time,
     horario_final       time,
     
@@ -1090,7 +1090,6 @@ go
 
 --ROL POR USUARIO
 -------------------------------------------------------------------------------------------------------
-
 --afiliados
 insert into BEMVINDO.ROL_POR_USUARIO
     select 
@@ -1106,6 +1105,42 @@ insert into BEMVINDO.ROL_POR_USUARIO
         1,
         id_profesional
     from BEMVINDO.PROFESIONAL
+
+go
+
+--AGENDA
+-------------------------------------------------------------------------------------------------------
+insert into BEMVINDO.AGENDA
+	select 
+		U.id_usuario as profesional,
+		MIN(M.Turno_Fecha) as fecha_inicial,
+		MAX(M.Turno_Fecha) as fecha_final
+	from gd_esquema.Maestra as M
+	inner join BEMVINDO.USUARIO as U on 
+		U.documento = M.Medico_Dni
+	group by 
+		U.id_usuario
+
+go
+
+--DIA AGENDA
+-------------------------------------------------------------------------------------------------------
+insert into BEMVINDO.DIA_AGENDA
+	select 
+		A.id_agenda,
+		null as id_especialidad, 
+		UPPER(DATENAME(weekday, M.Turno_Fecha)) as nombre_dia,
+		CONVERT(char(8), MIN(M.Turno_Fecha), 108) as hora_inicial,
+		CONVERT(char(8), MAX(M.Turno_Fecha), 108) as hora_final
+	from gd_esquema.Maestra as M
+	inner join BEMVINDO.USUARIO as U on
+		U.documento = M.Medico_Dni
+	inner join BEMVINDO.AGENDA as A on
+		A.profesional = U.id_usuario
+	inner join BEMVINDO.ESPECIALIDAD as E on
+		E.especialidad_codigo = M.Especialidad_Codigo
+	group by 
+		A.id_agenda, UPPER(DATENAME(weekday, M.Turno_Fecha))
 
 go
 
