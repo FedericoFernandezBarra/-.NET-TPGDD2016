@@ -1,5 +1,6 @@
 ﻿using ClinicaFrba.Abm_Afiliado;
 using ClinicaFrba.Abm_Grupo_Afiliado_Viejo;
+using ClinicaFrba.Abm_Profesional;
 using ClinicaFrba.AbmRol;
 using ClinicaFrba.Cancelar_Atencion;
 using ClinicaFrba.Clases;
@@ -53,7 +54,7 @@ namespace ClinicaFrba
                 }
                 if (menu.usuario.roles.Count>1)
                 {
-                    Hide();
+                    //Hide();
                     seleccionDeRol.ShowDialog();
                     menu.rol = seleccionDeRol.getRolSeleccionado();
                 }
@@ -97,7 +98,6 @@ namespace ClinicaFrba
 
         private void crearModificarRolesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //validar si puede modificar los roles
             AbmRolForm abmRol = new AbmRolForm();
 
             Hide();
@@ -226,9 +226,26 @@ namespace ClinicaFrba
 
         private void tsmAgenda_Registrar_Click(object sender, EventArgs e)
         {
-            RegistrarAgendaForm registrarAgenda = new RegistrarAgendaForm(/*this, */menu.usuario);
-
             Hide();
+
+            Usuario profesional = menu.usuario;
+
+            if (!menu.userEsProfesional())
+            {
+                BuscarProfesionalForm buscarProfesional = new BuscarProfesionalForm();
+
+                buscarProfesional.ShowDialog();
+
+                if (!buscarProfesional.seSeleccionoUnProfesional())
+                {
+                    Show();
+                    return;
+                }
+
+                profesional = buscarProfesional.getProfesionalSeleccionado().usuario;
+            }
+
+            RegistrarAgendaForm registrarAgenda = new RegistrarAgendaForm(profesional);
 
             registrarAgenda.ShowDialog();
 
@@ -338,18 +355,27 @@ namespace ClinicaFrba
 
         private void buscarAfiliadoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            BuscarAfiliadoForm buscarAfiliado = new BuscarAfiliadoForm();
-
             Hide();
 
-            buscarAfiliado.ShowDialog();
+            Afiliado afiliado;
 
-            Afiliado afiliado = buscarAfiliado.getAfiliadoSeleccionado();
-
-            if (!buscarAfiliado.seSeleccionoUnAfiliado())
+            if (!menu.userEsAfiliado())
             {
-                Show();
-                return;
+                BuscarAfiliadoForm buscarAfiliado = new BuscarAfiliadoForm();
+
+                buscarAfiliado.ShowDialog();
+
+                if (!buscarAfiliado.seSeleccionoUnAfiliado())
+                {
+                    Show();
+                    return;
+                }
+
+                afiliado = buscarAfiliado.getAfiliadoSeleccionado();
+            }
+            else
+            {
+                afiliado = (Afiliado)menu.usuarioPosta;
             }
 
             ConsultarHistorialCambiosForm consultarHistorial = new ConsultarHistorialCambiosForm(afiliado);

@@ -366,9 +366,6 @@
     <Content Include="Imagenes\medical_pot_pills.png" />
     <Content Include="Imagenes\PatientFile.png" />
     <Content Include="Imagenes\reportorium.png" />
-    <Content Include="tostado_tests.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

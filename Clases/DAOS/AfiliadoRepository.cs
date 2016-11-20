@@ -100,7 +100,15 @@ namespace ClinicaFrba.Clases.DAOS
             DataBase.Instance.agregarParametro(parametros, "dni", dniValue);
             DataBase.Instance.agregarParametro(parametros, "planMedico", planValue);
 
-            return (List<Afiliado>)executeStored("BEMVINDO.st_buscar_afiliados", parametros);
+            //return (List<Afiliado>)executeStored("BEMVINDO.st_buscar_afiliados", parametros);
+
+            List<Dictionary<string,object>> result = DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_buscar_afiliados", parametros);
+
+            List<Afiliado> afiliados = new List<Afiliado>();
+
+            result.ForEach(d => afiliados.Add((Afiliado)unSerialize(d)));
+
+            return afiliados;
         }
 
         internal void modificarAfiliado(Afiliado afiliado,string motivo)

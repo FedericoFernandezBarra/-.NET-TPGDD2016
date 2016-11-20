@@ -1,5 +1,4 @@
 C:\Users\Alexis\GddUtn-Clinica\bin\Debug\configuracion_sistema.txt
-C:\Users\Alexis\GddUtn-Clinica\bin\Debug\tostado_tests.sql
 C:\Users\Alexis\GddUtn-Clinica\bin\Debug\ClinicaFrba.exe.config
 C:\Users\Alexis\GddUtn-Clinica\bin\Debug\ClinicaFrba.exe
 C:\Users\Alexis\GddUtn-Clinica\bin\Debug\ClinicaFrba.pdb

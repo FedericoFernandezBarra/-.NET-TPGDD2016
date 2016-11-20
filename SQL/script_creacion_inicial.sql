@@ -109,6 +109,11 @@ drop procedure BEMVINDO.st_obtener_turnos
 
 go
 
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_obtener_turnos_afiliado') 
+drop procedure BEMVINDO.st_obtener_turnos_afiliado
+
+go
+
 if EXISTS (SELECT * FROM sysobjects  WHERE name='st_registrar_fecha_llegada') 
 drop procedure BEMVINDO.st_registrar_fecha_llegada
 
@@ -1362,6 +1367,9 @@ begin
       select *
       from BEMVINDO.USUARIO
       inner join BEMVINDO.AFILIADO on id_usuario = id_afiliado
+	  left join BEMVINDO.TIPO_DOCUMENTO on tipo_documento=id_tipo_documento
+	  left join BEMVINDO.ESTADO_CIVIL on estado_civil=id_estado_civil
+	  left join BEMVINDO.PLAN_MEDICO on plan_medico=id_plan_medico
       where (numero_afiliado = @nroAfiliado OR @nroAfiliado IS NULL) and
             (nombre = @nombre OR @nombre IS NULL) and
             (apellido = @apellido OR @apellido IS NULL) and
