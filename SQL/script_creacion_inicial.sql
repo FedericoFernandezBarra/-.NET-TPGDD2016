@@ -97,6 +97,11 @@ drop procedure BEMVINDO.st_insertar_turno
 
 go
 
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_obtener_turnos_afiliado') 
+drop procedure BEMVINDO.st_obtener_turnos_afiliado
+
+go
+
 --REGISTRO DE LLEGADA PARA ATENCION MEDICA
 -------------------------------------------------------------------------------------------------------
 if EXISTS (SELECT * FROM sysobjects  WHERE name='st_buscar_profesional') 
@@ -587,7 +592,7 @@ go
 
 create table BEMVINDO.TURNO
 (
-    id_turno          numeric(10,0) identity(1,1) ,
+    id_turno          numeric(10,0) identity(1,1),
     afiliado          numeric(10,0) ,
     profesional       numeric(10,0) ,
     especialidad      numeric(10,0) ,
@@ -969,7 +974,7 @@ insert into BEMVINDO.ESPECIALIDAD
 
 go
 
---ESPECIALIDAD_POR_PROFESIONAL
+--ESPECIALIDAD POR PROFESIONAL
 -------------------------------------------------------------------------------------------------------
 insert into BEMVINDO.ESPECIALIDAD_POR_PROFESIONAL
     select distinct
@@ -1033,23 +1038,20 @@ go
 
 --COMPRA
 -------------------------------------------------------------------------------------------------------
-alter table BEMVINDO.COMPRA
-add compra_numero numeric(18,0)
-
-go
 
 insert into BEMVINDO.COMPRA
     select 
-        U.id_usuario as  afiliado,
-        1 as cantidad,
-        M.Plan_Med_Precio_Bono_Consulta,
-        M.Compra_Bono_Fecha,
-        M.Bono_Consulta_Numero
+        U.id_usuario as afiliado,
+        COUNT(M.Plan_Med_Precio_Bono_Consulta) as cantidad,
+        SUM(M.Plan_Med_Precio_Bono_Consulta) as monto_total,
+		M.Compra_Bono_Fecha
     from gd_esquema.Maestra as M
     inner join BEMVINDO.USUARIO as U
         on U.documento = M.Paciente_Dni
     where 
         M.Turno_Numero is null
+	group by 
+		U.id_usuario, M.Compra_Bono_Fecha
 go
 
 --BONO
@@ -1067,7 +1069,8 @@ insert into BEMVINDO.BONO
         M.Bono_Consulta_Numero
     from gd_esquema.Maestra as M
     inner join BEMVINDO.PLAN_MEDICO as P on M.Plan_Med_Codigo = P.plan_medico_codigo
-    inner join BEMVINDO.COMPRA as C on M.Bono_Consulta_Numero = C.compra_numero
+	inner join BEMVINDO.USUARIO as U on U.documento = M.Paciente_Dni
+    inner join BEMVINDO.COMPRA as C on U.id_usuario = C.comprador
     inner join BEMVINDO.TURNO as T on M.Turno_Numero = T.turno_numero
     where 
         M.Bono_Consulta_Numero is not null and
@@ -1075,7 +1078,7 @@ insert into BEMVINDO.BONO
 
 go
 
---ROL_POR_USUARIO
+--ROL POR USUARIO
 -------------------------------------------------------------------------------------------------------
 
 --afiliados
@@ -1135,13 +1138,6 @@ drop column consulta_numero
 
 go
 
---COMPRA
--------------------------------------------------------------------------------------------------------
-alter table BEMVINDO.COMPRA
-drop column compra_numero
-
-go
-
 --BONO
 -------------------------------------------------------------------------------------------------------
 alter table BEMVINDO.BONO
@@ -1173,37 +1169,6 @@ values
     (1,5579),
     (2,5579),
     (3,5579)
-
-go
-
----DOCTOR
-
-insert into BEMVINDO.USUARIO
-values('Dr.House','w23e',0,1,'Gregory','House',null,null,null,null,null,null,null)
-
-go
-
-insert into BEMVINDO.PROFESIONAL
-values(5580, 123)
-go
-
-insert into BEMVINDO.ESPECIALIDAD_POR_PROFESIONAL
-values 
-    (1,5580),
-    (2,5580),
-    (3,5580),
-    (4,5580),
-    (5,5580),
-    (6,5580),
-    (7,5580),
-    (8,5580)
-
-go
-
-insert into BEMVINDO.ROL_POR_USUARIO
-values 
-    (1,5580)
-
 
 go
 
