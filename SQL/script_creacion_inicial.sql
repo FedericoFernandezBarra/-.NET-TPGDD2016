@@ -33,6 +33,11 @@ drop procedure BEMVINDO.st_insertar_afiliado
 
 go
 
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_insertar_afiliado_de_uno_modificado') 
+drop procedure BEMVINDO.st_insertar_afiliado_de_uno_modificado
+
+go
+
 if EXISTS (SELECT * FROM sysobjects  WHERE name='st_baja_afiliado') 
 drop procedure BEMVINDO.st_baja_afiliado
 
