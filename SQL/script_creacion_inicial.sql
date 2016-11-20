@@ -1249,6 +1249,71 @@ begin
 
 end
 
+go
+
+
+create procedure BEMVINDO.st_insertar_afiliado_de_uno_modificado
+@nro_grupo_familiar char(4),
+@estado_civil numeric(10,0),
+@plan_medico numeric(10,0),
+@nombre  nvarchar(255),
+@apellido    nvarchar(255),
+@tipo_documento  numeric(10,0),  
+@documento   nvarchar(12),
+@fecha_nacimiento    date,
+@direccion   nvarchar(255),
+@telefono    nvarchar(255),
+@mail    nvarchar(255),
+@sexo    char,
+@nro_raiz numeric(10,0) --cero
+
+AS
+begin
+     declare @nroAfiliado numeric(10,0)
+     declare @id_numerito numeric(10,0)
+     declare @error varchar(255) 
+     declare @nro_grupo_familiar_maximo char(4)
+     declare @idUsuario numeric(10,0)
+
+     set @error = ''
+     BEGIN TRANSACTION  
+     BEGIN TRY
+
+     set @nro_grupo_familiar_maximo = SUBSTRING((select concat('0',(  select max(numero_afiliado/100-round(numero_afiliado/100,0,1)) from BEMVINDO.AFILIADO
+                                where @nro_raiz= cast(round(numero_afiliado/100,0,1) as numeric(10,0))))), 4, 2)
+     set @nro_grupo_familiar_maximo=@nro_grupo_familiar_maximo+1
+
+     set @nro_grupo_familiar_maximo = concat('0',@nro_grupo_familiar_maximo)
+
+     set @nroAfiliado =  Concat(@nro_raiz,@nro_grupo_familiar_maximo)
+           
+
+    insert into BEMVINDO.USUARIO(nick,pass,intentos_login,activo,nombre,apellido,tipo_documento,
+                documento,fecha_nacimiento,direccion,telefono,mail,sexo)
+        values (@documento,@documento,0,1,@nombre,@apellido,@tipo_documento,@documento,@fecha_nacimiento,@direccion,
+               @telefono,@mail,@sexo)
+
+    select @idUsuario =max(id_usuario) from BEMVINDO.USUARIO
+
+    insert into BEMVINDO.AFILIADO(id_afiliado,estado_civil,plan_medico,baja_logica,numero_afiliado)
+        values (@idUsuario,@estado_civil,@plan_medico,0,@nroAfiliado)
+
+    insert into BEMVINDO.ROL_POR_USUARIO
+      values 
+    (2,@idUsuario)           
+
+
+     COMMIT TRAN  
+     END TRY 
+     BEGIN CATCH  
+     ROLLBACK TRAN 
+     set @error = 'Error, no se pudo cargar el usuario'
+     END CATCH 
+
+
+     select @documento as nick,@documento as pass,@nroAfiliado as id_afiliado,@error as error
+
+end
 
 
 go
