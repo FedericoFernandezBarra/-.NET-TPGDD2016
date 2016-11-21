@@ -35,7 +35,16 @@ namespace ClinicaFrba.Clases.DAOS
             List<DiaAgenda> listaDiasAgenda = new List<DiaAgenda>();
             foreach (Dictionary<string, object> dic in listaDB)
             {
-                DiaAgenda diaAgenda = new DiaAgenda((string)dic["dia"], Convert.ToInt64(dic["id_especialidad"]), (string)dic["especialidad"], (TimeSpan)dic["horario_inicial"], (TimeSpan)dic["horario_final"]);
+                DiaAgenda diaAgenda;
+                if (dic["id_especialidad"] == DBNull.Value)
+                {
+                    diaAgenda = new DiaAgenda((string)dic["dia"], 0, "", (TimeSpan)dic["horario_inicial"], (TimeSpan)dic["horario_final"]);
+                }
+                else
+                {
+                    diaAgenda = new DiaAgenda((string)dic["dia"], Convert.ToInt64(dic["id_especialidad"]), (string)dic["especialidad"], (TimeSpan)dic["horario_inicial"], (TimeSpan)dic["horario_final"]);
+                }
+                
                 listaDiasAgenda.Add(diaAgenda);
             }
 
