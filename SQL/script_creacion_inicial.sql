@@ -658,7 +658,7 @@ create table BEMVINDO.CANCELACION
     turno                numeric(10,0),
     fecha                date,
     motivo               nvarchar(255),
-    tipo_usuario         char check (tipo_usuario in('A','P')),
+    tipo_usuario         char,
     
 
     PRIMARY KEY (id_cancelacion), 
