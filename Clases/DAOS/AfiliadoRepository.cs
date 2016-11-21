@@ -16,11 +16,11 @@ namespace ClinicaFrba.Clases.DAOS
             return typeof(Afiliado);
         }
 
-        public string insertarAfiliado(Afiliado afiliado)
+        public string insertarAfiliado(Afiliado afiliado,long numeroAfiliadoPrincipal)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
 
-            long nroRaiz = afiliado.numeroDeAfiliado - afiliado.numeroFamiliar;
+            long nroRaiz = numeroAfiliadoPrincipal;//afiliado.numeroDeAfiliado - afiliado.numeroFamiliar;
             nroRaiz = nroRaiz < 0 ? 0 : nroRaiz;
 
             DataBase.Instance.agregarParametro(parametros, "nro_raiz",nroRaiz );
@@ -53,12 +53,12 @@ namespace ClinicaFrba.Clases.DAOS
 
             List<SqlParameter> parametros = new List<SqlParameter>();
 
-            long nroRaiz = familiar.numeroDeAfiliado - familiar.numeroDeAfiliado % 100;
+            long nroRaiz = familiar.numeroDeAfiliado- familiar.numeroDeAfiliado%100;
             nroRaiz = nroRaiz < 0 ? 0 : nroRaiz;
 
             DataBase.Instance.agregarParametro(parametros, "nro_raiz", nroRaiz);
             DataBase.Instance.agregarParametro(parametros, "nro_grupo_familiar", afiliado.numeroFamiliar);
-            create procedure BEMVINDO.st_insertar_afiliado_de_uno_modificado
+            /*create procedure BEMVINDO.st_insertar_afiliado_de_uno_modificado
 
 @nro_grupo_familiar char(4),
 
@@ -84,7 +84,7 @@ namespace ClinicaFrba.Clases.DAOS
 
 @sexo    char,
 
-@nro_raiz numeric(10, 0)--cero
+@nro_raiz numeric(10, 0)--cero*/
 
         }
 

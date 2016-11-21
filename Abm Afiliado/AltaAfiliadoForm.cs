@@ -53,6 +53,7 @@ namespace ClinicaFrba.Abm_Afiliado
                 if (cmbEstadoCivil.Items.Count > 0)
                 {
                     cmbEstadoCivil.SelectedItem = cmbEstadoCivil.Items[0];
+                    altaAfiliado.nuevoAfiliado.estadoCivil = altaAfiliado.estadosCivilesSistema[0];
                 }
             }
 
@@ -62,6 +63,7 @@ namespace ClinicaFrba.Abm_Afiliado
             if (cmbSexo.Items.Count > 0)
             {
                 cmbSexo.SelectedItem = cmbSexo.Items[0];
+                altaAfiliado.nuevoAfiliado.usuario.sexo = altaAfiliado.sexosSistema[0];
             }
 
             cmbTipoDocumento.DisplayMember = "descripcion";
@@ -71,7 +73,7 @@ namespace ClinicaFrba.Abm_Afiliado
             if (cmbTipoDocumento.Items.Count > 0)
             {
                 cmbTipoDocumento.SelectedItem = cmbTipoDocumento.Items[0];
-                altaAfiliado.nuevoAfiliado.usuario.tipoDeDocumento=(TipoDocumento)cmbTipoDocumento.Items[0];
+                altaAfiliado.nuevoAfiliado.usuario.tipoDeDocumento = altaAfiliado.tiposDeDocumentoSistema[0];
             }
 
             if (!altaFamiliar())
@@ -83,6 +85,7 @@ namespace ClinicaFrba.Abm_Afiliado
                 if (cmbPlanes.Items.Count>0)
                 {
                     cmbPlanes.SelectedItem = cmbPlanes.Items[0];
+                    altaAfiliado.nuevoAfiliado.planMedico = altaAfiliado.planesMedicosSistema[0];
                 }
             }
 

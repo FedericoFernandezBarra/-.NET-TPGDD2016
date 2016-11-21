@@ -1225,7 +1225,7 @@ go
 ---------------------------------------ABM AFILIADO----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------
 create procedure BEMVINDO.st_insertar_afiliado
-@nro_grupo_familiar char(4),
+@nro_grupo_familiar int,--char(4),
 @estado_civil numeric(10,0),
 @plan_medico numeric(10,0),
 @nombre  nvarchar(255),
@@ -1237,7 +1237,7 @@ create procedure BEMVINDO.st_insertar_afiliado
 @telefono    nvarchar(255),
 @mail    nvarchar(255),
 @sexo    char,
-@nro_raiz numeric(10,0) --cero
+@nro_raiz numeric(10,0) --se llama asi, pero en realidad es el nro del afiliado principal
 
 AS
 begin
@@ -1249,23 +1249,33 @@ begin
      BEGIN TRANSACTION  
      BEGIN TRY
 
-     set @nro_grupo_familiar = concat('0',@nro_grupo_familiar)
+     --set @nro_grupo_familiar = concat('0',@nro_grupo_familiar)
 
-     select @id_numerito =max(numero_afiliado) from BEMVINDO.AFILIADO
-     set @id_numerito= (@id_numerito/100)
+	 set @id_numerito=@nro_raiz
+     --select @id_numerito =max(numero_afiliado) from BEMVINDO.AFILIADO
+     --set @id_numerito= (@id_numerito/100)
 
-      if(@nro_grupo_familiar='01')
+      if(@nro_grupo_familiar=1)--'01')
       begin
-           set @id_numerito= (@id_numerito+1)
+		   select @id_numerito =max(numero_afiliado) from BEMVINDO.AFILIADO
       end
 
-     select @nroAfiliado =  Concat(@id_numerito,@nro_grupo_familiar)
+	  else
+	  begin
+			set @id_numerito-=100
+	  end
+
+	  set @id_numerito= @id_numerito - (@id_numerito%100) + 100--+1)
+
+	  set @nroAfiliado=@id_numerito+@nro_grupo_familiar
+     --select @nroAfiliado =  Concat(@id_numerito,@nro_grupo_familiar)
            
 
     insert into BEMVINDO.USUARIO(nick,pass,intentos_login,activo,nombre,apellido,tipo_documento,
                 documento,fecha_nacimiento,direccion,telefono,mail,sexo)
         values (@documento,@documento,0,1,@nombre,@apellido,@tipo_documento,@documento,@fecha_nacimiento,@direccion,
                @telefono,@mail,@sexo)
+	
 
     select @idUsuario =max(id_usuario) from BEMVINDO.USUARIO
 

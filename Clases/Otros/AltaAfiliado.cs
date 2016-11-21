@@ -84,7 +84,7 @@ namespace ClinicaFrba.Clases.Otros
 
         public bool guardarAfiliado()
         {
-            string error = repoAfiliado.insertarAfiliado(nuevoAfiliado);
+            string error = repoAfiliado.insertarAfiliado(nuevoAfiliado,nuevoAfiliado.numeroDeAfiliado);
 
             if (error!="")
             {
@@ -94,7 +94,7 @@ namespace ClinicaFrba.Clases.Otros
 
             if (nuevoAfiliado.conyuge!=null)//No se si habria que rollbackear
             {
-                error = repoAfiliado.insertarAfiliado(nuevoAfiliado.conyuge);
+                error = repoAfiliado.insertarAfiliado(nuevoAfiliado.conyuge, nuevoAfiliado.numeroDeAfiliado);
 
                 if (error!="")
                 {
@@ -105,7 +105,7 @@ namespace ClinicaFrba.Clases.Otros
 
             foreach (Afiliado hijo in nuevoAfiliado.hijos)
             {
-                error = repoAfiliado.insertarAfiliado(hijo);
+                error = repoAfiliado.insertarAfiliado(hijo, nuevoAfiliado.numeroDeAfiliado);
 
                 if (error!="")
                 {
