@@ -33,6 +33,11 @@ drop procedure BEMVINDO.st_insertar_afiliado
 
 go
 
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_insertar_afiliado_de_uno_modificado') 
+drop procedure BEMVINDO.st_insertar_afiliado_de_uno_modificado
+
+go
+
 if EXISTS (SELECT * FROM sysobjects  WHERE name='st_baja_afiliado') 
 drop procedure BEMVINDO.st_baja_afiliado
 
@@ -569,7 +574,7 @@ create table BEMVINDO.DIA_AGENDA
     id_dia_agenda       numeric(10,0) identity(1,1),
     agenda      numeric(10,0),
     especialidad    numeric(10,0),
-    dia     nvarchar(10) check (dia in('LUNES','MARTES', 'MIERCOLES','JUEVES', 'VIERNES', 'SABADO')),
+    dia     nvarchar(10) check (dia in('LUNES','MARTES', 'MIÉRCOLES','JUEVES', 'VIERNES', 'SABADO', 'DOMINGO')),
     horario_inicial     time,
     horario_final       time,
     
@@ -1085,7 +1090,6 @@ go
 
 --ROL POR USUARIO
 -------------------------------------------------------------------------------------------------------
-
 --afiliados
 insert into BEMVINDO.ROL_POR_USUARIO
     select 
@@ -1101,6 +1105,42 @@ insert into BEMVINDO.ROL_POR_USUARIO
         1,
         id_profesional
     from BEMVINDO.PROFESIONAL
+
+go
+
+--AGENDA
+-------------------------------------------------------------------------------------------------------
+insert into BEMVINDO.AGENDA
+	select 
+		U.id_usuario as profesional,
+		MIN(M.Turno_Fecha) as fecha_inicial,
+		MAX(M.Turno_Fecha) as fecha_final
+	from gd_esquema.Maestra as M
+	inner join BEMVINDO.USUARIO as U on 
+		U.documento = M.Medico_Dni
+	group by 
+		U.id_usuario
+
+go
+
+--DIA AGENDA
+-------------------------------------------------------------------------------------------------------
+insert into BEMVINDO.DIA_AGENDA
+	select 
+		A.id_agenda,
+		null as id_especialidad, 
+		UPPER(DATENAME(weekday, M.Turno_Fecha)) as nombre_dia,
+		CONVERT(char(8), MIN(M.Turno_Fecha), 108) as hora_inicial,
+		CONVERT(char(8), MAX(M.Turno_Fecha), 108) as hora_final
+	from gd_esquema.Maestra as M
+	inner join BEMVINDO.USUARIO as U on
+		U.documento = M.Medico_Dni
+	inner join BEMVINDO.AGENDA as A on
+		A.profesional = U.id_usuario
+	inner join BEMVINDO.ESPECIALIDAD as E on
+		E.especialidad_codigo = M.Especialidad_Codigo
+	group by 
+		A.id_agenda, UPPER(DATENAME(weekday, M.Turno_Fecha))
 
 go
 
@@ -1249,6 +1289,71 @@ begin
 
 end
 
+go
+
+
+create procedure BEMVINDO.st_insertar_afiliado_de_uno_modificado
+@nro_grupo_familiar char(4),
+@estado_civil numeric(10,0),
+@plan_medico numeric(10,0),
+@nombre  nvarchar(255),
+@apellido    nvarchar(255),
+@tipo_documento  numeric(10,0),  
+@documento   nvarchar(12),
+@fecha_nacimiento    date,
+@direccion   nvarchar(255),
+@telefono    nvarchar(255),
+@mail    nvarchar(255),
+@sexo    char,
+@nro_raiz numeric(10,0) --cero
+
+AS
+begin
+     declare @nroAfiliado numeric(10,0)
+     declare @id_numerito numeric(10,0)
+     declare @error varchar(255) 
+     declare @nro_grupo_familiar_maximo char(4)
+     declare @idUsuario numeric(10,0)
+
+     set @error = ''
+     BEGIN TRANSACTION  
+     BEGIN TRY
+
+     set @nro_grupo_familiar_maximo = SUBSTRING((select concat('0',(  select max(numero_afiliado/100-round(numero_afiliado/100,0,1)) from BEMVINDO.AFILIADO
+                                where @nro_raiz= cast(round(numero_afiliado/100,0,1) as numeric(10,0))))), 4, 2)
+     set @nro_grupo_familiar_maximo=@nro_grupo_familiar_maximo+1
+
+     set @nro_grupo_familiar_maximo = concat('0',@nro_grupo_familiar_maximo)
+
+     set @nroAfiliado =  Concat(@nro_raiz,@nro_grupo_familiar_maximo)
+           
+
+    insert into BEMVINDO.USUARIO(nick,pass,intentos_login,activo,nombre,apellido,tipo_documento,
+                documento,fecha_nacimiento,direccion,telefono,mail,sexo)
+        values (@documento,@documento,0,1,@nombre,@apellido,@tipo_documento,@documento,@fecha_nacimiento,@direccion,
+               @telefono,@mail,@sexo)
+
+    select @idUsuario =max(id_usuario) from BEMVINDO.USUARIO
+
+    insert into BEMVINDO.AFILIADO(id_afiliado,estado_civil,plan_medico,baja_logica,numero_afiliado)
+        values (@idUsuario,@estado_civil,@plan_medico,0,@nroAfiliado)
+
+    insert into BEMVINDO.ROL_POR_USUARIO
+      values 
+    (2,@idUsuario)           
+
+
+     COMMIT TRAN  
+     END TRY 
+     BEGIN CATCH  
+     ROLLBACK TRAN 
+     set @error = 'Error, no se pudo cargar el usuario'
+     END CATCH 
+
+
+     select @documento as nick,@documento as pass,@nroAfiliado as id_afiliado,@error as error
+
+end
 
 
 go
@@ -1366,9 +1471,10 @@ as begin
         D.horario_inicial,
         D.horario_final
     from BEMVINDO.AGENDA as A
-    inner join BEMVINDO.DIA_AGENDA as D on A.id_agenda = D.agenda
-    inner join BEMVINDO.ESPECIALIDAD as E on D.especialidad = E.id_especialidad
+    left join BEMVINDO.DIA_AGENDA as D on A.id_agenda = D.agenda
+    left join BEMVINDO.ESPECIALIDAD as E on D.especialidad = E.id_especialidad
     where 
+		D.dia != 'DOMINGO' and
         A.profesional = @id_profesional
 end
 
