@@ -45,7 +45,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         private void cargarElementosDeLaVista()
         {
-            listBoxDias.Items.AddRange(new object[] { "LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES", "SABADO" });
+            listBoxDias.Items.AddRange(new object[] { "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO" });
             listBoxDias.SelectedIndex = 0;
 
             if (especialidadesDelPersonal != null)
@@ -99,8 +99,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         private bool seCumplenLasValidacionesParaAgregar()
         {
-            if ((timeHoraDesde.Value.TimeOfDay < new TimeSpan(7, 0, 0) || timeHoraHasta.Value.TimeOfDay > new TimeSpan(20, 0, 0) )&& listBoxDias.SelectedItem.ToString() != "SABADO" || 
-                ((timeHoraDesde.Value.TimeOfDay < new TimeSpan(10, 0, 0) || timeHoraHasta.Value.TimeOfDay > new TimeSpan(15, 0, 0)) && listBoxDias.SelectedItem.ToString() == "SABADO") )
+            if ((timeHoraDesde.Value.TimeOfDay < new TimeSpan(7, 0, 0) || timeHoraHasta.Value.TimeOfDay > new TimeSpan(20, 1, 0) )&& listBoxDias.SelectedItem.ToString() != "SÁBADO" || 
+                ((timeHoraDesde.Value.TimeOfDay < new TimeSpan(10, 0, 0) || timeHoraHasta.Value.TimeOfDay > new TimeSpan(15, 1, 0)) && listBoxDias.SelectedItem.ToString() == "SÁBADO") )
             {
                 MessageBox.Show("Los horarios no concuerdan con el rango de horarios de atencion del Hospital", "Error", MessageBoxButtons.OK);
                 return false;

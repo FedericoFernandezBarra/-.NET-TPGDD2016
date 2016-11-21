@@ -581,7 +581,7 @@ create table BEMVINDO.DIA_AGENDA
     id_dia_agenda       numeric(10,0) identity(1,1),
     agenda      numeric(10,0),
     especialidad    numeric(10,0),
-    dia     nvarchar(10) check (dia in('LUNES','MARTES', 'MIÉRCOLES','JUEVES', 'VIERNES', 'SABADO', 'DOMINGO')),
+    dia     nvarchar(10) check (dia in('LUNES','MARTES', 'MIÉRCOLES','JUEVES', 'VIERNES', 'SÁBADO', 'DOMINGO')),
     horario_inicial     time,
     horario_final       time,
     
@@ -1139,7 +1139,7 @@ insert into BEMVINDO.DIA_AGENDA
 		null as id_especialidad, 
 		UPPER(DATENAME(weekday, M.Turno_Fecha)) as nombre_dia,
 		CONVERT(char(8), MIN(M.Turno_Fecha), 108) as hora_inicial,
-		CONVERT(char(8), MAX(M.Turno_Fecha), 108) as hora_final
+		CONVERT(char(8), DATEADD(minute, 30, MAX(M.Turno_Fecha)), 108) as hora_final
 	from gd_esquema.Maestra as M
 	inner join BEMVINDO.USUARIO as U on
 		U.documento = M.Medico_Dni

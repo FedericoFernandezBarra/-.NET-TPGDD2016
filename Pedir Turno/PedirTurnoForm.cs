@@ -194,13 +194,13 @@ namespace ClinicaFrba.Pedir_Turno
                 case DayOfWeek.Tuesday:
                     return "MARTES";
                 case DayOfWeek.Wednesday:
-                    return "MIERCOLES";
+                    return "MIÉRCOLES";
                 case DayOfWeek.Thursday:
                     return "JUEVES";
                 case DayOfWeek.Friday:
                     return "VIERNES";
                 case DayOfWeek.Saturday:
-                    return "SABADO";
+                    return "SÁBADO";
                 case DayOfWeek.Sunday:
                     return "DOMINGO";
                 default: return null;
