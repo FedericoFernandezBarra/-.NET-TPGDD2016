@@ -17,6 +17,8 @@ namespace ClinicaFrba.Clases.Otros
         public List<EstadoCivil> estadosCivilesSistema { get; set; }
         public List<PlanMedico> planesMedicosSistema { get; set; }
 
+        private int mayorNumeroFamiliar = 0;
+
         public PlanMedico planMedicoActual { get; set; }
 
         public EstadoCivil estadoCivilActual { get; set; }
@@ -55,10 +57,15 @@ namespace ClinicaFrba.Clases.Otros
         {
             if (afiliado.conyuge!=null)
             {
-                repoAfiliado.agregarFamiliarAAfiliado(afiliado, afiliado.conyuge);
+                repoAfiliado.insertarAfiliado(afiliado.conyuge, afiliado.numeroDeAfiliado);
             }
 
-            afiliado.hijos.ForEach(h => repoAfiliado.agregarFamiliarAAfiliado(afiliado,h));
+            foreach (Afiliado hijo in afiliado.hijos)
+            {
+                mayorNumeroFamiliar++;
+                hijo.numeroFamiliar = mayorNumeroFamiliar;
+                repoAfiliado.insertarAfiliado(hijo, afiliado.numeroDeAfiliado);
+            } 
 
             repoAfiliado.modificarAfiliado(afiliado, motivo);
         }
@@ -74,7 +81,7 @@ namespace ClinicaFrba.Clases.Otros
             return true;
         }
 
-        private bool hayCambioDePlan()
+        public bool hayCambioDePlan()
         {
             return planMedicoActual.id != afiliado.planMedico.id;
         }
@@ -84,6 +91,7 @@ namespace ClinicaFrba.Clases.Otros
             afiliado.hijos = new List<Afiliado>();
             cargarPlanMedicoActual();
             cargarEstadoCivilActual();
+            mayorNumeroFamiliar = cantidadDeHijos()+2;//Obtengo el mayor desplazamiento del grupo
         }
 
         private void cargarEstadoCivilActual()
@@ -119,11 +127,8 @@ namespace ClinicaFrba.Clases.Otros
         {
             Afiliado nuevoHijo = new Afiliado();
             nuevoHijo.usuario = new Usuario();
-            nuevoHijo.numeroFamiliar = mayorNumeroFamiliar() + 1;
-            nuevoHijo.planMedico = nuevoAfiliado.planMedico;
-            nuevoHijo.usuario.direccion = nuevoAfiliado.usuario.direccion;
-
-            nuevoAfiliado.hijos.Add(nuevoHijo);
+            nuevoHijo.planMedico = afiliado.planMedico;
+            nuevoHijo.usuario.direccion = afiliado.usuario.direccion;
 
             return nuevoHijo;
         }
@@ -138,6 +143,11 @@ namespace ClinicaFrba.Clases.Otros
             string descripcionEstadoCivil = afiliado.estadoCivil.descripcion.ToLower();
 
             return descripcionEstadoCivil == "casado/a" || descripcionEstadoCivil == "concubinato";
+        }
+
+        private int cantidadDeHijos()
+        {
+            return repoAfiliado.obtenerCantidadDeHijos(afiliado);
         }
     }
 }

@@ -24,9 +24,14 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void cmbPlanes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bool hayCambioDePlan= ((PlanMedico)cmbPlanes.SelectedItem).id != modificarAfiliado.planMedicoActual.id;
-            txtMotivo.Visible = hayCambioDePlan;
-            lblMotivo.Visible = hayCambioDePlan;
+            if (cmbPlanes.SelectedItem!=null)
+            {
+                modificarAfiliado.afiliado.planMedico = modificarAfiliado.planesMedicosSistema[cmbPlanes.SelectedIndex];
+
+                bool hayCambioDePlan = modificarAfiliado.hayCambioDePlan();
+                txtMotivo.Visible = hayCambioDePlan;
+                lblMotivo.Visible = hayCambioDePlan;
+            }
         }
 
         private void initForm()
@@ -35,30 +40,34 @@ namespace ClinicaFrba.Abm_Afiliado
             txtTel.DataBindings.Add("Text", modificarAfiliado.afiliado.usuario, "telefono");
             txtMail.DataBindings.Add("Text", modificarAfiliado.afiliado.usuario, "mail");
             txtMotivo.DataBindings.Add("Text", modificarAfiliado, "motivo");
-            txtCantHijos.DataBindings.Add("Text", modificarAfiliado.afiliado, "cantidadDeHijos");
+            //txtCantHijos.DataBindings.Add("Text", modificarAfiliado.afiliado, "cantidadDeHijos");
 
-            cmbPlanes.DisplayMember = "descripcion";
-            cmbPlanes.DataSource = modificarAfiliado.planesMedicosSistema;
-            cmbPlanes.DataBindings.Add("SelectedItem", modificarAfiliado.afiliado, "planMedico");
+            //cmbPlanes.DisplayMember = "descripcion";
+            //cmbPlanes.DataSource = modificarAfiliado.planesMedicosSistema;
+            //cmbPlanes.DataBindings.Add("SelectedItem", modificarAfiliado.afiliado, "planMedico");
 
-            cmbEstadoCivil.DisplayMember = "descripcion";
-            cmbEstadoCivil.DataSource = modificarAfiliado.estadosCivilesSistema;
-            cmbEstadoCivil.DataBindings.Add("SelectedItem", modificarAfiliado.afiliado, "estadoCivil");
+            modificarAfiliado.planesMedicosSistema.ForEach(p => cmbPlanes.Items.Add(p.descripcion));
+
+            //cmbEstadoCivil.DisplayMember = "descripcion";
+            //cmbEstadoCivil.DataSource = modificarAfiliado.estadosCivilesSistema;
+            //cmbEstadoCivil.DataBindings.Add("SelectedItem", modificarAfiliado.afiliado, "estadoCivil");
+
+            modificarAfiliado.estadosCivilesSistema.ForEach(e => cmbEstadoCivil.Items.Add(e.descripcion));
 
             //Por las dudas vieja
-            foreach (PlanMedico item in cmbPlanes.Items)
+            for (int i = 0; i < cmbPlanes.Items.Count; i++)
             {
-                if (item.id==modificarAfiliado.afiliado.planMedico.id)
+                if (modificarAfiliado.planesMedicosSistema[i].id == modificarAfiliado.afiliado.planMedico.id)
                 {
-                    cmbPlanes.SelectedItem = item;
+                    cmbPlanes.SelectedIndex = i;
                 }
             }
 
-            foreach (EstadoCivil item in cmbEstadoCivil.Items)
+            for (int i = 0; i < cmbEstadoCivil.Items.Count; i++)
             {
-                if (item.id == modificarAfiliado.afiliado.estadoCivil.id)
+                if (modificarAfiliado.estadosCivilesSistema[i].id == modificarAfiliado.afiliado.estadoCivil.id)
                 {
-                    cmbEstadoCivil.SelectedItem = item;
+                    cmbEstadoCivil.SelectedIndex = i;
                 }
             }
 
@@ -124,7 +133,7 @@ namespace ClinicaFrba.Abm_Afiliado
         {
             if (cmbEstadoCivil.SelectedItem != null)
             {
-                modificarAfiliado.afiliado.estadoCivil = (EstadoCivil)cmbEstadoCivil.SelectedItem;
+                modificarAfiliado.afiliado.estadoCivil = modificarAfiliado.estadosCivilesSistema[cmbEstadoCivil.SelectedIndex];
 
                 btnConyuge.Enabled = modificarAfiliado.afiliadoTieneConyuge();
             }

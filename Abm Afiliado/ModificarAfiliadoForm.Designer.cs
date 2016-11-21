@@ -101,7 +101,6 @@
             // 
             // btnHijo
             // 
-            this.btnHijo.Enabled = false;
             this.btnHijo.Location = new System.Drawing.Point(543, 219);
             this.btnHijo.Margin = new System.Windows.Forms.Padding(4);
             this.btnHijo.Name = "btnHijo";

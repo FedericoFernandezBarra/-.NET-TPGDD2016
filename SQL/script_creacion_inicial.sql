@@ -48,6 +48,13 @@ drop procedure BEMVINDO.st_actualizar_afiliado
 
 go
 
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_cantidad_hijos') 
+drop procedure BEMVINDO.st_cantidad_hijos
+
+go
+
+
+
 if EXISTS (SELECT * FROM sysobjects  WHERE name='buscar_historial_de_cambios') 
 drop procedure BEMVINDO.buscar_historial_de_cambios
 
@@ -1224,6 +1231,22 @@ go
 -----------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------ABM AFILIADO----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------
+create procedure BEMVINDO.st_cantidad_hijos
+@id_afiliado numeric(10,0)
+as
+begin
+
+declare @raiz numeric(10,0)=@id_afiliado-(@id_afiliado%100)
+
+	select count(*) as cantidad_hijos
+	from BEMVINDO.AFILIADO
+	where (numero_afiliado%100)>2
+		  and numero_afiliado-(numero_afiliado%100)=@raiz
+end
+
+go
+
+
 create procedure BEMVINDO.st_insertar_afiliado
 @nro_grupo_familiar int,--char(4),
 @estado_civil numeric(10,0),

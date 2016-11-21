@@ -151,6 +151,18 @@ namespace ClinicaFrba.Clases.DAOS
             return afiliados;
         }
 
+        internal int obtenerCantidadDeHijos(Afiliado afiliado)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            DataBase.Instance.agregarParametro(parametros, "id_afiliado", afiliado.numeroDeAfiliado);
+
+            List<Dictionary<string, object>> dictionary = DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_cantidad_hijos", parametros);
+
+            int cantidadHijos = Convert.ToInt16(dictionary[0]["cantidad_hijos"]);
+
+            return cantidadHijos;
+        }
+
         internal void modificarAfiliado(Afiliado afiliado,string motivo)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
