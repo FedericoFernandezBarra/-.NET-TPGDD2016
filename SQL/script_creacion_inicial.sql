@@ -809,6 +809,7 @@ values
     (9,2),
     (9,3),
     (10,2),
+	(10,3),
     (11,3),
     (12,1),
     (13,2),
@@ -1206,20 +1207,8 @@ values('admin','w23e',0,1,null,null,null,null,null,null,null,null,null)
 
 go
 
-insert into BEMVINDO.AFILIADO
-values(5579, null, 1, null, 0, 101)
-
-go
-
-insert into BEMVINDO.PROFESIONAL
-values(5579, null)
-
-go
-
 insert into BEMVINDO.ROL_POR_USUARIO
 values 
-    (1,5579),
-    (2,5579),
     (3,5579)
 
 go
