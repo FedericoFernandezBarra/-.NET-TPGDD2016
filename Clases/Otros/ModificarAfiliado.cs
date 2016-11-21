@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ClinicaFrba.Clases.Otros
 {
@@ -17,6 +18,9 @@ namespace ClinicaFrba.Clases.Otros
         public List<PlanMedico> planesMedicosSistema { get; set; }
 
         public PlanMedico planMedicoActual { get; set; }
+
+        public EstadoCivil estadoCivilActual { get; set; }
+
         private AfiliadoRepository repoAfiliado = new AfiliadoRepository();
 
         public ModificarAfiliado()
@@ -42,8 +46,21 @@ namespace ClinicaFrba.Clases.Otros
                 return false;
             }
 
-            repoAfiliado.modificarAfiliado(afiliado,motivo);
+            modificar();
+
             return true;//Esto es por si despues se agregan validaciones
+        }
+
+        private void modificar()
+        {
+            if (afiliado.conyuge!=null)
+            {
+                repoAfiliado.agregarFamiliarAAfiliado(afiliado, afiliado.conyuge);
+            }
+
+            afiliado.hijos.ForEach(h => repoAfiliado.agregarFamiliarAAfiliado(afiliado,h));
+
+            repoAfiliado.modificarAfiliado(afiliado, motivo);
         }
 
         private bool cumpleValidaciones()
@@ -62,12 +79,65 @@ namespace ClinicaFrba.Clases.Otros
             return planMedicoActual.id != afiliado.planMedico.id;
         }
 
-        internal void cargarPlanMedicoActual()
+        internal void cargarDatosActuales()
+        {
+            afiliado.hijos = new List<Afiliado>();
+            cargarPlanMedicoActual();
+            cargarEstadoCivilActual();
+        }
+
+        private void cargarEstadoCivilActual()
+        {
+            if (afiliado.estadoCivil!=null)
+            {
+                estadoCivilActual = new EstadoCivil();
+                estadoCivilActual.id = afiliado.estadoCivil.id;
+                estadoCivilActual.descripcion = afiliado.estadoCivil.descripcion;
+            }
+        }
+
+        private void cargarPlanMedicoActual()
         {
             planMedicoActual = new PlanMedico();
             planMedicoActual.id = afiliado.planMedico.id;
             planMedicoActual.descripcion = afiliado.planMedico.descripcion;
             planMedicoActual.precioDeBonoConsulta = afiliado.planMedico.precioDeBonoConsulta;
+        }
+
+        internal void crearConyuge()
+        {
+            afiliado.conyuge = new Afiliado();
+            afiliado.conyuge.usuario = new Usuario();
+            afiliado.conyuge.numeroFamiliar = 2;
+            afiliado.conyuge.estadoCivil = afiliado.estadoCivil;
+            afiliado.conyuge.planMedico = afiliado.planMedico;
+            afiliado.conyuge.cantidadDeHijos = afiliado.cantidadDeHijos;
+            afiliado.conyuge.usuario.direccion = afiliado.usuario.direccion;
+        }
+
+        internal Afiliado crearHijo()
+        {
+            Afiliado nuevoHijo = new Afiliado();
+            nuevoHijo.usuario = new Usuario();
+            nuevoHijo.numeroFamiliar = mayorNumeroFamiliar() + 1;
+            nuevoHijo.planMedico = nuevoAfiliado.planMedico;
+            nuevoHijo.usuario.direccion = nuevoAfiliado.usuario.direccion;
+
+            nuevoAfiliado.hijos.Add(nuevoHijo);
+
+            return nuevoHijo;
+        }
+
+        internal bool afiliadoTieneConyuge()
+        {
+            if (afiliado.estadoCivil == null)
+            {
+                return false;
+            }
+
+            string descripcionEstadoCivil = afiliado.estadoCivil.descripcion.ToLower();
+
+            return descripcionEstadoCivil == "casado/a" || descripcionEstadoCivil == "concubinato";
         }
     }
 }

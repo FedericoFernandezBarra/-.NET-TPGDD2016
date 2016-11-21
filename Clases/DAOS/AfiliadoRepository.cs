@@ -48,6 +48,46 @@ namespace ClinicaFrba.Clases.DAOS
             return afiliados.Count > 0 ? afiliados[0] : null;
         }
 
+        internal void agregarFamiliarAAfiliado(Afiliado afiliado, Afiliado familiar)
+        {
+
+            List<SqlParameter> parametros = new List<SqlParameter>();
+
+            long nroRaiz = familiar.numeroDeAfiliado - familiar.numeroDeAfiliado % 100;
+            nroRaiz = nroRaiz < 0 ? 0 : nroRaiz;
+
+            DataBase.Instance.agregarParametro(parametros, "nro_raiz", nroRaiz);
+            DataBase.Instance.agregarParametro(parametros, "nro_grupo_familiar", afiliado.numeroFamiliar);
+            create procedure BEMVINDO.st_insertar_afiliado_de_uno_modificado
+
+@nro_grupo_familiar char(4),
+
+@estado_civil numeric(10, 0),
+
+@plan_medico numeric(10, 0),
+
+@nombre  nvarchar(255),
+
+@apellido    nvarchar(255),
+
+@tipo_documento  numeric(10, 0),
+
+@documento   nvarchar(12),
+
+@fecha_nacimiento    date,
+
+@direccion   nvarchar(255),
+
+@telefono    nvarchar(255),
+
+@mail    nvarchar(255),
+
+@sexo    char,
+
+@nro_raiz numeric(10, 0)--cero
+
+        }
+
         internal List<Dictionary<string, object>> top5AfiliadosConMasBonos(int mes, int anio)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();

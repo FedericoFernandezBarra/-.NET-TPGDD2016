@@ -12,7 +12,7 @@ namespace ClinicaFrba.Abm_Afiliado
         public ModificarAfiliadoForm(Afiliado afiliado)
         {
             modificarAfiliado.afiliado = afiliado;
-            modificarAfiliado.cargarPlanMedicoActual();
+            modificarAfiliado.cargarDatosActuales();
 
             InitializeComponent();
         }
@@ -35,10 +35,15 @@ namespace ClinicaFrba.Abm_Afiliado
             txtTel.DataBindings.Add("Text", modificarAfiliado.afiliado.usuario, "telefono");
             txtMail.DataBindings.Add("Text", modificarAfiliado.afiliado.usuario, "mail");
             txtMotivo.DataBindings.Add("Text", modificarAfiliado, "motivo");
+            txtCantHijos.DataBindings.Add("Text", modificarAfiliado.afiliado, "cantidadDeHijos");
 
             cmbPlanes.DisplayMember = "descripcion";
             cmbPlanes.DataSource = modificarAfiliado.planesMedicosSistema;
             cmbPlanes.DataBindings.Add("SelectedItem", modificarAfiliado.afiliado, "planMedico");
+
+            cmbEstadoCivil.DisplayMember = "descripcion";
+            cmbEstadoCivil.DataSource = modificarAfiliado.estadosCivilesSistema;
+            cmbEstadoCivil.DataBindings.Add("SelectedItem", modificarAfiliado.afiliado, "estadoCivil");
 
             //Por las dudas vieja
             foreach (PlanMedico item in cmbPlanes.Items)
@@ -48,15 +53,15 @@ namespace ClinicaFrba.Abm_Afiliado
                     cmbPlanes.SelectedItem = item;
                 }
             }
-            
-        }
 
-        private void txtHijos_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            foreach (EstadoCivil item in cmbEstadoCivil.Items)
             {
-                e.Handled = true;
+                if (item.id == modificarAfiliado.afiliado.estadoCivil.id)
+                {
+                    cmbEstadoCivil.SelectedItem = item;
+                }
             }
+
         }
 
         private void cmbVolver_Click(object sender, EventArgs e)
@@ -75,6 +80,54 @@ namespace ClinicaFrba.Abm_Afiliado
             MessageBox.Show("Afiliado modificado exitosamente");
 
             Close();
+        }
+
+        private void btnConyuge_Click(object sender, EventArgs e)
+        {
+            modificarAfiliado.crearConyuge();
+
+            AltaAfiliadoForm altaConyuge = new AltaAfiliadoForm(modificarAfiliado.afiliado.conyuge);
+            altaConyuge.altaConyuge = true;
+
+            Hide();
+
+            altaConyuge.ShowDialog();
+
+            if (!altaConyuge.altaExitosa)
+            {
+                modificarAfiliado.afiliado.conyuge = null;
+            }
+
+            Show();
+        }
+
+        private void btnHijo_Click(object sender, EventArgs e)
+        {
+            Afiliado hijo = modificarAfiliado.crearHijo();
+
+            AltaAfiliadoForm altaHijo = new AltaAfiliadoForm(hijo);
+            altaHijo.altaHijo = true;
+
+            Hide();
+
+            altaHijo.ShowDialog();
+
+            if (altaHijo.altaExitosa)
+            {
+                modificarAfiliado.afiliado.hijos.Add(hijo);
+            }
+
+            Show();
+        }
+
+        private void cmbEstadoCivil_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbEstadoCivil.SelectedItem != null)
+            {
+                modificarAfiliado.afiliado.estadoCivil = (EstadoCivil)cmbEstadoCivil.SelectedItem;
+
+                btnConyuge.Enabled = modificarAfiliado.afiliadoTieneConyuge();
+            }
         }
     }
 }
