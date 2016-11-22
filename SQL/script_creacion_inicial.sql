@@ -1285,7 +1285,7 @@ begin
 
       if(@nro_grupo_familiar=1)--'01')
       begin
-		   select @id_numerito =max(numero_afiliado) from BEMVINDO.AFILIADO
+		   select @id_numerito =ISNULL(max(numero_afiliado),1)  from BEMVINDO.AFILIADO
       end
 
 	  else
