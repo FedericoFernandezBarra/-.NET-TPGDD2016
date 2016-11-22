@@ -70,8 +70,8 @@ namespace ClinicaFrba.Listados
             mes.SelectedItem = "ninguno";
 
             anio.Text = "";
-
-            for (int i = 0; i < 3; i++)
+           semestre.Items.Add("Seleccione");
+            for (int i = 1; i < 3; i++)
             {
                 semestre.Items.Add(i);
             }
@@ -323,9 +323,9 @@ namespace ClinicaFrba.Listados
 
         private void semestre_SelectedIndexChanged(object sender, EventArgs e)
         {
-            tipoListado.Enabled = (int)semestre.SelectedItem != 0;
-            mes.Enabled = (int)semestre.SelectedItem != 0;
-            buscarButton.Enabled = (int)semestre.SelectedItem != 0;
+            tipoListado.Enabled = (int)semestre.SelectedIndex != 0;
+            mes.Enabled = (int)semestre.SelectedIndex != 0;
+            buscarButton.Enabled = (int)semestre.SelectedIndex != 0;
         }
 
         private void volverButton_Click_1(object sender, EventArgs e)
