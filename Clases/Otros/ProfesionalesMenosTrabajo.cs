@@ -36,6 +36,7 @@ namespace ClinicaFrba.Clases.Otros
         public override string initFiltros(ComboBox filtro)
         {
             especialidades = (new EspecialidadRepository()).traerEspecialidades();
+            especialidades.ForEach(e => filtro.Items.Add(e.descripcion));
             return "Especialidad:";
         }
 

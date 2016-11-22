@@ -35,6 +35,7 @@ namespace ClinicaFrba.Registro_Llegada
             registrarLlegada.especialidad = buscarProfesional.getEspecialidadSeleccionada();
 
             registrarLlegada.cargarTurnosDeProfesional();
+            registrarLlegada.cargarTurnosFiltrados();
         }
 
         private void txtNroAfiliado_KeyPress(object sender, KeyPressEventArgs e)

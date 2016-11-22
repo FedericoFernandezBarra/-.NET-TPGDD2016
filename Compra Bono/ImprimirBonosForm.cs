@@ -33,7 +33,7 @@ namespace ClinicaFrba.Compra_Bono
 
             foreach (Bono bono in bonosComprados)
             {
-                lstBonosConsulta.Items.Add("Bono N°:  " + bono.id.ToString() + " - Plan " + bono.compra.comprador.planMedico.descripcion);
+                lstBonosConsulta.Items.Add("Bono N°:  " + bono.id.ToString() + " - Plan: " + bono.compra.comprador.planMedico.descripcion);
             }
         }
 
