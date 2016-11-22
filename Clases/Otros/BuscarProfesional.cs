@@ -86,7 +86,7 @@ namespace ClinicaFrba.Clases.Otros
 
             foreach (Profesional p in result)
             {
-                if (!profesionales.Exists(pr => pr.matricula == p.matricula))
+                if (!profesionales.Exists(pr => pr.usuario.id == p.usuario.id))
                 {
                     profesionales.Add(p);
                 }

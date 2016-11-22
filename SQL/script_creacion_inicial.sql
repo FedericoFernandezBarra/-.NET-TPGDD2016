@@ -806,14 +806,17 @@ values
     (6,3),
     (7,3),
     (8,1),
+	(8,3),
     (9,2),
     (9,3),
     (10,2),
 	(10,3),
     (11,3),
     (12,1),
+	(12,3),
     (13,2),
     (13,1),
+	(13,3),
     (14,3),
     (15,3)
 
@@ -1659,7 +1662,6 @@ go
 
 --store para buscar profesional por nombre,apellido,matricula y especialidad
 create procedure BEMVINDO.st_buscar_profesional
-@profesional numeric(10,0)=null,
 @nombre nvarchar(50)=null,
 @apellido nvarchar(255)=null,
 @matricula nvarchar(30)=null,
@@ -1670,8 +1672,7 @@ begin
     select * from BEMVINDO.USUARIO as u
     inner join BEMVINDO.PROFESIONAL as p on u.id_usuario=p.id_profesional
     inner join BEMVINDO.ESPECIALIDAD_POR_PROFESIONAL as e on p.id_profesional=e.id_profesional
-    where (p.id_profesional=@profesional or @profesional is null) and 
-          (u.apellido=@apellido or @apellido is null) and (p.matricula=@matricula or @matricula is null) and
+    where (u.apellido=@apellido or @apellido is null) and (p.matricula=@matricula or @matricula is null) and
           (e.id_especialidad=@especialidad or @especialidad is null) and (u.nombre=@nombre or @nombre is null)
 end
 

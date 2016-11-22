@@ -82,6 +82,12 @@ namespace ClinicaFrba.Listados
             filtro.Items.Clear();
 
             limpiarDataGrid();
+
+            buscarButton.Enabled = false;
+            semestre.Enabled = false;
+            filtro.Enabled = false;
+            mes.Enabled = false;
+            tipoListado.Enabled = false;
         }
 
         private void limpiarDataGrid()
@@ -226,6 +232,14 @@ namespace ClinicaFrba.Listados
 
         private void buscarButton_Click(object sender, EventArgs e)
         {
+
+            if (tipoListado.SelectedItem.ToString()==VACIO)
+            {
+                MessageBox.Show("Debe de seleccionar un tipo de listado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
             Regex regAnio = new Regex("[0-9]");
             bool anioSonNumeros = regAnio.IsMatch(anio.Text);
             if (anio.Text.Length != 4 || !anioSonNumeros)
@@ -312,6 +326,11 @@ namespace ClinicaFrba.Listados
             tipoListado.Enabled = (int)semestre.SelectedItem != 0;
             mes.Enabled = (int)semestre.SelectedItem != 0;
             buscarButton.Enabled = (int)semestre.SelectedItem != 0;
+        }
+
+        private void volverButton_Click_1(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

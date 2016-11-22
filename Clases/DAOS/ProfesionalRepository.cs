@@ -24,7 +24,6 @@ namespace ClinicaFrba.Clases.DAOS
             object especialidadValue = especialidad.id==0 ? null : (object)especialidad.id;
 
             List<SqlParameter> parametros = new List<SqlParameter>();
-            DataBase.Instance.agregarParametro(parametros, "@profesional", null);
             DataBase.Instance.agregarParametro(parametros, "@nombre", nombreValue);
             DataBase.Instance.agregarParametro(parametros, "@apellido", apellidoValue);
             DataBase.Instance.agregarParametro(parametros, "@especialidad", especialidadValue);

@@ -332,6 +332,11 @@ namespace ClinicaFrba
         {
             Form cancelacion = getFormDeCancelacion();
 
+            if (cancelacion==null)
+            {
+                return;
+            }
+
             Hide();
 
             cancelacion.ShowDialog();
@@ -345,12 +350,22 @@ namespace ClinicaFrba
             {
                 return new CancelarTurnoForm((Afiliado)menu.usuarioPosta);
             }
-            if (menu.userEsProfesional())
+            else if (menu.userEsProfesional())
             {
                 return new CancelarDiasForm((Profesional)menu.usuarioPosta);
             }
+            else
+            {
+                SeleccionarCancelacionForm seleccionarCancelacion = new SeleccionarCancelacionForm();
 
-            return new Form();
+                Hide();
+
+                seleccionarCancelacion.ShowDialog();
+
+                Show();
+
+                return seleccionarCancelacion.getFormularioCancelacionSeleccionado();
+            }
         }
 
         private void buscarAfiliadoToolStripMenuItem_Click(object sender, EventArgs e)

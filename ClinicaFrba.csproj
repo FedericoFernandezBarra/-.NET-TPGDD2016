@@ -129,6 +129,12 @@
     <Compile Include="Cancelar Atencion\CancelarTurnoForm.Designer.cs">
       <DependentUpon>CancelarTurnoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Cancelar Atencion\SeleccionarCancelacionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cancelar Atencion\SeleccionarCancelacionForm.Designer.cs">
+      <DependentUpon>SeleccionarCancelacionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Clases\DAOS\AfiliadoRepository.cs" />
     <Compile Include="Clases\DAOS\AgendaRepository.cs" />
     <Compile Include="Clases\DAOS\BonoRepository.cs" />
@@ -296,6 +302,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Cancelar Atencion\CancelarTurnoForm.resx">
       <DependentUpon>CancelarTurnoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Atencion\SeleccionarCancelacionForm.resx">
+      <DependentUpon>SeleccionarCancelacionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra Bono\ComprarBonosForm.resx">
       <DependentUpon>ComprarBonosForm.cs</DependentUpon>
