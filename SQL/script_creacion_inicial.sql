@@ -1125,7 +1125,7 @@ insert into BEMVINDO.AGENDA
 	select 
 		U.id_usuario as profesional,
 		MIN(M.Turno_Fecha) as fecha_inicial,
-		MAX(M.Turno_Fecha) as fecha_final
+		DATEADD(year,1,MAX(M.Turno_Fecha)) as fecha_final
 	from gd_esquema.Maestra as M
 	inner join BEMVINDO.USUARIO as U on 
 		U.documento = M.Medico_Dni
