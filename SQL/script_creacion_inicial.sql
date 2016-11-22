@@ -1297,6 +1297,11 @@ begin
 
 	  set @nroAfiliado=@id_numerito+@nro_grupo_familiar
      --select @nroAfiliado =  Concat(@id_numerito,@nro_grupo_familiar)
+
+	  if EXISTS (SELECT * FROM BEMVINDO.AFILIADO  WHERE numero_afiliado=@nroAfiliado ) 
+      begin
+		   RAISERROR ('', 11,1)
+      end
            
 
     insert into BEMVINDO.USUARIO(nick,pass,intentos_login,activo,nombre,apellido,tipo_documento,
