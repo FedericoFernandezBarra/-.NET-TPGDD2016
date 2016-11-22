@@ -30,7 +30,7 @@ namespace ClinicaFrba.AbmRol
 
             Hide();
             editorRoles.ShowDialog();
-            Show();
+            Close();
         }
 
         private void Modificar_Button_Click(object sender, EventArgs e)
@@ -45,7 +45,7 @@ namespace ClinicaFrba.AbmRol
 
             Hide();
             editorRoles.ShowDialog();
-            Show();
+            Close();
         }
 
         private void AbmRolForm_Load(object sender, EventArgs e)

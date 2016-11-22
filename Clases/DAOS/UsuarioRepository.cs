@@ -24,6 +24,9 @@ namespace ClinicaFrba.Clases.DAOS
         internal void cargarRoles(Usuario usuario)
         {
             completeProperty("roles", usuario);
+
+            //Esto es para que no me muestre los inactivos
+            usuario.roles = usuario.roles.FindAll(r => r.habilitado);
         }
 
         internal override Type getModelClassType()
