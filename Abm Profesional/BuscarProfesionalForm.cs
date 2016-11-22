@@ -136,10 +136,10 @@ namespace ClinicaFrba.Abm_Profesional
             cApellido.ReadOnly = true;
             grillaProfesionales.Columns.Add(cApellido);
 
-            DataGridViewTextBoxColumn cEspecialidad = new DataGridViewTextBoxColumn();
+            /*DataGridViewTextBoxColumn cEspecialidad = new DataGridViewTextBoxColumn();
             cEspecialidad.HeaderText = "Especialidad";
             cEspecialidad.ReadOnly = true;
-            grillaProfesionales.Columns.Add(cEspecialidad);
+            grillaProfesionales.Columns.Add(cEspecialidad);*/
         }
 
         private void cmdLimpiar_Click(object sender, EventArgs e)
