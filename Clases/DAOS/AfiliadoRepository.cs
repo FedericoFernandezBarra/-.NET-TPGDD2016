@@ -146,7 +146,24 @@ namespace ClinicaFrba.Clases.DAOS
 
             List<Afiliado> afiliados = new List<Afiliado>();
 
-            result.ForEach(d => afiliados.Add((Afiliado)unSerialize(d)));
+            foreach (Dictionary<string,object> d in result)
+            {
+                Afiliado afiliado = (Afiliado)unSerialize(d);
+                if (d.ContainsKey("descripcion_tipo_documento")&&afiliado.usuario.tipoDeDocumento!=null)
+                {
+                    afiliado.usuario.tipoDeDocumento.descripcion = d["descripcion_tipo_documento"].ToString();
+                }
+                if (d.ContainsKey("descripcion_estado_civil") && afiliado.estadoCivil != null)
+                {
+                    afiliado.estadoCivil.descripcion = d["descripcion_estado_civil"].ToString();
+                }
+                if (d.ContainsKey("descripcion_plan_medico") && afiliado.planMedico != null)
+                {
+                    afiliado.planMedico.descripcion = d["descripcion_plan_medico"].ToString();
+                }
+
+                afiliados.Add(afiliado);
+            }
 
             return afiliados;
         }
