@@ -1139,7 +1139,20 @@ go
 insert into BEMVINDO.DIA_AGENDA
 	select 
 		A.id_agenda,
-		null as id_especialidad, 
+		case
+			when 1 = 
+				(select COUNT(distinct M2.Especialidad_Codigo)
+				from gd_esquema.Maestra as M2
+				group by UPPER(DATENAME(weekday, M2.Turno_Fecha)), M2.Medico_Dni
+				having UPPER(DATENAME(weekday, M2.Turno_Fecha)) = UPPER(DATENAME(weekday, M.Turno_Fecha)) and M2.Medico_Dni = M.Medico_Dni)
+				then 				
+					(select E2.id_especialidad
+					from gd_esquema.Maestra as M2
+					inner join BEMVINDO.ESPECIALIDAD as E2 on E2.especialidad_codigo = M2.Especialidad_Codigo
+					group by UPPER(DATENAME(weekday, M2.Turno_Fecha)), M2.Medico_Dni, E2.id_especialidad
+					having  UPPER(DATENAME(weekday, M2.Turno_Fecha)) = UPPER(DATENAME(weekday, M.Turno_Fecha)) and M2.Medico_Dni = M.Medico_Dni)
+			else null
+		end as especialidad,
 		UPPER(DATENAME(weekday, M.Turno_Fecha)) as nombre_dia,
 		CONVERT(char(8), MIN(M.Turno_Fecha), 108) as hora_inicial,
 		CONVERT(char(8), DATEADD(minute, 30, MAX(M.Turno_Fecha)), 108) as hora_final
@@ -1151,7 +1164,7 @@ insert into BEMVINDO.DIA_AGENDA
 	inner join BEMVINDO.ESPECIALIDAD as E on
 		E.especialidad_codigo = M.Especialidad_Codigo
 	group by 
-		A.id_agenda, UPPER(DATENAME(weekday, M.Turno_Fecha))
+		A.id_agenda, UPPER(DATENAME(weekday, M.Turno_Fecha)), M.Medico_Dni
 
 go
 
