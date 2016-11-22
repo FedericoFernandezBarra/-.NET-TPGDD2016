@@ -1472,17 +1472,21 @@ create procedure BEMVINDO.st_buscar_afiliados
 AS
 begin
 
-      select *
-      from BEMVINDO.USUARIO
-      inner join BEMVINDO.AFILIADO on id_usuario = id_afiliado
-	  left join BEMVINDO.TIPO_DOCUMENTO on tipo_documento=id_tipo_documento
-	  left join BEMVINDO.ESTADO_CIVIL on estado_civil=id_estado_civil
-	  left join BEMVINDO.PLAN_MEDICO on plan_medico=id_plan_medico
-      where (numero_afiliado = @nroAfiliado OR @nroAfiliado IS NULL) and
-            (nombre = @nombre OR @nombre IS NULL) and
-            (apellido = @apellido OR @apellido IS NULL) and
-            (documento = @dni OR @dni IS NULL) and
-            (plan_medico = @planMedico OR @planMedico IS NULL) 
+      select u.id_usuario,u.nick,u.pass,u.intentos_login,u.activo,u.nombre,u.apellido,u.tipo_documento,
+            u.documento,u.fecha_nacimiento,u.direccion,u.telefono,u.mail,u.sexo,a.id_afiliado,a.estado_civil,
+            a.plan_medico,a.fecha_baja,a.baja_logica,a.numero_afiliado,t.id_tipo_documento,
+            t.descripcion as descripcion_tipo_documento,e.id_estado_civil,e.descripcion as descripcion_estado_civil,
+            p.id_plan_medico,p.precio_bono,p.descripcion as descripcion_plan_medico
+       from BEMVINDO.USUARIO as u
+       inner join BEMVINDO.AFILIADO as  a on u.id_usuario = a.id_afiliado
+     left join BEMVINDO.TIPO_DOCUMENTO as t on u.tipo_documento=t.id_tipo_documento
+     left join BEMVINDO.ESTADO_CIVIL as e on a.estado_civil=e.id_estado_civil
+     left join BEMVINDO.PLAN_MEDICO as p on a.plan_medico=p.id_plan_medico
+       where (a.numero_afiliado = @nroAfiliado OR @nroAfiliado IS NULL) and
+             (u.nombre = @nombre OR @nombre IS NULL) and
+             (u.apellido = @apellido OR @apellido IS NULL) and
+             (u.documento = @dni OR @dni IS NULL) and
+             (a.plan_medico = @planMedico OR @planMedico IS NULL) 
 
 end
 
