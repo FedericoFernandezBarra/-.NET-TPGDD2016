@@ -477,7 +477,7 @@ create table BEMVINDO.PLAN_MEDICO
 (
     id_plan_medico numeric(10,0) identity(1,1),
     descripcion    nvarchar(255),
-    precio_bono    float,--numeric(10,2),
+    precio_bono    numeric(10,2),
     
 
     PRIMARY KEY (id_plan_medico)
