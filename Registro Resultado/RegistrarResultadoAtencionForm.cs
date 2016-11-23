@@ -104,7 +104,8 @@ namespace ClinicaFrba.Registro_Resultado
             lblNombreAfiliado.Text = turnoSeleccionado.nombreAfiliadoCompleto;
             resultadoAtencionMedica.turnoID = turnoSeleccionado.id;
             dtpFechaDiagnostico.Enabled = true;
-            dtpHoraDiagnostico.Enabled = true;    
+            dtpHoraDiagnostico.Enabled = true;
+            dtpHoraDiagnostico.Value = ((Turno)cmbPacientes.SelectedItem).fechaDeTurno;
         }
 
         private void activarBotonConfirmar()
