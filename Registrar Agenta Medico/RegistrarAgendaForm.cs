@@ -147,11 +147,13 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 return false;
             }
 
-            if (timerFechaDesde.Value.Date < agendaDAO.fechaSistema || timerFechaHasta.Value.Date < agendaDAO.fechaSistema)
+           /* if (timerFechaDesde.Value.Date < agendaDAO.fechaSistema || timerFechaHasta.Value.Date < agendaDAO.fechaSistema)
             {
                 MessageBox.Show("Las fechas ingresadas son anteriores a las del dia de hoy", "Error", MessageBoxButtons.OK);
                 return false;
-            }
+            } 
+            LO COMENTO PORQUE SI PONGO LA FECHA DEL SISTEMA A 02/01/2015 VA A TIRAR ERROR CON LAS AGENDAS MIGRADAS PORQUE EMPIEZAN
+            DEL DIA 01/01/2015 */ 
 
             if (diasAgendaAAgregar.Count == 0)
             {
