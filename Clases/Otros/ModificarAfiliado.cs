@@ -48,26 +48,36 @@ namespace ClinicaFrba.Clases.Otros
                 return false;
             }
 
-            modificar();
-
-            return true;//Esto es por si despues se agregan validaciones
+            return modificar();
         }
 
-        private void modificar()
+        private bool modificar()
         {
             if (afiliado.conyuge!=null)
             {
-                repoAfiliado.insertarAfiliado(afiliado.conyuge, afiliado.numeroDeAfiliado);
+                mensajeDeError = repoAfiliado.insertarAfiliado(afiliado.conyuge, afiliado.numeroDeAfiliado);
+            }
+
+            if (mensajeDeError!="")
+            {
+                return false;
             }
 
             foreach (Afiliado hijo in afiliado.hijos)
             {
                 mayorNumeroFamiliar++;
                 hijo.numeroFamiliar = mayorNumeroFamiliar;
-                repoAfiliado.insertarAfiliado(hijo, afiliado.numeroDeAfiliado);
+                mensajeDeError = repoAfiliado.insertarAfiliado(hijo, afiliado.numeroDeAfiliado);
+
+                if (mensajeDeError!="")
+                {
+                    return false;
+                }
             } 
 
             repoAfiliado.modificarAfiliado(afiliado, motivo);
+
+            return true;
         }
 
         private bool cumpleValidaciones()
