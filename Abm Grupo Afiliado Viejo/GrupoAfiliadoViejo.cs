@@ -39,6 +39,7 @@ namespace ClinicaFrba.Abm_Grupo_Afiliado_Viejo
 
         private void cargarDataGrid()
         {
+            listaAfiliadosSinNumero = db.traerAfiliadosSinNumero();
             if (listaAfiliadosSinNumero == null) return;
 
             dataGridAfiliados.Rows.Clear();
@@ -132,15 +133,15 @@ namespace ClinicaFrba.Abm_Grupo_Afiliado_Viejo
 
         private bool cumpleValidacionesParaGuardarCambios()
         {
-            if (idConyuge == idPrincipal || diccionarioHijos.ContainsValue(idPrincipal) || diccionarioHijos.ContainsValue(idConyuge))
-            {
-                MessageBox.Show("Existen afiliados repetidos en los seleccionados", "ERROR!", MessageBoxButtons.OK);
-                return false;
-            }
-
             if (idPrincipal == 0)
             {
                 MessageBox.Show("Debe seleccionar un principal", "ERROR!", MessageBoxButtons.OK);
+                return false;
+            }
+
+            if (idConyuge == idPrincipal || diccionarioHijos.ContainsValue(idPrincipal) || diccionarioHijos.ContainsValue(idConyuge))
+            {
+                MessageBox.Show("Existen afiliados repetidos en los seleccionados", "ERROR!", MessageBoxButtons.OK);
                 return false;
             }
 
@@ -158,7 +159,6 @@ namespace ClinicaFrba.Abm_Grupo_Afiliado_Viejo
             try
             {
                 db.asignarNuerosDeUsuario(idPrincipal, idConyuge, diccionarioHijos.Values.ToList());
-                MessageBox.Show("Se han guardado los cambios exitosamente", "Aviso", MessageBoxButtons.OK);
             }
             catch (Exception)
             {
@@ -170,6 +170,8 @@ namespace ClinicaFrba.Abm_Grupo_Afiliado_Viejo
             reiniciarVariablesYElementosDeLAVista();
 
             desbloquearBotones();
+
+            MessageBox.Show("Se han guardado los cambios exitosamente", "Aviso", MessageBoxButtons.OK);
         }
 
         private void bAsignarPrincipal_Click(object sender, EventArgs e)
