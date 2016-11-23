@@ -59,9 +59,9 @@ D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.c
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.exe
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.pdb
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\bin\Debug\configuracion_sistema.txt
-D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\bin\Debug\tostado_tests.sql
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\bin\Debug\ClinicaFrba.exe.config
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\bin\Debug\ClinicaFrba.exe
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\bin\Debug\ClinicaFrba.pdb
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\bin\Debug\es\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Cancelar_Atencion.SeleccionarCancelacionForm.resources
