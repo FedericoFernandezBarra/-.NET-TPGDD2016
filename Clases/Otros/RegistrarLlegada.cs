@@ -20,6 +20,7 @@ namespace ClinicaFrba.Clases.Otros
         public long numeroBono { get; set; }
         private Bono bonoSeleccionado = null;
         public string mensajeDeError { get; set; }
+        public DateTime fechaLlegada { get; set; }
 
         public RegistrarLlegada()
         {
@@ -28,6 +29,7 @@ namespace ClinicaFrba.Clases.Otros
             turnosFiltrados = new List<Turno>();
             turnosDeProfesional = new List<Turno>();
             profesional = new Profesional();
+            fechaLlegada = DataBase.Instance.getDate();
         }
 
         internal void cargarTurnosFiltrados()
@@ -46,8 +48,9 @@ namespace ClinicaFrba.Clases.Otros
             {
                 return;
             }
-            turnosDeProfesional = (new TurnoRepository()).traerTurnosDeProfesional(profesional, especialidad, DataBase.Instance.getDate(),true).Where
-                (unTurno => unTurno.fechaDeLlegada.Date != unTurno.fechaDeTurno.Date).ToList();
+            turnosDeProfesional = (new TurnoRepository()).traerTurnosDeProfesional(profesional, especialidad, fechaLlegada, true);
+                
+            turnosDeProfesional=turnosDeProfesional.Where(unTurno => unTurno.fechaDeLlegada.Date != unTurno.fechaDeTurno.Date).ToList();
         }
 
         internal bool ejecutarExitosamente()
@@ -71,7 +74,7 @@ namespace ClinicaFrba.Clases.Otros
 
         private void registrarLlegada()
         {
-            (new TurnoRepository()).registrarLlegada(turnoDeAfiliado, bonoSeleccionado, DataBase.Instance.getDate());
+            (new TurnoRepository()).registrarLlegada(turnoDeAfiliado, bonoSeleccionado,fechaLlegada);
         }
 
         private bool cumpleValidaciones()
@@ -107,8 +110,18 @@ namespace ClinicaFrba.Clases.Otros
                 mensajeDeError = "Bono perteneciente a otro grupo familiar";
                 return false;
             }
+            if (llegadaTarde())
+            {
+                mensajeDeError = "Llegada tarde, el turno ya caduco";
+                return false;
+            }
 
             return true;
+        }
+
+        private bool llegadaTarde()
+        {
+            return fechaLlegada.Hour > turnoDeAfiliado.fechaDeTurno.Hour || fechaLlegada.Hour == turnoDeAfiliado.fechaDeTurno.Hour && fechaLlegada.Minute > turnoDeAfiliado.fechaDeTurno.Minute;
         }
 
         private bool afiliadoPerteneceAGrupoFamiliarComprador()
@@ -118,7 +131,9 @@ namespace ClinicaFrba.Clases.Otros
             long nroComprador = bonoSeleccionado.compra.comprador.numeroDeAfiliado;
             long nroFamiliar = nroComprador - nroComprador % 100;
 
-            return nroRaiz == nroFamiliar;
+            return nroRaiz == nroFamiliar || (nroAfiliado == 0 && nroRaiz == 0 && 
+                                              turnoDeAfiliado.afiliado.usuario.id == 
+                                              bonoSeleccionado.compra.comprador.usuario.id);
         }
     }
 }

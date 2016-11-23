@@ -57,11 +57,13 @@ namespace ClinicaFrba.Registro_Llegada
             txtNroAfiliado.DataBindings.Add("Text", registrarLlegada, "numeroAfiliado");
             txtBono.DataBindings.Add("Text", registrarLlegada, "numeroBono");
 
-            initDataGrid();
+            dtpHoraLlegada.Value = registrarLlegada.fechaLlegada;
+
+            //initDataGrid();
 
             //registrarLlegada.cargarTurnosFiltrados();//Inicializo turnos filtrados
 
-            cargarDataGrid();
+            //cargarDataGrid();
 
             //grillaTurnos.DataSource = registrarLlegada.turnosFiltrados;
         }
@@ -157,6 +159,11 @@ namespace ClinicaFrba.Registro_Llegada
         private void txtBono_TextChanged(object sender, EventArgs e)
         {
             cmdConfirmarBono.Enabled = txtBono.Text != "" && txtBono.Text != "0";
+        }
+
+        private void dtpHoraLlegada_ValueChanged(object sender, EventArgs e)
+        {
+            registrarLlegada.fechaLlegada = dtpHoraLlegada.Value;
         }
     }
 }
