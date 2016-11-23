@@ -46,7 +46,8 @@ namespace ClinicaFrba.Clases.Otros
             {
                 return;
             }
-            turnosDeProfesional = (new TurnoRepository()).traerTurnosDeProfesional(profesional, especialidad, DataBase.Instance.getDate(),true);
+            turnosDeProfesional = (new TurnoRepository()).traerTurnosDeProfesional(profesional, especialidad, DataBase.Instance.getDate(),true).Where
+                (unTurno => unTurno.fechaDeLlegada.Date != unTurno.fechaDeTurno.Date).ToList();
         }
 
         internal bool ejecutarExitosamente()
