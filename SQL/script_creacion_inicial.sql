@@ -1421,6 +1421,7 @@ create procedure BEMVINDO.st_actualizar_afiliado
 @telefono    nvarchar(255),
 @mail    nvarchar(255),
 @plan_medico numeric(10,0)=null,
+@estado_civil numeric(10,0),
 @motivo     nvarchar(255),
 @fecha_sistema      date
 
@@ -1442,7 +1443,7 @@ begin
          (@plan_medico,@id_afiliado,@motivo,@fecha_sistema)
          
 
-         update BEMVINDO.AFILIADO SET plan_medico=@plan_medico
+         update BEMVINDO.AFILIADO SET plan_medico=@plan_medico,estado_civil=@estado_civil
          where id_afiliado = @id_afiliado             
      end     
 

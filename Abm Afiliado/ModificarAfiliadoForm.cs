@@ -57,19 +57,30 @@ namespace ClinicaFrba.Abm_Afiliado
             //Por las dudas vieja
             for (int i = 0; i < cmbPlanes.Items.Count; i++)
             {
-                if (modificarAfiliado.planesMedicosSistema[i].id == modificarAfiliado.afiliado.planMedico.id)
+                if (modificarAfiliado.afiliado.planMedico!=null)
                 {
-                    cmbPlanes.SelectedIndex = i;
+                    if (modificarAfiliado.planesMedicosSistema[i].id == modificarAfiliado.afiliado.planMedico.id)
+                    {
+                        cmbPlanes.SelectedIndex = i;
+                    }
                 }
             }
 
             for (int i = 0; i < cmbEstadoCivil.Items.Count; i++)
             {
-                if (modificarAfiliado.estadosCivilesSistema[i].id == modificarAfiliado.afiliado.estadoCivil.id)
+                if (modificarAfiliado.afiliado.estadoCivil!=null)
                 {
-                    cmbEstadoCivil.SelectedIndex = i;
+                    if (modificarAfiliado.estadosCivilesSistema[i].id == modificarAfiliado.afiliado.estadoCivil.id)
+                    {
+                        cmbEstadoCivil.SelectedIndex = i;
+                    }
                 }
             }
+
+            bool esAfiliadoPrincipal = modificarAfiliado.afiliado.numeroDeAfiliado % 100 == 1;
+
+            btnConyuge.Visible = esAfiliadoPrincipal;
+            btnHijo.Visible = esAfiliadoPrincipal;
 
         }
 
