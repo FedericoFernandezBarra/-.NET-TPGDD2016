@@ -1440,12 +1440,11 @@ begin
      if(@plan_medico <> @planMedico)
      begin
          insert into BEMVINDO.HISTORIAL_CAMBIOS_DE_PLAN values
-         (@plan_medico,@id_afiliado,@motivo,@fecha_sistema)
-         
-
-         update BEMVINDO.AFILIADO SET plan_medico=@plan_medico,estado_civil=@estado_civil
-         where id_afiliado = @id_afiliado             
+         (@plan_medico,@id_afiliado,@motivo,@fecha_sistema)        
      end     
+
+		 update BEMVINDO.AFILIADO SET plan_medico=@plan_medico,estado_civil=@estado_civil
+         where id_afiliado = @id_afiliado     
 
 end
 
