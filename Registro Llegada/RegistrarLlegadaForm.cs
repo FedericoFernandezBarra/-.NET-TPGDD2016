@@ -36,6 +36,7 @@ namespace ClinicaFrba.Registro_Llegada
 
             registrarLlegada.cargarTurnosDeProfesional();
             registrarLlegada.cargarTurnosFiltrados();
+            cargarDataGrid();
         }
 
         private void txtNroAfiliado_KeyPress(object sender, KeyPressEventArgs e)
@@ -95,6 +96,8 @@ namespace ClinicaFrba.Registro_Llegada
 
         private void txtNroAfiliado_TextChanged(object sender, EventArgs e)
         {
+            registrarLlegada.numeroAfiliado = txtNroAfiliado.Text;
+
             registrarLlegada.cargarTurnosFiltrados();
 
             cargarDataGrid();
