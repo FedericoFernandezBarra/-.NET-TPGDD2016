@@ -133,11 +133,14 @@ namespace ClinicaFrba.Registro_Resultado
         {
             TurnoRepository repositorioDeTurnos = new TurnoRepository();
             List<Turno> turnosDelProfesionalEnEseDia = new List<Turno>();
-            turnosDelProfesionalEnEseDia = repositorioDeTurnos.traerTurnosDeProfesional(profesional, dtpFechaTurno.Value).Where(unTurno => unTurno.fechaDeLlegada.Date == unTurno.fechaDeTurno.Date).ToList();
+            turnosDelProfesionalEnEseDia = repositorioDeTurnos.traerTurnosDeProfesional(profesional, dtpFechaTurno.Value).
+                Where(unTurno => unTurno.fechaDeLlegada.Date == unTurno.fechaDeTurno.Date 
+                    && unTurno.fechaDeTurno.Date <= DataBase.Instance.getDate().Date).ToList();
 
             if (turnosDelProfesionalEnEseDia.Count == 0)
             {
-                MessageBox.Show("ERROR: No existen turnos en la fecha seleccionada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("ERROR: No existen turnos en la fecha seleccionada. O la fecha elegida es futura a la actual (" + 
+                    DataBase.Instance.getDate().ToString("dd/MM/yyyy") + ")", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -175,13 +178,10 @@ namespace ClinicaFrba.Registro_Resultado
 
         private void filtrarCalendarioPorTurnos()
         {
-            /*Filtro el calendario con dias que el profesional tuvo turnos*/
             TurnoRepository turnoRepository = new TurnoRepository();
             if (turnoRepository.tieneTurno(profesional))
             {
                 dtpFechaTurno.MinDate = turnoRepository.obtenerFechaMinimaDeTurnoDe(profesional);
-                /*Filtro para que no aparezcan diagnosticos futuros*/
-                dtpFechaTurno.MaxDate = DataBase.Instance.getDate();
                 dtpFechaTurno.Value = dtpFechaTurno.MinDate;
                 dtpFechaTurno.Enabled = true;
             }
