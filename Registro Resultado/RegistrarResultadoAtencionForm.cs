@@ -136,11 +136,27 @@ namespace ClinicaFrba.Registro_Resultado
             turnosDelProfesionalEnEseDia = repositorioDeTurnos.traerTurnosDeProfesional(profesional, dtpFechaTurno.Value).
                 Where(unTurno => unTurno.fechaDeLlegada.Date == unTurno.fechaDeTurno.Date 
                     && unTurno.fechaDeTurno.Date <= DataBase.Instance.getDate().Date).ToList();
-
-            if (turnosDelProfesionalEnEseDia.Count == 0)
+            dtpFechaDiagnostico.MinDate = new DateTime(1800, 1, 1);
+            if (dtpFechaTurno.Value.Date > DataBase.Instance.getDate().Date)
             {
-                MessageBox.Show("ERROR: No existen turnos en la fecha seleccionada. O la fecha elegida es futura a la actual (" + 
+                MessageBox.Show("ERROR: La fecha elegida es futura a la actual (" + 
                     DataBase.Instance.getDate().ToString("dd/MM/yyyy") + ")", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cmbPacientes.Enabled = false;
+                dtpFechaDiagnostico.Enabled = false;
+                dtpHoraDiagnostico.Enabled = false;
+                rtxtSintomas.Enabled = false;
+                rtxtDiagnostico.Enabled = false;
+                btnConfirmar.Enabled = false;
+            }
+            else if (turnosDelProfesionalEnEseDia.Count == 0)
+            {
+                MessageBox.Show("ERROR: No existen turnos en la fecha seleccionada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cmbPacientes.Enabled = false;
+                dtpFechaDiagnostico.Enabled = false;
+                dtpHoraDiagnostico.Enabled = false;
+                rtxtSintomas.Enabled = false;
+                rtxtDiagnostico.Enabled = false;
+                btnConfirmar.Enabled = false;           
             }
             else
             {
