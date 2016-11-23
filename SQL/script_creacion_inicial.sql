@@ -1712,6 +1712,7 @@ begin
      where profesional = @profesional and (CONVERT(date, fecha_turno) = CONVERT(date, @fecha_sistema)
      or @fecha_sistema is null) and (especialidad=@especialidad or @especialidad is null)
      and (@activo=activo or @activo is null)
+	 and (fecha_llegada is null)
 
 end
 
