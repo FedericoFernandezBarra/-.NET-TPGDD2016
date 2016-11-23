@@ -1253,7 +1253,7 @@ go
 
 
 create procedure BEMVINDO.st_insertar_afiliado
-@nro_grupo_familiar int,--char(4),
+@nro_grupo_familiar int,
 @estado_civil numeric(10,0),
 @plan_medico numeric(10,0),
 @nombre  nvarchar(255),
@@ -1271,36 +1271,35 @@ AS
 begin
      declare @nroAfiliado numeric(10,0)
      declare @id_numerito numeric(10,0)
-     declare @error varchar(255) 
+     declare @error varchar(4000) 
      declare @idUsuario numeric(10,0)
      set @error = ''
      BEGIN TRANSACTION  
      BEGIN TRY
 
-     --set @nro_grupo_familiar = concat('0',@nro_grupo_familiar)
 
-	 set @id_numerito=@nro_raiz
-     --select @id_numerito =max(numero_afiliado) from BEMVINDO.AFILIADO
-     --set @id_numerito= (@id_numerito/100)
 
-      if(@nro_grupo_familiar=1)--'01')
+     set @id_numerito=@nro_raiz
+
+
+      if(@nro_grupo_familiar=1)
       begin
-		   select @id_numerito =ISNULL(max(numero_afiliado),1)  from BEMVINDO.AFILIADO
+           select @id_numerito =ISNULL(max(numero_afiliado),1)  from BEMVINDO.AFILIADO
       end
 
-	  else
-	  begin
-			set @id_numerito-=100
-	  end
-
-	  set @id_numerito= @id_numerito - (@id_numerito%100) + 100--+1)
-
-	  set @nroAfiliado=@id_numerito+@nro_grupo_familiar
-     --select @nroAfiliado =  Concat(@id_numerito,@nro_grupo_familiar)
-
-	  if EXISTS (SELECT * FROM BEMVINDO.AFILIADO  WHERE numero_afiliado=@nroAfiliado ) 
+      else
       begin
-		   RAISERROR ('', 11,1)
+            set @id_numerito-=100
+      end
+
+      set @id_numerito= @id_numerito - (@id_numerito%100) + 100--+1)
+
+      set @nroAfiliado=@id_numerito+@nro_grupo_familiar
+
+
+      if EXISTS (SELECT * FROM BEMVINDO.AFILIADO  WHERE numero_afiliado=@nroAfiliado ) 
+      begin
+           RAISERROR ('error,el familiar ya existe', 11,1)
       end
            
 
@@ -1308,7 +1307,7 @@ begin
                 documento,fecha_nacimiento,direccion,telefono,mail,sexo)
         values (@documento,@documento,0,1,@nombre,@apellido,@tipo_documento,@documento,@fecha_nacimiento,@direccion,
                @telefono,@mail,@sexo)
-	
+    
 
     select @idUsuario =max(id_usuario) from BEMVINDO.USUARIO
 
@@ -1323,8 +1322,8 @@ begin
      COMMIT TRAN  
      END TRY 
      BEGIN CATCH  
-     ROLLBACK TRAN 
-     set @error = 'Error, no se pudo cargar el usuario'
+     ROLLBACK TRAN     
+     set @error = ERROR_MESSAGE();
      END CATCH 
 
 
