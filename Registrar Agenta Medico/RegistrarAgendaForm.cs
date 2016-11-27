@@ -15,8 +15,6 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         Agenda agenda { get; set; }
 
-        List<DiaAgenda> diasAgendaAAgregar { get; set; }
-
         Dictionary<long, string> especialidadesDelPersonal { get; set; }
 
         Usuario usuario { get; set; }
@@ -35,9 +33,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             agendaDAO = new AgendaRepository();
 
             agenda = agendaDAO.traerAgendaDelProfesional(usuario);
-            if (agenda == null) agenda = new Agenda(0, 0, new DateTime(), new DateTime(), new List<DiaAgenda>());
-
-            diasAgendaAAgregar = new List<DiaAgenda>();
+            
             especialidadesDelPersonal = agendaDAO.traerEspecialidadesDeProfesional(usuario);
 
             cargarElementosDeLaVista();
@@ -57,7 +53,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 listBoxEspecialidades.SelectedIndex = 0;
             }
 
-            if (agenda.idAgenda != 0)
+            if (!agenda.esNuevo())
             {
                 timerFechaDesde.Value = agenda.fecha_inicial;
                 timerFechaDesde.Enabled = false;
@@ -147,15 +143,15 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 return false;
             }
 
-           /* if (timerFechaDesde.Value.Date < agendaDAO.fechaSistema || timerFechaHasta.Value.Date < agendaDAO.fechaSistema)
-            {
-                MessageBox.Show("Las fechas ingresadas son anteriores a las del dia de hoy", "Error", MessageBoxButtons.OK);
-                return false;
-            } 
-            LO COMENTO PORQUE SI PONGO LA FECHA DEL SISTEMA A 02/01/2015 VA A TIRAR ERROR CON LAS AGENDAS MIGRADAS PORQUE EMPIEZAN
-            DEL DIA 01/01/2015 */ 
+            /* if (timerFechaDesde.Value.Date < agendaDAO.fechaSistema || timerFechaHasta.Value.Date < agendaDAO.fechaSistema)
+             {
+                 MessageBox.Show("Las fechas ingresadas son anteriores a las del dia de hoy", "Error", MessageBoxButtons.OK);
+                 return false;
+             } 
+             LO COMENTO PORQUE SI PONGO LA FECHA DEL SISTEMA A 02/01/2015 VA A TIRAR ERROR CON LAS AGENDAS MIGRADAS PORQUE EMPIEZAN
+             DEL DIA 01/01/2015 */
 
-            if (diasAgendaAAgregar.Count == 0)
+            if (!agenda.hayDiasAgendaNuevas())
             {
                 MessageBox.Show("No se han realizado cambios para guardar", "Error", MessageBoxButtons.OK);
                 return false;
@@ -183,8 +179,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             string nombreDia = listBoxDias.SelectedItem.ToString();
             string nombreEspecialidad = listBoxEspecialidades.SelectedItem.ToString();
 
-            diasAgendaAAgregar.Add(new DiaAgenda(nombreDia, idEspecialidad, nombreEspecialidad, horaDesde, horaHasta));
-            agenda.listaDeDiasAgenda.Add(new DiaAgenda(nombreDia, idEspecialidad, nombreEspecialidad, horaDesde, horaHasta));
+            agenda.listaDeDiasAgenda.Add(new DiaAgenda(nombreDia, idEspecialidad, nombreEspecialidad, horaDesde, horaHasta, true));
 
             cargarGriedViewDeHorarios();
             actualizarHorasTrabajadas();
@@ -195,19 +190,14 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             if (!seCumpleLasValidacionesParaGuardarCambios()) return;
             try
             {
-                //se crea la agenda por primera vez
-                if (agenda.idAgenda == 0)
-                    agendaDAO.insertarAgendaNueva(usuario.id, timerFechaDesde.Value.Date, timerFechaHasta.Value.Date, diasAgendaAAgregar);
-                //la agenda ya existe y le esta agregando mas horas
-                else
-                    agendaDAO.insertarNuevosDiasAgenda(agenda, diasAgendaAAgregar);
+                agendaDAO.guardarAgenda(agenda);
 
                 MessageBox.Show("Se han guardado los cambios exitosamente");
                 return;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("No se pudo guardar los cambios", "Error", MessageBoxButtons.OK);
+                MessageBox.Show("No se pudo guardar los cambios. Error "+ ex.Message, "Error", MessageBoxButtons.OK);
                 return;
             }
         }

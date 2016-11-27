@@ -14,13 +14,16 @@ namespace ClinicaFrba.Clases.POJOS
 
         public TimeSpan horaFinal { get; set; }
 
-        public DiaAgenda(string nomDia, long idEsp, string nomEsp, TimeSpan hIni, TimeSpan hFin)
+        public bool esNuevo { get; set; }
+
+        public DiaAgenda(string nomDia, long idEsp, string nomEsp, TimeSpan hIni, TimeSpan hFin, bool nuevo)
         {
             nombreDia = nomDia;
             nombreEspecialidad = nomEsp;
             idEspecialidad = idEsp;
             horaInicial = hIni;
             horaFinal = hFin;
+            esNuevo = nuevo;
         }
 
         public TimeSpan horasTrabajadasEnElDia()

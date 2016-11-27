@@ -1,4 +1,4 @@
-﻿fecha del sistema = 01/01/2015
+﻿fecha del sistema = 01/09/2015
 instancia de sql = SQLSERVER2012
 base de datos = GD2C2016
 usuario = gd

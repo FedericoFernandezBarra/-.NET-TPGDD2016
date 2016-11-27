@@ -15,7 +15,7 @@ namespace ClinicaFrba.Clases.POJOS
         public DateTime fecha_final { get; set; }
 
         public List<DiaAgenda> listaDeDiasAgenda { get; set; }
-
+        
         public Agenda(long idAge, long idProf, DateTime fecha_ini, DateTime fecha_fin, List<DiaAgenda> listaDias)
         {
             idAgenda = idAge;
@@ -46,6 +46,21 @@ namespace ClinicaFrba.Clases.POJOS
                 if (dia.horasTrabajadasEnElDia().Minutes != 0) horasTrabajadas += 0.5;
             }
             return horasTrabajadas;
+        }
+
+        public List<DiaAgenda> NuevasDiasAgenda()
+        {
+            return listaDeDiasAgenda.FindAll(x => x.esNuevo);
+        }
+
+        public bool hayDiasAgendaNuevas()
+        {
+            return listaDeDiasAgenda.FindAll(x => x.esNuevo).Count != 0;
+        }
+
+        public bool esNuevo()
+        {
+            return idAgenda == 0;
         }
     }
 }

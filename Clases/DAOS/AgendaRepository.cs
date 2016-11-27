@@ -6,7 +6,7 @@ using TostadoPersistentKit;
 
 namespace ClinicaFrba.Clases.DAOS
 {
-    internal class AgendaRepository : Repository
+    internal class AgendaRepository
     {
         DataBase db = DataBase.Instance;
 
@@ -17,11 +17,6 @@ namespace ClinicaFrba.Clases.DAOS
             fechaSistema = db.getDate();
         }
 
-        internal override Type getModelClassType()
-        {
-            throw new NotImplementedException();
-        }
-
         public Agenda traerAgendaDelProfesional(Usuario usuario)
         {
             string procedimiento = "BEMVINDO.sp_agenda_deL_profesional";
@@ -30,21 +25,17 @@ namespace ClinicaFrba.Clases.DAOS
             List<SqlParameter> parametros = new List<SqlParameter> { pIdProfesional };
 
             List<Dictionary<string, object>> listaDB = db.ejecutarStoredProcedure(procedimiento, parametros);
-            if (listaDB.Count == 0) return null;
+            if (listaDB.Count == 0) return new Agenda(0, usuario.id, db.getDate(), db.getDate(), new List<DiaAgenda>());
 
             List<DiaAgenda> listaDiasAgenda = new List<DiaAgenda>();
             foreach (Dictionary<string, object> dic in listaDB)
             {
                 DiaAgenda diaAgenda;
-                if (dic["id_especialidad"] == DBNull.Value)
-                {
-                    diaAgenda = new DiaAgenda((string)dic["dia"], 0, "", (TimeSpan)dic["horario_inicial"], (TimeSpan)dic["horario_final"]);
-                }
-                else
-                {
-                    diaAgenda = new DiaAgenda((string)dic["dia"], Convert.ToInt64(dic["id_especialidad"]), (string)dic["especialidad"], (TimeSpan)dic["horario_inicial"], (TimeSpan)dic["horario_final"]);
-                }
-                
+
+                string especialidadDia = (dic["id_especialidad"] == DBNull.Value)? "TODAS LAS DEL PROFESIONAL" : (string)dic["especialidad"];
+                long idEspecialidadDia = (dic["id_especialidad"] == DBNull.Value) ? 0 : Convert.ToInt64(dic["id_especialidad"]);
+
+                diaAgenda = new DiaAgenda((string)dic["dia"], idEspecialidadDia, especialidadDia, (TimeSpan)dic["horario_inicial"], (TimeSpan)dic["horario_final"], false);
                 listaDiasAgenda.Add(diaAgenda);
             }
 
@@ -70,14 +61,21 @@ namespace ClinicaFrba.Clases.DAOS
             return especialidades;
         }
 
-        public void insertarAgendaNueva(long idProfesional, DateTime fechaInicial, DateTime fechaFinal, List<DiaAgenda> diasAgenda)
+
+        public void guardarAgenda(Agenda agenda)
+        {
+            if (agenda.esNuevo()) insertarAgendaNueva(agenda);
+            else insertarAgendaVieja(agenda);
+        }
+
+        public void insertarAgendaNueva(Agenda agenda)
         {
             //inserto primero la agenda
             string procedimiento = "BEMVINDO.sp_insertar_nueva_agenda";
 
-            SqlParameter pIdProfesional = new SqlParameter("@id_profesional", idProfesional);
-            SqlParameter pFechaInicial = new SqlParameter("@fecha_inicial", fechaInicial);
-            SqlParameter pFechaFinal = new SqlParameter("@fecha_final", fechaFinal);
+            SqlParameter pIdProfesional = new SqlParameter("@id_profesional", agenda.idProfesional);
+            SqlParameter pFechaInicial = new SqlParameter("@fecha_inicial", agenda.fecha_inicial);
+            SqlParameter pFechaFinal = new SqlParameter("@fecha_final", agenda.fecha_final);
             List<SqlParameter> parametros = new List<SqlParameter> {pIdProfesional, pFechaInicial, pFechaFinal};
 
             long idAgendaNueva = Convert.ToInt64(db.ejecutarStoredProcedure(procedimiento, parametros)[0]["id_agenda"]);
@@ -86,7 +84,7 @@ namespace ClinicaFrba.Clases.DAOS
             //inserto los dias_agendas
             procedimiento = "BEMVINDO.sp_insertar_nuevo_dia_agenda";
 
-            foreach (DiaAgenda dA in diasAgenda)
+            foreach (DiaAgenda dA in agenda.listaDeDiasAgenda)
             {
                 SqlParameter pIdAgenda = new SqlParameter("@id_agenda", idAgendaNueva);
                 SqlParameter pIdEspecialidad = new SqlParameter("@id_especialidad", dA.idEspecialidad);
@@ -99,11 +97,11 @@ namespace ClinicaFrba.Clases.DAOS
             }
         }
 
-        public void insertarNuevosDiasAgenda(Agenda agenda, List<DiaAgenda> diasNuevosAAgregar)
+        public void insertarAgendaVieja(Agenda agenda)
         {
             string procedimiento = "BEMVINDO.sp_insertar_nuevo_dia_agenda";
 
-            foreach (DiaAgenda dA in diasNuevosAAgregar)
+            foreach (DiaAgenda dA in agenda.NuevasDiasAgenda())
             {
                 SqlParameter pIdAgenda = new SqlParameter("@id_agenda", agenda.idAgenda);
                 SqlParameter pIdEspecialidad = new SqlParameter("@id_especialidad", dA.idEspecialidad);
