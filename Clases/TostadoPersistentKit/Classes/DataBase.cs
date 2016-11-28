@@ -228,15 +228,21 @@ namespace TostadoPersistentKit
 
             string[] listaFecha = listaParser[0].Split('=')[1].Trim().Split('/');
 
-            fechaDatabase = new DateTime(Convert.ToInt16(listaFecha[2]), Convert.ToInt16(listaFecha[1]), Convert.ToInt16(listaFecha[0]));
+            fechaDatabase = new DateTime(Convert.ToInt16(listaFecha[2]),
+                                         Convert.ToInt16(listaFecha[1]), 
+                                         Convert.ToInt16(listaFecha[0]), 
+                                         Convert.ToInt16(listaParser[1].Split('=')[1]
+                                                                       .Trim().Split(':')[0]),
+                                         Convert.ToInt16(listaParser[1].Split('=')[1]
+                                                                       .Trim().Split(':')[1]),0);
         }
 
         private void cargarVariables(List<string> listaParser)
         {
-            instanciaSql = listaParser[1].Split('=')[1].Trim();
-            db = listaParser[2].Split('=')[1].Trim();
-            username = listaParser[3].Split('=')[1].Trim();
-            password = listaParser[4].Split('=')[1].Trim();
+            instanciaSql = listaParser[2].Split('=')[1].Trim();
+            db = listaParser[3].Split('=')[1].Trim();
+            username = listaParser[4].Split('=')[1].Trim();
+            password = listaParser[5].Split('=')[1].Trim();
         }
 
         internal DateTime getDate()

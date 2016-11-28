@@ -1301,6 +1301,11 @@ begin
       begin
            RAISERROR ('error,el familiar ya existe', 11,1)
       end
+
+	  if EXISTS (SELECT * FROM BEMVINDO.USUARIO  WHERE documento=@documento ) 
+      begin
+           RAISERROR ('error,el documento ya existe', 11,1)
+      end
            
 
     insert into BEMVINDO.USUARIO(nick,pass,intentos_login,activo,nombre,apellido,tipo_documento,
@@ -1490,7 +1495,8 @@ begin
              (u.nombre = @nombre OR @nombre IS NULL) and
              (u.apellido = @apellido OR @apellido IS NULL) and
              (u.documento = @dni OR @dni IS NULL) and
-             (a.plan_medico = @planMedico OR @planMedico IS NULL) 
+             (a.plan_medico = @planMedico OR @planMedico IS NULL) and
+			 (a.baja_logica=0)
 
 end
 

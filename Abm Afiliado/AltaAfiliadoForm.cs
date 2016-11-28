@@ -160,8 +160,8 @@ namespace ClinicaFrba.Abm_Afiliado
                     MessageBox.Show(altaAfiliado.mensajeDeError, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                
-                MessageBox.Show("Afiliado creado exitosamente");
+
+                MessageBox.Show(altaAfiliado.mensajeDeExito);
 
                 Hide();
 

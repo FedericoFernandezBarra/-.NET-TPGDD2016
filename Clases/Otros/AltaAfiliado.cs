@@ -13,6 +13,8 @@ namespace ClinicaFrba.Clases.Otros
         public List<TipoDocumento> tiposDeDocumentoSistema { get; set; }
         public List<char> sexosSistema { get; set; }
         public List<PlanMedico> planesMedicosSistema { get; set; }
+        public string mensajeDeExito { get; set; }
+
         private AfiliadoRepository repoAfiliado = new AfiliadoRepository();
 
         public AltaAfiliado()
@@ -22,6 +24,7 @@ namespace ClinicaFrba.Clases.Otros
             nuevoAfiliado.numeroFamiliar = 1;
 
             mensajeDeError = "";
+            mensajeDeExito = "";
 
             inicializarListasSistema();
         }
@@ -84,6 +87,8 @@ namespace ClinicaFrba.Clases.Otros
 
         public bool guardarAfiliado()
         {
+            mensajeDeExito = "Afiliado creado exitosamente";
+
             string error = repoAfiliado.insertarAfiliado(nuevoAfiliado,nuevoAfiliado.numeroDeAfiliado);
 
             if (error!="")
@@ -98,10 +103,16 @@ namespace ClinicaFrba.Clases.Otros
 
                 if (error!="")
                 {
-                    mensajeDeError = error;
-                    return false;
+                    //mensajeDeError = error;
+                    //return false;
+                    mensajeDeExito = "Creacion completada con errores";
+                    nuevoAfiliado.conyuge = null;
+                    nuevoAfiliado.hijos = new List<Afiliado>();
+                    return true;
                 }
             }
+
+            List<Afiliado> hijosCreadosExitosamente = new List<Afiliado>();
 
             foreach (Afiliado hijo in nuevoAfiliado.hijos)
             {
@@ -109,10 +120,14 @@ namespace ClinicaFrba.Clases.Otros
 
                 if (error!="")
                 {
-                    mensajeDeError = error;
-                    return false;
+                    mensajeDeExito = "Creacion completada con errores";
+                    return true;
                 }
+
+                hijosCreadosExitosamente.Add(hijo);
             }
+
+            nuevoAfiliado.hijos = hijosCreadosExitosamente;
 
             return true;
         }

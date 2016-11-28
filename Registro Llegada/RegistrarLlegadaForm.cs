@@ -59,6 +59,8 @@ namespace ClinicaFrba.Registro_Llegada
 
             dtpHoraLlegada.Value = registrarLlegada.fechaLlegada;
 
+            dtpHoraLlegada.MaxDate = registrarLlegada.fechaLlegada;
+
             //initDataGrid();
 
             //registrarLlegada.cargarTurnosFiltrados();//Inicializo turnos filtrados
