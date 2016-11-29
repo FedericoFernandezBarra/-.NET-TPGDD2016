@@ -27,7 +27,18 @@ if EXISTS (SELECT * FROM sysobjects  WHERE name='sp_insertar_nuevo_dia_agenda')
 drop procedure BEMVINDO.sp_insertar_nuevo_dia_agenda
 
 go
----ABM AFILIADO----------------------------------------------------------------------------------------------
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='sp_actualizar_fechas_agenda') 
+drop procedure BEMVINDO.sp_actualizar_fechas_agenda
+
+go
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='sp_eliminar_dia_agenda_por_id') 
+drop procedure BEMVINDO.sp_eliminar_dia_agenda_por_id
+
+go
+---ABM AFILIADO
+-------------------------------------------------------------------------------------------------------
 if EXISTS (SELECT * FROM sysobjects  WHERE name='st_insertar_afiliado') 
 drop procedure BEMVINDO.st_insertar_afiliado
 
@@ -52,8 +63,6 @@ if EXISTS (SELECT * FROM sysobjects  WHERE name='st_cantidad_hijos')
 drop procedure BEMVINDO.st_cantidad_hijos
 
 go
-
-
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='buscar_historial_de_cambios') 
 drop procedure BEMVINDO.buscar_historial_de_cambios
@@ -1124,8 +1133,8 @@ go
 insert into BEMVINDO.AGENDA
 	select 
 		U.id_usuario as profesional,
-		MIN(M.Turno_Fecha) as fecha_inicial,
-		DATEADD(year,1,MAX(M.Turno_Fecha)) as fecha_final
+		null,--MIN(M.Turno_Fecha) as fecha_inicial,
+		null--DATEADD(year,1,MAX(M.Turno_Fecha)) as fecha_final
 	from gd_esquema.Maestra as M
 	inner join BEMVINDO.USUARIO as U on 
 		U.documento = M.Medico_Dni
@@ -1519,6 +1528,7 @@ as begin
         A.fecha_final,
         E.id_especialidad as id_especialidad,
         E.descripcion as especialidad,
+		D.id_dia_agenda,
         D.dia,
         D.horario_inicial,
         D.horario_final
@@ -1542,6 +1552,27 @@ as begin
     inner join BEMVINDO.ESPECIALIDAD as E on E.id_especialidad = EP.id_especialidad
     where 
         Ep.id_profesional = @id_profesional
+end
+
+go
+
+create procedure BEMVINDO.sp_eliminar_dia_agenda_por_id
+	@id_dia_agenda numeric(10,0)
+as begin
+	delete from BEMVINDO.DIA_AGENDA
+	where id_dia_agenda = @id_dia_agenda
+end
+
+go
+
+create procedure BEMVINDO.sp_actualizar_fechas_agenda
+	@id_agenda numeric(10,0),
+	@fecha_inicial date,
+	@fecha_final date
+as begin
+	update BEMVINDO.AGENDA
+	set fecha_inicial = @fecha_inicial, fecha_final = @fecha_final
+	where id_agenda = @id_agenda
 end
 
 go

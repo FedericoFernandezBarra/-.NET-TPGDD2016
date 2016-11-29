@@ -1,9 +1,9 @@
 ﻿using ClinicaFrba.Clases;
 using ClinicaFrba.Clases.DAOS;
+using ClinicaFrba.Clases.Otros;
 using ClinicaFrba.Clases.POJOS;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Windows.Forms;
 
 namespace ClinicaFrba.Registrar_Agenta_Medico
@@ -41,6 +41,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         private void cargarElementosDeLaVista()
         {
+            listBoxDias.Items.Clear();
             listBoxDias.Items.AddRange(new object[] { "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO" });
             listBoxDias.SelectedIndex = 0;
 
@@ -53,16 +54,19 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 listBoxEspecialidades.SelectedIndex = 0;
             }
 
-            if (!agenda.esNuevo())
+            if (agenda.tipoAgenda == TipoAgenda.Migrado)
             {
                 timerFechaDesde.Value = agenda.fecha_inicial;
                 timerFechaDesde.Enabled = false;
 
                 timerFechaHasta.Value = agenda.fecha_final;
                 timerFechaHasta.Enabled = false;
+
+                botonEliminar.Enabled = false;
             }
 
             actualizarHorasTrabajadas();
+            cargarGriedViewDeHorarios();
         }
 
         private void actualizarHorasTrabajadas()
@@ -82,7 +86,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         {
             dgHorarios.Rows.Clear();
 
-            foreach (DiaAgenda diaAgenda in agenda.diasAgendaDelDia(listBoxDias.SelectedItem.ToString()))
+            foreach (DiaAgenda diaAgenda in agenda.diasAgendaDelDiaNoBorrados(listBoxDias.SelectedItem.ToString()))
             {
                 dgHorarios.Rows.Add(diaAgenda.nombreEspecialidad, diaAgenda.horaInicial, diaAgenda.horaFinal);
             }
@@ -143,15 +147,13 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 return false;
             }
 
-            /* if (timerFechaDesde.Value.Date < agendaDAO.fechaSistema || timerFechaHasta.Value.Date < agendaDAO.fechaSistema)
-             {
-                 MessageBox.Show("Las fechas ingresadas son anteriores a las del dia de hoy", "Error", MessageBoxButtons.OK);
-                 return false;
-             } 
-             LO COMENTO PORQUE SI PONGO LA FECHA DEL SISTEMA A 02/01/2015 VA A TIRAR ERROR CON LAS AGENDAS MIGRADAS PORQUE EMPIEZAN
-             DEL DIA 01/01/2015 */
+            if (timerFechaDesde.Value.Date < agendaDAO.fechaSistema || timerFechaHasta.Value.Date < agendaDAO.fechaSistema)
+            {
+                MessageBox.Show("Las fechas ingresadas son anteriores a las del dia de hoy", "Error", MessageBoxButtons.OK);
+                return false;
+            } 
 
-            if (!agenda.hayDiasAgendaNuevas())
+            if (!agenda.listaDeDiasAgenda.Exists(x => x.tipoDiaAgenda == (TipoDiaAgenda.Borrado | TipoDiaAgenda.Nuevo)) || timerFechaDesde.Value.Date == timerFechaHasta.Value.Date)
             {
                 MessageBox.Show("No se han realizado cambios para guardar", "Error", MessageBoxButtons.OK);
                 return false;
@@ -179,7 +181,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             string nombreDia = listBoxDias.SelectedItem.ToString();
             string nombreEspecialidad = listBoxEspecialidades.SelectedItem.ToString();
 
-            agenda.listaDeDiasAgenda.Add(new DiaAgenda(nombreDia, idEspecialidad, nombreEspecialidad, horaDesde, horaHasta, true));
+            agenda.listaDeDiasAgenda.Add(new DiaAgenda(0, nombreDia, idEspecialidad, nombreEspecialidad, horaDesde, horaHasta, TipoDiaAgenda.Nuevo));
 
             cargarGriedViewDeHorarios();
             actualizarHorasTrabajadas();
@@ -188,11 +190,18 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         private void botonGuardarCambios_Click(object sender, EventArgs e)
         {
             if (!seCumpleLasValidacionesParaGuardarCambios()) return;
+
             try
             {
+                agenda.fecha_inicial = timerFechaDesde.Value;
+                agenda.fecha_final = timerFechaHasta.Value;
+
                 agendaDAO.guardarAgenda(agenda);
 
                 MessageBox.Show("Se han guardado los cambios exitosamente");
+
+                agenda.tipoAgenda = TipoAgenda.Migrado;
+                cargarElementosDeLaVista();
                 return;
             }
             catch (Exception ex)
@@ -214,5 +223,33 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             Close();
         }
 
+        private void botonEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (listBoxDias.SelectedIndex == -1 || dgHorarios.SelectedRows.Count == 0) return;
+
+                string dia = listBoxDias.SelectedItem.ToString();
+                string especialidad = dgHorarios.SelectedRows[0].Cells["ESPECIALIDAD"].Value.ToString();
+                TimeSpan horaDesde = (TimeSpan)dgHorarios.SelectedRows[0].Cells["DESDE_LAS"].Value;
+                TimeSpan horaHasta = (TimeSpan)dgHorarios.SelectedRows[0].Cells["HASTA_LAS"].Value;
+
+                DiaAgenda diaAEliminar = agenda.listaDeDiasAgenda.Find(x =>
+                    x.nombreDia == dia &&
+                    x.nombreEspecialidad == especialidad &&
+                    x.horaInicial == horaDesde &&
+                    x.horaFinal == horaHasta &&
+                    x.tipoDiaAgenda != TipoDiaAgenda.Borrado);
+
+                diaAEliminar.tipoDiaAgenda = TipoDiaAgenda.Borrado;
+
+                cargarGriedViewDeHorarios();
+                actualizarHorasTrabajadas();
+            }
+            catch
+            {
+                MessageBox.Show("Elemento seleccionado no valido", "Error", MessageBoxButtons.OK);
+            }
+        }
     }
 }

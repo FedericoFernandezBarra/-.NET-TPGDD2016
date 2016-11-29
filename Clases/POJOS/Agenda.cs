@@ -1,4 +1,4 @@
-﻿using ClinicaFrba.Clases.DAOS;
+﻿using ClinicaFrba.Clases.Otros;
 using System;
 using System.Collections.Generic;
 
@@ -15,31 +15,34 @@ namespace ClinicaFrba.Clases.POJOS
         public DateTime fecha_final { get; set; }
 
         public List<DiaAgenda> listaDeDiasAgenda { get; set; }
+
+        public TipoAgenda tipoAgenda { get; set; }
         
-        public Agenda(long idAge, long idProf, DateTime fecha_ini, DateTime fecha_fin, List<DiaAgenda> listaDias)
+        public Agenda(long idAge, long idProf, DateTime fecha_ini, DateTime fecha_fin, List<DiaAgenda> listaDias, TipoAgenda tA)
         {
             idAgenda = idAge;
             idProfesional = idProf;
             fecha_inicial = fecha_ini;
             fecha_final = fecha_fin;
             listaDeDiasAgenda = listaDias;
+            tipoAgenda = tA;
         }
         
-        public List<DiaAgenda> diasAgendaDelDia(string dia)
+        public List<DiaAgenda> diasAgendaDelDiaNoBorrados(string dia)
         {
-            return listaDeDiasAgenda.FindAll(diaAgenda => diaAgenda.nombreDia == dia);
+            return listaDeDiasAgenda.FindAll(diaAgenda => diaAgenda.nombreDia == dia && diaAgenda.tipoDiaAgenda != TipoDiaAgenda.Borrado);
         }
 
         public bool esteHorarioEstaOcupado(string dia, TimeSpan horario)
         {
-            return listaDeDiasAgenda.Exists(diaAgenda => (diaAgenda.horaInicial <= horario && horario <= diaAgenda.horaFinal) && diaAgenda.nombreDia == dia);
+            return listaDeDiasAgenda.FindAll(x=> x.tipoDiaAgenda != TipoDiaAgenda.Borrado).Exists(diaAgenda => (diaAgenda.horaInicial <= horario && horario <= diaAgenda.horaFinal) && diaAgenda.nombreDia == dia);
         }
 
         public double horasTrabajadasEnLaSemana()
         {
             double horasTrabajadas = 0;
 
-            foreach (DiaAgenda dia in listaDeDiasAgenda)
+            foreach (DiaAgenda dia in listaDeDiasAgenda.FindAll(x => x.tipoDiaAgenda != TipoDiaAgenda.Borrado))
             {
                 horasTrabajadas += dia.horasTrabajadasEnElDia().Hours;
 
@@ -48,19 +51,25 @@ namespace ClinicaFrba.Clases.POJOS
             return horasTrabajadas;
         }
 
-        public List<DiaAgenda> NuevasDiasAgenda()
+        public List<DiaAgenda> diasAgendaNuevas()
         {
-            return listaDeDiasAgenda.FindAll(x => x.esNuevo);
+            return listaDeDiasAgenda.FindAll(x => x.tipoDiaAgenda == TipoDiaAgenda.Nuevo);
         }
 
-        public bool hayDiasAgendaNuevas()
+        public bool hayDiasAgendaNuevos()
         {
-            return listaDeDiasAgenda.FindAll(x => x.esNuevo).Count != 0;
+            return listaDeDiasAgenda.FindAll(x => x.tipoDiaAgenda == TipoDiaAgenda.Nuevo).Count != 0;
         }
 
-        public bool esNuevo()
+        public List<DiaAgenda> diasAgendaBorradasConId0()
         {
-            return idAgenda == 0;
+            return listaDeDiasAgenda.FindAll(x => x.tipoDiaAgenda == TipoDiaAgenda.Borrado && x.idDiaAgenda != 0);
         }
+
+        public bool hayDiasAgendaBorradosConId0()
+        {
+            return listaDeDiasAgenda.FindAll(x => x.tipoDiaAgenda == TipoDiaAgenda.Borrado && x.idDiaAgenda != 0).Count != 0;
+        }
+
     }
 }

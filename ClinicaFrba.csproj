@@ -190,6 +190,7 @@
     <Compile Include="Clases\POJOS\ResultadoAtencionMedica.cs" />
     <Compile Include="Clases\POJOS\Rol.cs" />
     <Compile Include="Clases\POJOS\TipoCancelacion.cs" />
+    <Compile Include="Clases\Otros\TipoAgenda.cs" />
     <Compile Include="Clases\POJOS\TipoDocumento.cs" />
     <Compile Include="Clases\POJOS\TipoEspecialidad.cs" />
     <Compile Include="Clases\POJOS\Turno.cs" />

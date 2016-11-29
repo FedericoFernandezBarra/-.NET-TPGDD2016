@@ -45,11 +45,12 @@
             this.timerFechaDesde = new System.Windows.Forms.DateTimePicker();
             this.timerFechaHasta = new System.Windows.Forms.DateTimePicker();
             this.dgHorarios = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label8 = new System.Windows.Forms.Label();
             this.lbHorasTotales = new System.Windows.Forms.Label();
+            this.botonEliminar = new System.Windows.Forms.Button();
+            this.ESPECIALIDAD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DESDE_LAS = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HASTA_LAS = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgHorarios)).BeginInit();
             this.SuspendLayout();
@@ -211,10 +212,11 @@
             // dgHorarios
             // 
             this.dgHorarios.AllowUserToDeleteRows = false;
+            this.dgHorarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgHorarios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3});
+            this.ESPECIALIDAD,
+            this.DESDE_LAS,
+            this.HASTA_LAS});
             this.dgHorarios.Location = new System.Drawing.Point(15, 52);
             this.dgHorarios.MultiSelect = false;
             this.dgHorarios.Name = "dgHorarios";
@@ -222,24 +224,6 @@
             this.dgHorarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgHorarios.Size = new System.Drawing.Size(449, 161);
             this.dgHorarios.TabIndex = 25;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Especialidad";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Desde las";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Hasta las";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
             // 
             // label8
             // 
@@ -259,11 +243,40 @@
             this.lbHorasTotales.TabIndex = 27;
             this.lbHorasTotales.Text = "00:00 hs.";
             // 
+            // botonEliminar
+            // 
+            this.botonEliminar.Location = new System.Drawing.Point(343, 219);
+            this.botonEliminar.Name = "botonEliminar";
+            this.botonEliminar.Size = new System.Drawing.Size(121, 23);
+            this.botonEliminar.TabIndex = 28;
+            this.botonEliminar.Text = "Eliminar Seleccionado";
+            this.botonEliminar.UseVisualStyleBackColor = true;
+            this.botonEliminar.Click += new System.EventHandler(this.botonEliminar_Click);
+            // 
+            // ESPECIALIDAD
+            // 
+            this.ESPECIALIDAD.HeaderText = "ESPECIALIDAD";
+            this.ESPECIALIDAD.Name = "ESPECIALIDAD";
+            this.ESPECIALIDAD.ReadOnly = true;
+            // 
+            // DESDE_LAS
+            // 
+            this.DESDE_LAS.HeaderText = "DESDE_LAS";
+            this.DESDE_LAS.Name = "DESDE_LAS";
+            this.DESDE_LAS.ReadOnly = true;
+            // 
+            // HASTA_LAS
+            // 
+            this.HASTA_LAS.HeaderText = "HASTA_LAS";
+            this.HASTA_LAS.Name = "HASTA_LAS";
+            this.HASTA_LAS.ReadOnly = true;
+            // 
             // RegistrarAgendaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(479, 470);
+            this.Controls.Add(this.botonEliminar);
             this.Controls.Add(this.lbHorasTotales);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.dgHorarios);
@@ -277,7 +290,7 @@
             this.Controls.Add(this.listBoxDias);
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "RegistrarAgendaForm";
             this.Text = "RegistrarAgendForm";
             this.groupBox1.ResumeLayout(false);
@@ -306,10 +319,11 @@
         private System.Windows.Forms.DateTimePicker timerFechaDesde;
         private System.Windows.Forms.DateTimePicker timerFechaHasta;
         private System.Windows.Forms.DataGridView dgHorarios;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lbHorasTotales;
+        private System.Windows.Forms.Button botonEliminar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ESPECIALIDAD;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DESDE_LAS;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HASTA_LAS;
     }
 }

@@ -1,9 +1,12 @@
-﻿using System;
+﻿using ClinicaFrba.Clases.Otros;
+using System;
 
 namespace ClinicaFrba.Clases.POJOS
 {
     class DiaAgenda
     {
+        public long idDiaAgenda { get; set; }
+
         public string nombreDia { get; set; }
 
         public long idEspecialidad { get; set; }
@@ -14,16 +17,17 @@ namespace ClinicaFrba.Clases.POJOS
 
         public TimeSpan horaFinal { get; set; }
 
-        public bool esNuevo { get; set; }
+        public TipoDiaAgenda tipoDiaAgenda { get; set; }
 
-        public DiaAgenda(string nomDia, long idEsp, string nomEsp, TimeSpan hIni, TimeSpan hFin, bool nuevo)
+        public DiaAgenda(long id, string nomDia, long idEsp, string nomEsp, TimeSpan hIni, TimeSpan hFin, TipoDiaAgenda t)
         {
+            idDiaAgenda = id;
             nombreDia = nomDia;
             nombreEspecialidad = nomEsp;
             idEspecialidad = idEsp;
             horaInicial = hIni;
             horaFinal = hFin;
-            esNuevo = nuevo;
+            tipoDiaAgenda = t;
         }
 
         public TimeSpan horasTrabajadasEnElDia()
