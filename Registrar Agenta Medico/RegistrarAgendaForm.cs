@@ -32,21 +32,21 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             usuario = usua;
             agendaDAO = new AgendaRepository();
 
-            agenda = agendaDAO.traerAgendaDelProfesional(usuario);
-            
-            especialidadesDelPersonal = agendaDAO.traerEspecialidadesDeProfesional(usuario);
-
             cargarElementosDeLaVista();
         }
 
         private void cargarElementosDeLaVista()
         {
+            agenda = agendaDAO.traerAgendaDelProfesional(usuario);
+            especialidadesDelPersonal = agendaDAO.traerEspecialidadesDeProfesional(usuario);
+
             listBoxDias.Items.Clear();
             listBoxDias.Items.AddRange(new object[] { "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO" });
             listBoxDias.SelectedIndex = 0;
 
             if (especialidadesDelPersonal != null)
             {
+                listBoxEspecialidades.Items.Clear();
                 foreach (KeyValuePair<long, string> item in especialidadesDelPersonal)
                 {
                     listBoxEspecialidades.Items.Add(item.Value);
@@ -198,10 +198,9 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 agenda.fecha_final = timerFechaHasta.Value;
 
                 agendaDAO.guardarAgenda(agenda);
-
+                
                 MessageBox.Show("Se han guardado los cambios exitosamente");
-
-                agenda.tipoAgenda = TipoAgenda.Migrado;
+                
                 cargarElementosDeLaVista();
                 return;
             }
