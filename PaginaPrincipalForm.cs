@@ -34,43 +34,13 @@ namespace ClinicaFrba
 
         private void tsmSesion_IniciarSesion_Click(object sender, EventArgs e)
         {
-            LoginForm login = new LoginForm();
-
-            Hide();
-
-            login.ShowDialog();
-
-            menu.usuario = login.getUsuarioLogueado();
-
-            actions.Keys.ToList().ForEach(a => a.Visible = (a == tsmSesion));
-
-            if (menu.usuarioLogueado())
-            {
-                SeleccionDeRolForm seleccionDeRol = new SeleccionDeRolForm(menu.usuario);
-
-                if (menu.usuario.roles.Count==1)
-                {
-                    menu.rol = menu.usuario.roles[0];
-                }
-                if (menu.usuario.roles.Count>1)
-                {
-                    //Hide();
-                    seleccionDeRol.ShowDialog();
-                    menu.rol = seleccionDeRol.getRolSeleccionado();
-                }
-                if (menu.rol!=null)
-                {
-                    menu.cargarDatosDeRol();
-                    cargarFormSegunRol();
-                }
-            }
-
-            Show();
+            mostrarLogin(false);
         }
 
         private void PaginaPrincipalForm_Load(object sender, EventArgs e)
         {
             initForm();
+            mostrarLogin(true);
         }
 
         private void initForm()
@@ -419,6 +389,48 @@ namespace ClinicaFrba
 
             grupoAFiliadoViejo.ShowDialog();
 
+            Show();
+        }
+
+        private void mostrarLogin(Boolean vieneDeFormLoad)
+        {
+            LoginForm login = new LoginForm();
+
+            Hide();
+
+            login.ShowDialog();
+
+            menu.usuario = login.getUsuarioLogueado();
+
+            actions.Keys.ToList().ForEach(a => a.Visible = (a == tsmSesion));
+
+            if (menu.usuarioLogueado())
+            {
+                SeleccionDeRolForm seleccionDeRol = new SeleccionDeRolForm(menu.usuario);
+
+                if (menu.usuario.roles.Count == 1)
+                {
+                    menu.rol = menu.usuario.roles[0];
+                }
+                if (menu.usuario.roles.Count > 1)
+                {
+                    //Hide();
+                    seleccionDeRol.ShowDialog();
+                    menu.rol = seleccionDeRol.getRolSeleccionado();
+                }
+                if (menu.rol != null)
+                {
+                    menu.cargarDatosDeRol();
+                    cargarFormSegunRol();
+                }
+            }
+            else 
+            {
+                if (vieneDeFormLoad)
+                {
+                    Close();
+                }
+            }
             Show();
         }
     }

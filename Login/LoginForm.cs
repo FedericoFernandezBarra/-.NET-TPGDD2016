@@ -23,11 +23,37 @@ namespace ClinicaFrba.Logueo
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
-            txtUserName.DataBindings.Add("Text", login, "username");
-            txtPassword.DataBindings.Add("Text", login, "password");
+            txtUserName.DataBindings.Add("Text", login, "username", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtPassword.DataBindings.Add("Text", login, "password", false, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         private void Ingresar_Click(object sender, EventArgs e)
+        {
+            iniciarSesion();
+        }
+
+        internal Usuario getUsuarioLogueado()
+        { 
+            return login.usuarioLogueado;
+        }
+
+        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                iniciarSesion();
+            }
+        }
+
+        private void txtUserName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                iniciarSesion();
+            }
+        }
+
+        private void iniciarSesion()
         {
             if (!login.cumpleValidaciones())
             {
@@ -44,11 +70,6 @@ namespace ClinicaFrba.Logueo
             MessageBox.Show("Logueo exitoso");
 
             Close();
-        }
-
-        internal Usuario getUsuarioLogueado()
-        {
-            return login.usuarioLogueado;
         }
     }
 }
