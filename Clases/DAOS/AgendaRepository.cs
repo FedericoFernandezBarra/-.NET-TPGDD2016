@@ -49,8 +49,8 @@ namespace ClinicaFrba.Clases.DAOS
 
             if (listaDB[0]["fecha_inicial"] == DBNull.Value && listaDB[0]["fecha_final"] == DBNull.Value) {
                 tipo = TipoAgenda.PrimeraVez;
-                fechaInicial = db.getDate();
-                fechaFinal = db.getDate();
+                fechaInicial = DateTime.MinValue;
+                fechaFinal = DateTime.MinValue;
             }
             else
             {
