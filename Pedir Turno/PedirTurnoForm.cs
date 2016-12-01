@@ -70,10 +70,13 @@ namespace ClinicaFrba.Pedir_Turno
                         diaSeleccionado.ForEach
                             (unHorario => obtenerHorariosPosibles(horariosPosibles, unHorario.horaInicial, unHorario.horaFinal));
 
-                        //Quinto filtro: eliminar horarios que ya poseen turno asignado
+                        //Quinto filtro: eliminar horarios que ya pasaron
+                        filtrarHorariosPasados(horariosPosibles);
+
+                        //Sexto filtro: eliminar horarios que ya poseen turno asignado
                         filtrarHorariosYaTomados(horariosPosibles);
 
-                        //Sexto filtro: el profesional tiene todos los turnos ocupados
+                        //Septimo filtro: el profesional tiene todos los turnos ocupados
                         if (horariosPosibles.Count == 0)
                         {
                             MessageBox.Show("El profesional no tiene turnos disponibles en el día seleccionado", "Error", 
@@ -92,7 +95,6 @@ namespace ClinicaFrba.Pedir_Turno
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-
             }
         }
 
@@ -117,11 +119,16 @@ namespace ClinicaFrba.Pedir_Turno
                     MessageBox.Show("ERROR: El profesional seleccionado no dispone de una agenda.", "Error", 
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                else if (agendaDelProfesional.fecha_inicial == DateTime.MinValue)
+                {
+                    MessageBox.Show("ERROR: El profesional no asignó su rango de fechas disponibles en su agenda.", "Error",
+                       MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 else
                 {
                     turno.profesional = buscarProfesionalForm.getProfesionalSeleccionado();
                     turno.especialidad = buscarProfesionalForm.getEspecialidadSeleccionada();
-                    if(mcFechaDeTurno.MinDate < agendaDelProfesional.fecha_inicial)
+                    if (mcFechaDeTurno.MinDate < agendaDelProfesional.fecha_inicial)
                     {
                         mcFechaDeTurno.MinDate = agendaDelProfesional.fecha_inicial;
                     }
@@ -230,6 +237,36 @@ namespace ClinicaFrba.Pedir_Turno
                 horariosPosibles.Remove(horarioASacar);
             }
         }
+
+        private void filtrarHorariosPasados(List<String> horariosPosibles)
+        {
+            DateTime fechaYHoraDelSistema = DataBase.Instance.getDate();
+            List<String> horariosASacar = new List<String>();
+            if (obtenerFechaSeleccionada().Date == fechaYHoraDelSistema.Date)
+            {
+                if(fechaYHoraDelSistema.Minute > 30)
+                {
+                    obtenerHorariosPosibles(horariosASacar, new TimeSpan(1, 0, 0), new TimeSpan(fechaYHoraDelSistema.Hour + 1, 0, 0));
+                }
+                else
+                {
+                    if (fechaYHoraDelSistema.Minute == 0)
+                    {
+                        obtenerHorariosPosibles(horariosASacar, new TimeSpan(1, 0, 0), new TimeSpan(fechaYHoraDelSistema.Hour, 0, 0));
+                    }
+                    else
+                    {
+                        obtenerHorariosPosibles(horariosASacar, new TimeSpan(1, 0, 0), new TimeSpan(fechaYHoraDelSistema.Hour, 30, 0));
+                    }
+                       
+                }
+                foreach (String horarioASacar in horariosASacar)
+                {
+                    horariosPosibles.Remove(horarioASacar);
+                }
+            }
+        }
+            
 
         private void mcFechaDeTurno_DateChanged(object sender, DateRangeEventArgs e)
         {
