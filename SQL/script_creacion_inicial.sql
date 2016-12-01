@@ -815,17 +815,17 @@ values
     (6,3),
     (7,3),
     (8,1),
-	(8,3),
+  (8,3),
     (9,2),
     (9,3),
     (10,2),
-	(10,3),
+  (10,3),
     (11,3),
     (12,1),
-	(12,3),
+  (12,3),
     (13,2),
     (13,1),
-	(13,3),
+  (13,3),
     (14,3),
     (15,3)
 
@@ -1074,14 +1074,14 @@ insert into BEMVINDO.COMPRA
         U.id_usuario as afiliado,
         COUNT(M.Plan_Med_Precio_Bono_Consulta) as cantidad,
         SUM(M.Plan_Med_Precio_Bono_Consulta) as monto_total,
-		M.Compra_Bono_Fecha
+    M.Compra_Bono_Fecha
     from gd_esquema.Maestra as M
     inner join BEMVINDO.USUARIO as U
         on U.documento = M.Paciente_Dni
     where 
         M.Turno_Numero is null
-	group by 
-		U.id_usuario, M.Compra_Bono_Fecha
+  group by 
+    U.id_usuario, M.Compra_Bono_Fecha
 go
 
 --BONO
@@ -1099,7 +1099,7 @@ insert into BEMVINDO.BONO
         M.Bono_Consulta_Numero
     from gd_esquema.Maestra as M
     inner join BEMVINDO.PLAN_MEDICO as P on M.Plan_Med_Codigo = P.plan_medico_codigo
-	inner join BEMVINDO.USUARIO as U on U.documento = M.Paciente_Dni
+  inner join BEMVINDO.USUARIO as U on U.documento = M.Paciente_Dni
     inner join BEMVINDO.COMPRA as C on U.id_usuario = C.comprador
     inner join BEMVINDO.TURNO as T on M.Turno_Numero = T.turno_numero
     where 
@@ -1131,49 +1131,49 @@ go
 --AGENDA
 -------------------------------------------------------------------------------------------------------
 insert into BEMVINDO.AGENDA
-	select 
-		U.id_usuario as profesional,
-		null,--MIN(M.Turno_Fecha) as fecha_inicial,
-		null--DATEADD(year,1,MAX(M.Turno_Fecha)) as fecha_final
-	from gd_esquema.Maestra as M
-	inner join BEMVINDO.USUARIO as U on 
-		U.documento = M.Medico_Dni
-	group by 
-		U.id_usuario
+  select 
+    U.id_usuario as profesional,
+    null,--MIN(M.Turno_Fecha) as fecha_inicial,
+    null--DATEADD(year,1,MAX(M.Turno_Fecha)) as fecha_final
+  from gd_esquema.Maestra as M
+  inner join BEMVINDO.USUARIO as U on 
+    U.documento = M.Medico_Dni
+  group by 
+    U.id_usuario
 
 go
 
 --DIA AGENDA
 -------------------------------------------------------------------------------------------------------
 insert into BEMVINDO.DIA_AGENDA
-	select 
-		A.id_agenda,
-		case
-			when 1 = 
-				(select COUNT(distinct M2.Especialidad_Codigo)
-				from gd_esquema.Maestra as M2
-				group by UPPER(DATENAME(weekday, M2.Turno_Fecha)), M2.Medico_Dni
-				having UPPER(DATENAME(weekday, M2.Turno_Fecha)) = UPPER(DATENAME(weekday, M.Turno_Fecha)) and M2.Medico_Dni = M.Medico_Dni)
-				then 				
-					(select E2.id_especialidad
-					from gd_esquema.Maestra as M2
-					inner join BEMVINDO.ESPECIALIDAD as E2 on E2.especialidad_codigo = M2.Especialidad_Codigo
-					group by UPPER(DATENAME(weekday, M2.Turno_Fecha)), M2.Medico_Dni, E2.id_especialidad
-					having  UPPER(DATENAME(weekday, M2.Turno_Fecha)) = UPPER(DATENAME(weekday, M.Turno_Fecha)) and M2.Medico_Dni = M.Medico_Dni)
-			else null
-		end as especialidad,
-		UPPER(DATENAME(weekday, M.Turno_Fecha)) as nombre_dia,
-		CONVERT(char(8), MIN(M.Turno_Fecha), 108) as hora_inicial,
-		CONVERT(char(8), DATEADD(minute, 30, MAX(M.Turno_Fecha)), 108) as hora_final
-	from gd_esquema.Maestra as M
-	inner join BEMVINDO.USUARIO as U on
-		U.documento = M.Medico_Dni
-	inner join BEMVINDO.AGENDA as A on
-		A.profesional = U.id_usuario
-	inner join BEMVINDO.ESPECIALIDAD as E on
-		E.especialidad_codigo = M.Especialidad_Codigo
-	group by 
-		A.id_agenda, UPPER(DATENAME(weekday, M.Turno_Fecha)), M.Medico_Dni
+  select 
+    A.id_agenda,
+    case
+      when 1 = 
+        (select COUNT(distinct M2.Especialidad_Codigo)
+        from gd_esquema.Maestra as M2
+        group by UPPER(DATENAME(weekday, M2.Turno_Fecha)), M2.Medico_Dni
+        having UPPER(DATENAME(weekday, M2.Turno_Fecha)) = UPPER(DATENAME(weekday, M.Turno_Fecha)) and M2.Medico_Dni = M.Medico_Dni)
+        then        
+          (select E2.id_especialidad
+          from gd_esquema.Maestra as M2
+          inner join BEMVINDO.ESPECIALIDAD as E2 on E2.especialidad_codigo = M2.Especialidad_Codigo
+          group by UPPER(DATENAME(weekday, M2.Turno_Fecha)), M2.Medico_Dni, E2.id_especialidad
+          having  UPPER(DATENAME(weekday, M2.Turno_Fecha)) = UPPER(DATENAME(weekday, M.Turno_Fecha)) and M2.Medico_Dni = M.Medico_Dni)
+      else null
+    end as especialidad,
+    UPPER(DATENAME(weekday, M.Turno_Fecha)) as nombre_dia,
+    CONVERT(char(8), MIN(M.Turno_Fecha), 108) as hora_inicial,
+    CONVERT(char(8), DATEADD(minute, 30, MAX(M.Turno_Fecha)), 108) as hora_final
+  from gd_esquema.Maestra as M
+  inner join BEMVINDO.USUARIO as U on
+    U.documento = M.Medico_Dni
+  inner join BEMVINDO.AGENDA as A on
+    A.profesional = U.id_usuario
+  inner join BEMVINDO.ESPECIALIDAD as E on
+    E.especialidad_codigo = M.Especialidad_Codigo
+  group by 
+    A.id_agenda, UPPER(DATENAME(weekday, M.Turno_Fecha)), M.Medico_Dni
 
 go
 
@@ -1252,10 +1252,10 @@ begin
 
 declare @raiz numeric(10,0)=@id_afiliado-(@id_afiliado%100)
 
-	select count(*) as cantidad_hijos
-	from BEMVINDO.AFILIADO
-	where (numero_afiliado%100)>2
-		  and numero_afiliado-(numero_afiliado%100)=@raiz
+  select count(*) as cantidad_hijos
+  from BEMVINDO.AFILIADO
+  where (numero_afiliado%100)>2
+      and numero_afiliado-(numero_afiliado%100)=@raiz
 end
 
 go
@@ -1311,7 +1311,7 @@ begin
            RAISERROR ('error,el familiar ya existe', 11,1)
       end
 
-	  if EXISTS (SELECT * FROM BEMVINDO.USUARIO  WHERE documento=@documento ) 
+    if EXISTS (SELECT * FROM BEMVINDO.USUARIO  WHERE documento=@documento ) 
       begin
            RAISERROR ('error,el documento ya existe', 11,1)
       end
@@ -1424,6 +1424,11 @@ begin
      update BEMVINDO.AFILIADO SET baja_logica = 1, fecha_baja=@fecha_baja 
      where id_afiliado = @id_afiliado
 
+     UPDATE BEMVINDO.TURNO
+     SET
+     activo=0
+     where  afiliado=@id_afiliado and fecha_llegada is null and activo =1
+
 end
 
 
@@ -1457,7 +1462,7 @@ begin
          (@plan_medico,@id_afiliado,@motivo,@fecha_sistema)        
      end     
 
-		 update BEMVINDO.AFILIADO SET plan_medico=@plan_medico,estado_civil=@estado_civil
+     update BEMVINDO.AFILIADO SET plan_medico=@plan_medico,estado_civil=@estado_civil
          where id_afiliado = @id_afiliado     
 
 end
@@ -1505,7 +1510,7 @@ begin
              (u.apellido = @apellido OR @apellido IS NULL) and
              (u.documento = @dni OR @dni IS NULL) and
              (a.plan_medico = @planMedico OR @planMedico IS NULL) and
-			 (a.baja_logica=0)
+       (a.baja_logica=0)
 
 end
 
@@ -1528,7 +1533,7 @@ as begin
         A.fecha_final,
         E.id_especialidad as id_especialidad,
         E.descripcion as especialidad,
-		D.id_dia_agenda,
+    D.id_dia_agenda,
         D.dia,
         D.horario_inicial,
         D.horario_final
@@ -1536,7 +1541,7 @@ as begin
     left join BEMVINDO.DIA_AGENDA as D on A.id_agenda = D.agenda
     left join BEMVINDO.ESPECIALIDAD as E on D.especialidad = E.id_especialidad
     where 
-		D.dia != 'DOMINGO' and
+    D.dia != 'DOMINGO' and
         A.profesional = @id_profesional
 end
 
@@ -1557,22 +1562,22 @@ end
 go
 
 create procedure BEMVINDO.sp_eliminar_dia_agenda_por_id
-	@id_dia_agenda numeric(10,0)
+  @id_dia_agenda numeric(10,0)
 as begin
-	delete from BEMVINDO.DIA_AGENDA
-	where id_dia_agenda = @id_dia_agenda
+  delete from BEMVINDO.DIA_AGENDA
+  where id_dia_agenda = @id_dia_agenda
 end
 
 go
 
 create procedure BEMVINDO.sp_actualizar_fechas_agenda
-	@id_agenda numeric(10,0),
-	@fecha_inicial date,
-	@fecha_final date
+  @id_agenda numeric(10,0),
+  @fecha_inicial date,
+  @fecha_final date
 as begin
-	update BEMVINDO.AGENDA
-	set fecha_inicial = @fecha_inicial, fecha_final = @fecha_final
-	where id_agenda = @id_agenda
+  update BEMVINDO.AGENDA
+  set fecha_inicial = @fecha_inicial, fecha_final = @fecha_final
+  where id_agenda = @id_agenda
 end
 
 go
@@ -1762,8 +1767,8 @@ begin
 
      select * from BEMVINDO.TURNO
      where afiliado=@id_afiliado 
-	 and fecha_llegada is null
-	 and activo=1
+   and fecha_llegada is null
+   and activo=1
 
 end
 
@@ -2139,84 +2144,84 @@ go
 
 create procedure BEMVINDO.sp_afiliados_sin_numero_afiliado
 as begin
-	select 
-		A.id_afiliado as ID,
-		U.documento as DNI,
-		U.nombre as NOMBRE,
-		U.apellido AS APELLIDO
-	from BEMVINDO.USUARIO as U
-	inner join BEMVINDO.AFILIADO as A on A.id_afiliado = U.id_usuario
-	where A.numero_afiliado is null
+  select 
+    A.id_afiliado as ID,
+    U.documento as DNI,
+    U.nombre as NOMBRE,
+    U.apellido AS APELLIDO
+  from BEMVINDO.USUARIO as U
+  inner join BEMVINDO.AFILIADO as A on A.id_afiliado = U.id_usuario
+  where A.numero_afiliado is null
 end
 
 go
 
 create procedure BEMVINDO.sp_agregar_numero_afiliado_a_afiliado_principal_migrado
-	@id_principal numeric(10,0)
+  @id_principal numeric(10,0)
 as begin 
-	
-	declare @numero_nuevo_grupo int
+  
+  declare @numero_nuevo_grupo int
 
-	select @numero_nuevo_grupo = MAX(numero_afiliado)
-	from BEMVINDO.AFILIADO
-	where numero_afiliado is not null
+  select @numero_nuevo_grupo = MAX(numero_afiliado)
+  from BEMVINDO.AFILIADO
+  where numero_afiliado is not null
 
-	if @numero_nuevo_grupo is null begin
-		update BEMVINDO.AFILIADO
-		set numero_afiliado = 101
-		where id_afiliado = @id_principal
-	end
-	else begin
-		update BEMVINDO.AFILIADO
-		set numero_afiliado = (@numero_nuevo_grupo/100)*100 + 101
-		where id_afiliado = @id_principal
-	end
+  if @numero_nuevo_grupo is null begin
+    update BEMVINDO.AFILIADO
+    set numero_afiliado = 101
+    where id_afiliado = @id_principal
+  end
+  else begin
+    update BEMVINDO.AFILIADO
+    set numero_afiliado = (@numero_nuevo_grupo/100)*100 + 101
+    where id_afiliado = @id_principal
+  end
 end
 
 go
 
 create procedure BEMVINDO.sp_agregar_numero_afiliado_a_conyuge_migrado
-	@id_conyuge numeric(10,0),
-	@id_principal numeric(10,0)
+  @id_conyuge numeric(10,0),
+  @id_principal numeric(10,0)
 as begin 
-	
-	declare @numero_grupo int
+  
+  declare @numero_grupo int
 
-	select @numero_grupo = numero_afiliado
-	from BEMVINDO.AFILIADO
-	where id_afiliado = @id_principal
-	
-	update BEMVINDO.AFILIADO
-	set numero_afiliado =(@numero_grupo/100)*100 + 2
-	where id_afiliado = @id_conyuge
+  select @numero_grupo = numero_afiliado
+  from BEMVINDO.AFILIADO
+  where id_afiliado = @id_principal
+  
+  update BEMVINDO.AFILIADO
+  set numero_afiliado =(@numero_grupo/100)*100 + 2
+  where id_afiliado = @id_conyuge
 end
 
 go
 
 create procedure BEMVINDO.sp_agregar_numero_afiliado_a_hijo_migrado
-	@id_hijo numeric(10,0),
-	@id_principal numeric(10,0)
+  @id_hijo numeric(10,0),
+  @id_principal numeric(10,0)
 as begin 
-	
-	declare 
-		@numero_principal int,
-		@numero_hijo int
+  
+  declare 
+    @numero_principal int,
+    @numero_hijo int
 
-	select @numero_principal = numero_afiliado
-	from BEMVINDO.AFILIADO
-	where id_afiliado = @id_principal
+  select @numero_principal = numero_afiliado
+  from BEMVINDO.AFILIADO
+  where id_afiliado = @id_principal
 
-	select @numero_hijo = MAX(numero_afiliado)
-	from BEMVINDO.AFILIADO
-	where numero_afiliado between (@numero_principal/100)*100 and (@numero_principal/100)*100 +99
+  select @numero_hijo = MAX(numero_afiliado)
+  from BEMVINDO.AFILIADO
+  where numero_afiliado between (@numero_principal/100)*100 and (@numero_principal/100)*100 +99
 
-	update BEMVINDO.AFILIADO
-	set numero_afiliado = 
-		case 
-			when @numero_hijo+1 = (@numero_principal/100)*100 +2 then @numero_hijo+2
-			else @numero_hijo+1
-		end
-	where id_afiliado = @id_hijo
+  update BEMVINDO.AFILIADO
+  set numero_afiliado = 
+    case 
+      when @numero_hijo+1 = (@numero_principal/100)*100 +2 then @numero_hijo+2
+      else @numero_hijo+1
+    end
+  where id_afiliado = @id_hijo
 end
 
 
