@@ -153,7 +153,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 return false;
             } 
 
-            if (!agenda.listaDeDiasAgenda.Exists(x => x.tipoDiaAgenda == (TipoDiaAgenda.Borrado | TipoDiaAgenda.Nuevo)) || timerFechaDesde.Value.Date == timerFechaHasta.Value.Date)
+            if (agenda.listaDeDiasAgenda.TrueForAll(x => x.tipoDiaAgenda == TipoDiaAgenda.Migrado) && 
+                DateTime.Compare(timerFechaDesde.Value.Date, timerFechaHasta.Value.Date) == 0)
             {
                 MessageBox.Show("No se han realizado cambios para guardar", "Error", MessageBoxButtons.OK);
                 return false;
