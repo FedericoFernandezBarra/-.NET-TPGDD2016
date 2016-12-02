@@ -127,9 +127,9 @@ go
 
 exec BEMVINDO.st_validar_bono
 5581,--@id_afiliado     
-601,--@nro_afiliado   
-436777,--@id_bono    
-1--@plan_medico   
+101,--@nro_afiliado   
+436768,--@id_bono    
+1--@plan_medico  
 
 go
 
