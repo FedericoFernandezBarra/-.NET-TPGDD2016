@@ -145,6 +145,11 @@ drop procedure BEMVINDO.st_registrar_fecha_llegada
 
 go
 
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_validar_bono') 
+drop procedure BEMVINDO.st_validar_bono
+
+go
+
 
 --RESULTADOS PARA ATENCION MEDICA
 -------------------------------------------------------------------------------------------------------
