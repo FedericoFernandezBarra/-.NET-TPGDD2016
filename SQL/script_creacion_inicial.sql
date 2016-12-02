@@ -1798,7 +1798,7 @@ begin
 end
 go
 
-alter procedure BEMVINDO.st_validar_bono
+create procedure BEMVINDO.st_validar_bono
 @id_afiliado    numeric(10,0),
 @nro_afiliado   numeric(10,0),
 @id_bono        numeric(10,0),
