@@ -1791,7 +1791,64 @@ begin
     WHERE id_bono = @id_bono
 
 end
+go
 
+create procedure BEMVINDO.st_validar_bono
+@id_afiliado    numeric(10,0),
+@nro_afiliado   numeric(10,0),
+@id_bono        numeric(10,0),
+@plan_medico    numeric(10,0)
+
+AS
+begin
+
+      declare @nroAfiliadoRaiz numeric(10,0)
+      set @nroAfiliadoRaiz = cast(round(@nro_afiliado/100,0,1) as numeric(10,0))
+
+      if (@nro_afiliado = 0 )
+      begin
+           select 'ERROR: el afiliado pertenece al sistema anterior, (es migrado)' as resultado
+      end
+
+      else
+      if EXISTS (select * from BEMVINDO.BONO 
+                          where id_bono=@id_bono and
+                                turno is not null)
+      begin
+           select 'ERROR: el bono ya fue utilizado' as resultado
+      end
+
+      else
+      if (@plan_medico <> (select plan_medico from BEMVINDO.BONO where
+                                                   id_bono=@id_bono) )
+
+      begin
+           select 'ERROR: el bono no es valido, el afiliado cambio de plan medico' as resultado
+      end
+
+      else
+      if  ( @nroAfiliadoRaiz <> (select (cast(round(numero_afiliado/100,0,1) as numeric(10,0)))
+                                from BEMVINDO.AFILIADO
+                                where id_afiliado= (select comprador 
+                                                    from BEMVINDO.COMPRA 
+                                                     where id_compra= ( select compra
+                                                                        from BEMVINDO.BONO
+                                                                        where id_bono= @id_bono 
+                                                                      )
+                                                    )
+                                )
+          )
+      begin
+           select 'ERROR: el afiliado pertenece a otro grupo familiar' as resultado
+      end
+
+      else
+      begin
+          select '' as resultado
+      end
+
+
+end
 
 go
 
