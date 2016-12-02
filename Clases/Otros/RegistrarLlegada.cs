@@ -94,7 +94,11 @@ namespace ClinicaFrba.Clases.Otros
                 mensajeDeError = "Numero de bono erroneo";
                 return false;
             }
-            if (bonoSeleccionado.planMedico.id!=turnoDeAfiliado.afiliado.planMedico.id)
+            if (!cumpleValidacionesDeBd())
+            {
+                return false;
+            }
+            /*if (bonoSeleccionado.planMedico.id!=turnoDeAfiliado.afiliado.planMedico.id)
             {
                 bonoSeleccionado = null;
                 mensajeDeError = "Debe seleccionar un bono perteneciente al plan actual";
@@ -109,7 +113,7 @@ namespace ClinicaFrba.Clases.Otros
             {
                 mensajeDeError = "Bono perteneciente a otro grupo familiar";
                 return false;
-            }
+            }*/
             if (llegadaTarde())
             {
                 mensajeDeError = "Llegada tarde, el turno ya caduco";
@@ -117,6 +121,13 @@ namespace ClinicaFrba.Clases.Otros
             }
 
             return true;
+        }
+
+        private bool cumpleValidacionesDeBd()
+        {
+            mensajeDeError = (new BonoRepository()).verificarSiBonoPuedeSerGastado(bonoSeleccionado);
+
+            return mensajeDeError != "";
         }
 
         private bool llegadaTarde()
