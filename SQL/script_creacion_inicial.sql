@@ -1798,7 +1798,7 @@ begin
 end
 go
 
-create procedure BEMVINDO.st_validar_bono
+alter procedure BEMVINDO.st_validar_bono
 @id_afiliado    numeric(10,0),
 @nro_afiliado   numeric(10,0),
 @id_bono        numeric(10,0),
@@ -1813,6 +1813,13 @@ begin
       if (@nro_afiliado = 0 )
       begin
            select 'ERROR: el afiliado pertenece al sistema anterior, (es migrado)' as resultado
+      end
+
+      else
+      if not EXISTS (select * from BEMVINDO.BONO 
+                          where id_bono=@id_bono)
+      begin
+           select 'ERROR: el bono no existe' as resultado
       end
 
       else
