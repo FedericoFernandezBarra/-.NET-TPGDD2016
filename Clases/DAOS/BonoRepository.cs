@@ -36,16 +36,16 @@ namespace ClinicaFrba.Clases.DAOS
             return bonoRetorno;
         }
 
-        internal string verificarSiBonoPuedeSerGastado(Bono bono)
+        internal string verificarSiBonoPuedeSerGastado(Bono bono,Afiliado cliente)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
 
-            DataBase.Instance.agregarParametro(parametros, "id_afiliado", bono.compra.comprador.usuario.id);
-                DataBase.Instance.agregarParametro(parametros, "@nro_afiliado", bono.compra.comprador.usuario.id);
-                DataBase.Instance.agregarParametro(parametros, "@id_bono", bono.id);
-            DataBase.Instance.agregarParametro(parametros, "plan_medico", bono.compra.comprador.planMedico.id);
+            DataBase.Instance.agregarParametro(parametros, "id_afiliado", cliente.usuario.id);
+            DataBase.Instance.agregarParametro(parametros, "@nro_afiliado", cliente.numeroDeAfiliado);
+            DataBase.Instance.agregarParametro(parametros, "@id_bono", bono.id);
+            DataBase.Instance.agregarParametro(parametros, "plan_medico", cliente.planMedico.id);
 
-                return DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_validar_bono", parametros)[0]["resultado"].ToString();
+            return DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_validar_bono", parametros)[0]["resultado"].ToString();
         }
     }
 }

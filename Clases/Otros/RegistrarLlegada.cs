@@ -89,7 +89,7 @@ namespace ClinicaFrba.Clases.Otros
                 mensajeDeError = "Debe seleccionar un turno";
                 return false;
             }
-            if (bonoSeleccionado == null)//No se si el bono es obligatorio
+            if (bonoSeleccionado == null)
             {
                 mensajeDeError = "Numero de bono erroneo";
                 return false;
@@ -125,7 +125,7 @@ namespace ClinicaFrba.Clases.Otros
 
         private bool cumpleValidacionesDeBd()
         {
-            mensajeDeError = (new BonoRepository()).verificarSiBonoPuedeSerGastado(bonoSeleccionado);
+            mensajeDeError = (new BonoRepository()).verificarSiBonoPuedeSerGastado(bonoSeleccionado,turnoDeAfiliado.afiliado);
 
             return mensajeDeError != "";
         }
