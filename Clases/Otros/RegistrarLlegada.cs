@@ -127,7 +127,7 @@ namespace ClinicaFrba.Clases.Otros
         {
             mensajeDeError = (new BonoRepository()).verificarSiBonoPuedeSerGastado(bonoSeleccionado,turnoDeAfiliado.afiliado);
 
-            return mensajeDeError != "";
+            return mensajeDeError == "";
         }
 
         private bool llegadaTarde()
