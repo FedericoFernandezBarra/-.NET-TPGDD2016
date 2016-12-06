@@ -2,11 +2,6 @@
 {
     public enum TipoAgenda
     {
-        Nuevo, PrimeraVez, Migrado
-    }
-
-    public enum TipoDiaAgenda
-    {
-        Nuevo, Borrado, Migrado
+        Nuevo, Vencido, Actual
     }
 }

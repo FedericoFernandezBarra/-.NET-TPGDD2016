@@ -65,3 +65,4 @@ D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\bin\Debug\ClinicaFrba.p
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\bin\Debug\es\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
 D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Cancelar_Atencion.SeleccionarCancelacionForm.resources
+D:\Documentos\visual studio 2015\Projects\GddUtn-Clinica\obj\Debug\ClinicaFrba.Registro_Resultado.ConsultarResultadoAtencionForm.resources
