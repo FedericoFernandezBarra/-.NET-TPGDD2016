@@ -154,31 +154,27 @@ drop procedure BEMVINDO.st_registrar_consulta
 
 go
 
-if EXISTS (SELECT * FROM sysobjects  WHERE name='st_actualizar_consulta') 
-drop procedure BEMVINDO.st_actualizar_consulta
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_obtener_turnos_a_diagnosticar') 
+drop procedure BEMVINDO.st_obtener_turnos_a_diagnosticar
 
 go
 
 
-if EXISTS (SELECT * FROM sysobjects  WHERE name='st_obtener_fecha_minima_turno') 
-drop procedure BEMVINDO.st_obtener_fecha_minima_turno
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_obtener_consultas') 
+drop procedure BEMVINDO.st_obtener_consultas
 
 go
 
-if EXISTS (SELECT * FROM sysobjects  WHERE name='st_obtener_fecha_maxima_turno') 
-drop procedure BEMVINDO.st_obtener_fecha_maxima_turno
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_obtener_fecha_minima_consulta')
+drop procedure BEMVINDO.st_obtener_fecha_minima_consulta
 
 go
 
-if EXISTS (SELECT * FROM sysobjects  WHERE name='st_obtener_consulta') 
-drop procedure BEMVINDO.st_obtener_consulta
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_obtener_fecha_maxima_consulta')
+drop procedure BEMVINDO.st_obtener_fecha_maxima_consulta
 
 go
 
-if EXISTS (SELECT * FROM sysobjects  WHERE name='st_cantidad_turnos') 
-drop procedure BEMVINDO.st_cantidad_turnos
-
-go
 
 --CANCELAR ATENCION MEDICA POR PARTE DEL AFILIADO
 -------------------------------------------------------------------------------------------------------
@@ -1878,80 +1874,78 @@ go
 -----------------------------------------------------------------------------------------------------------------------------------------
 
 create procedure BEMVINDO.st_registrar_consulta
-@id_turno               numeric(10,0),
+@turno               numeric(10,0),
 @sintoma                nvarchar(255),
 @enfermedad             nvarchar(255),
 @fecha_diagnostico      datetime
 
-AS
+as
 begin
 
     insert into BEMVINDO.CONSULTA(turno,sintoma,enfermedad,fecha_diagnostico)
-     values (@id_turno,@sintoma,@enfermedad,@fecha_diagnostico)
+     values (@turno,@sintoma,@enfermedad,@fecha_diagnostico)
 
 end
 
 go
 
-create procedure BEMVINDO.st_actualizar_consulta
-@id_turno               numeric(10,0),
-@sintoma                nvarchar(255),
-@enfermedad             nvarchar(255),
-@fecha_diagnostico      datetime
+create procedure BEMVINDO.st_obtener_turnos_a_diagnosticar
+@profesional			numeric(10,0),
+@fecha					datetime
 
-AS
+as
 begin
-
-    update BEMVINDO.CONSULTA set sintoma = @sintoma, enfermedad = @enfermedad,
-    fecha_diagnostico = @fecha_diagnostico
-    where turno = @id_turno
+	select * from BEMVINDO.TURNO where profesional = @profesional 
+		and fecha_llegada is not null 
+		and CONVERT(date, fecha_turno) = CONVERT(date, @fecha)
+		and id_turno not in (select turno from BEMVINDO.CONSULTA)
+		and activo = 1
+	order by fecha_turno
 end
 
 go
 
-CREATE PROCEDURE BEMVINDO.st_obtener_fecha_minima_turno
+create procedure BEMVINDO.st_obtener_consultas
+@profesional			numeric(10,0),
+@fecha					datetime
+
+as
+begin
+	select * from BEMVINDO.CONSULTA c
+	inner join turno t on c.turno = t.id_turno 
+	where profesional = @profesional 
+	and CONVERT(date, fecha_turno) = CONVERT(date, @fecha)
+	order by fecha_turno
+end
+
+go
+
+
+create procedure BEMVINDO.st_obtener_fecha_minima_consulta
 @profesional            numeric(10,0)
 
-AS
+as
 begin
-    select MIN(CONVERT(date, fecha_turno)) as 'fechaMinima' from BEMVINDO.TURNO 
-        where profesional = @profesional
+    select MIN(CONVERT(date, fecha_turno)) as 'fechaMinima' from BEMVINDO.TURNO t
+	inner join BEMVINDO.CONSULTA c on c.turno = t.id_turno 
+    where profesional = @profesional
 end
 
 go
 
-CREATE PROCEDURE BEMVINDO.st_obtener_fecha_maxima_turno
+create procedure BEMVINDO.st_obtener_fecha_maxima_consulta
 @profesional            numeric(10,0)
 
-AS
+as
 begin
-    select MAX(CONVERT(date, fecha_turno)) as 'fechaMaxima' from BEMVINDO.TURNO 
-        where profesional = @profesional
+    select MAX(CONVERT(date, fecha_turno)) as 'fechaMaxima' from BEMVINDO.TURNO t
+	inner join BEMVINDO.CONSULTA c on c.turno = t.id_turno 
+    where profesional = @profesional
 end
 
 go
 
-CREATE PROCEDURE BEMVINDO.st_obtener_consulta
-@turno                  numeric(10,0)
 
-AS
-begin
-    select * from BEMVINDO.CONSULTA
-        where turno = @turno
-end
-
-go
-
-CREATE PROCEDURE BEMVINDO.st_cantidad_turnos
-@profesional            numeric(10,0)
-
-AS
-begin
-    SELECT COUNT(*) as 'cantidad' FROM BEMVINDO.TURNO
-        where profesional = @profesional
-end
-
-go
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------RESULTADOS PARA ATENCION MEDICA----------------------------------------------------------------------------------------------

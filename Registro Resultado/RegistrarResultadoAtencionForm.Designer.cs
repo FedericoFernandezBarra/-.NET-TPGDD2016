@@ -34,34 +34,29 @@
             this.rtxtDiagnostico = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dtpFechaTurno = new System.Windows.Forms.DateTimePicker();
-            this.dtpHoraDiagnostico = new System.Windows.Forms.DateTimePicker();
             this.cmbPacientes = new System.Windows.Forms.ComboBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.dtpFechaDiagnostico = new System.Windows.Forms.DateTimePicker();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.lblAfiliado = new System.Windows.Forms.Label();
+            this.lblPaciente = new System.Windows.Forms.Label();
             this.btnConfirmar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnBuscarProfesional = new System.Windows.Forms.Button();
             this.txtProfesional = new System.Windows.Forms.TextBox();
-            this.lblNombreAfiliado = new System.Windows.Forms.Label();
+            this.lblDatoAfiliado = new System.Windows.Forms.Label();
+            this.lblFecha = new System.Windows.Forms.Label();
+            this.lblHora = new System.Windows.Forms.Label();
+            this.lblDatoFecha = new System.Windows.Forms.Label();
+            this.lblDatoHora = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblProfesional
             // 
             this.lblProfesional.AutoSize = true;
             this.lblProfesional.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProfesional.Location = new System.Drawing.Point(12, 11);
+            this.lblProfesional.Location = new System.Drawing.Point(18, 13);
             this.lblProfesional.Name = "lblProfesional";
             this.lblProfesional.Size = new System.Drawing.Size(121, 16);
             this.lblProfesional.TabIndex = 11;
@@ -75,7 +70,7 @@
             this.rtxtSintomas.Name = "rtxtSintomas";
             this.rtxtSintomas.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.rtxtSintomas.Size = new System.Drawing.Size(276, 245);
-            this.rtxtSintomas.TabIndex = 7;
+            this.rtxtSintomas.TabIndex = 3;
             this.rtxtSintomas.Text = "";
             this.rtxtSintomas.TextChanged += new System.EventHandler(this.rtxtSintomas_TextChanged);
             // 
@@ -86,8 +81,8 @@
             this.rtxtDiagnostico.MaxLength = 255;
             this.rtxtDiagnostico.Name = "rtxtDiagnostico";
             this.rtxtDiagnostico.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtxtDiagnostico.Size = new System.Drawing.Size(375, 132);
-            this.rtxtDiagnostico.TabIndex = 8;
+            this.rtxtDiagnostico.Size = new System.Drawing.Size(375, 143);
+            this.rtxtDiagnostico.TabIndex = 4;
             this.rtxtDiagnostico.Text = "";
             this.rtxtDiagnostico.TextChanged += new System.EventHandler(this.rtxtDiagnostico_TextChanged);
             // 
@@ -96,7 +91,7 @@
             this.groupBox1.Controls.Add(this.rtxtDiagnostico);
             this.groupBox1.Location = new System.Drawing.Point(333, 210);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(388, 155);
+            this.groupBox1.Size = new System.Drawing.Size(388, 166);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Diagnóstico";
@@ -111,26 +106,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Síntomas";
             // 
-            // dtpFechaTurno
-            // 
-            this.dtpFechaTurno.Enabled = false;
-            this.dtpFechaTurno.Location = new System.Drawing.Point(31, 19);
-            this.dtpFechaTurno.Name = "dtpFechaTurno";
-            this.dtpFechaTurno.Size = new System.Drawing.Size(200, 20);
-            this.dtpFechaTurno.TabIndex = 3;
-            this.dtpFechaTurno.CloseUp += new System.EventHandler(this.dtpFechaTurno_CloseUp);
-            // 
-            // dtpHoraDiagnostico
-            // 
-            this.dtpHoraDiagnostico.CustomFormat = "HH:mm";
-            this.dtpHoraDiagnostico.Enabled = false;
-            this.dtpHoraDiagnostico.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpHoraDiagnostico.Location = new System.Drawing.Point(17, 20);
-            this.dtpHoraDiagnostico.Name = "dtpHoraDiagnostico";
-            this.dtpHoraDiagnostico.ShowUpDown = true;
-            this.dtpHoraDiagnostico.Size = new System.Drawing.Size(96, 20);
-            this.dtpHoraDiagnostico.TabIndex = 6;
-            // 
             // cmbPacientes
             // 
             this.cmbPacientes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -138,8 +113,8 @@
             this.cmbPacientes.FormattingEnabled = true;
             this.cmbPacientes.Location = new System.Drawing.Point(6, 19);
             this.cmbPacientes.Name = "cmbPacientes";
-            this.cmbPacientes.Size = new System.Drawing.Size(376, 21);
-            this.cmbPacientes.TabIndex = 4;
+            this.cmbPacientes.Size = new System.Drawing.Size(694, 21);
+            this.cmbPacientes.TabIndex = 2;
             this.cmbPacientes.SelectedIndexChanged += new System.EventHandler(this.cmbPacientes_SelectedIndexChanged);
             // 
             // notifyIcon1
@@ -150,69 +125,31 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.cmbPacientes);
-            this.groupBox3.Location = new System.Drawing.Point(333, 43);
+            this.groupBox3.Location = new System.Drawing.Point(15, 43);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(388, 50);
+            this.groupBox3.Size = new System.Drawing.Size(706, 50);
             this.groupBox3.TabIndex = 22;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Paciente";
             // 
-            // groupBox4
+            // lblPaciente
             // 
-            this.groupBox4.Controls.Add(this.dtpFechaTurno);
-            this.groupBox4.Location = new System.Drawing.Point(15, 43);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(282, 50);
-            this.groupBox4.TabIndex = 23;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Fecha del Turno";
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.dtpFechaDiagnostico);
-            this.groupBox5.Location = new System.Drawing.Point(15, 140);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(282, 50);
-            this.groupBox5.TabIndex = 24;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Fecha del Diagnóstico";
-            // 
-            // dtpFechaDiagnostico
-            // 
-            this.dtpFechaDiagnostico.Enabled = false;
-            this.dtpFechaDiagnostico.Location = new System.Drawing.Point(31, 19);
-            this.dtpFechaDiagnostico.Name = "dtpFechaDiagnostico";
-            this.dtpFechaDiagnostico.Size = new System.Drawing.Size(200, 20);
-            this.dtpFechaDiagnostico.TabIndex = 5;
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.dtpHoraDiagnostico);
-            this.groupBox6.Location = new System.Drawing.Point(340, 140);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(145, 50);
-            this.groupBox6.TabIndex = 25;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Hora del Diagnóstico";
-            // 
-            // lblAfiliado
-            // 
-            this.lblAfiliado.AutoSize = true;
-            this.lblAfiliado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAfiliado.Location = new System.Drawing.Point(12, 109);
-            this.lblAfiliado.Name = "lblAfiliado";
-            this.lblAfiliado.Size = new System.Drawing.Size(91, 16);
-            this.lblAfiliado.TabIndex = 26;
-            this.lblAfiliado.Text = "PACIENTE: ";
+            this.lblPaciente.AutoSize = true;
+            this.lblPaciente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPaciente.Location = new System.Drawing.Point(18, 109);
+            this.lblPaciente.Name = "lblPaciente";
+            this.lblPaciente.Size = new System.Drawing.Size(91, 16);
+            this.lblPaciente.TabIndex = 26;
+            this.lblPaciente.Text = "PACIENTE: ";
             // 
             // btnConfirmar
             // 
             this.btnConfirmar.Enabled = false;
-            this.btnConfirmar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConfirmar.Location = new System.Drawing.Point(475, 394);
+            this.btnConfirmar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirmar.Location = new System.Drawing.Point(475, 403);
             this.btnConfirmar.Name = "btnConfirmar";
-            this.btnConfirmar.Size = new System.Drawing.Size(114, 48);
-            this.btnConfirmar.TabIndex = 9;
+            this.btnConfirmar.Size = new System.Drawing.Size(126, 48);
+            this.btnConfirmar.TabIndex = 5;
             this.btnConfirmar.Text = "CONFIRMAR";
             this.btnConfirmar.UseVisualStyleBackColor = true;
             this.btnConfirmar.Click += new System.EventHandler(this.btnConfirmar_Click);
@@ -222,8 +159,8 @@
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.Location = new System.Drawing.Point(333, 460);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(99, 30);
-            this.btnCancelar.TabIndex = 10;
+            this.btnCancelar.Size = new System.Drawing.Size(117, 30);
+            this.btnCancelar.TabIndex = 6;
             this.btnCancelar.Text = "CANCELAR";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -232,10 +169,10 @@
             // 
             this.btnBuscarProfesional.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBuscarProfesional.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscarProfesional.Location = new System.Drawing.Point(618, 7);
+            this.btnBuscarProfesional.Location = new System.Drawing.Point(621, 7);
             this.btnBuscarProfesional.Name = "btnBuscarProfesional";
             this.btnBuscarProfesional.Size = new System.Drawing.Size(87, 26);
-            this.btnBuscarProfesional.TabIndex = 2;
+            this.btnBuscarProfesional.TabIndex = 1;
             this.btnBuscarProfesional.Text = "BUSCAR";
             this.btnBuscarProfesional.UseVisualStyleBackColor = true;
             this.btnBuscarProfesional.Visible = false;
@@ -246,35 +183,77 @@
             this.txtProfesional.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtProfesional.Enabled = false;
-            this.txtProfesional.Location = new System.Drawing.Point(138, 10);
+            this.txtProfesional.Location = new System.Drawing.Point(145, 10);
             this.txtProfesional.Name = "txtProfesional";
             this.txtProfesional.ReadOnly = true;
-            this.txtProfesional.Size = new System.Drawing.Size(463, 20);
+            this.txtProfesional.Size = new System.Drawing.Size(459, 20);
             this.txtProfesional.TabIndex = 1;
             // 
-            // lblNombreAfiliado
+            // lblDatoAfiliado
             // 
-            this.lblNombreAfiliado.AutoSize = true;
-            this.lblNombreAfiliado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombreAfiliado.Location = new System.Drawing.Point(96, 109);
-            this.lblNombreAfiliado.Name = "lblNombreAfiliado";
-            this.lblNombreAfiliado.Size = new System.Drawing.Size(0, 16);
-            this.lblNombreAfiliado.TabIndex = 32;
+            this.lblDatoAfiliado.AutoSize = true;
+            this.lblDatoAfiliado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDatoAfiliado.Location = new System.Drawing.Point(115, 109);
+            this.lblDatoAfiliado.Name = "lblDatoAfiliado";
+            this.lblDatoAfiliado.Size = new System.Drawing.Size(153, 16);
+            this.lblDatoAfiliado.TabIndex = 32;
+            this.lblDatoAfiliado.Text = "APELLIDO, NOMBRE";
+            // 
+            // lblFecha
+            // 
+            this.lblFecha.AutoSize = true;
+            this.lblFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFecha.Location = new System.Drawing.Point(18, 139);
+            this.lblFecha.Name = "lblFecha";
+            this.lblFecha.Size = new System.Drawing.Size(198, 16);
+            this.lblFecha.TabIndex = 33;
+            this.lblFecha.Text = "FECHA DE DIAGNÓSTICO: ";
+            // 
+            // lblHora
+            // 
+            this.lblHora.AutoSize = true;
+            this.lblHora.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHora.Location = new System.Drawing.Point(18, 169);
+            this.lblHora.Name = "lblHora";
+            this.lblHora.Size = new System.Drawing.Size(59, 16);
+            this.lblHora.TabIndex = 34;
+            this.lblHora.Text = "HORA: ";
+            // 
+            // lblDatoFecha
+            // 
+            this.lblDatoFecha.AutoSize = true;
+            this.lblDatoFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDatoFecha.Location = new System.Drawing.Point(222, 139);
+            this.lblDatoFecha.Name = "lblDatoFecha";
+            this.lblDatoFecha.Size = new System.Drawing.Size(104, 16);
+            this.lblDatoFecha.TabIndex = 36;
+            this.lblDatoFecha.Text = "DD/MM/AAAA";
+            // 
+            // lblDatoHora
+            // 
+            this.lblDatoHora.AutoSize = true;
+            this.lblDatoHora.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDatoHora.Location = new System.Drawing.Point(83, 169);
+            this.lblDatoHora.Name = "lblDatoHora";
+            this.lblDatoHora.Size = new System.Drawing.Size(58, 16);
+            this.lblDatoHora.TabIndex = 37;
+            this.lblDatoHora.Text = "HH:MM";
             // 
             // RegistrarResultadoAtencionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(731, 502);
-            this.Controls.Add(this.lblNombreAfiliado);
+            this.ClientSize = new System.Drawing.Size(734, 502);
+            this.Controls.Add(this.lblDatoHora);
+            this.Controls.Add(this.lblDatoFecha);
+            this.Controls.Add(this.lblHora);
+            this.Controls.Add(this.lblFecha);
+            this.Controls.Add(this.lblDatoAfiliado);
             this.Controls.Add(this.txtProfesional);
             this.Controls.Add(this.btnBuscarProfesional);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnConfirmar);
-            this.Controls.Add(this.lblAfiliado);
-            this.Controls.Add(this.groupBox6);
-            this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.lblPaciente);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -287,9 +266,6 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -302,21 +278,19 @@
         private System.Windows.Forms.RichTextBox rtxtDiagnostico;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.DateTimePicker dtpFechaTurno;
-        private System.Windows.Forms.DateTimePicker dtpHoraDiagnostico;
         private System.Windows.Forms.ComboBox cmbPacientes;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.DateTimePicker dtpFechaDiagnostico;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Label lblAfiliado;
+        private System.Windows.Forms.Label lblPaciente;
         private System.Windows.Forms.Button btnConfirmar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnBuscarProfesional;
         private System.Windows.Forms.TextBox txtProfesional;
-        private System.Windows.Forms.Label lblNombreAfiliado;
+        private System.Windows.Forms.Label lblDatoAfiliado;
+        private System.Windows.Forms.Label lblFecha;
+        private System.Windows.Forms.Label lblHora;
+        private System.Windows.Forms.Label lblDatoFecha;
+        private System.Windows.Forms.Label lblDatoHora;
 
     }
 }

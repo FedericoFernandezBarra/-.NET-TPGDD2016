@@ -287,17 +287,6 @@ namespace ClinicaFrba
             Show();
         }
 
-        private void tsmRegistroDeResultados_Click(object sender, EventArgs e)
-        {
-            RegistrarResultadoAtencionForm registrarResultado = new RegistrarResultadoAtencionForm(menu.usuario, menu.rol);
-
-            Hide();
-
-            registrarResultado.ShowDialog();
-
-            Show();
-        }
-
         private void tsmCancelaciones_Click(object sender, EventArgs e)
         {
             Form cancelacion = getFormDeCancelacion();
@@ -431,6 +420,28 @@ namespace ClinicaFrba
                     Close();
                 }
             }
+            Show();
+        }
+
+        private void registrarResultadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RegistrarResultadoAtencionForm registrarResultado = new RegistrarResultadoAtencionForm(menu.usuario, menu.rol);
+
+            Hide();
+
+            registrarResultado.ShowDialog();
+
+            Show();
+        }
+
+        private void consultarResultadosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConsultarResultadoAtencionForm consultarResultado = new ConsultarResultadoAtencionForm(menu.usuario, menu.rol);
+
+            Hide();
+
+            consultarResultado.ShowDialog();
+
             Show();
         }
     }
