@@ -45,7 +45,8 @@
             this.Medico = new System.Windows.Forms.GroupBox();
             this.cmdSeleccionar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dtpHoraLlegada = new System.Windows.Forms.DateTimePicker();
+            this.lblHoraLlegada = new System.Windows.Forms.Label();
+            this.lblFechaLlegada = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.SeleccionTurno.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grillaTurnos)).BeginInit();
@@ -191,24 +192,33 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.dtpHoraLlegada);
+            this.groupBox1.Controls.Add(this.lblFechaLlegada);
+            this.groupBox1.Controls.Add(this.lblHoraLlegada);
             this.groupBox1.Location = new System.Drawing.Point(275, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(242, 60);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Seleccionar Hora de llegada";
+            this.groupBox1.Text = "Hora de llegada";
             // 
-            // dtpHoraLlegada
+            // lblHoraLlegada
             // 
-            this.dtpHoraLlegada.CustomFormat = "HH:mm";
-            this.dtpHoraLlegada.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpHoraLlegada.Location = new System.Drawing.Point(67, 23);
-            this.dtpHoraLlegada.Name = "dtpHoraLlegada";
-            this.dtpHoraLlegada.ShowUpDown = true;
-            this.dtpHoraLlegada.Size = new System.Drawing.Size(110, 20);
-            this.dtpHoraLlegada.TabIndex = 18;
-            this.dtpHoraLlegada.ValueChanged += new System.EventHandler(this.dtpHoraLlegada_ValueChanged);
+            this.lblHoraLlegada.AutoSize = true;
+            this.lblHoraLlegada.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHoraLlegada.Location = new System.Drawing.Point(75, 16);
+            this.lblHoraLlegada.Name = "lblHoraLlegada";
+            this.lblHoraLlegada.Size = new System.Drawing.Size(89, 25);
+            this.lblHoraLlegada.TabIndex = 0;
+            this.lblHoraLlegada.Text = "HH:MM";
+            // 
+            // lblFechaLlegada
+            // 
+            this.lblFechaLlegada.AutoSize = true;
+            this.lblFechaLlegada.Location = new System.Drawing.Point(66, 43);
+            this.lblFechaLlegada.Name = "lblFechaLlegada";
+            this.lblFechaLlegada.Size = new System.Drawing.Size(96, 13);
+            this.lblFechaLlegada.TabIndex = 1;
+            this.lblFechaLlegada.Text = "dia DD/MM/AAAA";
             // 
             // RegistrarLlegadaForm
             // 
@@ -234,6 +244,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.grillaTurnos)).EndInit();
             this.Medico.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -251,11 +262,12 @@
         private System.Windows.Forms.GroupBox Medico;
         private System.Windows.Forms.Button cmdSeleccionar;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DateTimePicker dtpHoraLlegada;
         private System.Windows.Forms.DataGridViewTextBoxColumn cNroAfiliado;
         private System.Windows.Forms.DataGridViewTextBoxColumn cAfiliado;
         private System.Windows.Forms.DataGridViewTextBoxColumn cProfesional;
         private System.Windows.Forms.DataGridViewTextBoxColumn cEspecialidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn cFecha;
+        private System.Windows.Forms.Label lblFechaLlegada;
+        private System.Windows.Forms.Label lblHoraLlegada;
     }
 }

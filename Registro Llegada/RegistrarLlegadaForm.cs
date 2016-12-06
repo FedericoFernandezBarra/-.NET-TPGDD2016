@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TostadoPersistentKit;
 
 namespace ClinicaFrba.Registro_Llegada
 {
@@ -57,9 +58,8 @@ namespace ClinicaFrba.Registro_Llegada
             txtNroAfiliado.DataBindings.Add("Text", registrarLlegada, "numeroAfiliado");
             txtBono.DataBindings.Add("Text", registrarLlegada, "numeroBono");
 
-            dtpHoraLlegada.Value = registrarLlegada.fechaLlegada;
-
-            dtpHoraLlegada.MaxDate = registrarLlegada.fechaLlegada;
+            lblFechaLlegada.Text = DataBase.Instance.getDate().ToString("dddd dd/MM/yyyy");
+            lblHoraLlegada.Text = DataBase.Instance.getDate().ToString("HH:mm");
 
             //initDataGrid();
 
@@ -165,7 +165,7 @@ namespace ClinicaFrba.Registro_Llegada
 
         private void dtpHoraLlegada_ValueChanged(object sender, EventArgs e)
         {
-            registrarLlegada.fechaLlegada = dtpHoraLlegada.Value;
+            registrarLlegada.fechaLlegada = DataBase.Instance.getDate();
         }
     }
 }
