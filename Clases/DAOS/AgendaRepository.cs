@@ -20,7 +20,7 @@ namespace ClinicaFrba.Clases.DAOS
 
         public Agenda traerAgendaDelProfesional(Usuario usuario)
         {
-            string procedimiento = "BEMVINDO.sp_agenda_deL_profesional";
+            string procedimiento = "BEMVINDO.sp_agenda_del_profesional";
 
             SqlParameter pIdProfesional = new SqlParameter("@id_profesional", usuario.id);
             List<SqlParameter> parametros = new List<SqlParameter> { pIdProfesional };
@@ -76,17 +76,17 @@ namespace ClinicaFrba.Clases.DAOS
         public void insertarAgenda(Agenda agenda)
         {
             //inserto primero la agenda
-            string procedimiento = "BEMVINDO.sp_insertar_nueva_agenda";
+            string procAgenda = "BEMVINDO.sp_insertar_nueva_agenda";
 
             SqlParameter pIdProfesional = new SqlParameter("@id_profesional", agenda.idProfesional);
             SqlParameter pFechaInicial = new SqlParameter("@fecha_inicial", agenda.fecha_inicial);
             SqlParameter pFechaFinal = new SqlParameter("@fecha_final", agenda.fecha_final);
             List<SqlParameter> parametros = new List<SqlParameter> {pIdProfesional, pFechaInicial, pFechaFinal};
 
-            long idAgendaNueva = Convert.ToInt64(db.ejecutarStoredProcedure(procedimiento, parametros)[0]["id_agenda"]);
+            long idAgendaNueva = Convert.ToInt64(db.ejecutarStoredProcedure(procAgenda, parametros)[0]["id_agenda"]);
 
             //inserto los dias_agendas
-            procedimiento = "BEMVINDO.sp_insertar_nuevo_dia_agenda";
+            string procDiaAgenda = "BEMVINDO.sp_insertar_nuevo_dia_agenda";
 
             foreach (DiaAgenda dA in agenda.listaDeDiasAgenda)
             {
@@ -96,18 +96,18 @@ namespace ClinicaFrba.Clases.DAOS
                 SqlParameter pHoraFin = new SqlParameter("@hora_final", dA.horaFinal);
                 parametros = new List<SqlParameter> { pIdAgenda, pDia, pHoraIni, pHoraFin };
 
-                long idDiaAgendaNueva = Convert.ToInt64(db.ejecutarStoredProcedure(procedimiento, parametros));
+                long idDiaAgendaNueva = Convert.ToInt64(db.ejecutarStoredProcedure(procDiaAgenda, parametros)[0]["id_dia_agenda"]);
 
                 //inserto las especialidades por diaAgenda
                 foreach (var esp in dA.especialidades)
                 {
-                    procedimiento = "BEMVINDO.sp_insertar_nuevo_dia_agenda";
+                    string procEspPorDiaAgenda = "BEMVINDO.sp_insertar_especialidad_por_dia_agenda";
 
-                    SqlParameter pEspIdDiaAgenda = new SqlParameter("@id_dia_agenda", idAgendaNueva);
+                    SqlParameter pEspIdDiaAgenda = new SqlParameter("@id_dia_agenda", idDiaAgendaNueva);
                     SqlParameter pEspIdEspecialidad = new SqlParameter("@especialidad", esp.Value);
                     parametros = new List<SqlParameter> { pEspIdDiaAgenda, pEspIdEspecialidad };
 
-                    db.ejecutarStoredProcedure(procedimiento, parametros);
+                    db.ejecutarStoredProcedure(procEspPorDiaAgenda, parametros);
                 } 
             }
         }

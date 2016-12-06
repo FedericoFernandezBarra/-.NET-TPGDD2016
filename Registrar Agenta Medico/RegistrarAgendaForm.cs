@@ -33,14 +33,14 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             usuario = usua;
             agendaDAO = new AgendaRepository();
 
+            agenda = agendaDAO.traerAgendaDelProfesional(usuario);
+            especialidadesDelProfesional = agendaDAO.traerEspecialidadesDeProfesional(usuario);
+
             cargarElementosDeLaVista();
         }
 
         private void cargarElementosDeLaVista()
         {
-            agenda = agendaDAO.traerAgendaDelProfesional(usuario);
-            especialidadesDelProfesional = agendaDAO.traerEspecialidadesDeProfesional(usuario);
-
             listBoxDias.Items.Clear();
             listBoxDias.Items.AddRange(new object[] { "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO" });
             listBoxDias.SelectedIndex = 0;
@@ -225,7 +225,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 agendaDAO.insertarAgenda(agenda);
                 
                 MessageBox.Show("Se han guardado los cambios exitosamente");
-                
+
+                agenda.tipoAgenda = TipoAgenda.Actual;
                 cargarElementosDeLaVista();
                 return;
             }

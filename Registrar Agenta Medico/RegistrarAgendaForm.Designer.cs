@@ -54,13 +54,14 @@
             this.ESPECIALIDADES = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DESDE_LAS = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HASTA_LAS = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgHorarios)).BeginInit();
             this.SuspendLayout();
             // 
             // botonGuardarCambios
             // 
-            this.botonGuardarCambios.Location = new System.Drawing.Point(109, 489);
+            this.botonGuardarCambios.Location = new System.Drawing.Point(123, 499);
             this.botonGuardarCambios.Name = "botonGuardarCambios";
             this.botonGuardarCambios.Size = new System.Drawing.Size(100, 23);
             this.botonGuardarCambios.TabIndex = 13;
@@ -70,6 +71,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.btEliminarEspe);
             this.groupBox1.Controls.Add(this.btAgregarEspe);
             this.groupBox1.Controls.Add(this.lbEspe);
@@ -82,14 +84,14 @@
             this.groupBox1.Controls.Add(this.botonAgregar);
             this.groupBox1.Location = new System.Drawing.Point(15, 245);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(449, 212);
+            this.groupBox1.Size = new System.Drawing.Size(449, 224);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Agregar Horarios";
             // 
             // btEliminarEspe
             // 
-            this.btEliminarEspe.Location = new System.Drawing.Point(127, 184);
+            this.btEliminarEspe.Location = new System.Drawing.Point(122, 189);
             this.btEliminarEspe.Name = "btEliminarEspe";
             this.btEliminarEspe.Size = new System.Drawing.Size(67, 23);
             this.btEliminarEspe.TabIndex = 21;
@@ -99,7 +101,7 @@
             // 
             // btAgregarEspe
             // 
-            this.btAgregarEspe.Location = new System.Drawing.Point(11, 184);
+            this.btAgregarEspe.Location = new System.Drawing.Point(6, 189);
             this.btAgregarEspe.Name = "btAgregarEspe";
             this.btAgregarEspe.Size = new System.Drawing.Size(67, 23);
             this.btAgregarEspe.TabIndex = 20;
@@ -110,7 +112,7 @@
             // lbEspe
             // 
             this.lbEspe.FormattingEnabled = true;
-            this.lbEspe.Location = new System.Drawing.Point(11, 83);
+            this.lbEspe.Location = new System.Drawing.Point(6, 88);
             this.lbEspe.Name = "lbEspe";
             this.lbEspe.Size = new System.Drawing.Size(183, 95);
             this.lbEspe.TabIndex = 19;
@@ -201,7 +203,7 @@
             // 
             // botonVolver
             // 
-            this.botonVolver.Location = new System.Drawing.Point(256, 489);
+            this.botonVolver.Location = new System.Drawing.Point(270, 499);
             this.botonVolver.Name = "botonVolver";
             this.botonVolver.Size = new System.Drawing.Size(100, 23);
             this.botonVolver.TabIndex = 16;
@@ -262,7 +264,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 225);
+            this.label8.Location = new System.Drawing.Point(18, 224);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(136, 13);
             this.label8.TabIndex = 26;
@@ -271,7 +273,7 @@
             // lbHorasTotales
             // 
             this.lbHorasTotales.AutoSize = true;
-            this.lbHorasTotales.Location = new System.Drawing.Point(154, 225);
+            this.lbHorasTotales.Location = new System.Drawing.Point(160, 224);
             this.lbHorasTotales.Name = "lbHorasTotales";
             this.lbHorasTotales.Size = new System.Drawing.Size(51, 13);
             this.lbHorasTotales.TabIndex = 27;
@@ -304,6 +306,15 @@
             this.HASTA_LAS.HeaderText = "HASTA_LAS";
             this.HASTA_LAS.Name = "HASTA_LAS";
             this.HASTA_LAS.ReadOnly = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 72);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(124, 13);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "Especialidades Elegidas:";
             // 
             // RegistrarAgendaForm
             // 
@@ -362,5 +373,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ESPECIALIDADES;
         private System.Windows.Forms.DataGridViewTextBoxColumn DESDE_LAS;
         private System.Windows.Forms.DataGridViewTextBoxColumn HASTA_LAS;
+        private System.Windows.Forms.Label label1;
     }
 }

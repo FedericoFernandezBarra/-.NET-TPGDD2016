@@ -1560,7 +1560,8 @@ as begin
     inner join BEMVINDO.ESPECIALIDAD as E on E.id_especialidad = ED.id_especialidad
     where 
 		D.dia != 'DOMINGO' and
-        A.profesional = @id_profesional
+        A.profesional = @id_profesional and
+		A.fecha_final = (select top 1 a2.fecha_final from BEMVINDO.AGENDA as a2 where a2.profesional = A.profesional order by a2.fecha_final desc)
 end
 
 go
