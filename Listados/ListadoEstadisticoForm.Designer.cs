@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListadoEstadisticoForm));
             this.limpiarBoton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.filtro = new System.Windows.Forms.ComboBox();
@@ -55,7 +56,7 @@
             this.limpiarBoton.Location = new System.Drawing.Point(9, 359);
             this.limpiarBoton.Name = "limpiarBoton";
             this.limpiarBoton.Size = new System.Drawing.Size(134, 27);
-            this.limpiarBoton.TabIndex = 26;
+            this.limpiarBoton.TabIndex = 7;
             this.limpiarBoton.Text = "Limpiar";
             this.limpiarBoton.UseVisualStyleBackColor = true;
             this.limpiarBoton.Click += new System.EventHandler(this.limpiarBoton_Click);
@@ -79,10 +80,10 @@
             this.filtro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.filtro.Enabled = false;
             this.filtro.FormattingEnabled = true;
-            this.filtro.Location = new System.Drawing.Point(103, 22);
+            this.filtro.Location = new System.Drawing.Point(96, 16);
             this.filtro.Name = "filtro";
             this.filtro.Size = new System.Drawing.Size(156, 21);
-            this.filtro.TabIndex = 27;
+            this.filtro.TabIndex = 5;
             this.filtro.SelectedIndexChanged += new System.EventHandler(this.filtro_SelectedIndexChanged);
             // 
             // mes
@@ -90,15 +91,15 @@
             this.mes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mes.Enabled = false;
             this.mes.FormattingEnabled = true;
-            this.mes.Location = new System.Drawing.Point(343, 22);
+            this.mes.Location = new System.Drawing.Point(343, 16);
             this.mes.Name = "mes";
             this.mes.Size = new System.Drawing.Size(104, 21);
-            this.mes.TabIndex = 20;
+            this.mes.TabIndex = 4;
             // 
             // mesLabel
             // 
             this.mesLabel.AutoSize = true;
-            this.mesLabel.Location = new System.Drawing.Point(295, 24);
+            this.mesLabel.Location = new System.Drawing.Point(294, 19);
             this.mesLabel.Name = "mesLabel";
             this.mesLabel.Size = new System.Drawing.Size(30, 13);
             this.mesLabel.TabIndex = 16;
@@ -161,7 +162,7 @@
             this.buscarButton.Location = new System.Drawing.Point(415, 116);
             this.buscarButton.Name = "buscarButton";
             this.buscarButton.Size = new System.Drawing.Size(75, 23);
-            this.buscarButton.TabIndex = 3;
+            this.buscarButton.TabIndex = 6;
             this.buscarButton.Text = "Buscar";
             this.buscarButton.UseVisualStyleBackColor = true;
             this.buscarButton.Click += new System.EventHandler(this.buscarButton_Click);
@@ -174,7 +175,7 @@
             this.tipoListado.Location = new System.Drawing.Point(136, 39);
             this.tipoListado.Name = "tipoListado";
             this.tipoListado.Size = new System.Drawing.Size(354, 21);
-            this.tipoListado.TabIndex = 0;
+            this.tipoListado.TabIndex = 1;
             this.tipoListado.SelectedIndexChanged += new System.EventHandler(this.tipoListado_SelectedIndexChanged);
             // 
             // TipoListadoLabel
@@ -194,7 +195,7 @@
             this.semestre.Location = new System.Drawing.Point(343, 77);
             this.semestre.Name = "semestre";
             this.semestre.Size = new System.Drawing.Size(147, 21);
-            this.semestre.TabIndex = 2;
+            this.semestre.TabIndex = 3;
             this.semestre.SelectedIndexChanged += new System.EventHandler(this.semestre_SelectedIndexChanged);
             // 
             // TrimestreLabel
@@ -211,7 +212,7 @@
             this.anio.Location = new System.Drawing.Point(136, 77);
             this.anio.Name = "anio";
             this.anio.Size = new System.Drawing.Size(100, 20);
-            this.anio.TabIndex = 1;
+            this.anio.TabIndex = 2;
             this.anio.TextChanged += new System.EventHandler(this.anio_TextChanged);
             this.anio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.anio_KeyPress);
             // 
@@ -230,7 +231,7 @@
             this.volverButton.Location = new System.Drawing.Point(382, 359);
             this.volverButton.Name = "volverButton";
             this.volverButton.Size = new System.Drawing.Size(134, 27);
-            this.volverButton.TabIndex = 25;
+            this.volverButton.TabIndex = 8;
             this.volverButton.Text = "< < Volver";
             this.volverButton.UseVisualStyleBackColor = true;
             this.volverButton.Click += new System.EventHandler(this.volverButton_Click_1);
@@ -245,9 +246,12 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.volverButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximizeBox = false;
             this.Name = "ListadoEstadisticoForm";
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Listado estadístico";
             this.Load += new System.EventHandler(this.ListadoEstadisticoForm_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();

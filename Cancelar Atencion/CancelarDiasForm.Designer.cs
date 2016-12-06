@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CancelarDiasForm));
             this.lblProfesional = new System.Windows.Forms.Label();
             this.fechaFinCancelacion = new System.Windows.Forms.DateTimePicker();
             this.lbl26 = new System.Windows.Forms.Label();
@@ -44,57 +45,52 @@
             // 
             this.lblProfesional.AutoSize = true;
             this.lblProfesional.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProfesional.Location = new System.Drawing.Point(8, 242);
-            this.lblProfesional.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblProfesional.Location = new System.Drawing.Point(6, 197);
             this.lblProfesional.Name = "lblProfesional";
-            this.lblProfesional.Size = new System.Drawing.Size(83, 17);
+            this.lblProfesional.Size = new System.Drawing.Size(62, 13);
             this.lblProfesional.TabIndex = 42;
             this.lblProfesional.Text = "Profesional:";
             // 
             // fechaFinCancelacion
             // 
-            this.fechaFinCancelacion.Location = new System.Drawing.Point(10, 91);
-            this.fechaFinCancelacion.Margin = new System.Windows.Forms.Padding(4);
+            this.fechaFinCancelacion.Location = new System.Drawing.Point(8, 74);
             this.fechaFinCancelacion.Name = "fechaFinCancelacion";
-            this.fechaFinCancelacion.Size = new System.Drawing.Size(285, 22);
-            this.fechaFinCancelacion.TabIndex = 41;
+            this.fechaFinCancelacion.Size = new System.Drawing.Size(215, 20);
+            this.fechaFinCancelacion.TabIndex = 2;
             // 
             // lbl26
             // 
             this.lbl26.AutoSize = true;
-            this.lbl26.Location = new System.Drawing.Point(10, 70);
-            this.lbl26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl26.Location = new System.Drawing.Point(8, 57);
             this.lbl26.Name = "lbl26";
-            this.lbl26.Size = new System.Drawing.Size(175, 17);
+            this.lbl26.Size = new System.Drawing.Size(134, 13);
             this.lbl26.TabIndex = 40;
             this.lbl26.Text = "Seleccione Dia Fin Rango:";
             // 
             // txtMotivo
             // 
-            this.txtMotivo.Location = new System.Drawing.Point(144, 167);
-            this.txtMotivo.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMotivo.Location = new System.Drawing.Point(108, 136);
+            this.txtMotivo.MaxLength = 255;
             this.txtMotivo.Name = "txtMotivo";
-            this.txtMotivo.Size = new System.Drawing.Size(327, 22);
-            this.txtMotivo.TabIndex = 39;
+            this.txtMotivo.Size = new System.Drawing.Size(246, 20);
+            this.txtMotivo.TabIndex = 4;
             // 
             // cmbCancelacion
             // 
             this.cmbCancelacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCancelacion.FormattingEnabled = true;
-            this.cmbCancelacion.Location = new System.Drawing.Point(144, 135);
-            this.cmbCancelacion.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbCancelacion.Location = new System.Drawing.Point(108, 110);
             this.cmbCancelacion.Name = "cmbCancelacion";
-            this.cmbCancelacion.Size = new System.Drawing.Size(160, 24);
-            this.cmbCancelacion.TabIndex = 38;
+            this.cmbCancelacion.Size = new System.Drawing.Size(121, 21);
+            this.cmbCancelacion.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(10, 135);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(8, 110);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(121, 17);
+            this.label1.Size = new System.Drawing.Size(93, 13);
             this.label1.TabIndex = 37;
             this.label1.Text = "Tipo Cancelacion:";
             // 
@@ -102,48 +98,44 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(10, 172);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(8, 140);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(49, 17);
+            this.label3.Size = new System.Drawing.Size(39, 13);
             this.label3.TabIndex = 36;
             this.label3.Text = "Motivo";
             // 
             // btnAction
             // 
-            this.btnAction.Location = new System.Drawing.Point(371, 230);
-            this.btnAction.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAction.Location = new System.Drawing.Point(278, 187);
             this.btnAction.Name = "btnAction";
-            this.btnAction.Size = new System.Drawing.Size(100, 42);
-            this.btnAction.TabIndex = 35;
+            this.btnAction.Size = new System.Drawing.Size(75, 34);
+            this.btnAction.TabIndex = 5;
             this.btnAction.Text = "Confirmar";
             this.btnAction.UseVisualStyleBackColor = true;
             this.btnAction.Click += new System.EventHandler(this.btnAction_Click);
             // 
             // fechaInicioCancelacion
             // 
-            this.fechaInicioCancelacion.Location = new System.Drawing.Point(13, 30);
-            this.fechaInicioCancelacion.Margin = new System.Windows.Forms.Padding(4);
+            this.fechaInicioCancelacion.Location = new System.Drawing.Point(10, 24);
             this.fechaInicioCancelacion.Name = "fechaInicioCancelacion";
-            this.fechaInicioCancelacion.Size = new System.Drawing.Size(285, 22);
-            this.fechaInicioCancelacion.TabIndex = 34;
+            this.fechaInicioCancelacion.Size = new System.Drawing.Size(215, 20);
+            this.fechaInicioCancelacion.TabIndex = 1;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.SystemColors.Control;
-            this.label5.Location = new System.Drawing.Point(13, 9);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(10, 7);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(188, 17);
+            this.label5.Size = new System.Drawing.Size(145, 13);
             this.label5.TabIndex = 32;
             this.label5.Text = "Seleccione Dia Inicio Rango:";
             // 
             // CancelarDiasForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(493, 285);
+            this.ClientSize = new System.Drawing.Size(370, 232);
             this.Controls.Add(this.lblProfesional);
             this.Controls.Add(this.fechaFinCancelacion);
             this.Controls.Add(this.lbl26);
@@ -155,9 +147,12 @@
             this.Controls.Add(this.fechaInicioCancelacion);
             this.Controls.Add(this.label5);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximizeBox = false;
             this.Name = "CancelarDiasForm";
-            this.Text = "CancelarDiasForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Cancelar días";
             this.Load += new System.EventHandler(this.CancelarDiasForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditorDeRolesForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Nombre_Label = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
@@ -67,6 +68,7 @@
             // txtNombre
             // 
             this.txtNombre.Location = new System.Drawing.Point(95, 33);
+            this.txtNombre.MaxLength = 255;
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(397, 20);
             this.txtNombre.TabIndex = 1;
@@ -111,7 +113,7 @@
             this.Guardar_Button.Location = new System.Drawing.Point(427, 259);
             this.Guardar_Button.Name = "Guardar_Button";
             this.Guardar_Button.Size = new System.Drawing.Size(75, 23);
-            this.Guardar_Button.TabIndex = 13;
+            this.Guardar_Button.TabIndex = 4;
             this.Guardar_Button.Text = "Guardar";
             this.Guardar_Button.UseVisualStyleBackColor = true;
             this.Guardar_Button.Click += new System.EventHandler(this.Guardar_Button_Click);
@@ -122,7 +124,7 @@
             this.Cancelar_Button.Location = new System.Drawing.Point(327, 259);
             this.Cancelar_Button.Name = "Cancelar_Button";
             this.Cancelar_Button.Size = new System.Drawing.Size(75, 23);
-            this.Cancelar_Button.TabIndex = 12;
+            this.Cancelar_Button.TabIndex = 5;
             this.Cancelar_Button.Text = "Cancelar";
             this.Cancelar_Button.UseVisualStyleBackColor = true;
             this.Cancelar_Button.Click += new System.EventHandler(this.Cancelar_Button_Click);
@@ -136,9 +138,12 @@
             this.Controls.Add(this.Guardar_Button);
             this.Controls.Add(this.Cancelar_Button);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximizeBox = false;
             this.Name = "EditorDeRolesForm";
-            this.Text = "EditorDeRolesForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Rol";
             this.Load += new System.EventHandler(this.EditorDeRolesForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

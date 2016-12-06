@@ -330,9 +330,11 @@
             this.ClientSize = new System.Drawing.Size(661, 139);
             this.Controls.Add(this.mnuPrincipal);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "PaginaPrincipalForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ClinicaFrba";
             this.Load += new System.EventHandler(this.PaginaPrincipalForm_Load);
             this.mnuPrincipal.ResumeLayout(false);

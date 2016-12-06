@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SeleccionarCancelacionForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboBox_Cancelaciones = new System.Windows.Forms.ComboBox();
             this.continuar_Boton = new System.Windows.Forms.Button();
@@ -53,14 +54,14 @@
             this.comboBox_Cancelaciones.Location = new System.Drawing.Point(10, 20);
             this.comboBox_Cancelaciones.Name = "comboBox_Cancelaciones";
             this.comboBox_Cancelaciones.Size = new System.Drawing.Size(248, 21);
-            this.comboBox_Cancelaciones.TabIndex = 0;
+            this.comboBox_Cancelaciones.TabIndex = 1;
             // 
             // continuar_Boton
             // 
             this.continuar_Boton.Location = new System.Drawing.Point(139, 50);
             this.continuar_Boton.Name = "continuar_Boton";
             this.continuar_Boton.Size = new System.Drawing.Size(120, 30);
-            this.continuar_Boton.TabIndex = 1;
+            this.continuar_Boton.TabIndex = 2;
             this.continuar_Boton.Text = "Continuar >>";
             this.continuar_Boton.UseVisualStyleBackColor = true;
             this.continuar_Boton.Click += new System.EventHandler(this.continuar_Boton_Click);
@@ -81,8 +82,12 @@
             this.ClientSize = new System.Drawing.Size(293, 112);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "SeleccionarCancelacionForm";
-            this.Text = "SeleccionarCancelacionForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Cancelaciones";
             this.Load += new System.EventHandler(this.SeleccionarCancelacionForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);

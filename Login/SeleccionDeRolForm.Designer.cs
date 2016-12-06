@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SeleccionDeRolForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboBox_Roles = new System.Windows.Forms.ComboBox();
             this.continuar_Boton = new System.Windows.Forms.Button();
@@ -81,8 +82,12 @@
             this.ClientSize = new System.Drawing.Size(293, 111);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "SeleccionDeRolForm";
-            this.Text = "SeleccionDeRolForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Seleccionar rol";
             this.Load += new System.EventHandler(this.SeleccionDeRolForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
