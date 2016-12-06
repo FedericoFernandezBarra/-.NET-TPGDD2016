@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistrarResultadoAtencionForm));
             this.lblProfesional = new System.Windows.Forms.Label();
             this.rtxtSintomas = new System.Windows.Forms.RichTextBox();
             this.rtxtDiagnostico = new System.Windows.Forms.RichTextBox();
@@ -259,9 +260,11 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblProfesional);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "RegistrarResultadoAtencionForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Diagnóstico Médico";
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);

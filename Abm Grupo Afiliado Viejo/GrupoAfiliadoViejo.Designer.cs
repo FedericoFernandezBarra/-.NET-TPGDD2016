@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GrupoAfiliadoViejo));
             this.dataGridAfiliados = new System.Windows.Forms.DataGridView();
             this.DNI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NOMBRE = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -65,7 +66,7 @@
             this.dataGridAfiliados.ReadOnly = true;
             this.dataGridAfiliados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridAfiliados.Size = new System.Drawing.Size(570, 283);
-            this.dataGridAfiliados.TabIndex = 0;
+            this.dataGridAfiliados.TabIndex = 1;
             // 
             // DNI
             // 
@@ -99,7 +100,7 @@
             this.bAsignarPrincipal.Location = new System.Drawing.Point(201, 39);
             this.bAsignarPrincipal.Name = "bAsignarPrincipal";
             this.bAsignarPrincipal.Size = new System.Drawing.Size(75, 23);
-            this.bAsignarPrincipal.TabIndex = 2;
+            this.bAsignarPrincipal.TabIndex = 1;
             this.bAsignarPrincipal.Text = "Asignar";
             this.bAsignarPrincipal.UseVisualStyleBackColor = true;
             this.bAsignarPrincipal.Click += new System.EventHandler(this.bAsignarPrincipal_Click);
@@ -138,7 +139,7 @@
             this.bAsignarConyuge.Location = new System.Drawing.Point(201, 39);
             this.bAsignarConyuge.Name = "bAsignarConyuge";
             this.bAsignarConyuge.Size = new System.Drawing.Size(75, 23);
-            this.bAsignarConyuge.TabIndex = 2;
+            this.bAsignarConyuge.TabIndex = 3;
             this.bAsignarConyuge.Text = "Asignar";
             this.bAsignarConyuge.UseVisualStyleBackColor = true;
             this.bAsignarConyuge.Click += new System.EventHandler(this.bAsignarConyuge_Click);
@@ -159,7 +160,7 @@
             this.bEliminarHijo.Location = new System.Drawing.Point(349, 122);
             this.bEliminarHijo.Name = "bEliminarHijo";
             this.bEliminarHijo.Size = new System.Drawing.Size(75, 23);
-            this.bEliminarHijo.TabIndex = 2;
+            this.bEliminarHijo.TabIndex = 6;
             this.bEliminarHijo.Text = "Eliminar";
             this.bEliminarHijo.UseVisualStyleBackColor = true;
             this.bEliminarHijo.Click += new System.EventHandler(this.bEliminarHijo_Click);
@@ -181,7 +182,7 @@
             this.bAgregarHijo.Location = new System.Drawing.Point(349, 48);
             this.bAgregarHijo.Name = "bAgregarHijo";
             this.bAgregarHijo.Size = new System.Drawing.Size(75, 23);
-            this.bAgregarHijo.TabIndex = 7;
+            this.bAgregarHijo.TabIndex = 5;
             this.bAgregarHijo.Text = "Agregar";
             this.bAgregarHijo.UseVisualStyleBackColor = true;
             this.bAgregarHijo.Click += new System.EventHandler(this.bAgregarHijo_Click);
@@ -192,14 +193,14 @@
             this.listBoxHijos.Location = new System.Drawing.Point(9, 19);
             this.listBoxHijos.Name = "listBoxHijos";
             this.listBoxHijos.Size = new System.Drawing.Size(334, 186);
-            this.listBoxHijos.TabIndex = 6;
+            this.listBoxHijos.TabIndex = 4;
             // 
             // bGuardarCambios
             // 
             this.bGuardarCambios.Location = new System.Drawing.Point(461, 441);
             this.bGuardarCambios.Name = "bGuardarCambios";
             this.bGuardarCambios.Size = new System.Drawing.Size(115, 23);
-            this.bGuardarCambios.TabIndex = 8;
+            this.bGuardarCambios.TabIndex = 7;
             this.bGuardarCambios.Text = "Guardar cambios";
             this.bGuardarCambios.UseVisualStyleBackColor = true;
             this.bGuardarCambios.Click += new System.EventHandler(this.bGuardarCambios_Click);
@@ -209,7 +210,7 @@
             this.bVolverAtras.Location = new System.Drawing.Point(461, 515);
             this.bVolverAtras.Name = "bVolverAtras";
             this.bVolverAtras.Size = new System.Drawing.Size(115, 23);
-            this.bVolverAtras.TabIndex = 9;
+            this.bVolverAtras.TabIndex = 8;
             this.bVolverAtras.Text = "Volver atras";
             this.bVolverAtras.UseVisualStyleBackColor = true;
             this.bVolverAtras.Click += new System.EventHandler(this.bVolverAtras_Click);
@@ -227,8 +228,11 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridAfiliados);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "GrupoAfiliadoViejo";
-            this.Text = "GrupoAfiliadoViejo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Asignación de números de afiliados";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAfiliados)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

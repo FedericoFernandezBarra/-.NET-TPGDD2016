@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConsultarResultadoAtencionForm));
             this.btnVolver = new System.Windows.Forms.Button();
             this.rtxtDiagnostico = new System.Windows.Forms.RichTextBox();
             this.rtxtSintomas = new System.Windows.Forms.RichTextBox();
@@ -58,7 +59,7 @@
             this.btnVolver.Location = new System.Drawing.Point(464, 442);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(126, 48);
-            this.btnVolver.TabIndex = 40;
+            this.btnVolver.TabIndex = 4;
             this.btnVolver.Text = "VOLVER";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
@@ -71,7 +72,7 @@
             this.rtxtDiagnostico.Name = "rtxtDiagnostico";
             this.rtxtDiagnostico.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.rtxtDiagnostico.Size = new System.Drawing.Size(375, 181);
-            this.rtxtDiagnostico.TabIndex = 3;
+            this.rtxtDiagnostico.TabIndex = 55;
             this.rtxtDiagnostico.Text = "";
             // 
             // rtxtSintomas
@@ -82,7 +83,7 @@
             this.rtxtSintomas.Name = "rtxtSintomas";
             this.rtxtSintomas.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.rtxtSintomas.Size = new System.Drawing.Size(276, 228);
-            this.rtxtSintomas.TabIndex = 2;
+            this.rtxtSintomas.TabIndex = 44;
             this.rtxtSintomas.Text = "";
             // 
             // lblDatoHora
@@ -173,13 +174,14 @@
             this.cmbPacientes.Location = new System.Drawing.Point(7, 19);
             this.cmbPacientes.Name = "cmbPacientes";
             this.cmbPacientes.Size = new System.Drawing.Size(375, 21);
-            this.cmbPacientes.TabIndex = 4;
+            this.cmbPacientes.TabIndex = 3;
             this.cmbPacientes.SelectedIndexChanged += new System.EventHandler(this.cmbPacientes_SelectedIndexChanged);
             // 
             // txtProfesional
             // 
             this.txtProfesional.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtProfesional.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtProfesional.Enabled = false;
             this.txtProfesional.Location = new System.Drawing.Point(144, 18);
             this.txtProfesional.Name = "txtProfesional";
@@ -236,7 +238,7 @@
             this.mcFechaConsulta.Location = new System.Drawing.Point(0, 16);
             this.mcFechaConsulta.MaxSelectionCount = 1;
             this.mcFechaConsulta.Name = "mcFechaConsulta";
-            this.mcFechaConsulta.TabIndex = 52;
+            this.mcFechaConsulta.TabIndex = 2;
             this.mcFechaConsulta.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.mcFechaConsulta_DateSelected);
             // 
             // ConsultarResultadoAtencionForm
@@ -259,9 +261,11 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.lblProfesional);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "ConsultarResultadoAtencionForm";
-            this.Text = "ConsultarResultadoAtencionForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Consultar diagnósticos";
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
