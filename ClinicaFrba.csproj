@@ -262,6 +262,12 @@
     <Compile Include="Registro Llegada\RegistrarLlegadaForm.Designer.cs">
       <DependentUpon>RegistrarLlegadaForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Registro Resultado\ConsultarResultadoAtencionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Resultado\ConsultarResultadoAtencionForm.Designer.cs">
+      <DependentUpon>ConsultarResultadoAtencionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Registro Resultado\RegistrarResultadoAtencionForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -342,6 +348,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Registro Llegada\RegistrarLlegadaForm.resx">
       <DependentUpon>RegistrarLlegadaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Resultado\ConsultarResultadoAtencionForm.resx">
+      <DependentUpon>ConsultarResultadoAtencionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Registro Resultado\RegistrarResultadoAtencionForm.resx">
       <DependentUpon>RegistrarResultadoAtencionForm.cs</DependentUpon>

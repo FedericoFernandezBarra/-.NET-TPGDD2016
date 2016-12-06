@@ -20,7 +20,6 @@ namespace ClinicaFrba.Registro_Resultado
     {
         Profesional profesional;
         ResultadoAtencionMedica resultadoAtencionMedica;
-        private bool yaExistiaElDiagnostico = false;
 
         public RegistrarResultadoAtencionForm(Usuario usuarioProfesional, Rol rol)
         {
@@ -32,12 +31,16 @@ namespace ClinicaFrba.Registro_Resultado
             {
                 profesional = repositorioDeProfesionales.traerProfesionalPorUser(usuarioProfesional);
                 txtProfesional.Text = profesional.usuario.nombreCompleto;
-                filtrarCalendarioPorTurnos();
+                cargarPacientesADiagnosticarDe(profesional);
             }
             else
             {
                 btnBuscarProfesional.Visible = true;
             }
+
+            lblDatoAfiliado.Text = "";
+            lblDatoFecha.Text = "";
+            lblDatoHora.Text = "";
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -47,65 +50,24 @@ namespace ClinicaFrba.Registro_Resultado
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            if (dtpFechaDiagnostico.Value.Date > DataBase.Instance.getDate().Date)
-            {
-                MessageBox.Show("ERROR: La fecha de diagnóstico es futura a la fecha actual (" + DataBase.Instance.getDate().ToString("dd/MM/yyyy") + ")", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                resultadoAtencionMedica.sintomas = rtxtSintomas.Text;
-                resultadoAtencionMedica.diagnostico = rtxtDiagnostico.Text;
-                resultadoAtencionMedica.fechaDeDiagnostico = new DateTime(dtpFechaDiagnostico.Value.Year, dtpFechaDiagnostico.Value.Month,
-                    dtpFechaDiagnostico.Value.Day, dtpHoraDiagnostico.Value.Hour, dtpHoraDiagnostico.Value.Minute, dtpHoraDiagnostico.Value.Second);
+            resultadoAtencionMedica.sintomas = rtxtSintomas.Text;
+            resultadoAtencionMedica.diagnostico = rtxtDiagnostico.Text;
+            resultadoAtencionMedica.fechaDeDiagnostico = DataBase.Instance.getDate();
 
-                List<SqlParameter> parametros = new List<SqlParameter>();
-                DataBase.Instance.agregarParametro(parametros, "@id_turno", resultadoAtencionMedica.turnoID);
-                DataBase.Instance.agregarParametro(parametros, "@sintoma", resultadoAtencionMedica.sintomas);
-                DataBase.Instance.agregarParametro(parametros, "@enfermedad", resultadoAtencionMedica.diagnostico);
-                DataBase.Instance.agregarParametro(parametros, "@fecha_diagnostico", resultadoAtencionMedica.fechaDeDiagnostico);
+            new ResultadoAtencionMedicaRepository().registrarConsultaMedica(resultadoAtencionMedica);
+            MessageBox.Show("Se ha guardado el diagnóstico exitosamente.", "Resultado de Atención Médica", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                if (yaExistiaElDiagnostico)
-                {
-                    DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_actualizar_consulta", parametros);
-                }
-                else
-                {
-                    DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_registrar_consulta", parametros);
-                }
-
-                MessageBox.Show("Se ha guardado el diagnóstico exitosamente.", "Resultado de Atención Médica", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                Close();
-            }
+            Close();
         }
+        
 
         private void cmbPacientes_SelectedIndexChanged(object sender, EventArgs e)
         {
             Turno turnoSeleccionado = ((Turno)cmbPacientes.SelectedItem);
-
-            if (yaTieneDiagnostico(turnoSeleccionado))
-            {
-                resultadoAtencionMedica = obtenerResultadoDeAtencionMedicaDe(turnoSeleccionado);
-                dtpFechaDiagnostico.Value = resultadoAtencionMedica.fechaDeDiagnostico;
-                dtpHoraDiagnostico.Value = resultadoAtencionMedica.fechaDeDiagnostico;
-                rtxtSintomas.Text = resultadoAtencionMedica.sintomas;
-                rtxtDiagnostico.Text = resultadoAtencionMedica.diagnostico;
-                btnConfirmar.Enabled = true;
-
-                yaExistiaElDiagnostico = true;
-            }
-            else
-            {
-                yaExistiaElDiagnostico = false;
-                rtxtSintomas.Text = "";
-                rtxtDiagnostico.Text = "";
-            }
-
-            lblNombreAfiliado.Text = turnoSeleccionado.nombreAfiliadoCompleto;
-            resultadoAtencionMedica.turnoID = turnoSeleccionado.id;
-            dtpFechaDiagnostico.Enabled = true;
-            dtpHoraDiagnostico.Enabled = true;
-            dtpHoraDiagnostico.Value = ((Turno)cmbPacientes.SelectedItem).fechaDeTurno;
+            rtxtSintomas.Text = "";
+            rtxtDiagnostico.Text = "";
+            lblDatoAfiliado.Text = turnoSeleccionado.nombreAfiliadoCompleto;
+            resultadoAtencionMedica.turno.id = turnoSeleccionado.id;
         }
 
         private void activarBotonConfirmar()
@@ -130,44 +92,28 @@ namespace ClinicaFrba.Registro_Resultado
             activarBotonConfirmar();
         }
 
-        private void dtpFechaTurno_CloseUp(object sender, EventArgs e)
+        public void cargarPacientesADiagnosticarDe(Profesional unProfesional)
         {
-            TurnoRepository repositorioDeTurnos = new TurnoRepository();
-            List<Turno> turnosDelProfesionalEnEseDia = new List<Turno>();
-            turnosDelProfesionalEnEseDia = repositorioDeTurnos.traerTurnosDeProfesional(profesional, dtpFechaTurno.Value).
-                Where(unTurno => unTurno.fechaDeLlegada.Date == unTurno.fechaDeTurno.Date 
-                    && unTurno.fechaDeTurno.Date <= DataBase.Instance.getDate().Date).ToList();
-            dtpFechaDiagnostico.MinDate = new DateTime(1800, 1, 1);
-            if (dtpFechaTurno.Value.Date > DataBase.Instance.getDate().Date)
+            List<Turno> turnosADiagnosticar = new List<Turno>();
+            turnosADiagnosticar = new TurnoRepository().obtenerTurnosADiagnosticarDe(unProfesional);
+            if (turnosADiagnosticar.Count > 0)
             {
-                MessageBox.Show("ERROR: La fecha elegida es futura a la actual (" + 
-                    DataBase.Instance.getDate().ToString("dd/MM/yyyy") + ")", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                cmbPacientes.Enabled = false;
-                dtpFechaDiagnostico.Enabled = false;
-                dtpHoraDiagnostico.Enabled = false;
-                rtxtSintomas.Enabled = false;
-                rtxtDiagnostico.Enabled = false;
-                btnConfirmar.Enabled = false;
-            }
-            else if (turnosDelProfesionalEnEseDia.Count == 0)
-            {
-                MessageBox.Show("ERROR: No existen turnos en la fecha seleccionada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                cmbPacientes.Enabled = false;
-                dtpFechaDiagnostico.Enabled = false;
-                dtpHoraDiagnostico.Enabled = false;
-                rtxtSintomas.Enabled = false;
-                rtxtDiagnostico.Enabled = false;
-                btnConfirmar.Enabled = false;           
-            }
-            else
-            {
-                cmbPacientes.DataSource = turnosDelProfesionalEnEseDia;
+                cmbPacientes.DataSource = turnosADiagnosticar;
                 cmbPacientes.DisplayMember = "nombreAfiliadoCompleto";
                 cmbPacientes.Enabled = true;
                 rtxtSintomas.Enabled = true;
                 rtxtDiagnostico.Enabled = true;
-                lblNombreAfiliado.Text = ((Turno)cmbPacientes.SelectedItem).nombreAfiliadoCompleto;
-                dtpFechaDiagnostico.MinDate = dtpFechaTurno.Value;
+                lblDatoFecha.Text = DataBase.Instance.getDate().ToString("dddd dd/MM/yyyy");
+                lblDatoHora.Text = DataBase.Instance.getDate().ToString("HH:mm");
+                lblDatoAfiliado.Text = ((Turno)cmbPacientes.SelectedItem).nombreAfiliadoCompleto;
+            }
+            else
+            {
+                MessageBox.Show("ERROR: No hay turnos que se hayan registrado su llegada. Fecha: " + DataBase.Instance.getDate().ToString("dd/MM/yyyy HH:mm"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cmbPacientes.Enabled = false;
+                rtxtSintomas.Enabled = false;
+                rtxtDiagnostico.Enabled = false;
+                btnConfirmar.Enabled = false;    
             }
         }
 
@@ -189,52 +135,8 @@ namespace ClinicaFrba.Registro_Resultado
                 rtxtSintomas.Enabled = false;
                 rtxtDiagnostico.Enabled = false;
                 btnConfirmar.Enabled = false;
-                filtrarCalendarioPorTurnos();
+                cargarPacientesADiagnosticarDe(profesional);
             }
-        }
-
-        private void filtrarCalendarioPorTurnos()
-        {
-            TurnoRepository turnoRepository = new TurnoRepository();
-            if (turnoRepository.tieneTurno(profesional))
-            {
-                dtpFechaTurno.MinDate = turnoRepository.obtenerFechaMinimaDeTurnoDe(profesional);
-                dtpFechaTurno.Value = dtpFechaTurno.MinDate;
-                dtpFechaTurno.Enabled = true;
-            }
-            else
-            {
-                MessageBox.Show("ERROR: El profesional no tiene turnos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                dtpFechaTurno.Enabled = false;
-                cmbPacientes.Enabled = false;
-                rtxtSintomas.Enabled = false;
-                rtxtDiagnostico.Enabled = false;
-                btnConfirmar.Enabled = false;
-            } 
-        }
-
-        private bool yaTieneDiagnostico(Turno unTurno)
-        {
-            List<SqlParameter> parametros = new List<SqlParameter>();
-            DataBase.Instance.agregarParametro(parametros, "@turno", unTurno.id);
-
-            return DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_obtener_consulta", parametros).Count > 0;
-        }
-
-        private ResultadoAtencionMedica obtenerResultadoDeAtencionMedicaDe(Turno unTurno)
-        {
-            ResultadoAtencionMedica resultadoAtencionMedica = new ResultadoAtencionMedica();
-            List<SqlParameter> parametros = new List<SqlParameter>();
-            DataBase.Instance.agregarParametro(parametros, "@turno", unTurno.id);
-
-            List<Dictionary<String, Object>> resultado = DataBase.Instance.ejecutarStoredProcedure("BEMVINDO.st_obtener_consulta", parametros);
-            resultadoAtencionMedica.consultaID = Convert.ToInt64(resultado[0]["id_consulta"]);
-            resultadoAtencionMedica.turnoID = Convert.ToInt64(resultado[0]["turno"]);
-            resultadoAtencionMedica.sintomas = (String)resultado[0]["sintoma"].ToString();
-            resultadoAtencionMedica.diagnostico = (String)resultado[0]["enfermedad"];
-            resultadoAtencionMedica.fechaDeDiagnostico = (DateTime)resultado[0]["fecha_diagnostico"];
-
-            return resultadoAtencionMedica;
         }
     }
 }

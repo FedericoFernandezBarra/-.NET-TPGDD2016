@@ -55,6 +55,8 @@
             this.tsmRegistroDeLlegada = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmRegistroDeResultados = new System.Windows.Forms.ToolStripMenuItem();
+            this.registrarResultadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.consultarResultadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmCancelaciones = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAgenda = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAgenda_Registrar = new System.Windows.Forms.ToolStripMenuItem();
@@ -272,11 +274,27 @@
             // 
             // tsmRegistroDeResultados
             // 
+            this.tsmRegistroDeResultados.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.registrarResultadoToolStripMenuItem,
+            this.consultarResultadosToolStripMenuItem});
             this.tsmRegistroDeResultados.Name = "tsmRegistroDeResultados";
             this.tsmRegistroDeResultados.Size = new System.Drawing.Size(221, 22);
             this.tsmRegistroDeResultados.Text = "Registro de resultados";
             this.tsmRegistroDeResultados.Visible = false;
-            this.tsmRegistroDeResultados.Click += new System.EventHandler(this.tsmRegistroDeResultados_Click);
+            // 
+            // registrarResultadoToolStripMenuItem
+            // 
+            this.registrarResultadoToolStripMenuItem.Name = "registrarResultadoToolStripMenuItem";
+            this.registrarResultadoToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.registrarResultadoToolStripMenuItem.Text = "Registrar resultado";
+            this.registrarResultadoToolStripMenuItem.Click += new System.EventHandler(this.registrarResultadoToolStripMenuItem_Click);
+            // 
+            // consultarResultadosToolStripMenuItem
+            // 
+            this.consultarResultadosToolStripMenuItem.Name = "consultarResultadosToolStripMenuItem";
+            this.consultarResultadosToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.consultarResultadosToolStripMenuItem.Text = "Consultar resultados";
+            this.consultarResultadosToolStripMenuItem.Click += new System.EventHandler(this.consultarResultadosToolStripMenuItem_Click);
             // 
             // tsmCancelaciones
             // 
@@ -355,6 +373,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmCancelaciones;
         private System.Windows.Forms.ToolStripMenuItem buscarAfiliadoToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem tsmAgregarNAfiliadoMigrado;
+        private System.Windows.Forms.ToolStripMenuItem registrarResultadoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem consultarResultadosToolStripMenuItem;
     }
 }
 
