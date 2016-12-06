@@ -28,21 +28,16 @@ namespace ClinicaFrba.Clases.POJOS
             tipoAgenda = tA;
         }
         
-        public List<DiaAgenda> diasAgendaDelDiaNoBorrados(string dia)
-        {
-            return listaDeDiasAgenda.FindAll(diaAgenda => diaAgenda.nombreDia == dia && diaAgenda.tipoDiaAgenda != TipoDiaAgenda.Borrado);
-        }
-
         public bool esteHorarioEstaOcupado(string dia, TimeSpan horario)
         {
-            return listaDeDiasAgenda.FindAll(x=> x.tipoDiaAgenda != TipoDiaAgenda.Borrado).Exists(diaAgenda => (diaAgenda.horaInicial <= horario && horario <= diaAgenda.horaFinal) && diaAgenda.nombreDia == dia);
+            return listaDeDiasAgenda.Exists(diaAgenda => (diaAgenda.horaInicial <= horario && horario <= diaAgenda.horaFinal) && diaAgenda.nombreDia == dia);
         }
 
         public double horasTrabajadasEnLaSemana()
         {
             double horasTrabajadas = 0;
 
-            foreach (DiaAgenda dia in listaDeDiasAgenda.FindAll(x => x.tipoDiaAgenda != TipoDiaAgenda.Borrado))
+            foreach (DiaAgenda dia in listaDeDiasAgenda)
             {
                 horasTrabajadas += dia.horasTrabajadasEnElDia().Hours;
 
@@ -51,25 +46,9 @@ namespace ClinicaFrba.Clases.POJOS
             return horasTrabajadas;
         }
 
-        public List<DiaAgenda> diasAgendaNuevas()
+        public List<DiaAgenda> diasAgendaDelDia(string nombreDia)
         {
-            return listaDeDiasAgenda.FindAll(x => x.tipoDiaAgenda == TipoDiaAgenda.Nuevo);
+            return listaDeDiasAgenda.FindAll(x => x.nombreDia == nombreDia);
         }
-
-        public bool hayDiasAgendaNuevos()
-        {
-            return listaDeDiasAgenda.FindAll(x => x.tipoDiaAgenda == TipoDiaAgenda.Nuevo).Count != 0;
-        }
-
-        public List<DiaAgenda> diasAgendaBorradasConId0()
-        {
-            return listaDeDiasAgenda.FindAll(x => x.tipoDiaAgenda == TipoDiaAgenda.Borrado && x.idDiaAgenda != 0);
-        }
-
-        public bool hayDiasAgendaBorradosConId0()
-        {
-            return listaDeDiasAgenda.FindAll(x => x.tipoDiaAgenda == TipoDiaAgenda.Borrado && x.idDiaAgenda != 0).Count != 0;
-        }
-
     }
 }

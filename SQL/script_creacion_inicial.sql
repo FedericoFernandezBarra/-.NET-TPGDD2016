@@ -1171,7 +1171,7 @@ insert into BEMVINDO.DIA_AGENDA
     A.id_agenda, UPPER(DATENAME(weekday, M.Turno_Fecha)), M.Medico_Dni
 
 go
-/*
+
 --ESPECIALIDAD POR DIA AGENDA
 -------------------------------------------------------------------------------------------------------
 insert into BEMVINDO.ESPECIALIDAD_POR_DIA_AGENDA
@@ -1192,7 +1192,7 @@ insert into BEMVINDO.ESPECIALIDAD_POR_DIA_AGENDA
 	having 
 		D.dia = UPPER(DATENAME(weekday, M.Turno_Fecha))
 
-go*/
+go
 
 /********************************************************************************************************************************/
 /*BORRADO DE CAMPOS QUE FUERON REEMPLAZADOS POR ID'S AUTOGENERADOS EN LA MIGRACION*/

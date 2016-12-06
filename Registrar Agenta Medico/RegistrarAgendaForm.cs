@@ -3,6 +3,7 @@ using ClinicaFrba.Clases.DAOS;
 using ClinicaFrba.Clases.Otros;
 using ClinicaFrba.Clases.POJOS;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -15,7 +16,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         Agenda agenda { get; set; }
 
-        Dictionary<long, string> especialidadesDelPersonal { get; set; }
+        Dictionary<string, long> especialidadesDelProfesional { get; set; }
 
         Usuario usuario { get; set; }
 
@@ -38,23 +39,23 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         private void cargarElementosDeLaVista()
         {
             agenda = agendaDAO.traerAgendaDelProfesional(usuario);
-            especialidadesDelPersonal = agendaDAO.traerEspecialidadesDeProfesional(usuario);
+            especialidadesDelProfesional = agendaDAO.traerEspecialidadesDeProfesional(usuario);
 
             listBoxDias.Items.Clear();
             listBoxDias.Items.AddRange(new object[] { "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO" });
             listBoxDias.SelectedIndex = 0;
 
-            if (especialidadesDelPersonal != null)
+            if (especialidadesDelProfesional != null)
             {
                 listBoxEspecialidades.Items.Clear();
-                foreach (KeyValuePair<long, string> item in especialidadesDelPersonal)
+                foreach (var item in especialidadesDelProfesional)
                 {
-                    listBoxEspecialidades.Items.Add(item.Value);
+                    listBoxEspecialidades.Items.Add(item.Key);
                 }
                 listBoxEspecialidades.SelectedIndex = 0;
             }
 
-            if (agenda.tipoAgenda == TipoAgenda.Migrado)
+            if (agenda.tipoAgenda == TipoAgenda.Actual)
             {
                 timerFechaDesde.Value = agenda.fecha_inicial;
                 timerFechaDesde.Enabled = false;
@@ -62,7 +63,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 timerFechaHasta.Value = agenda.fecha_final;
                 timerFechaHasta.Enabled = false;
 
-                botonEliminar.Enabled = false;
+                botonGuardarCambios.Enabled = false;
             }
 
             actualizarHorasTrabajadas();
@@ -77,18 +78,21 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             double minutos = agenda.horasTrabajadasEnLaSemana() - horas;
 
             lbHorasTotales.Text = horas.ToString() + ":";
-
-            if (minutos != 0) lbHorasTotales.Text += "30 hs.";
-            else lbHorasTotales.Text += "00 hs.";
+            lbHorasTotales.Text += (minutos != 0)? "30 hs.": "00 hs.";
         }
 
         private void cargarGriedViewDeHorarios()
         {
             dgHorarios.Rows.Clear();
 
-            foreach (DiaAgenda diaAgenda in agenda.diasAgendaDelDiaNoBorrados(listBoxDias.SelectedItem.ToString()))
+            foreach (DiaAgenda diaAgenda in agenda.diasAgendaDelDia(listBoxDias.SelectedItem.ToString()))
             {
-                dgHorarios.Rows.Add(diaAgenda.nombreEspecialidad, diaAgenda.horaInicial, diaAgenda.horaFinal);
+                string nombresEsp = "";
+                foreach (var esp in diaAgenda.especialidades)
+                {
+                    nombresEsp += esp.Key + " / ";
+                }
+                dgHorarios.Rows.Add(nombresEsp, diaAgenda.horaInicial, diaAgenda.horaFinal);
             }
             dgHorarios.AutoResizeColumns();
             dgHorarios.AutoResizeRows();
@@ -97,7 +101,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         /*VALIDACIONES*/
         /*************************************************************************************/
 
-        private bool seCumplenLasValidacionesParaAgregar()
+        private bool seCumplenLasValidacionesParaAgregarDiaAgenda()
         {
             if ((timeHoraDesde.Value.TimeOfDay < new TimeSpan(7, 0, 0) || timeHoraHasta.Value.TimeOfDay > new TimeSpan(20, 1, 0) )&& listBoxDias.SelectedItem.ToString() != "SÁBADO" || 
                 ((timeHoraDesde.Value.TimeOfDay < new TimeSpan(10, 0, 0) || timeHoraHasta.Value.TimeOfDay > new TimeSpan(15, 1, 0)) && listBoxDias.SelectedItem.ToString() == "SÁBADO") )
@@ -106,7 +110,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 return false;
             }
 
-            if ((timeHoraDesde.Value.Minute != 30 && timeHoraDesde.Value.Minute != 0 ) || (timeHoraHasta.Value.Minute != 30 && timeHoraHasta.Value.Minute != 0))
+            if ((timeHoraDesde.Value.Minute != 30 && timeHoraDesde.Value.Minute != 0) || (timeHoraHasta.Value.Minute != 30 && timeHoraHasta.Value.Minute != 0))
             {
                 MessageBox.Show("Los horarios deben estar en bloques de 30 minutos Ejemplo: 7:00 o 16:30", "Error", MessageBoxButtons.OK);
                 return false;
@@ -136,6 +140,12 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 return false;
             }
 
+            if (lbEspe.Items.Count == 0)
+            {
+                MessageBox.Show("No se ha seleccionado ninguna especialidad", "Error", MessageBoxButtons.OK);
+                return false;
+            }
+
             return true;
         }
 
@@ -153,10 +163,26 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 return false;
             } 
 
-            if (agenda.listaDeDiasAgenda.TrueForAll(x => x.tipoDiaAgenda == TipoDiaAgenda.Migrado) && 
-                DateTime.Compare(timerFechaDesde.Value.Date, timerFechaHasta.Value.Date) == 0)
+            if ((agenda.tipoAgenda == TipoAgenda.Vencido || agenda.tipoAgenda == TipoAgenda.Nuevo) && timerFechaHasta.Value.Date < agendaDAO.fechaSistema.Date)
             {
                 MessageBox.Show("No se han realizado cambios para guardar", "Error", MessageBoxButtons.OK);
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool seCumpleLasValidacionesParaAgregarEspecialidad()
+        {
+            List<string> lista = new List<string>();
+            foreach (var item in lbEspe.Items)
+            {
+                lista.Add(item.ToString());
+            }
+
+            if (lista.Exists(x=> x == listBoxEspecialidades.SelectedItem.ToString()))
+            {
+                MessageBox.Show("La especialidad seleccionada ya fue agregada", "Error", MessageBoxButtons.OK);
                 return false;
             }
 
@@ -168,21 +194,20 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         private void botonAgregar_Click(object sender, EventArgs e)
         {
-            if (!seCumplenLasValidacionesParaAgregar()) return;
+            if (!seCumplenLasValidacionesParaAgregarDiaAgenda()) return;
 
             TimeSpan horaDesde = new TimeSpan(timeHoraDesde.Value.Hour, timeHoraDesde.Value.Minute, 0);
             TimeSpan horaHasta = new TimeSpan(timeHoraHasta.Value.Hour, timeHoraHasta.Value.Minute, 0);
 
-            long idEspecialidad = 0;
-            foreach (KeyValuePair<long, string> dic in especialidadesDelPersonal)
+            string nombreDia = listBoxDias.SelectedItem.ToString();
+
+            Dictionary<string, long> especialidades = new Dictionary<string, long>();
+            foreach (string esp in lbEspe.Items)
             {
-                if (dic.Value == listBoxEspecialidades.SelectedItem.ToString()) idEspecialidad = dic.Key;
+                especialidades.Add(esp, especialidadesDelProfesional[esp]);
             }
 
-            string nombreDia = listBoxDias.SelectedItem.ToString();
-            string nombreEspecialidad = listBoxEspecialidades.SelectedItem.ToString();
-
-            agenda.listaDeDiasAgenda.Add(new DiaAgenda(0, nombreDia, idEspecialidad, nombreEspecialidad, horaDesde, horaHasta, TipoDiaAgenda.Nuevo));
+            agenda.listaDeDiasAgenda.Add(new DiaAgenda(0, nombreDia, especialidades, horaDesde, horaHasta));
 
             cargarGriedViewDeHorarios();
             actualizarHorasTrabajadas();
@@ -197,7 +222,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 agenda.fecha_inicial = timerFechaDesde.Value;
                 agenda.fecha_final = timerFechaHasta.Value;
 
-                agendaDAO.guardarAgenda(agenda);
+                agendaDAO.insertarAgenda(agenda);
                 
                 MessageBox.Show("Se han guardado los cambios exitosamente");
                 
@@ -230,19 +255,14 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 if (listBoxDias.SelectedIndex == -1 || dgHorarios.SelectedRows.Count == 0) return;
 
                 string dia = listBoxDias.SelectedItem.ToString();
-                string especialidad = dgHorarios.SelectedRows[0].Cells["ESPECIALIDAD"].Value.ToString();
                 TimeSpan horaDesde = (TimeSpan)dgHorarios.SelectedRows[0].Cells["DESDE_LAS"].Value;
                 TimeSpan horaHasta = (TimeSpan)dgHorarios.SelectedRows[0].Cells["HASTA_LAS"].Value;
 
-                DiaAgenda diaAEliminar = agenda.listaDeDiasAgenda.Find(x =>
+                agenda.listaDeDiasAgenda.RemoveAll(x =>
                     x.nombreDia == dia &&
-                    x.nombreEspecialidad == especialidad &&
                     x.horaInicial == horaDesde &&
-                    x.horaFinal == horaHasta &&
-                    x.tipoDiaAgenda != TipoDiaAgenda.Borrado);
-
-                diaAEliminar.tipoDiaAgenda = TipoDiaAgenda.Borrado;
-
+                    x.horaFinal == horaHasta);
+                
                 cargarGriedViewDeHorarios();
                 actualizarHorasTrabajadas();
             }
@@ -250,6 +270,27 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             {
                 MessageBox.Show("Elemento seleccionado no valido", "Error", MessageBoxButtons.OK);
             }
+        }
+
+        private void btAgregarEspe_Click(object sender, EventArgs e)
+        {
+            if (!seCumpleLasValidacionesParaAgregarEspecialidad()) return;
+
+            lbEspe.Items.Add(listBoxEspecialidades.SelectedItem.ToString());
+        }
+
+        private void btEliminarEspe_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lbEspe.Items.Remove(lbEspe.SelectedItem);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Elemento seleccionado no valido", "Error", MessageBoxButtons.OK);
+                throw;
+            }
+            
         }
     }
 }

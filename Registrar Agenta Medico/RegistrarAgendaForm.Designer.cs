@@ -30,6 +30,9 @@
         {
             this.botonGuardarCambios = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btEliminarEspe = new System.Windows.Forms.Button();
+            this.btAgregarEspe = new System.Windows.Forms.Button();
+            this.lbEspe = new System.Windows.Forms.ListBox();
             this.timeHoraHasta = new System.Windows.Forms.DateTimePicker();
             this.timeHoraDesde = new System.Windows.Forms.DateTimePicker();
             this.listBoxEspecialidades = new System.Windows.Forms.ComboBox();
@@ -48,7 +51,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.lbHorasTotales = new System.Windows.Forms.Label();
             this.botonEliminar = new System.Windows.Forms.Button();
-            this.ESPECIALIDAD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ESPECIALIDADES = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DESDE_LAS = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HASTA_LAS = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
@@ -57,7 +60,7 @@
             // 
             // botonGuardarCambios
             // 
-            this.botonGuardarCambios.Location = new System.Drawing.Point(112, 418);
+            this.botonGuardarCambios.Location = new System.Drawing.Point(109, 489);
             this.botonGuardarCambios.Name = "botonGuardarCambios";
             this.botonGuardarCambios.Size = new System.Drawing.Size(100, 23);
             this.botonGuardarCambios.TabIndex = 13;
@@ -67,6 +70,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btEliminarEspe);
+            this.groupBox1.Controls.Add(this.btAgregarEspe);
+            this.groupBox1.Controls.Add(this.lbEspe);
             this.groupBox1.Controls.Add(this.timeHoraHasta);
             this.groupBox1.Controls.Add(this.timeHoraDesde);
             this.groupBox1.Controls.Add(this.listBoxEspecialidades);
@@ -76,16 +82,44 @@
             this.groupBox1.Controls.Add(this.botonAgregar);
             this.groupBox1.Location = new System.Drawing.Point(15, 245);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(449, 143);
+            this.groupBox1.Size = new System.Drawing.Size(449, 212);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Agregar Horarios";
+            // 
+            // btEliminarEspe
+            // 
+            this.btEliminarEspe.Location = new System.Drawing.Point(127, 184);
+            this.btEliminarEspe.Name = "btEliminarEspe";
+            this.btEliminarEspe.Size = new System.Drawing.Size(67, 23);
+            this.btEliminarEspe.TabIndex = 21;
+            this.btEliminarEspe.Text = "Eliminar";
+            this.btEliminarEspe.UseVisualStyleBackColor = true;
+            this.btEliminarEspe.Click += new System.EventHandler(this.btEliminarEspe_Click);
+            // 
+            // btAgregarEspe
+            // 
+            this.btAgregarEspe.Location = new System.Drawing.Point(11, 184);
+            this.btAgregarEspe.Name = "btAgregarEspe";
+            this.btAgregarEspe.Size = new System.Drawing.Size(67, 23);
+            this.btAgregarEspe.TabIndex = 20;
+            this.btAgregarEspe.Text = "Agregar";
+            this.btAgregarEspe.UseVisualStyleBackColor = true;
+            this.btAgregarEspe.Click += new System.EventHandler(this.btAgregarEspe_Click);
+            // 
+            // lbEspe
+            // 
+            this.lbEspe.FormattingEnabled = true;
+            this.lbEspe.Location = new System.Drawing.Point(11, 83);
+            this.lbEspe.Name = "lbEspe";
+            this.lbEspe.Size = new System.Drawing.Size(183, 95);
+            this.lbEspe.TabIndex = 19;
             // 
             // timeHoraHasta
             // 
             this.timeHoraHasta.CustomFormat = "HH:mm";
             this.timeHoraHasta.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.timeHoraHasta.Location = new System.Drawing.Point(179, 103);
+            this.timeHoraHasta.Location = new System.Drawing.Point(322, 134);
             this.timeHoraHasta.Name = "timeHoraHasta";
             this.timeHoraHasta.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.timeHoraHasta.ShowUpDown = true;
@@ -96,7 +130,7 @@
             // 
             this.timeHoraDesde.CustomFormat = "HH:mm";
             this.timeHoraDesde.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.timeHoraDesde.Location = new System.Drawing.Point(14, 103);
+            this.timeHoraDesde.Location = new System.Drawing.Point(322, 82);
             this.timeHoraDesde.Name = "timeHoraDesde";
             this.timeHoraDesde.ShowUpDown = true;
             this.timeHoraDesde.Size = new System.Drawing.Size(110, 20);
@@ -105,15 +139,15 @@
             // listBoxEspecialidades
             // 
             this.listBoxEspecialidades.FormattingEnabled = true;
-            this.listBoxEspecialidades.Location = new System.Drawing.Point(11, 50);
+            this.listBoxEspecialidades.Location = new System.Drawing.Point(6, 44);
             this.listBoxEspecialidades.Name = "listBoxEspecialidades";
-            this.listBoxEspecialidades.Size = new System.Drawing.Size(421, 21);
+            this.listBoxEspecialidades.Size = new System.Drawing.Size(426, 21);
             this.listBoxEspecialidades.TabIndex = 14;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 31);
+            this.label7.Location = new System.Drawing.Point(6, 28);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(70, 13);
             this.label7.TabIndex = 13;
@@ -122,7 +156,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(176, 83);
+            this.label4.Location = new System.Drawing.Point(252, 140);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(64, 13);
             this.label4.TabIndex = 10;
@@ -131,7 +165,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 83);
+            this.label3.Location = new System.Drawing.Point(249, 88);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(67, 13);
             this.label3.TabIndex = 9;
@@ -139,11 +173,11 @@
             // 
             // botonAgregar
             // 
-            this.botonAgregar.Location = new System.Drawing.Point(332, 100);
+            this.botonAgregar.Location = new System.Drawing.Point(311, 184);
             this.botonAgregar.Name = "botonAgregar";
-            this.botonAgregar.Size = new System.Drawing.Size(100, 23);
+            this.botonAgregar.Size = new System.Drawing.Size(121, 23);
             this.botonAgregar.TabIndex = 0;
-            this.botonAgregar.Text = "Agregar";
+            this.botonAgregar.Text = "Agregar Dia";
             this.botonAgregar.UseVisualStyleBackColor = true;
             this.botonAgregar.Click += new System.EventHandler(this.botonAgregar_Click);
             // 
@@ -167,7 +201,7 @@
             // 
             // botonVolver
             // 
-            this.botonVolver.Location = new System.Drawing.Point(275, 418);
+            this.botonVolver.Location = new System.Drawing.Point(256, 489);
             this.botonVolver.Name = "botonVolver";
             this.botonVolver.Size = new System.Drawing.Size(100, 23);
             this.botonVolver.TabIndex = 16;
@@ -214,7 +248,7 @@
             this.dgHorarios.AllowUserToDeleteRows = false;
             this.dgHorarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgHorarios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ESPECIALIDAD,
+            this.ESPECIALIDADES,
             this.DESDE_LAS,
             this.HASTA_LAS});
             this.dgHorarios.Location = new System.Drawing.Point(15, 52);
@@ -245,7 +279,7 @@
             // 
             // botonEliminar
             // 
-            this.botonEliminar.Location = new System.Drawing.Point(343, 219);
+            this.botonEliminar.Location = new System.Drawing.Point(326, 219);
             this.botonEliminar.Name = "botonEliminar";
             this.botonEliminar.Size = new System.Drawing.Size(121, 23);
             this.botonEliminar.TabIndex = 28;
@@ -253,11 +287,11 @@
             this.botonEliminar.UseVisualStyleBackColor = true;
             this.botonEliminar.Click += new System.EventHandler(this.botonEliminar_Click);
             // 
-            // ESPECIALIDAD
+            // ESPECIALIDADES
             // 
-            this.ESPECIALIDAD.HeaderText = "ESPECIALIDAD";
-            this.ESPECIALIDAD.Name = "ESPECIALIDAD";
-            this.ESPECIALIDAD.ReadOnly = true;
+            this.ESPECIALIDADES.HeaderText = "ESPECIALIDADES";
+            this.ESPECIALIDADES.Name = "ESPECIALIDADES";
+            this.ESPECIALIDADES.ReadOnly = true;
             // 
             // DESDE_LAS
             // 
@@ -275,7 +309,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(479, 470);
+            this.ClientSize = new System.Drawing.Size(479, 534);
             this.Controls.Add(this.botonEliminar);
             this.Controls.Add(this.lbHorasTotales);
             this.Controls.Add(this.label8);
@@ -322,7 +356,10 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lbHorasTotales;
         private System.Windows.Forms.Button botonEliminar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ESPECIALIDAD;
+        private System.Windows.Forms.Button btEliminarEspe;
+        private System.Windows.Forms.Button btAgregarEspe;
+        private System.Windows.Forms.ListBox lbEspe;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ESPECIALIDADES;
         private System.Windows.Forms.DataGridViewTextBoxColumn DESDE_LAS;
         private System.Windows.Forms.DataGridViewTextBoxColumn HASTA_LAS;
     }

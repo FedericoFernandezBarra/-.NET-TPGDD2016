@@ -59,10 +59,10 @@ namespace ClinicaFrba.Pedir_Turno
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
-                {
+                {///////////////////////////////////////////////YA NO TIENE SOLO UNA ESPECIALIDAD!!!!!!!
                     //Tercer filtro: el profesional atiende esa especialidad en ese dia. Si es 0 la especialidad es porque tenia null (venia de migración)
-                    List<DiaAgenda> diaSeleccionado = agendaDelProfesional.diasAgendaDelDiaNoBorrados(obtenerDiaSeleccionado()).
-                        Where(unDia => unDia.idEspecialidad.Equals(turno.especialidad.id) || unDia.idEspecialidad.Equals(0)).ToList();
+                    List<DiaAgenda> diaSeleccionado = agendaDelProfesional.listaDeDiasAgenda/*.
+                        Where(unDia => unDia.idEspecialidad.Equals(turno.especialidad.id) || unDia.idEspecialidad.Equals(0)).ToList()*/;
                     if (diaSeleccionado.Count > 0)
                     {
                         //Cuarto filtro: horarios definidos en la agenda de ese dia
