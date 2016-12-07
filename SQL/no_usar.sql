@@ -27,9 +27,25 @@ if EXISTS (SELECT * FROM sysobjects  WHERE name='sp_insertar_nuevo_dia_agenda')
 drop procedure BEMVINDO.sp_insertar_nuevo_dia_agenda
 
 go
----ABM AFILIADO----------------------------------------------------------------------------------------------
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='sp_actualizar_fechas_agenda') 
+drop procedure BEMVINDO.sp_actualizar_fechas_agenda
+
+go
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='sp_eliminar_dia_agenda_por_id') 
+drop procedure BEMVINDO.sp_eliminar_dia_agenda_por_id
+
+go
+---ABM AFILIADO
+-------------------------------------------------------------------------------------------------------
 if EXISTS (SELECT * FROM sysobjects  WHERE name='st_insertar_afiliado') 
 drop procedure BEMVINDO.st_insertar_afiliado
+
+go
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_insertar_afiliado_de_uno_modificado') 
+drop procedure BEMVINDO.st_insertar_afiliado_de_uno_modificado
 
 go
 
@@ -40,6 +56,11 @@ go
 
 if EXISTS (SELECT * FROM sysobjects  WHERE name='st_actualizar_afiliado') 
 drop procedure BEMVINDO.st_actualizar_afiliado
+
+go
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_cantidad_hijos') 
+drop procedure BEMVINDO.st_cantidad_hijos
 
 go
 
@@ -97,6 +118,11 @@ drop procedure BEMVINDO.st_insertar_turno
 
 go
 
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_obtener_turnos_afiliado') 
+drop procedure BEMVINDO.st_obtener_turnos_afiliado
+
+go
+
 --REGISTRO DE LLEGADA PARA ATENCION MEDICA
 -------------------------------------------------------------------------------------------------------
 if EXISTS (SELECT * FROM sysobjects  WHERE name='st_buscar_profesional') 
@@ -109,8 +135,18 @@ drop procedure BEMVINDO.st_obtener_turnos
 
 go
 
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_obtener_turnos_afiliado') 
+drop procedure BEMVINDO.st_obtener_turnos_afiliado
+
+go
+
 if EXISTS (SELECT * FROM sysobjects  WHERE name='st_registrar_fecha_llegada') 
 drop procedure BEMVINDO.st_registrar_fecha_llegada
+
+go
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='st_validar_bono') 
+drop procedure BEMVINDO.st_validar_bono
 
 go
 
@@ -559,7 +595,7 @@ create table BEMVINDO.DIA_AGENDA
     id_dia_agenda       numeric(10,0) identity(1,1),
     agenda      numeric(10,0),
     especialidad    numeric(10,0),
-    dia     nvarchar(10) check (dia in('LUNES','MARTES', 'MIERCOLES','JUEVES', 'VIERNES', 'SABADO')),
+    dia     nvarchar(10) check (dia in('LUNES','MARTES', 'MIÉRCOLES','JUEVES', 'VIERNES', 'SÁBADO', 'DOMINGO')),
     horario_inicial     time,
     horario_final       time,
     
@@ -587,7 +623,7 @@ go
 
 create table BEMVINDO.TURNO
 (
-    id_turno          numeric(10,0) identity(1,1) ,
+    id_turno          numeric(10,0) identity(1,1),
     afiliado          numeric(10,0) ,
     profesional       numeric(10,0) ,
     especialidad      numeric(10,0) ,
@@ -636,7 +672,7 @@ create table BEMVINDO.CANCELACION
     turno                numeric(10,0),
     fecha                date,
     motivo               nvarchar(255),
-    tipo_usuario         char check (tipo_usuario in('A','P')),
+    tipo_usuario         char,
     
 
     PRIMARY KEY (id_cancelacion), 
@@ -650,8 +686,8 @@ create table BEMVINDO.COMPRA
 (
     id_compra  numeric(10,0) identity(1,1),
     comprador  numeric(10,0) ,
-    cantidad numeric(3,0) ,
-    monto  numeric(5,2),
+    cantidad numeric(10,0) ,
+    monto  numeric(10,2),
     fecha_compra      datetime,
 
     PRIMARY KEY (id_compra), 
@@ -752,21 +788,21 @@ go
 -------------------------------------------------------------------------------------------------------
 insert into BEMVINDO.FUNCIONALIDAD
 values 
-    ('ABM ROL', 1),
-    ('LOGIN Y SEGURIDAD',1),
-    ('REGISTRO DE USUARIOS',1),
-    ('ABM AFILIADO',1),
-    ('ABM PROFESIONAL',1),
-    ('ABM ESPECIALIDADES MEDICAS',1),
-    ('ABM PLANES',1),
-    ('REGISTRAR AGENDA DEL MEDICO',1),
-    ('COMPRA DE BONOS',1),
-    ('PEDIR TURNO', 1),
-    ('REGISTRO DE LLEGADA PARA ATENCION MEDICA', 1),
-    ('REGISTRO DE RESULTADO PARA ATENCION MEDICA', 1),
-    ('CANCELAR ATENCION MEDICA', 1),
-    ('LISTADO ESTADISTICO', 1),
-    ('ASIGNAR Nº AFILIADOS A AFILIADOS MIGRADOS',1)
+    ('ABM ROL', 1), --1
+    ('LOGIN Y SEGURIDAD',1),--2
+    ('REGISTRO DE USUARIOS',1),--3
+    ('ABM AFILIADO',1),--4
+    ('ABM PROFESIONAL',1),--5
+    ('ABM ESPECIALIDADES MEDICAS',1),--6
+    ('ABM PLANES',1),--7
+    ('REGISTRAR AGENDA DEL MEDICO',1),--8
+    ('COMPRA DE BONOS',1),--9
+    ('PEDIR TURNO', 1),--10
+    ('REGISTRO DE LLEGADA PARA ATENCION MEDICA', 1),--11
+    ('REGISTRO DE RESULTADO PARA ATENCION MEDICA', 1),--12
+    ('CANCELAR ATENCION MEDICA', 1),--13
+    ('LISTADO ESTADISTICO', 1),--14
+    ('ASIGNAR Nº AFILIADOS A AFILIADOS MIGRADOS',1)--15
 
 go
 
@@ -784,15 +820,17 @@ values
     (6,3),
     (7,3),
     (8,1),
+  (8,3),
     (9,2),
-    (10,1),
+    (9,3),
     (10,2),
-    (10,3),
+  (10,3),
     (11,3),
     (12,1),
-    (12,3),
+  (12,3),
     (13,2),
     (13,1),
+  (13,3),
     (14,3),
     (15,3)
 
@@ -971,7 +1009,7 @@ insert into BEMVINDO.ESPECIALIDAD
 
 go
 
---ESPECIALIDAD_POR_PROFESIONAL
+--ESPECIALIDAD POR PROFESIONAL
 -------------------------------------------------------------------------------------------------------
 insert into BEMVINDO.ESPECIALIDAD_POR_PROFESIONAL
     select distinct
@@ -1035,23 +1073,20 @@ go
 
 --COMPRA
 -------------------------------------------------------------------------------------------------------
-alter table BEMVINDO.COMPRA
-add compra_numero numeric(18,0)
-
-go
 
 insert into BEMVINDO.COMPRA
     select 
-        U.id_usuario as  afiliado,
-        1 as cantidad,
-        M.Plan_Med_Precio_Bono_Consulta,
-        M.Compra_Bono_Fecha,
-        M.Bono_Consulta_Numero
+        U.id_usuario as afiliado,
+        COUNT(M.Plan_Med_Precio_Bono_Consulta) as cantidad,
+        SUM(M.Plan_Med_Precio_Bono_Consulta) as monto_total,
+    M.Compra_Bono_Fecha
     from gd_esquema.Maestra as M
     inner join BEMVINDO.USUARIO as U
         on U.documento = M.Paciente_Dni
     where 
         M.Turno_Numero is null
+  group by 
+    U.id_usuario, M.Compra_Bono_Fecha
 go
 
 --BONO
@@ -1069,7 +1104,8 @@ insert into BEMVINDO.BONO
         M.Bono_Consulta_Numero
     from gd_esquema.Maestra as M
     inner join BEMVINDO.PLAN_MEDICO as P on M.Plan_Med_Codigo = P.plan_medico_codigo
-    inner join BEMVINDO.COMPRA as C on M.Bono_Consulta_Numero = C.compra_numero
+  inner join BEMVINDO.USUARIO as U on U.documento = M.Paciente_Dni
+    inner join BEMVINDO.COMPRA as C on U.id_usuario = C.comprador
     inner join BEMVINDO.TURNO as T on M.Turno_Numero = T.turno_numero
     where 
         M.Bono_Consulta_Numero is not null and
@@ -1077,9 +1113,8 @@ insert into BEMVINDO.BONO
 
 go
 
---ROL_POR_USUARIO
+--ROL POR USUARIO
 -------------------------------------------------------------------------------------------------------
-
 --afiliados
 insert into BEMVINDO.ROL_POR_USUARIO
     select 
@@ -1095,6 +1130,55 @@ insert into BEMVINDO.ROL_POR_USUARIO
         1,
         id_profesional
     from BEMVINDO.PROFESIONAL
+
+go
+
+--AGENDA
+-------------------------------------------------------------------------------------------------------
+insert into BEMVINDO.AGENDA
+  select 
+    U.id_usuario as profesional,
+    null,--MIN(M.Turno_Fecha) as fecha_inicial,
+    null--DATEADD(year,1,MAX(M.Turno_Fecha)) as fecha_final
+  from gd_esquema.Maestra as M
+  inner join BEMVINDO.USUARIO as U on 
+    U.documento = M.Medico_Dni
+  group by 
+    U.id_usuario
+
+go
+
+--DIA AGENDA
+-------------------------------------------------------------------------------------------------------
+insert into BEMVINDO.DIA_AGENDA
+  select 
+    A.id_agenda,
+    case
+      when 1 = 
+        (select COUNT(distinct M2.Especialidad_Codigo)
+        from gd_esquema.Maestra as M2
+        group by UPPER(DATENAME(weekday, M2.Turno_Fecha)), M2.Medico_Dni
+        having UPPER(DATENAME(weekday, M2.Turno_Fecha)) = UPPER(DATENAME(weekday, M.Turno_Fecha)) and M2.Medico_Dni = M.Medico_Dni)
+        then        
+          (select E2.id_especialidad
+          from gd_esquema.Maestra as M2
+          inner join BEMVINDO.ESPECIALIDAD as E2 on E2.especialidad_codigo = M2.Especialidad_Codigo
+          group by UPPER(DATENAME(weekday, M2.Turno_Fecha)), M2.Medico_Dni, E2.id_especialidad
+          having  UPPER(DATENAME(weekday, M2.Turno_Fecha)) = UPPER(DATENAME(weekday, M.Turno_Fecha)) and M2.Medico_Dni = M.Medico_Dni)
+      else null
+    end as especialidad,
+    UPPER(DATENAME(weekday, M.Turno_Fecha)) as nombre_dia,
+    CONVERT(char(8), MIN(M.Turno_Fecha), 108) as hora_inicial,
+    CONVERT(char(8), DATEADD(minute, 30, MAX(M.Turno_Fecha)), 108) as hora_final
+  from gd_esquema.Maestra as M
+  inner join BEMVINDO.USUARIO as U on
+    U.documento = M.Medico_Dni
+  inner join BEMVINDO.AGENDA as A on
+    A.profesional = U.id_usuario
+  inner join BEMVINDO.ESPECIALIDAD as E on
+    E.especialidad_codigo = M.Especialidad_Codigo
+  group by 
+    A.id_agenda, UPPER(DATENAME(weekday, M.Turno_Fecha)), M.Medico_Dni
 
 go
 
@@ -1137,13 +1221,6 @@ drop column consulta_numero
 
 go
 
---COMPRA
--------------------------------------------------------------------------------------------------------
-alter table BEMVINDO.COMPRA
-drop column compra_numero
-
-go
-
 --BONO
 -------------------------------------------------------------------------------------------------------
 alter table BEMVINDO.BONO
@@ -1160,52 +1237,9 @@ values('admin','w23e',0,1,null,null,null,null,null,null,null,null,null)
 
 go
 
-insert into BEMVINDO.AFILIADO
-values(5579, null, 1, null, 0, 101)
-
-go
-
-insert into BEMVINDO.PROFESIONAL
-values(5579, null)
-
-go
-
 insert into BEMVINDO.ROL_POR_USUARIO
 values 
-    (1,5579),
-    (2,5579),
     (3,5579)
-
-go
-
----DOCTOR
-
-insert into BEMVINDO.USUARIO
-values('Dr.House','w23e',0,1,'Gregory','House',null,null,null,null,null,null,null)
-
-go
-
-insert into BEMVINDO.PROFESIONAL
-values(5580, 123)
-go
-
-insert into BEMVINDO.ESPECIALIDAD_POR_PROFESIONAL
-values 
-    (1,5580),
-    (2,5580),
-    (3,5580),
-    (4,5580),
-    (5,5580),
-    (6,5580),
-    (7,5580),
-    (8,5580)
-
-go
-
-insert into BEMVINDO.ROL_POR_USUARIO
-values 
-    (1,5580)
-
 
 go
 
@@ -1216,7 +1250,110 @@ go
 -----------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------ABM AFILIADO----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------
+create procedure BEMVINDO.st_cantidad_hijos
+@id_afiliado numeric(10,0)
+as
+begin
+
+declare @raiz numeric(10,0)=@id_afiliado-(@id_afiliado%100)
+
+  select count(*) as cantidad_hijos
+  from BEMVINDO.AFILIADO
+  where (numero_afiliado%100)>2
+      and numero_afiliado-(numero_afiliado%100)=@raiz
+end
+
+go
+
+
 create procedure BEMVINDO.st_insertar_afiliado
+@nro_grupo_familiar int,
+@estado_civil numeric(10,0),
+@plan_medico numeric(10,0),
+@nombre  nvarchar(255),
+@apellido    nvarchar(255),
+@tipo_documento  numeric(10,0),  
+@documento   nvarchar(12),
+@fecha_nacimiento    date,
+@direccion   nvarchar(255),
+@telefono    nvarchar(255),
+@mail    nvarchar(255),
+@sexo    char,
+@nro_raiz numeric(10,0) --se llama asi, pero en realidad es el nro del afiliado principal
+
+AS
+begin
+     declare @nroAfiliado numeric(10,0)
+     declare @id_numerito numeric(10,0)
+     declare @error varchar(4000) 
+     declare @idUsuario numeric(10,0)
+     set @error = ''
+     BEGIN TRANSACTION  
+     BEGIN TRY
+
+
+
+     set @id_numerito=@nro_raiz
+
+
+      if(@nro_grupo_familiar=1)
+      begin
+           select @id_numerito =ISNULL(max(numero_afiliado),1)  from BEMVINDO.AFILIADO
+      end
+
+      else
+      begin
+            set @id_numerito-=100
+      end
+
+      set @id_numerito= @id_numerito - (@id_numerito%100) + 100--+1)
+
+      set @nroAfiliado=@id_numerito+@nro_grupo_familiar
+
+
+      if EXISTS (SELECT * FROM BEMVINDO.AFILIADO  WHERE numero_afiliado=@nroAfiliado ) 
+      begin
+           RAISERROR ('error,el familiar ya existe', 11,1)
+      end
+
+    if EXISTS (SELECT * FROM BEMVINDO.USUARIO  WHERE documento=@documento ) 
+      begin
+           RAISERROR ('error,el documento ya existe', 11,1)
+      end
+           
+
+    insert into BEMVINDO.USUARIO(nick,pass,intentos_login,activo,nombre,apellido,tipo_documento,
+                documento,fecha_nacimiento,direccion,telefono,mail,sexo)
+        values (@documento,@documento,0,1,@nombre,@apellido,@tipo_documento,@documento,@fecha_nacimiento,@direccion,
+               @telefono,@mail,@sexo)
+    
+
+    select @idUsuario =max(id_usuario) from BEMVINDO.USUARIO
+
+    insert into BEMVINDO.AFILIADO(id_afiliado,estado_civil,plan_medico,baja_logica,numero_afiliado)
+        values (@idUsuario,@estado_civil,@plan_medico,0,@nroAfiliado)
+
+    insert into BEMVINDO.ROL_POR_USUARIO
+      values 
+    (2,@idUsuario)           
+
+
+     COMMIT TRAN  
+     END TRY 
+     BEGIN CATCH  
+     ROLLBACK TRAN     
+     set @error = ERROR_MESSAGE();
+     END CATCH 
+
+
+     select @documento as nick,@documento as pass,@nroAfiliado as id_afiliado,@error as error
+
+end
+
+go
+
+
+create procedure BEMVINDO.st_insertar_afiliado_de_uno_modificado
 @nro_grupo_familiar char(4),
 @estado_civil numeric(10,0),
 @plan_medico numeric(10,0),
@@ -1236,22 +1373,20 @@ begin
      declare @nroAfiliado numeric(10,0)
      declare @id_numerito numeric(10,0)
      declare @error varchar(255) 
+     declare @nro_grupo_familiar_maximo char(4)
      declare @idUsuario numeric(10,0)
+
      set @error = ''
      BEGIN TRANSACTION  
      BEGIN TRY
 
-     set @nro_grupo_familiar = concat('0',@nro_grupo_familiar)
+     set @nro_grupo_familiar_maximo = SUBSTRING((select concat('0',(  select max(numero_afiliado/100-round(numero_afiliado/100,0,1)) from BEMVINDO.AFILIADO
+                                where @nro_raiz= cast(round(numero_afiliado/100,0,1) as numeric(10,0))))), 4, 2)
+     set @nro_grupo_familiar_maximo=@nro_grupo_familiar_maximo+1
 
-     select @id_numerito =max(numero_afiliado) from BEMVINDO.AFILIADO
-     set @id_numerito= (@id_numerito/100)
+     set @nro_grupo_familiar_maximo = concat('0',@nro_grupo_familiar_maximo)
 
-      if(@nro_grupo_familiar='01')
-      begin
-           set @id_numerito= (@id_numerito+1)
-      end
-
-     select @nroAfiliado =  Concat(@id_numerito,@nro_grupo_familiar)
+     set @nroAfiliado =  Concat(@nro_raiz,@nro_grupo_familiar_maximo)
            
 
     insert into BEMVINDO.USUARIO(nick,pass,intentos_login,activo,nombre,apellido,tipo_documento,
@@ -1282,7 +1417,6 @@ begin
 end
 
 
-
 go
 
 create procedure BEMVINDO.st_baja_afiliado
@@ -1295,6 +1429,11 @@ begin
      update BEMVINDO.AFILIADO SET baja_logica = 1, fecha_baja=@fecha_baja 
      where id_afiliado = @id_afiliado
 
+     UPDATE BEMVINDO.TURNO
+     SET
+     activo=0
+     where  afiliado=@id_afiliado and fecha_llegada is null and activo =1
+
 end
 
 
@@ -1306,25 +1445,30 @@ create procedure BEMVINDO.st_actualizar_afiliado
 @telefono    nvarchar(255),
 @mail    nvarchar(255),
 @plan_medico numeric(10,0)=null,
+@estado_civil numeric(10,0),
 @motivo     nvarchar(255),
 @fecha_sistema      date
 
 AS
 begin
 
+     declare @planMedico numeric(10,0)
+
+      (select @planMedico =plan_medico from BEMVINDO.AFILIADO
+                                            where id_afiliado=@id_afiliado)
+
      update BEMVINDO.USUARIO SET direccion = @direccion, telefono=@telefono,mail=@mail
      where id_usuario = @id_afiliado
 
 
-     if(@plan_medico is not null)
+     if(@plan_medico <> @planMedico)
      begin
          insert into BEMVINDO.HISTORIAL_CAMBIOS_DE_PLAN values
-         (@plan_medico,@id_afiliado,@motivo,@fecha_sistema)
-         
-
-         update BEMVINDO.AFILIADO SET plan_medico=@plan_medico
-         where id_afiliado = @id_afiliado             
+         (@plan_medico,@id_afiliado,@motivo,@fecha_sistema)        
      end     
+
+     update BEMVINDO.AFILIADO SET plan_medico=@plan_medico,estado_civil=@estado_civil
+         where id_afiliado = @id_afiliado     
 
 end
 
@@ -1356,14 +1500,22 @@ create procedure BEMVINDO.st_buscar_afiliados
 AS
 begin
 
-      select *
-      from BEMVINDO.USUARIO
-      inner join BEMVINDO.AFILIADO on id_usuario = id_afiliado
-      where (numero_afiliado = @nroAfiliado OR @nroAfiliado IS NULL) and
-            (nombre = @nombre OR @nombre IS NULL) and
-            (apellido = @apellido OR @apellido IS NULL) and
-            (documento = @dni OR @dni IS NULL) and
-            (plan_medico = @planMedico OR @planMedico IS NULL) 
+      select u.id_usuario,u.nick,u.pass,u.intentos_login,u.activo,u.nombre,u.apellido,u.tipo_documento,
+            u.documento,u.fecha_nacimiento,u.direccion,u.telefono,u.mail,u.sexo,a.id_afiliado,a.estado_civil,
+            a.plan_medico,a.fecha_baja,a.baja_logica,a.numero_afiliado,t.id_tipo_documento,
+            t.descripcion as descripcion_tipo_documento,e.id_estado_civil,e.descripcion as descripcion_estado_civil,
+            p.id_plan_medico,p.precio_bono,p.descripcion as descripcion_plan_medico
+       from BEMVINDO.USUARIO as u
+       inner join BEMVINDO.AFILIADO as  a on u.id_usuario = a.id_afiliado
+     left join BEMVINDO.TIPO_DOCUMENTO as t on u.tipo_documento=t.id_tipo_documento
+     left join BEMVINDO.ESTADO_CIVIL as e on a.estado_civil=e.id_estado_civil
+     left join BEMVINDO.PLAN_MEDICO as p on a.plan_medico=p.id_plan_medico
+       where (a.numero_afiliado = @nroAfiliado OR @nroAfiliado IS NULL) and
+             (u.nombre = @nombre OR @nombre IS NULL) and
+             (u.apellido = @apellido OR @apellido IS NULL) and
+             (u.documento = @dni OR @dni IS NULL) and
+             (a.plan_medico = @planMedico OR @planMedico IS NULL) and
+       (a.baja_logica=0)
 
 end
 
@@ -1386,13 +1538,15 @@ as begin
         A.fecha_final,
         E.id_especialidad as id_especialidad,
         E.descripcion as especialidad,
+    D.id_dia_agenda,
         D.dia,
         D.horario_inicial,
         D.horario_final
     from BEMVINDO.AGENDA as A
-    inner join BEMVINDO.DIA_AGENDA as D on A.id_agenda = D.agenda
-    inner join BEMVINDO.ESPECIALIDAD as E on D.especialidad = E.id_especialidad
+    left join BEMVINDO.DIA_AGENDA as D on A.id_agenda = D.agenda
+    left join BEMVINDO.ESPECIALIDAD as E on D.especialidad = E.id_especialidad
     where 
+    D.dia != 'DOMINGO' and
         A.profesional = @id_profesional
 end
 
@@ -1408,6 +1562,27 @@ as begin
     inner join BEMVINDO.ESPECIALIDAD as E on E.id_especialidad = EP.id_especialidad
     where 
         Ep.id_profesional = @id_profesional
+end
+
+go
+
+create procedure BEMVINDO.sp_eliminar_dia_agenda_por_id
+  @id_dia_agenda numeric(10,0)
+as begin
+  delete from BEMVINDO.DIA_AGENDA
+  where id_dia_agenda = @id_dia_agenda
+end
+
+go
+
+create procedure BEMVINDO.sp_actualizar_fechas_agenda
+  @id_agenda numeric(10,0),
+  @fecha_inicial date,
+  @fecha_final date
+as begin
+  update BEMVINDO.AGENDA
+  set fecha_inicial = @fecha_inicial, fecha_final = @fecha_final
+  where id_agenda = @id_agenda
 end
 
 go
@@ -1451,8 +1626,8 @@ go
 CREATE procedure BEMVINDO.st_insertar_compra
 
 @comprador numeric(10,0),
-@cantidad numeric(3,0),
-@monto    numeric(5,2),
+@cantidad numeric(10,0),
+@monto    numeric(10,2),
 @fecha_compra  datetime,
 
 @id_compra numeric(10,0) output
@@ -1473,13 +1648,17 @@ go
 
 CREATE procedure BEMVINDO.st_insertar_bono
 @plan_medico numeric(10,0),
-@compra      numeric(10,0)
+@compra      numeric(10,0),
+
+@id_bono numeric(10,0) output
 
 AS
 begin
 
         insert into BEMVINDO.BONO(plan_medico,compra)
         values (@plan_medico,@compra)
+
+       SET @id_bono = SCOPE_IDENTITY();
 
 end
 
@@ -1551,7 +1730,6 @@ go
 
 --store para buscar profesional por nombre,apellido,matricula y especialidad
 create procedure BEMVINDO.st_buscar_profesional
-@profesional numeric(10,0)=null,
 @nombre nvarchar(50)=null,
 @apellido nvarchar(255)=null,
 @matricula nvarchar(30)=null,
@@ -1562,8 +1740,7 @@ begin
     select * from BEMVINDO.USUARIO as u
     inner join BEMVINDO.PROFESIONAL as p on u.id_usuario=p.id_profesional
     inner join BEMVINDO.ESPECIALIDAD_POR_PROFESIONAL as e on p.id_profesional=e.id_profesional
-    where (p.id_profesional=@profesional or @profesional is null) and 
-          (u.apellido=@apellido or @apellido is null) and (p.matricula=@matricula or @matricula is null) and
+    where (u.apellido=@apellido or @apellido is null) and (p.matricula=@matricula or @matricula is null) and
           (e.id_especialidad=@especialidad or @especialidad is null) and (u.nombre=@nombre or @nombre is null)
 end
 
@@ -1581,7 +1758,22 @@ begin
      select * from BEMVINDO.TURNO
      where profesional = @profesional and (CONVERT(date, fecha_turno) = CONVERT(date, @fecha_sistema)
      or @fecha_sistema is null) and (especialidad=@especialidad or @especialidad is null)
-	 and (@activo=activo or @activo is null)
+     and (@activo=activo or @activo is null)
+
+end
+
+go
+
+create procedure BEMVINDO.st_obtener_turnos_afiliado
+@id_afiliado numeric(10,0)
+
+AS
+begin
+
+     select * from BEMVINDO.TURNO
+     where afiliado=@id_afiliado 
+   and fecha_llegada is null
+   and activo=1
 
 end
 
@@ -1604,7 +1796,71 @@ begin
     WHERE id_bono = @id_bono
 
 end
+go
 
+create procedure BEMVINDO.st_validar_bono
+@id_afiliado    numeric(10,0),
+@nro_afiliado   numeric(10,0),
+@id_bono        numeric(10,0),
+@plan_medico    numeric(10,0)
+
+AS
+begin
+
+      declare @nroAfiliadoRaiz numeric(10,0)
+      set @nroAfiliadoRaiz = cast(round(@nro_afiliado/100,0,1) as numeric(10,0))
+
+      if (@nro_afiliado = 0 )
+      begin
+           select 'ERROR: el afiliado pertenece al sistema anterior, (es migrado)' as resultado
+      end
+
+      else
+      if not EXISTS (select * from BEMVINDO.BONO 
+                          where id_bono=@id_bono)
+      begin
+           select 'ERROR: el bono no existe' as resultado
+      end
+
+      else
+      if EXISTS (select * from BEMVINDO.BONO 
+                          where id_bono=@id_bono and
+                                turno is not null)
+      begin
+           select 'ERROR: el bono ya fue utilizado' as resultado
+      end
+
+      else
+      if (@plan_medico <> (select plan_medico from BEMVINDO.BONO where
+                                                   id_bono=@id_bono) )
+
+      begin
+           select 'ERROR: el bono no es valido, el afiliado cambio de plan medico' as resultado
+      end
+
+      else
+      if  ( @nroAfiliadoRaiz <> (select (cast(round(numero_afiliado/100,0,1) as numeric(10,0)))
+                                from BEMVINDO.AFILIADO
+                                where id_afiliado= (select comprador 
+                                                    from BEMVINDO.COMPRA 
+                                                     where id_compra= ( select compra
+                                                                        from BEMVINDO.BONO
+                                                                        where id_bono= @id_bono 
+                                                                      )
+                                                    )
+                                )
+          )
+      begin
+           select 'ERROR: el afiliado pertenece a otro grupo familiar' as resultado
+      end
+
+      else
+      begin
+          select '' as resultado
+      end
+
+
+end
 
 go
 
@@ -1738,7 +1994,7 @@ create procedure BEMVINDO.st_cancelar_turno_medico
 @profesional        numeric(10,0),
 @motivo             nvarchar(255),
 @fecha_sistema      datetime,
-@tipo_usuario       char,
+--@tipo_usuario       char,
 @cancelacion_desde  date,
 @cancelacion_hasta  date
 
@@ -1804,7 +2060,7 @@ select top 5 id_especialidad,descripcion,tipo_especialidad,count(*) as cant_canc
 FROM BEMVINDO.TURNO
 inner join BEMVINDO.CANCELACION on turno = id_turno
 inner join BEMVINDO.ESPECIALIDAD on especialidad = id_especialidad
- where year(fecha)= @anio and (month(fecha)=@mes) and activo=0
+ where year(fecha)= @anio and (month(fecha)=@mes)-- and activo=0
  group by id_especialidad,descripcion,TIPO_ESPECIALIDAD
  order by cant_cancelaciones desc
 
@@ -1820,7 +2076,7 @@ inner join BEMVINDO.ESPECIALIDAD on especialidad = id_especialidad
 
 AS BEGIN
  
-select top 5 id_profesional, nombre, apellido,matricula, sum(turno) as cant_de_consultas
+select top 5 id_profesional, nombre, apellido,matricula, count(turno) as cant_de_consultas
 FROM BEMVINDO.USUARIO
 inner join BEMVINDO.PROFESIONAL on id_usuario = id_profesional
 inner join BEMVINDO.TURNO on profesional = id_profesional
@@ -1955,78 +2211,87 @@ go
 ---------------------------------------ABM GRUPO AFILIADO VIEJO--------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-
 create procedure BEMVINDO.sp_afiliados_sin_numero_afiliado
 as begin
-    select 
-        A.id_afiliado as ID,
-        U.documento as DNI,
-        U.nombre as NOMBRE,
-        U.apellido AS APELLIDO
-    from BEMVINDO.USUARIO as U
-    inner join BEMVINDO.AFILIADO as A on A.id_afiliado = U.id_usuario
-    where A.numero_afiliado is null
+  select 
+    A.id_afiliado as ID,
+    U.documento as DNI,
+    U.nombre as NOMBRE,
+    U.apellido AS APELLIDO
+  from BEMVINDO.USUARIO as U
+  inner join BEMVINDO.AFILIADO as A on A.id_afiliado = U.id_usuario
+  where A.numero_afiliado is null
 end
 
 go
 
 create procedure BEMVINDO.sp_agregar_numero_afiliado_a_afiliado_principal_migrado
-    @id_principal numeric(10,0)
+  @id_principal numeric(10,0)
 as begin 
-    
-    declare @numero_nuevo_grupo numeric(10,0)
+  
+  declare @numero_nuevo_grupo int
 
-    select @numero_nuevo_grupo = MAX(numero_afiliado)
-    from BEMVINDO.AFILIADO
-    where numero_afiliado is not null
+  select @numero_nuevo_grupo = MAX(numero_afiliado)
+  from BEMVINDO.AFILIADO
+  where numero_afiliado is not null
 
+  if @numero_nuevo_grupo is null begin
     update BEMVINDO.AFILIADO
-    set numero_afiliado = ((@numero_nuevo_grupo%100) * 100 + 101)
+    set numero_afiliado = 101
     where id_afiliado = @id_principal
+  end
+  else begin
+    update BEMVINDO.AFILIADO
+    set numero_afiliado = (@numero_nuevo_grupo/100)*100 + 101
+    where id_afiliado = @id_principal
+  end
 end
 
 go
 
 create procedure BEMVINDO.sp_agregar_numero_afiliado_a_conyuge_migrado
-    @id_conyuge numeric(10,0),
-    @id_principal numeric(10,0)
+  @id_conyuge numeric(10,0),
+  @id_principal numeric(10,0)
 as begin 
-    
-    declare @numero_grupo numeric(10,0)
+  
+  declare @numero_grupo int
 
-    select @numero_grupo = numero_afiliado
-    from BEMVINDO.AFILIADO
-    where id_afiliado = @id_principal
-
-    update BEMVINDO.AFILIADO
-    set numero_afiliado = ((@numero_grupo%100)+1)*100 + 2
-    where id_afiliado = @id_conyuge
+  select @numero_grupo = numero_afiliado
+  from BEMVINDO.AFILIADO
+  where id_afiliado = @id_principal
+  
+  update BEMVINDO.AFILIADO
+  set numero_afiliado =(@numero_grupo/100)*100 + 2
+  where id_afiliado = @id_conyuge
 end
 
 go
 
 create procedure BEMVINDO.sp_agregar_numero_afiliado_a_hijo_migrado
-    @id_hijo numeric(10,0),
-    @id_principal numeric(10,0)
+  @id_hijo numeric(10,0),
+  @id_principal numeric(10,0)
 as begin 
-    
-    declare 
-        @numero_principal numeric(10,0),
-        @numero_hijo numeric(10,0)
+  
+  declare 
+    @numero_principal int,
+    @numero_hijo int
 
-    select @numero_principal = numero_afiliado
-    from BEMVINDO.AFILIADO
-    where id_afiliado = @id_principal
+  select @numero_principal = numero_afiliado
+  from BEMVINDO.AFILIADO
+  where id_afiliado = @id_principal
 
-    select @numero_hijo = MAX(numero_afiliado)
-    from BEMVINDO.AFILIADO
-    where numero_afiliado between ((@numero_principal%100)+1)*100 and ((@numero_principal%100)+1)*100 +99
+  select @numero_hijo = MAX(numero_afiliado)
+  from BEMVINDO.AFILIADO
+  where numero_afiliado between (@numero_principal/100)*100 and (@numero_principal/100)*100 +99
 
-    update BEMVINDO.AFILIADO
-    set numero_afiliado = 
-        case 
-            when @numero_hijo+1 = ((@numero_principal%100)+1)*100 +2 then @numero_hijo+2
-            else @numero_hijo+1
-        end
-    where id_afiliado = @id_hijo
+  update BEMVINDO.AFILIADO
+  set numero_afiliado = 
+    case 
+      when @numero_hijo+1 = (@numero_principal/100)*100 +2 then @numero_hijo+2
+      else @numero_hijo+1
+    end
+  where id_afiliado = @id_hijo
 end
+
+
+go 
