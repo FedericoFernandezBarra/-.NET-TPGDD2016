@@ -67,5 +67,14 @@ namespace ClinicaFrba.Clases.Otros
         {
             return (planMedico == null) && (nombre == "") && (apellido == "") && (nroAfiliado == 0)&& (dni == "");
         }
+
+        internal void initFiltros()
+        {
+            planMedico = null;
+            nombre = "";
+            apellido = "";
+            dni = "";
+            nroAfiliado = 0;
+        }
     }
 }
