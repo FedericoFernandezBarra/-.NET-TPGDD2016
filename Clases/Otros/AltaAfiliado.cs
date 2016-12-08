@@ -153,7 +153,8 @@ namespace ClinicaFrba.Clases.Otros
 
             Afiliado nuevoHijo = new Afiliado();
             nuevoHijo.usuario = new Usuario();
-            nuevoHijo.numeroFamiliar = mayorNumeroFamiliar() + 1;
+            int mayorNroFamiliar = mayorNumeroFamiliar();
+            nuevoHijo.numeroFamiliar = mayorNroFamiliar == 1 ? 3 : mayorNroFamiliar + 1;
             nuevoHijo.planMedico = nuevoAfiliado.planMedico;
             nuevoHijo.usuario.direccion = nuevoAfiliado.usuario.direccion;
 
