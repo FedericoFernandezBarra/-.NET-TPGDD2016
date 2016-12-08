@@ -121,9 +121,14 @@ namespace ClinicaFrba
 
         private void tsmSesion_CerrarSesion_Click(object sender, EventArgs e)
         {
+            cerrarSesion();
+            MessageBox.Show("Sesion cerrada");
+        }
+
+        private void cerrarSesion()
+        {
             menu.cerrarSesion();
             initBotones();
-            MessageBox.Show("Sesion cerrada");
         }
 
         private void registrarAfiliadoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -411,6 +416,15 @@ namespace ClinicaFrba
                 {
                     menu.cargarDatosDeRol();
                     cargarFormSegunRol();
+
+                    if (menu.userEsAfiliado())
+                    {
+                        if (((Afiliado)menu.usuarioPosta).bajaLogica)
+                        {
+                            cerrarSesion();
+                            MessageBox.Show("El afiliado logueado esta dado de baja, comuniquese con un admin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
                 }
             }
             else 
