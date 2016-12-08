@@ -35,14 +35,14 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void initForm()
         {
-            txtNombre.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado.usuario, "nombre");
-            txtApellido.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado.usuario, "apellido");
-            dtpFechaNacimiento.DataBindings.Add("Value", altaAfiliado.nuevoAfiliado.usuario, "fechaDeNacimiento");
-            txtDni.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado.usuario, "documento");
-            txtDir.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado.usuario, "direccion");
-            txtTel.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado.usuario, "telefono");
-            txtMail.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado.usuario, "mail");
-            txtHijos.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado, "cantidadDeHijos");
+            txtNombre.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado.usuario, "nombre", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtApellido.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado.usuario, "apellido", false, DataSourceUpdateMode.OnPropertyChanged);
+            dtpFechaNacimiento.DataBindings.Add("Value", altaAfiliado.nuevoAfiliado.usuario, "fechaDeNacimiento", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtDni.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado.usuario, "documento", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtDir.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado.usuario, "direccion", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtTel.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado.usuario, "telefono", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtMail.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado.usuario, "mail", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtHijos.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado, "cantidadDeHijos", false, DataSourceUpdateMode.OnPropertyChanged);
 
             if (!altaConyuge)
             {
