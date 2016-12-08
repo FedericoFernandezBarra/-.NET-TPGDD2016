@@ -158,6 +158,8 @@ namespace ClinicaFrba.Abm_Profesional
             grillaProfesionales.Rows.Clear();
 
             grillaProfesionales.Enabled = false;
+
+            buscarProfesional.initFiltros();
         }
     }
 }
