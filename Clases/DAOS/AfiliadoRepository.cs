@@ -131,7 +131,7 @@ namespace ClinicaFrba.Clases.DAOS
             object nombreValue = nombre == "" ? null : nombre;
             object apellidoValue = apellido == "" ? null : apellido;
             object dniValue = dni == "" ? null : dni;
-            object planValue = planMedico.id==0 ? null : (object)planMedico.id;
+            object planValue = planMedico == null ? null : (object)planMedico.id;
 
             List<SqlParameter> parametros = new List<SqlParameter>();
             DataBase.Instance.agregarParametro(parametros, "nroAfiliado", nroAfiliadoValue);

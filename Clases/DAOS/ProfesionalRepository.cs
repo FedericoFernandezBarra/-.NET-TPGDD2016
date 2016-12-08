@@ -21,7 +21,7 @@ namespace ClinicaFrba.Clases.DAOS
             object nroMatriculaValue = nroMatricula == 0 ? null : (object)nroMatricula;
             object nombreValue = nombre == "" ? null : nombre;
             object apellidoValue = apellido == "" ? null : apellido;
-            object especialidadValue = especialidad.id==0 ? null : (object)especialidad.id;
+            object especialidadValue = especialidad == null ? null : (object)especialidad.id;
 
             List<SqlParameter> parametros = new List<SqlParameter>();
             DataBase.Instance.agregarParametro(parametros, "@nombre", nombreValue);
