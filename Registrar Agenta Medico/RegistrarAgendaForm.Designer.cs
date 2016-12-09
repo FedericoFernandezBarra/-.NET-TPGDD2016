@@ -265,6 +265,9 @@
             this.timerFechaDesde.Name = "timerFechaDesde";
             this.timerFechaDesde.Size = new System.Drawing.Size(110, 20);
             this.timerFechaDesde.TabIndex = 23;
+            this.timerFechaDesde.ValueChanged += new System.EventHandler(this.timerFechaDesde_ValueChanged);
+            this.timerFechaDesde.Enter += new System.EventHandler(this.timerFechaDesde_Enter);
+            this.timerFechaDesde.MouseDown += new System.Windows.Forms.MouseEventHandler(this.timerFechaDesde_MouseDown);
             // 
             // timerFechaHasta
             // 
@@ -273,6 +276,9 @@
             this.timerFechaHasta.Name = "timerFechaHasta";
             this.timerFechaHasta.Size = new System.Drawing.Size(110, 20);
             this.timerFechaHasta.TabIndex = 24;
+            this.timerFechaHasta.ValueChanged += new System.EventHandler(this.timerFechaHasta_ValueChanged);
+            this.timerFechaHasta.Enter += new System.EventHandler(this.timerFechaHasta_Enter);
+            this.timerFechaHasta.MouseDown += new System.Windows.Forms.MouseEventHandler(this.timerFechaHasta_MouseDown);
             // 
             // dgHorarios
             // 

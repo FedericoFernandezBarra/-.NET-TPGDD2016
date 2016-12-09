@@ -64,8 +64,17 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 timerFechaHasta.Enabled = false;
 
                 botonGuardarCambios.Enabled = false;
-            }
 
+            }
+            else
+            {
+                timerFechaDesde.Format = DateTimePickerFormat.Custom;
+                timerFechaDesde.CustomFormat = " ";
+                timerFechaHasta.Format = DateTimePickerFormat.Custom;
+                timerFechaHasta.CustomFormat = " ";
+            }
+            timeHoraDesde.Value = new DateTime(2016, 1, 1, 0, 0, 0);
+            timeHoraHasta.Value = new DateTime(2016, 1, 1, 0, 0, 0);
             actualizarHorasTrabajadas();
             cargarGriedViewDeHorarios();
         }
@@ -293,6 +302,36 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 throw;
             }
             
+        }
+
+        private void timerFechaDesde_ValueChanged(object sender, EventArgs e)
+        {
+            timerFechaDesde.CustomFormat = "dd/MM/yyyy";
+        }
+
+        private void timerFechaHasta_ValueChanged(object sender, EventArgs e)
+        {
+            timerFechaHasta.CustomFormat = "dd/MM/yyyy";
+        }
+
+        private void timerFechaDesde_Enter(object sender, EventArgs e)
+        {
+           System.Windows.Forms.SendKeys.Send("%{DOWN}");
+        }
+
+        private void timerFechaDesde_MouseDown(object sender, MouseEventArgs e)
+        {
+            System.Windows.Forms.SendKeys.Send("%{DOWN}");
+        }
+
+        private void timerFechaHasta_Enter(object sender, EventArgs e)
+        {
+            System.Windows.Forms.SendKeys.Send("%{DOWN}");
+        }
+
+        private void timerFechaHasta_MouseDown(object sender, MouseEventArgs e)
+        {
+            System.Windows.Forms.SendKeys.Send("%{DOWN}");
         }
     }
 }
