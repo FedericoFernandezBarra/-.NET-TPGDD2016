@@ -165,6 +165,8 @@ namespace ClinicaFrba.Abm_Afiliado
 
             grillaPacientes.Rows.Clear();
 
+            buscarAfiliado.initFiltros();
+
             grillaPacientes.Enabled = false;
 
         }

@@ -92,5 +92,13 @@ namespace ClinicaFrba.Clases.Otros
                 }
             }
         }
+
+        internal void initFiltros()
+        {
+            nroMatricula = 0;
+            nombre = "";
+            apellido = "";
+            especialidad = especialidadesSistema[0];
+        }
     }
 }

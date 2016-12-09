@@ -90,7 +90,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 string nombresEsp = "";
                 foreach (var esp in diaAgenda.especialidades)
                 {
-                    nombresEsp += esp.Key + " / ";
+                    nombresEsp += esp.Key + " --- ";
                 }
                 dgHorarios.Rows.Add(nombresEsp, diaAgenda.horaInicial, diaAgenda.horaFinal);
             }
@@ -195,7 +195,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         private void botonAgregar_Click(object sender, EventArgs e)
         {
             if (!seCumplenLasValidacionesParaAgregarDiaAgenda()) return;
-
+            
             TimeSpan horaDesde = new TimeSpan(timeHoraDesde.Value.Hour, timeHoraDesde.Value.Minute, 0);
             TimeSpan horaHasta = new TimeSpan(timeHoraHasta.Value.Hour, timeHoraHasta.Value.Minute, 0);
 
@@ -209,6 +209,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
             agenda.listaDeDiasAgenda.Add(new DiaAgenda(0, nombreDia, especialidades, horaDesde, horaHasta));
 
+            lbEspe.Items.Clear();
             cargarGriedViewDeHorarios();
             actualizarHorasTrabajadas();
         }
@@ -292,6 +293,11 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 throw;
             }
             
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
