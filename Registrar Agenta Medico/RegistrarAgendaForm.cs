@@ -294,10 +294,5 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             }
             
         }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

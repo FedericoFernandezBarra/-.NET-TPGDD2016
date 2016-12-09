@@ -73,8 +73,6 @@ namespace ClinicaFrba.Pedir_Turno
                         //Cuarto filtro: eliminar horarios que ya pasaron
                         filtrarHorariosPasados(horariosPosibles);
 
-                        //Quinto filtro: eliminar horarios que ya poseen turno asignado
-                        filtrarHorariosYaTomados(horariosPosibles);
                         if (horariosPosibles.Count == 0)
                         {
                             MessageBox.Show("El profesional ya no atiende en el dia de hoy.", "Error",
@@ -82,6 +80,9 @@ namespace ClinicaFrba.Pedir_Turno
                         }
                         else
                         {
+                            //Quinto filtro: eliminar horarios que ya poseen turno asignado
+                            filtrarHorariosYaTomados(horariosPosibles);
+
                             //Sexto filtro: el profesional tiene todos los turnos ocupados
                             if (horariosPosibles.Count == 0)
                             {

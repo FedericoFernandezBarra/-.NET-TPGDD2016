@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistrarAgendaForm));
             this.botonGuardarCambios = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btEliminarEspe = new System.Windows.Forms.Button();
             this.btAgregarEspe = new System.Windows.Forms.Button();
@@ -57,7 +59,6 @@
             this.botonEliminar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgHorarios)).BeginInit();
@@ -67,7 +68,7 @@
             // botonGuardarCambios
             // 
             this.botonGuardarCambios.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.botonGuardarCambios.Location = new System.Drawing.Point(89, 98);
+            this.botonGuardarCambios.Location = new System.Drawing.Point(320, 88);
             this.botonGuardarCambios.Name = "botonGuardarCambios";
             this.botonGuardarCambios.Size = new System.Drawing.Size(112, 23);
             this.botonGuardarCambios.TabIndex = 13;
@@ -90,12 +91,21 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.botonAgregar);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 270);
+            this.groupBox1.Location = new System.Drawing.Point(18, 195);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(449, 269);
+            this.groupBox1.Size = new System.Drawing.Size(449, 233);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Agregar horarios al día de la semana";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(249, 109);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(97, 13);
+            this.label10.TabIndex = 25;
+            this.label10.Text = "Rango de horarios:";
             // 
             // label1
             // 
@@ -108,7 +118,7 @@
             // 
             // btEliminarEspe
             // 
-            this.btEliminarEspe.Location = new System.Drawing.Point(6, 239);
+            this.btEliminarEspe.Location = new System.Drawing.Point(6, 200);
             this.btEliminarEspe.Name = "btEliminarEspe";
             this.btEliminarEspe.Size = new System.Drawing.Size(216, 23);
             this.btEliminarEspe.TabIndex = 21;
@@ -120,9 +130,9 @@
             // 
             this.btAgregarEspe.Location = new System.Drawing.Point(9, 70);
             this.btAgregarEspe.Name = "btAgregarEspe";
-            this.btAgregarEspe.Size = new System.Drawing.Size(136, 23);
+            this.btAgregarEspe.Size = new System.Drawing.Size(163, 23);
             this.btAgregarEspe.TabIndex = 20;
-            this.btAgregarEspe.Text = "Agregar especialidad";
+            this.btAgregarEspe.Text = "Agregar especialidad a atender";
             this.btAgregarEspe.UseVisualStyleBackColor = true;
             this.btAgregarEspe.Click += new System.EventHandler(this.btAgregarEspe_Click);
             // 
@@ -131,7 +141,7 @@
             this.lbEspe.FormattingEnabled = true;
             this.lbEspe.Location = new System.Drawing.Point(6, 125);
             this.lbEspe.Name = "lbEspe";
-            this.lbEspe.Size = new System.Drawing.Size(216, 108);
+            this.lbEspe.Size = new System.Drawing.Size(216, 69);
             this.lbEspe.TabIndex = 19;
             // 
             // timeHoraHasta
@@ -168,9 +178,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(6, 27);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(132, 13);
+            this.label7.Size = new System.Drawing.Size(152, 13);
             this.label7.TabIndex = 13;
-            this.label7.Text = "Todas sus especialidades:";
+            this.label7.Text = "Especialidades del profesional:";
             // 
             // label4
             // 
@@ -193,7 +203,7 @@
             // botonAgregar
             // 
             this.botonAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.botonAgregar.Location = new System.Drawing.Point(263, 240);
+            this.botonAgregar.Location = new System.Drawing.Point(263, 200);
             this.botonAgregar.Name = "botonAgregar";
             this.botonAgregar.Size = new System.Drawing.Size(172, 23);
             this.botonAgregar.TabIndex = 0;
@@ -222,11 +232,11 @@
             // botonVolver
             // 
             this.botonVolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.botonVolver.Location = new System.Drawing.Point(252, 98);
+            this.botonVolver.Location = new System.Drawing.Point(6, 88);
             this.botonVolver.Name = "botonVolver";
-            this.botonVolver.Size = new System.Drawing.Size(112, 23);
+            this.botonVolver.Size = new System.Drawing.Size(74, 23);
             this.botonVolver.TabIndex = 16;
-            this.botonVolver.Text = "Cancelar y Volver";
+            this.botonVolver.Text = "Cancelar";
             this.botonVolver.UseVisualStyleBackColor = true;
             this.botonVolver.Click += new System.EventHandler(this.botonVolver_Click);
             // 
@@ -238,7 +248,6 @@
             this.label5.Size = new System.Drawing.Size(74, 13);
             this.label5.TabIndex = 21;
             this.label5.Text = "Fecha Desde:";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label6
             // 
@@ -273,12 +282,12 @@
             this.ESPECIALIDADES,
             this.DESDE_LAS,
             this.HASTA_LAS});
-            this.dgHorarios.Location = new System.Drawing.Point(12, 79);
+            this.dgHorarios.Location = new System.Drawing.Point(12, 69);
             this.dgHorarios.MultiSelect = false;
             this.dgHorarios.Name = "dgHorarios";
             this.dgHorarios.ReadOnly = true;
             this.dgHorarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgHorarios.Size = new System.Drawing.Size(449, 161);
+            this.dgHorarios.Size = new System.Drawing.Size(449, 101);
             this.dgHorarios.TabIndex = 25;
             // 
             // ESPECIALIDADES
@@ -321,7 +330,7 @@
             // botonEliminar
             // 
             this.botonEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.botonEliminar.Location = new System.Drawing.Point(302, 246);
+            this.botonEliminar.Location = new System.Drawing.Point(302, 176);
             this.botonEliminar.Name = "botonEliminar";
             this.botonEliminar.Size = new System.Drawing.Size(159, 23);
             this.botonEliminar.TabIndex = 28;
@@ -338,9 +347,9 @@
             this.groupBox2.Controls.Add(this.timerFechaDesde);
             this.groupBox2.Controls.Add(this.timerFechaHasta);
             this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Location = new System.Drawing.Point(12, 556);
+            this.groupBox2.Location = new System.Drawing.Point(18, 434);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(449, 127);
+            this.groupBox2.Size = new System.Drawing.Size(449, 120);
             this.groupBox2.TabIndex = 29;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Registrar Cambios";
@@ -354,19 +363,10 @@
             this.label9.TabIndex = 22;
             this.label9.Text = "Rango de validez de la agenda:";
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(249, 109);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(97, 13);
-            this.label10.TabIndex = 25;
-            this.label10.Text = "Rango de horarios:";
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(9, 63);
+            this.label11.Location = new System.Drawing.Point(9, 53);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(199, 13);
             this.label11.TabIndex = 30;
@@ -376,7 +376,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(485, 697);
+            this.ClientSize = new System.Drawing.Size(485, 551);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.botonEliminar);
@@ -387,9 +387,12 @@
             this.Controls.Add(this.listBoxDias);
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximizeBox = false;
             this.Name = "RegistrarAgendaForm";
-            this.Text = "RegistrarAgendForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Agenda";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgHorarios)).EndInit();
