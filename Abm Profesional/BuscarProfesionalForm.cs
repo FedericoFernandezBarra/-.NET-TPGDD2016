@@ -113,7 +113,7 @@ namespace ClinicaFrba.Abm_Profesional
             //grillaProfesionales.DataSource = buscarProfesional.profesionales;
 
             cmbEspecialidades.DisplayMember = "descripcion";
-            cmbEspecialidades.DataSource = buscarProfesional.especialidadesSistema;
+            cmbEspecialidades.DataSource = buscarProfesional.especialidadesSistema.OrderBy(unaEspecialidad => unaEspecialidad.descripcion).ToList();
             cmbEspecialidades.DataBindings.Add("SelectedItem", buscarProfesional, "especialidad");
 
             initDataGrid();

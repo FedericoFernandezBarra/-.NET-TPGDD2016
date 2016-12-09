@@ -49,7 +49,7 @@
             // 
             // btnAction
             // 
-            this.btnAction.Location = new System.Drawing.Point(341, 317);
+            this.btnAction.Location = new System.Drawing.Point(500, 316);
             this.btnAction.Name = "btnAction";
             this.btnAction.Size = new System.Drawing.Size(75, 34);
             this.btnAction.TabIndex = 8;
@@ -65,12 +65,12 @@
             this.grillaProfesionales.Location = new System.Drawing.Point(19, 136);
             this.grillaProfesionales.Name = "grillaProfesionales";
             this.grillaProfesionales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grillaProfesionales.Size = new System.Drawing.Size(427, 175);
+            this.grillaProfesionales.Size = new System.Drawing.Size(562, 175);
             this.grillaProfesionales.TabIndex = 7;
             // 
             // cmdBuscar
             // 
-            this.cmdBuscar.Location = new System.Drawing.Point(355, 75);
+            this.cmdBuscar.Location = new System.Drawing.Point(490, 77);
             this.cmdBuscar.Name = "cmdBuscar";
             this.cmdBuscar.Size = new System.Drawing.Size(75, 23);
             this.cmdBuscar.TabIndex = 5;
@@ -80,7 +80,7 @@
             // 
             // cmdLimpiar
             // 
-            this.cmdLimpiar.Location = new System.Drawing.Point(263, 75);
+            this.cmdLimpiar.Location = new System.Drawing.Point(490, 48);
             this.cmdLimpiar.Name = "cmdLimpiar";
             this.cmdLimpiar.Size = new System.Drawing.Size(75, 23);
             this.cmdLimpiar.TabIndex = 6;
@@ -102,7 +102,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(10, 11);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(436, 104);
+            this.groupBox1.Size = new System.Drawing.Size(571, 104);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de Búsqueda";
@@ -112,7 +112,7 @@
             this.txtApellido.Location = new System.Drawing.Point(112, 51);
             this.txtApellido.MaxLength = 255;
             this.txtApellido.Name = "txtApellido";
-            this.txtApellido.Size = new System.Drawing.Size(121, 20);
+            this.txtApellido.Size = new System.Drawing.Size(356, 20);
             this.txtApellido.TabIndex = 3;
             // 
             // txtNombre
@@ -120,7 +120,7 @@
             this.txtNombre.Location = new System.Drawing.Point(291, 25);
             this.txtNombre.MaxLength = 255;
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(124, 20);
+            this.txtNombre.Size = new System.Drawing.Size(274, 20);
             this.txtNombre.TabIndex = 2;
             // 
             // txtNumMatricula
@@ -137,7 +137,7 @@
             this.cmbEspecialidades.FormattingEnabled = true;
             this.cmbEspecialidades.Location = new System.Drawing.Point(112, 77);
             this.cmbEspecialidades.Name = "cmbEspecialidades";
-            this.cmbEspecialidades.Size = new System.Drawing.Size(121, 21);
+            this.cmbEspecialidades.Size = new System.Drawing.Size(356, 21);
             this.cmbEspecialidades.TabIndex = 4;
             // 
             // label5
@@ -182,7 +182,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(220, 317);
+            this.button1.Location = new System.Drawing.Point(403, 317);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 34);
             this.button1.TabIndex = 9;
@@ -194,7 +194,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(454, 362);
+            this.ClientSize = new System.Drawing.Size(593, 362);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnAction);
             this.Controls.Add(this.grillaProfesionales);
