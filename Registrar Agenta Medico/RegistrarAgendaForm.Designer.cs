@@ -60,6 +60,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.lbTipoAgenda = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgHorarios)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -91,7 +93,7 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.botonAgregar);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(18, 195);
+            this.groupBox1.Location = new System.Drawing.Point(24, 281);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(449, 233);
             this.groupBox1.TabIndex = 10;
@@ -214,7 +216,7 @@
             // listBoxDias
             // 
             this.listBoxDias.FormattingEnabled = true;
-            this.listBoxDias.Location = new System.Drawing.Point(12, 25);
+            this.listBoxDias.Location = new System.Drawing.Point(15, 55);
             this.listBoxDias.Name = "listBoxDias";
             this.listBoxDias.Size = new System.Drawing.Size(121, 21);
             this.listBoxDias.TabIndex = 8;
@@ -223,7 +225,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 9);
+            this.label2.Location = new System.Drawing.Point(12, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 13);
             this.label2.TabIndex = 7;
@@ -288,12 +290,12 @@
             this.ESPECIALIDADES,
             this.DESDE_LAS,
             this.HASTA_LAS});
-            this.dgHorarios.Location = new System.Drawing.Point(12, 69);
+            this.dgHorarios.Location = new System.Drawing.Point(15, 99);
             this.dgHorarios.MultiSelect = false;
             this.dgHorarios.Name = "dgHorarios";
             this.dgHorarios.ReadOnly = true;
             this.dgHorarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgHorarios.Size = new System.Drawing.Size(449, 101);
+            this.dgHorarios.Size = new System.Drawing.Size(449, 147);
             this.dgHorarios.TabIndex = 25;
             // 
             // ESPECIALIDADES
@@ -317,7 +319,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(325, 9);
+            this.label8.Location = new System.Drawing.Point(328, 39);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(136, 13);
             this.label8.TabIndex = 26;
@@ -327,7 +329,7 @@
             // 
             this.lbHorasTotales.AutoSize = true;
             this.lbHorasTotales.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbHorasTotales.Location = new System.Drawing.Point(385, 26);
+            this.lbHorasTotales.Location = new System.Drawing.Point(388, 56);
             this.lbHorasTotales.Name = "lbHorasTotales";
             this.lbHorasTotales.Size = new System.Drawing.Size(76, 17);
             this.lbHorasTotales.TabIndex = 27;
@@ -336,7 +338,7 @@
             // botonEliminar
             // 
             this.botonEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.botonEliminar.Location = new System.Drawing.Point(302, 176);
+            this.botonEliminar.Location = new System.Drawing.Point(305, 252);
             this.botonEliminar.Name = "botonEliminar";
             this.botonEliminar.Size = new System.Drawing.Size(159, 23);
             this.botonEliminar.TabIndex = 28;
@@ -353,7 +355,7 @@
             this.groupBox2.Controls.Add(this.timerFechaDesde);
             this.groupBox2.Controls.Add(this.timerFechaHasta);
             this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Location = new System.Drawing.Point(18, 434);
+            this.groupBox2.Location = new System.Drawing.Point(24, 520);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(449, 120);
             this.groupBox2.TabIndex = 29;
@@ -372,17 +374,39 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(9, 53);
+            this.label11.Location = new System.Drawing.Point(12, 83);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(199, 13);
             this.label11.TabIndex = 30;
             this.label11.Text = "Rango de horarios del día seleccionado:";
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(12, 9);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(111, 13);
+            this.label12.TabIndex = 31;
+            this.label12.Text = "Estado de la agenda: ";
+            // 
+            // lbTipoAgenda
+            // 
+            this.lbTipoAgenda.AutoSize = true;
+            this.lbTipoAgenda.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTipoAgenda.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lbTipoAgenda.Location = new System.Drawing.Point(121, 5);
+            this.lbTipoAgenda.Name = "lbTipoAgenda";
+            this.lbTipoAgenda.Size = new System.Drawing.Size(61, 18);
+            this.lbTipoAgenda.TabIndex = 32;
+            this.lbTipoAgenda.Text = "Estado";
+            // 
             // RegistrarAgendaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(485, 551);
+            this.ClientSize = new System.Drawing.Size(485, 648);
+            this.Controls.Add(this.lbTipoAgenda);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.botonEliminar);
@@ -441,5 +465,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lbTipoAgenda;
     }
 }

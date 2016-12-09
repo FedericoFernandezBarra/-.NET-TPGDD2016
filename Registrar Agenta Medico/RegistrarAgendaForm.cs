@@ -3,7 +3,6 @@ using ClinicaFrba.Clases.DAOS;
 using ClinicaFrba.Clases.Otros;
 using ClinicaFrba.Clases.POJOS;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -41,6 +40,24 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         private void cargarElementosDeLaVista()
         {
+            switch (agenda.tipoAgenda)
+            {
+                case TipoAgenda.Nuevo:
+                    lbTipoAgenda.Text = TipoAgenda.Nuevo.ToString();
+                    lbTipoAgenda.ForeColor = System.Drawing.Color.YellowGreen;
+                    break;
+                case TipoAgenda.Vencido:
+                    lbTipoAgenda.Text = TipoAgenda.Vencido.ToString() + " (debe registrar una nueva)";
+                    lbTipoAgenda.ForeColor = System.Drawing.Color.Red;
+                    break;
+                case TipoAgenda.Actual:
+                    lbTipoAgenda.Text = TipoAgenda.Actual.ToString() + " (la agenda sigue vigente)";
+                    lbTipoAgenda.ForeColor = System.Drawing.Color.Green;
+                    break;
+                default:
+                    break;
+            }
+
             listBoxDias.Items.Clear();
             listBoxDias.Items.AddRange(new object[] { "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO" });
             listBoxDias.SelectedIndex = 0;
@@ -219,6 +236,9 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             agenda.listaDeDiasAgenda.Add(new DiaAgenda(0, nombreDia, especialidades, horaDesde, horaHasta));
 
             lbEspe.Items.Clear();
+            timeHoraDesde.Value = new DateTime(2016, 1, 1, 0, 0, 0);
+            timeHoraHasta.Value = new DateTime(2016, 1, 1, 0, 0, 0);
+
             cargarGriedViewDeHorarios();
             actualizarHorasTrabajadas();
         }
