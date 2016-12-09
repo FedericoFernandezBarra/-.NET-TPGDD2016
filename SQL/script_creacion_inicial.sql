@@ -3,10 +3,10 @@ USE GD2C2016
 go
 
 /********************************************************************************************************************************/
-/*VERIFICO EXISTENCIA DE PROCEDIMIENTOS, FUNCIONES, ETC ANTSES DE CREARLOS*/
+/*VERIFICO EXISTENCIA DE PROCEDIMIENTOS, FUNCIONES, ETC ANTES DE CREARLOS*/
 /********************************************************************************************************************************/
 
---REGSITRAR AGENDA MEDICO
+--REGISTRAR AGENDA MEDICO
 -------------------------------------------------------------------------------------------------------
 if EXISTS (SELECT * FROM sysobjects  WHERE name='sp_agenda_del_profesional') 
 drop procedure BEMVINDO.sp_agenda_del_profesional
@@ -32,6 +32,12 @@ if EXISTS (SELECT * FROM sysobjects  WHERE name='sp_insertar_especialidad_por_di
 drop procedure BEMVINDO.sp_insertar_especialidad_por_dia_agenda
 
 go
+
+if EXISTS (SELECT * FROM sysobjects  WHERE name='sp_obtener_agenda_del_profesional_por_especialidad') 
+drop procedure BEMVINDO.sp_obtener_agenda_del_profesional_por_especialidad
+
+go
+
 
 ---ABM AFILIADO
 -------------------------------------------------------------------------------------------------------
@@ -1613,6 +1619,33 @@ create procedure BEMVINDO.sp_insertar_especialidad_por_dia_agenda
 as begin
     insert into BEMVINDO.ESPECIALIDAD_POR_DIA_AGENDA
     values (@id_dia_agenda, @especialidad)
+end
+
+go
+
+
+create procedure BEMVINDO.sp_obtener_agenda_del_profesional_por_especialidad
+    @profesional numeric(10,0),
+	@especialidad numeric(10,0),
+	@fecha		datetime
+as begin
+    select 
+        A.id_agenda,
+        A.fecha_inicial,
+        A.fecha_final,
+		D.id_dia_agenda,
+        D.dia,
+        D.horario_inicial,
+        D.horario_final
+    from BEMVINDO.AGENDA as A
+    inner join BEMVINDO.DIA_AGENDA as D on A.id_agenda = D.agenda 
+	inner join BEMVINDO.ESPECIALIDAD_POR_DIA_AGENDA as ED on ED.id_dia_Agenda = D.id_dia_agenda
+    where 
+		D.dia != 'DOMINGO' and
+        A.profesional = @profesional and
+		ED.id_especialidad = @especialidad and
+		A.fecha_inicial <= @fecha and
+		A.fecha_final >= @fecha
 end
 
 go

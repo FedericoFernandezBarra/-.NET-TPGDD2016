@@ -111,6 +111,33 @@ namespace ClinicaFrba.Clases.DAOS
                 } 
             }
         }
-        
+
+        public Agenda obtenerAgendaDe(Profesional unProfesional, Especialidad enUnaEspecialidad, DateTime enUnaFecha)
+        {
+            string procedimiento = "BEMVINDO.sp_obtener_agenda_del_profesional_por_especialidad";
+
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            db.agregarParametro(parametros, "@profesional", unProfesional.usuario.id);
+            db.agregarParametro(parametros, "@especialidad", enUnaEspecialidad.id);
+            db.agregarParametro(parametros, "@fecha", enUnaFecha);
+
+            List<Dictionary<string, object>> listaDB = db.ejecutarStoredProcedure(procedimiento, parametros);
+
+            if (listaDB.Count == 0) return null;
+
+            List<DiaAgenda> listaDiasAgenda = new List<DiaAgenda>();
+
+            foreach (Dictionary<string, object> dic in listaDB)
+            {
+                Dictionary<string, long> nuevaEsp = new Dictionary<string, long>();
+                nuevaEsp.Add(enUnaEspecialidad.descripcion, enUnaEspecialidad.id);
+
+                listaDiasAgenda.Add( new DiaAgenda(Convert.ToInt64(dic["id_dia_agenda"]), (string)dic["dia"], nuevaEsp, 
+                    (TimeSpan)dic["horario_inicial"], (TimeSpan)dic["horario_final"]));
+            }
+ 
+            return new Agenda(Convert.ToInt64(listaDB[0]["id_agenda"]), unProfesional.usuario.id, 
+                (DateTime)listaDB[0]["fecha_inicial"], (DateTime)listaDB[0]["fecha_final"], listaDiasAgenda, TipoAgenda.Nuevo);
+        }   
     }
 }

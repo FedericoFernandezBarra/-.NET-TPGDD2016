@@ -22,7 +22,6 @@ namespace ClinicaFrba.Pedir_Turno
     {
         Turno turno { get; set; }
         TurnoRepository turnoRepository;
-        Agenda agendaDelProfesional;
 
         public PedirTurnoForm(Usuario usuario, Rol rol)
         {
@@ -43,49 +42,58 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void btnConsultarDisponibilidad_Click(object sender, EventArgs e)
         {
-            //Primer filtro: la fecha esta dentro de la agenda
-            if (obtenerFechaSeleccionada() < agendaDelProfesional.fecha_inicial 
-                || obtenerFechaSeleccionada() > agendaDelProfesional.fecha_final)
+            Agenda agendaDelProfesional;
+            //Primer filtro: el dia no es domingo
+            if (obtenerFechaSeleccionada().DayOfWeek.Equals(DayOfWeek.Sunday))
             {
-                MessageBox.Show("La fecha seleccionada está fuera de la agenda del profesional.", "Error",
+                MessageBox.Show("El profesional no trabaja en el día seleccionado.", "Error", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                //Segundo filtro: el dia no es domingo
-                if (obtenerFechaSeleccionada().DayOfWeek.Equals(DayOfWeek.Sunday))
+                //Segundo filtro: el profesional tiene el dia elegido en su agenda.
+                agendaDelProfesional = new AgendaRepository().obtenerAgendaDe(turno.profesional,
+                    turno.especialidad, mcFechaDeTurno.SelectionRange.Start);
+                if (agendaDelProfesional == null)
                 {
-                    MessageBox.Show("El profesional no trabaja en el día seleccionado.", "Error", 
+                    MessageBox.Show("ERROR: El profesional no tiene agenda definida para su especialidad en la fecha elegida (" +
+                        obtenerFechaSeleccionada().ToString("dd/MM/yyyy") + ").", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
-                {///////////////////////////////////////////////YA NO TIENE SOLO UNA ESPECIALIDAD!!!!!!!
-                    //Tercer filtro: el profesional atiende esa especialidad en ese dia. Si es 0 la especialidad es porque tenia null (venia de migración)
-                    List<DiaAgenda> diaSeleccionado = agendaDelProfesional.listaDeDiasAgenda/*.
-                        Where(unDia => unDia.idEspecialidad.Equals(turno.especialidad.id) || unDia.idEspecialidad.Equals(0)).ToList()*/;
+                {
+                    List<DiaAgenda> diaSeleccionado = agendaDelProfesional.listaDeDiasAgenda.Where
+                        (unDiaDeAgenda => unDiaDeAgenda.nombreDia.Equals(obtenerDiaSeleccionado())).ToList();
                     if (diaSeleccionado.Count > 0)
                     {
-                        //Cuarto filtro: horarios definidos en la agenda de ese dia
+                        //Tercer filtro: horarios definidos en la agenda de ese dia
                         List<String> horariosPosibles = new List<String>();
                         diaSeleccionado.ForEach(unHorario => obtenerHorariosPosibles(horariosPosibles, unHorario.horaInicial, unHorario.horaFinal));
 
-                        //Quinto filtro: eliminar horarios que ya pasaron
+                        //Cuarto filtro: eliminar horarios que ya pasaron
                         filtrarHorariosPasados(horariosPosibles);
 
-                        //Sexto filtro: eliminar horarios que ya poseen turno asignado
+                        //Quinto filtro: eliminar horarios que ya poseen turno asignado
                         filtrarHorariosYaTomados(horariosPosibles);
-
-                        //Septimo filtro: el profesional tiene todos los turnos ocupados
                         if (horariosPosibles.Count == 0)
                         {
-                            MessageBox.Show("El profesional no tiene turnos disponibles en el día seleccionado", "Error", 
+                            MessageBox.Show("El profesional ya no atiende en el dia de hoy.", "Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else
                         {
-                            cmbHorariosDisponibles.DataSource = horariosPosibles;
-                            cmbHorariosDisponibles.Enabled = true;
-                            btnConfirmarTurno.Enabled = true;
+                            //Sexto filtro: el profesional tiene todos los turnos ocupados
+                            if (horariosPosibles.Count == 0)
+                            {
+                                MessageBox.Show("El profesional no tiene turnos disponibles en el día seleccionado.", "Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else
+                            {
+                                cmbHorariosDisponibles.DataSource = horariosPosibles;
+                                cmbHorariosDisponibles.Enabled = true;
+                                btnConfirmarTurno.Enabled = true;
+                            }
                         }
                     }
                     else
@@ -96,6 +104,7 @@ namespace ClinicaFrba.Pedir_Turno
                 }
             }
         }
+        
 
         private void btnBuscarProfesional_Click(object sender, EventArgs e)
         {
@@ -109,38 +118,19 @@ namespace ClinicaFrba.Pedir_Turno
 
             if (buscarProfesionalForm.seSeleccionoUnProfesional())
             {
-                AgendaRepository agendaRepository = new AgendaRepository();
                 Usuario profesionalSeleccionado = buscarProfesionalForm.getProfesionalSeleccionado().usuario;
 
-                agendaDelProfesional = agendaRepository.traerAgendaDelProfesional(profesionalSeleccionado);
-                if (agendaDelProfesional == null)
-                {
-                    MessageBox.Show("ERROR: El profesional seleccionado no dispone de una agenda.", "Error", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else if (agendaDelProfesional.fecha_inicial == DateTime.MinValue)
-                {
-                    MessageBox.Show("ERROR: El profesional no asignó su rango de fechas disponibles en su agenda.", "Error",
-                       MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    turno.profesional = buscarProfesionalForm.getProfesionalSeleccionado();
-                    turno.especialidad = buscarProfesionalForm.getEspecialidadSeleccionada();
-                    if (mcFechaDeTurno.MinDate < agendaDelProfesional.fecha_inicial)
-                    {
-                        mcFechaDeTurno.MinDate = agendaDelProfesional.fecha_inicial;
-                    }
-                    mcFechaDeTurno.MaxDate = agendaDelProfesional.fecha_final;
-                    mcFechaDeTurno.SelectionRange.Start = mcFechaDeTurno.MinDate;
+                turno.profesional = buscarProfesionalForm.getProfesionalSeleccionado();
+                turno.especialidad = buscarProfesionalForm.getEspecialidadSeleccionada();
+                mcFechaDeTurno.MinDate = DataBase.Instance.getDate();
+                mcFechaDeTurno.SelectionRange.Start = mcFechaDeTurno.MinDate;
 
-                    txtProfesional.Text = profesionalSeleccionado.nombreCompleto
-                        + " - " + turno.especialidad.descripcion;
+                txtProfesional.Text = profesionalSeleccionado.nombreCompleto
+                    + " - " + turno.especialidad.descripcion;
 
-                    btnConsultarDisponibilidad.Enabled = true;
-                    cmbHorariosDisponibles.Enabled = false;
-                    btnConfirmarTurno.Enabled = false;
-                }
+                btnConsultarDisponibilidad.Enabled = true;
+                cmbHorariosDisponibles.Enabled = false;
+                btnConfirmarTurno.Enabled = false;
             }
         }
 
