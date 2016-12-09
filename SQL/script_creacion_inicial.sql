@@ -2093,7 +2093,7 @@ select top 5 id_especialidad,descripcion,tipo_especialidad,count(*) as cant_canc
 FROM BEMVINDO.TURNO
 inner join BEMVINDO.CANCELACION on turno = id_turno
 inner join BEMVINDO.ESPECIALIDAD on especialidad = id_especialidad
- where year(fecha)= @anio and (month(fecha)=@mes)-- and activo=0
+ where year(fecha_turno)= @anio and (month(fecha_turno)=@mes)-- and activo=0
  group by id_especialidad,descripcion,TIPO_ESPECIALIDAD
  order by cant_cancelaciones desc
 
