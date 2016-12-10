@@ -107,7 +107,7 @@ namespace ClinicaFrba.Clases.Otros
                     //return false;
                     mensajeDeExito = "Creacion completada con errores";
                     nuevoAfiliado.conyuge = null;
-                    nuevoAfiliado.hijos = new List<Afiliado>();
+                    nuevoAfiliado.hijos.Clear();
                     return true;
                 }
             }
@@ -121,10 +121,11 @@ namespace ClinicaFrba.Clases.Otros
                 if (error!="")
                 {
                     mensajeDeExito = "Creacion completada con errores";
-                    return true;
                 }
-
-                hijosCreadosExitosamente.Add(hijo);
+                else
+                {
+                    hijosCreadosExitosamente.Add(hijo);
+                }
             }
 
             nuevoAfiliado.hijos = hijosCreadosExitosamente;
