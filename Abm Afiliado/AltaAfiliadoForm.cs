@@ -42,7 +42,10 @@ namespace ClinicaFrba.Abm_Afiliado
             txtDir.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado.usuario, "direccion", false, DataSourceUpdateMode.OnPropertyChanged);
             txtTel.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado.usuario, "telefono", false, DataSourceUpdateMode.OnPropertyChanged);
             txtMail.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado.usuario, "mail", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtHijos.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado, "cantidadDeHijos", false, DataSourceUpdateMode.OnPropertyChanged);
+            //txtHijos.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado, "cantidadDeHijos", false, DataSourceUpdateMode.OnPropertyChanged);
+            lblCantHijos.DataBindings.Add("Text", altaAfiliado.nuevoAfiliado, "cantidadDeHijos", false, DataSourceUpdateMode.OnPropertyChanged);
+
+            btnHijo.Enabled = true;//TOMAME ESTO LPM!!
 
             if (!altaConyuge)
             {
@@ -93,8 +96,8 @@ namespace ClinicaFrba.Abm_Afiliado
             {
                 lblEstadoCivil.Visible = false;
                 cmbEstadoCivil.Visible = false;
-                lblCantHijos.Visible = false;
-                txtHijos.Visible = false;
+                label7.Visible = false;
+                //txtHijos.Visible = false;
                 lblDireccion.Visible = false;
                 txtDir.Visible = false;                            
             }
@@ -118,7 +121,8 @@ namespace ClinicaFrba.Abm_Afiliado
             txtApellido.Text = "";
             txtDir.Text = "";
             txtDni.Text = "";
-            txtHijos.Text = "";
+            //txtHijos.Text = "";
+            label7.Text = "Cant. Hijos:   0";
             txtMail.Text = "";
             txtNombre.Text = "";
             txtTel.Text = "";
@@ -236,11 +240,11 @@ namespace ClinicaFrba.Abm_Afiliado
             }
         }
 
-        private void txtHijos_TextChanged(object sender, EventArgs e)
+        /*private void txtHijos_TextChanged(object sender, EventArgs e)
         {
             long cantHijos = txtHijos.Text == "" ? 0 : Convert.ToInt64(txtHijos.Text);
             btnHijo.Enabled = cantHijos > 0;
-        }
+        }*/
 
         private void btnHijo_Click(object sender, EventArgs e)
         {
@@ -267,8 +271,11 @@ namespace ClinicaFrba.Abm_Afiliado
 
             Show();
 
+            lblCantHijos.Text = (Convert.ToInt32(lblCantHijos.Text) + 1).ToString();
+
             if (!altaHijo.altaExitosa)
             {
+                lblCantHijos.Text = (Convert.ToInt32(lblCantHijos.Text) - 1).ToString();
                 altaAfiliado.borrarHijo(hijoAfiliado);
             }
         }

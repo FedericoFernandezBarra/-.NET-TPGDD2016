@@ -145,11 +145,11 @@ namespace ClinicaFrba.Clases.Otros
 
         internal Afiliado crearNuevoHijo()
         {
-            if (nuevoAfiliado.cantidadDeHijos<=nuevoAfiliado.hijos.Count)
+            /*if (nuevoAfiliado.cantidadDeHijos<=nuevoAfiliado.hijos.Count)
             {
                 mensajeDeError = "No se puede agragar mas hijos de la especificada";
                 return null;
-            }
+            }*/
 
             Afiliado nuevoHijo = new Afiliado();
             nuevoHijo.usuario = new Usuario();
