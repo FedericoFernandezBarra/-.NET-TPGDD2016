@@ -160,7 +160,10 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 return false;
             }
 
-            if (agenda.horasTrabajadasEnLaSemana() > 48)
+            if (agenda.horasTrabajadasEnLaSemana() +
+                timeHoraHasta.Value.Hour - timeHoraDesde.Value.Hour + 
+                (timeHoraHasta.Value.Minute > 0? 0.5:0) - (timeHoraDesde.Value.Minute > 0? 0.5:0)
+                > 48f)
             {
                 MessageBox.Show("El maximo de horas a trabajar es de 48 horas", "Error", MessageBoxButtons.OK);
                 return false;
