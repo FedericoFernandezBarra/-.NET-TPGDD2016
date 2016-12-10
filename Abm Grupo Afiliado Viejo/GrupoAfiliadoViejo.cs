@@ -88,8 +88,8 @@ namespace ClinicaFrba.Abm_Grupo_Afiliado_Viejo
             idConyuge = 0;
             diccionarioHijos.Clear();
 
-            lbPrincipal.Text = "";
-            lbConyuge.Text = "";
+            lbPrincipal.Text = "Sin Asignar";
+            lbConyuge.Text = "Sin Asignar";
             listBoxHijos.Items.Clear();
         }
 
@@ -155,12 +155,12 @@ namespace ClinicaFrba.Abm_Grupo_Afiliado_Viejo
             {
                 db.asignarNuerosDeUsuario(idPrincipal, idConyuge, diccionarioHijos.Values.ToList());
             }
-            catch (Exception)
+            catch (Exception exc)
             {
-                MessageBox.Show("No se pudo guardar los cambios", "ERROR!", MessageBoxButtons.OK);
+                MessageBox.Show("No se pudo guardar los cambios. Error: " +exc.ToString(), "ERROR!", MessageBoxButtons.OK);
                 return;
             }
-
+            
             cargarDataGrid();
             reiniciarVariablesYElementosDeLAVista();
 
@@ -222,6 +222,18 @@ namespace ClinicaFrba.Abm_Grupo_Afiliado_Viejo
         private void bVolverAtras_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void bEliminarPrincipal_Click(object sender, EventArgs e)
+        {
+            idPrincipal = 0;
+            lbPrincipal.Text = "Sin Asignar";
+        }
+
+        private void bEliminarConyugue_Click(object sender, EventArgs e)
+        {
+            idConyuge = 0;
+            lbConyuge.Text = "Sin Asignar";
         }
     }
 }

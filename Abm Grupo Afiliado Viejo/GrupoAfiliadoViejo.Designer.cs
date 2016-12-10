@@ -46,6 +46,8 @@
             this.listBoxHijos = new System.Windows.Forms.ListBox();
             this.bGuardarCambios = new System.Windows.Forms.Button();
             this.bVolverAtras = new System.Windows.Forms.Button();
+            this.bEliminarPrincipal = new System.Windows.Forms.Button();
+            this.bEliminarConyugue = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAfiliados)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -107,6 +109,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.bEliminarPrincipal);
             this.groupBox1.Controls.Add(this.lbPrincipal);
             this.groupBox1.Controls.Add(this.bAsignarPrincipal);
             this.groupBox1.Location = new System.Drawing.Point(12, 318);
@@ -146,6 +149,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.bEliminarConyugue);
             this.groupBox3.Controls.Add(this.lbConyuge);
             this.groupBox3.Controls.Add(this.bAsignarConyuge);
             this.groupBox3.Location = new System.Drawing.Point(300, 318);
@@ -215,6 +219,26 @@
             this.bVolverAtras.UseVisualStyleBackColor = true;
             this.bVolverAtras.Click += new System.EventHandler(this.bVolverAtras_Click);
             // 
+            // bEliminarPrincipal
+            // 
+            this.bEliminarPrincipal.Location = new System.Drawing.Point(120, 39);
+            this.bEliminarPrincipal.Name = "bEliminarPrincipal";
+            this.bEliminarPrincipal.Size = new System.Drawing.Size(75, 23);
+            this.bEliminarPrincipal.TabIndex = 6;
+            this.bEliminarPrincipal.Text = "Eliminar";
+            this.bEliminarPrincipal.UseVisualStyleBackColor = true;
+            this.bEliminarPrincipal.Click += new System.EventHandler(this.bEliminarPrincipal_Click);
+            // 
+            // bEliminarConyugue
+            // 
+            this.bEliminarConyugue.Location = new System.Drawing.Point(120, 39);
+            this.bEliminarConyugue.Name = "bEliminarConyugue";
+            this.bEliminarConyugue.Size = new System.Drawing.Size(75, 23);
+            this.bEliminarConyugue.TabIndex = 7;
+            this.bEliminarConyugue.Text = "Eliminar";
+            this.bEliminarConyugue.UseVisualStyleBackColor = true;
+            this.bEliminarConyugue.Click += new System.EventHandler(this.bEliminarConyugue_Click);
+            // 
             // GrupoAfiliadoViejo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -263,5 +287,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DNI;
         private System.Windows.Forms.DataGridViewTextBoxColumn NOMBRE;
         private System.Windows.Forms.DataGridViewTextBoxColumn APELLIDO;
+        private System.Windows.Forms.Button bEliminarPrincipal;
+        private System.Windows.Forms.Button bEliminarConyugue;
     }
 }
