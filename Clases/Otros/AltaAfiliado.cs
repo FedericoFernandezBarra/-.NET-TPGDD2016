@@ -97,7 +97,7 @@ namespace ClinicaFrba.Clases.Otros
                 return false;
             }
 
-            if (nuevoAfiliado.conyuge!=null)//No se si habria que rollbackear
+            if (nuevoAfiliado.conyuge!=null)
             {
                 error = repoAfiliado.insertarAfiliado(nuevoAfiliado.conyuge, nuevoAfiliado.numeroDeAfiliado);
 
@@ -107,8 +107,8 @@ namespace ClinicaFrba.Clases.Otros
                     //return false;
                     mensajeDeExito = "Creacion completada con errores";
                     nuevoAfiliado.conyuge = null;
-                    nuevoAfiliado.hijos.Clear();
-                    return true;
+                    //nuevoAfiliado.hijos.Clear();
+                    //return true;
                 }
             }
 

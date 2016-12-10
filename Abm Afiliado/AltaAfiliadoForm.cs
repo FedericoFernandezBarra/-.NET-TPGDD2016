@@ -119,20 +119,17 @@ namespace ClinicaFrba.Abm_Afiliado
         private void cmdLimpiar_Click(object sender, EventArgs e)
         {
             txtApellido.Text = "";
-            txtDir.Text = "";
+            txtDir.Text = altaConyuge ? txtDir.Text : "";
             txtDni.Text = "";
+            lblCantHijos.Text = "0";
             //txtHijos.Text = "";
-            label7.Text = "Cant. Hijos:   0";
+            //label7.Text = "Cant. Hijos:   0";
             txtMail.Text = "";
             txtNombre.Text = "";
             txtTel.Text = "";
 
-            dtpFechaNacimiento.Value=DataBase.Instance.getDate();
+            dtpFechaNacimiento.Value = DataBase.Instance.getDate().AddDays(-1);//nacio ayer :P
 
-            if (cmbEstadoCivil.Items.Count>0&&!altaConyuge)
-            {
-                cmbEstadoCivil.SelectedIndex = 0;
-            }
             if (cmbPlanes.Items.Count > 0&&!altaFamiliar())
             {
                 cmbPlanes.SelectedIndex = 0;
@@ -145,6 +142,9 @@ namespace ClinicaFrba.Abm_Afiliado
             {
                 cmbTipoDocumento.SelectedIndex = 0;
             }
+
+            altaAfiliado.nuevoAfiliado.conyuge = null;
+            altaAfiliado.nuevoAfiliado.hijos.Clear();
         }
 
         private void cmdAceptar_Click(object sender, EventArgs e)
