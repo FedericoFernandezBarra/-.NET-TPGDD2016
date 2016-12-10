@@ -41,6 +41,9 @@ namespace ClinicaFrba.Cancelar_Atencion
             cmbCancelacion.DataBindings.Add("SelectedItem", cancelarDias, "tipoDeCancelacion");
 
             lblProfesional.Text += " "+cancelarDias.profesional.usuario.nombre + " " + cancelarDias.profesional.usuario.apellido;
+
+            fechaInicioCancelacion.MinDate = fechaInicioCancelacion.Value;
+            fechaFinCancelacion.MinDate = fechaInicioCancelacion.Value;
         }
 
         private void inicializarForm()

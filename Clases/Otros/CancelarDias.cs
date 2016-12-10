@@ -26,8 +26,8 @@ namespace ClinicaFrba.Clases.Otros
         {
             mensajeDeError = "";
             motivoDeCancelacion = "";
-            fechaFinCancelacion = fechaActual;
-            fechaInicioCancelacion = fechaActual;
+            fechaFinCancelacion = fechaActual.AddDays(1);
+            fechaInicioCancelacion = fechaActual.AddDays(1);
             inicializarListas();
         }
 
@@ -64,11 +64,11 @@ namespace ClinicaFrba.Clases.Otros
                 mensajeDeError = "Debe completar el motivo de cancelacion";
                 return false;
             }
-            if ((fechaInicioCancelacion==fechaActual||fechaFinCancelacion==fechaActual)&&hayTurnoHoy())
+            /*if ((fechaInicioCancelacion==fechaActual||fechaFinCancelacion==fechaActual)&&hayTurnoHoy())
             {
                 mensajeDeError = "Se necesita al menos 1 dia de antelacion para cancelar un turno";
                 return false;
-            }
+            }*/
             if (tipoDeCancelacion==null)
             {
                 mensajeDeError = "Debe seleccionar un tipo de cancelacion";
