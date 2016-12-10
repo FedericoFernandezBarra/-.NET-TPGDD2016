@@ -31,7 +31,7 @@ namespace ClinicaFrba.Clases.Otros
         public void inicializarListas()
         {
             tiposDeCancelacion = repoTurno.traerTiposDeCancelacion();
-            turnosDeAfiliado = repoTurno.traerTurnosDeAfiliado(afiliado);
+            turnosDeAfiliado = repoTurno.traerTurnosDeAfiliado(afiliado).Where(t => t.fechaDeTurno.Date >= DataBase.Instance.getDate().Date).ToList();
         }
 
         internal bool cancelacionExitosa()
