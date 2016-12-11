@@ -800,20 +800,19 @@ go
 insert into BEMVINDO.FUNCIONALIDAD
 values 
     ('ABM ROL', 1), --1
-    ('LOGIN Y SEGURIDAD',1),--2
-    ('REGISTRO DE USUARIOS',1),--3
-    ('ABM AFILIADO',1),--4
-    ('ABM PROFESIONAL',1),--5
-    ('ABM ESPECIALIDADES MEDICAS',1),--6
-    ('ABM PLANES',1),--7
-    ('REGISTRAR AGENDA DEL MEDICO',1),--8
-    ('COMPRA DE BONOS',1),--9
-    ('PEDIR TURNO', 1),--10
-    ('REGISTRO DE LLEGADA PARA ATENCION MEDICA', 1),--11
-    ('REGISTRO DE RESULTADO PARA ATENCION MEDICA', 1),--12
-    ('CANCELAR ATENCION MEDICA', 1),--13
-    ('LISTADO ESTADISTICO', 1),--14
-    ('ASIGNAR Nº AFILIADOS A AFILIADOS MIGRADOS',1)--15
+    ('REGISTRO DE USUARIOS',1),--2
+    ('ABM AFILIADO',1),--3
+    ('ABM PROFESIONAL',1),--4
+    ('ABM ESPECIALIDADES MEDICAS',1),--5
+    ('ABM PLANES',1),--6
+    ('REGISTRAR AGENDA DEL MEDICO',1),--7
+    ('COMPRA DE BONOS',1),--8
+    ('PEDIR TURNO', 1),--9
+    ('REGISTRO DE LLEGADA PARA ATENCION MEDICA', 1),--10
+    ('REGISTRO DE RESULTADO PARA ATENCION MEDICA', 1),--11
+    ('CANCELAR ATENCION MEDICA', 1),--12
+    ('LISTADO ESTADISTICO', 1),--13
+    ('ASIGNAR Nº AFILIADOS A AFILIADOS MIGRADOS',1)--14
 
 go
 
@@ -822,28 +821,25 @@ go
 insert into BEMVINDO.FUNCIONALIDAD_POR_ROL
 values 
     (1,3),
-    (2,1),
-    (2,2),
     (2,3),
     (3,3),
     (4,3),
     (5,3),
     (6,3),
-    (7,3),
-    (8,1),
-	(8,3),
+    (7,1),
+	(7,3),
+    (8,2),
+    (8,3),
     (9,2),
-    (9,3),
-    (10,2),
-	(10,3),
-    (11,3),
+	(9,3),
+    (10,3),
+    (11,1),
+	(11,3),
+    (12,2),
     (12,1),
 	(12,3),
-    (13,2),
-    (13,1),
-	(13,3),
-    (14,3),
-    (15,3)
+    (13,3),
+    (14,3)
 
 go
 

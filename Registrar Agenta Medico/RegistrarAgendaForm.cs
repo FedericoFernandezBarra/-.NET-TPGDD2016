@@ -81,7 +81,10 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 timerFechaHasta.Enabled = false;
 
                 botonGuardarCambios.Enabled = false;
-
+                botonEliminar.Enabled = false;
+                botonAgregar.Enabled = false;
+                btAgregarEspe.Enabled = false;
+                btEliminarEspe.Enabled = false;
             }
             else
             {
