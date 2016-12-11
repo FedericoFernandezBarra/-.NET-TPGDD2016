@@ -1529,11 +1529,11 @@ begin
      left join BEMVINDO.ESTADO_CIVIL as e on a.estado_civil=e.id_estado_civil
      left join BEMVINDO.PLAN_MEDICO as p on a.plan_medico=p.id_plan_medico
        where (a.numero_afiliado = @nroAfiliado OR @nroAfiliado IS NULL) and
-             (u.nombre = @nombre OR @nombre IS NULL) and
-             (u.apellido = @apellido OR @apellido IS NULL) and
+             (LOWER(u.nombre) = LOWER(@nombre) OR @nombre IS NULL) and
+             (LOWER(u.apellido) = LOWER(@apellido) OR @apellido IS NULL) and
              (u.documento = @dni OR @dni IS NULL) and
              (a.plan_medico = @planMedico OR @planMedico IS NULL) and
-       (a.baja_logica=0)
+			 (a.baja_logica=0)
 
 end
 
@@ -1775,8 +1775,8 @@ begin
     select * from BEMVINDO.USUARIO as u
     inner join BEMVINDO.PROFESIONAL as p on u.id_usuario=p.id_profesional
     inner join BEMVINDO.ESPECIALIDAD_POR_PROFESIONAL as e on p.id_profesional=e.id_profesional
-    where (u.apellido=@apellido or @apellido is null) and (p.matricula=@matricula or @matricula is null) and
-          (e.id_especialidad=@especialidad or @especialidad is null) and (u.nombre=@nombre or @nombre is null)
+    where (LOWER(u.apellido)=LOWER(@apellido) or @apellido is null) and (p.matricula=@matricula or @matricula is null) and
+          (e.id_especialidad=@especialidad or @especialidad is null) and (LOWER(u.nombre)=LOWER(@nombre) or @nombre is null)
 end
 
 go

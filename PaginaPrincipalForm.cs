@@ -45,7 +45,7 @@ namespace ClinicaFrba
 
         private void initForm()
         {
-            actions.Add(tsmSesion, "LOGIN Y SEGURIDAD");
+            //actions.Add(tsmSesion, "LOGIN Y SEGURIDAD");
             actions.Add(tsmAfiliados, "ABM AFILIADO");
             actions.Add(tsmRoles, "ABM ROL");
             actions.Add(tsmPedirTurno, "PEDIR TURNO");
